@@ -7,7 +7,7 @@ title: Notarius
 
 [![CI Status](https://github.com/AY2425S2-CS2103T-T17-1/tp/actions/workflows/gradle.yml/badge.svg?branch=master)](https://github.com/AY2425S2-CS2103T-T17-1/tp/actions)
 
-![Ui](docs/images/Ui.png)
+![Ui](images/Ui.png)
 
 **Notarius is a desktop application for managing the contact details of lawyers!** While it has a GUI, most of the user interactions happen using a CLI (Command Line Interface).
 
