@@ -4,7 +4,7 @@
 
 ![Ui](docs/images/Ui.png)
 
-The is an address book application for lawyers who like the type using CLI, the application was designed with this is mind.
+This is an address book application for lawyers who prefer typing using CLI, the application was designed with this target audience in mind.
 
 * The project simulates an ongoing software project for a desktop application (called _Notarius_) used for managing contact details.
   * It is **written in OOP fashion**. It provides a **reasonably well-written** code base **bigger** (around 6 KLoC) than what students usually write in beginner-level SE modules, without being overwhelmingly big.
