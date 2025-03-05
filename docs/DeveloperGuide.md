@@ -275,14 +275,39 @@ _{Explain here how the data archiving feature will be implemented}_
 
 Priorities: High (must have) - `* * *`, Medium (nice to have) - `* *`, Low (unlikely to have) - `*`
 
-| Priority | As a …​                             | I want to …​                                  | So that I can…​                                                        |
-| -------- |-------------------------------------|-----------------------------------------------|------------------------------------------------------------------------|
-| `* * *`  | lawyer                              | list all contacts with their relevant details | easily peruse them                                                     |
-| `* * *`  | user                                | add a new person                              |                                                                        |
-| `* * *`  | user                                | delete a person                               | remove entries that I no longer need                                   |
-| `* * *`  | user                                | find a person by name                         | locate details of persons without having to go through the entire list |
-| `* *`    | user                                | hide private contact details                  | minimize chance of someone else seeing them by accident                |
-| `*`      | user with many persons in the address book | sort persons by name                          | locate a person easily                                                 |
+| Priority | As a …​                                                                | I want to …​                                                                                                     | So that I can…​                                                                            |
+|----------|------------------------------------------------------------------------|------------------------------------------------------------------------------------------------------------------|--------------------------------------------------------------------------------------------|
+| `* * *`  | lawyer                                                                 | list all contacts with their relevant details                                                                    | easily peruse them                                                                         |
+| `* * *`  | lawyer                                                                 | add a contact's name                                                                                             | identify the individual easily                                                             |
+| `* * *`  | lawyer                                                                 | add a contact's phone number                                                                                     | contact them when needed                                                                   |
+| `* * *`  | lawyer                                                                 | add a contact's email                                                                                            | find an alternative way to contact them                                                    |
+| `* * *`  | lawyer                                                                 | add a contact's address                                                                                          | find a way to send them _case_ details                                                     |
+| `* * *`  | lawyer                                                                 | save my contacts to my _local system_                                                                            | access them later after reopening the application                                          |
+| `* * *`  | lawyer                                                                 | delete contacts                                                                                                  | remove contacts that I no longer need                                                      |
+| `* * *`  | lawyer                                                                 | have access to my contacts even without internet                                                                 | access my contacts offline                                                                 |
+| `* * *`  | lawyer who can type fast and prefers typing over clicking over a GUI   | type everything over a command line interface that minimizes my use of mouse                                     | enjoy the convenience of the application                                                   |
+| `* *`    | busy lawyer who is working multiple cases and clients at the same time | add notes to contacts                                                                                            | keep track of relevant case-related details, their preferences, and their personal details |
+| `* *`    | forgetful lawyer                                                       | star/pin important clients                                                                                       | look up their information faster                                                           |
+| `* *`    | lawyer who can type fast                                               | re-access previously entered commands quickly                                                                    | save time by not typing them again                                                         |
+| `* *`    | lawyer                                                                 | set reminders to follow up with contacts                                                                         | make sure to not miss an important check-in                                                |
+| `* *`    | lawyer                                                                 | delete multiple contacts under a certain case                                                                    | clear clients of past cases faster and more conveniently                                   |
+| `* *`    | lawyer                                                                 | tag contacts (e.g., "Client," "Judge," "Opposing Counsel")                                                       | remember their roles easily                                                                |
+| `* *`    | lawyer                                                                 | tag multiple contacts at once                                                                                    | categorise them for my needs more efficiently and conveniently                             |
+| `* *`    | lawyer                                                                 | add multiple tags to a contact                                                                                   | organise my contacts neatly and not have to keep tagging the same contact multiple time    |
+| `* *`    | impatient lawyer                                                       | get the output of my commands quickly and responsively                                                           | not waste time on waiting for the output                                                   |
+| `* *`    | lawyer                                                                 | have a user-friendly and not cluttered interface to navigate around                                              | focus on my legal work without getting distracted by complicated tools                     |
+| `* *`    | lawyer                                                                 | edit contact details                                                                                             | update information when needed                                                             |
+| `* *`    | lawyer                                                                 | be able to lookup help/guide for the application locally in case i do not know forgot how to use the application | figure out how to use it conveniently                                                      |
+| `* *`    | lawyer handling _crucial client information_                           | not be able to add duplicate contacts by phone number                                                            | ensure that there is no redundant client data                                              |
+| `* *`    | lawyer trying the application for the first time                       | clear all the contact data when necessary                                                                        | facilitate the population of new data                                                      |
+| `*`      | lawyer                                                                 | have my notes be automatically time-stamped                                                                      | keep track of when notes were created                                                      |
+| `*`      | busy lawyer                                                            | use command aliases to enter commands faster                                                                     | save time and improve efficiency                                                           |
+| `*`      | lawyer                                                                 | have the application be personalised for me                                                                      | feel more connected and engaged while using it                                             |
+| `*`      | lawyer                                                                 | add general notes (e.g. Post-its)                                                                                | store information that is not related to any case or contact                               |
+| `*`      | lawyer                                                                 | assign contacts to specific cases                                                                                | keep track of all people involved in a legal matter                                        |
+| `*`      | busy lawyer                                                            | view all contacts to specific cases                                                                              | quickly access their details when needed                                                   |
+| `*`      | lawyer                                                                 | unlink contacts related from cases                                                                               | update case information when necessary                                                     |
+| `*`      | lawyer                                                                 | add notes to cases                                                                                               | view case information when needed                                                          |
 
 *{More to be added}*
 
@@ -454,14 +479,26 @@ Priorities: High (must have) - `* * *`, Medium (nice to have) - `* *`, Low (unli
 
 1. Should work on any _mainstream OS_ as long as it has Java `17` or above installed.
 2. Should be able to hold up to 1000 persons without a noticeable sluggishness in performance for typical usage.
-3. A user with above average typing speed for regular English text (i.e. not code, not system admin commands) should be able to accomplish most of the tasks faster using commands than using the mouse.
+3. A user with _above average typing speed_ for regular English text (i.e. not code, not system admin commands) should be able to accomplish most of the tasks faster using commands than using the mouse.
+4. Data should beb stored locally as human editable file.
+5. Software should work without an installer.
+6. GUI should work well with standard screen resolutions 1920x1080 and higher, and, for screen scales 100% and 125%. 
+7. GUI should be usable for resolutions 1280x720 and higher, and for screen scales 150%.
+8. Application should come packaged as a single jar file.
+9. The jar/zip file should not exceed 100 MBs.
+10. Documents packaged with the application should each not exceed 15 MBs.
+11. The application should respond within 5 seconds.
 
-*{More to be added}*
+
+
 
 ### Glossary
 
 * **Mainstream OS**: Windows, Linux, Unix, MacOS.
-* **Private contact detail**: A contact detail that is not meant to be shared with others.
+* **Above average typing speed**: >=60 words per minute.
+* **Crucial client information**: Important client information such as phone number, address, name, as well as notes stored that could contain legal information for cases.
+* **Local system**: The user's computer that they are using to run the application.
+* **case (in law)**: The legal disputes that lawyers work on that involve many parties.
 
 --------------------------------------------------------------------------------------------------------------------
 
