@@ -5,8 +5,6 @@ title: About Us
 
 We are a team based in the [School of Computing, National University of Singapore](https://www.comp.nus.edu.sg).
 
-You can reach us at the email `seer[at]comp.nus.edu.sg`
-
 ## Project team
 
 ### Chen Linxin
@@ -15,8 +13,8 @@ You can reach us at the email `seer[at]comp.nus.edu.sg`
 
 [[github](https://github.com/clx3210)]
 
-* Role: Software Engineer
-* Responsibilities: Code quality, Feature development
+* Role: Developer
+* Responsibilities: Feature Development, Code quality
 
 ### Ian Wong Wai Hoong
 
@@ -24,17 +22,17 @@ You can reach us at the email `seer[at]comp.nus.edu.sg`
 
 [[github](http://github.com/Wrongian)]
 
-* Role: Software Engineer
-* Responsibilities: Feature Development
+* Role: Developer
+* Responsibilities: Feature Development, Team Lead
 
 ### Carine Ang
 
 <img src="images/carineang.png" width="200px">
 
-[[github](http://github.com/johndoe)] [[portfolio](team/johndoe.md)]
+[[github](https://github.com/carineang)] 
 
 * Role: Developer
-* Responsibilities: UI
+* Responsibilities: Feature Development, UI
 
 ### Pranav Mahatma
 
@@ -43,7 +41,7 @@ You can reach us at the email `seer[at]comp.nus.edu.sg`
 [[github](http://github.com/pranavyey)]
 
 * Role: Developer
-* Responsibilities: Testing
+* Responsibilities: Feature Development, Testing
 
 ### Xin Ni
 
@@ -51,5 +49,5 @@ You can reach us at the email `seer[at]comp.nus.edu.sg`
 
 [[github](http://github.com/xinniyee)]
 
-* Role: Software Developer
-* Responsibilities: Documentation
+* Role: Developer
+* Responsibilities: Feature Development, Documentation
