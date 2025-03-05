@@ -260,7 +260,7 @@ _{Explain here how the data archiving feature will be implemented}_
 
 ### Product scope
 
-**Target user profile**:
+**Target user profile**: Lawyers
 
 * has a need to manage a significant number of contacts
 * prefer desktop apps over other types
@@ -275,58 +275,193 @@ _{Explain here how the data archiving feature will be implemented}_
 
 Priorities: High (must have) - `* * *`, Medium (nice to have) - `* *`, Low (unlikely to have) - `*`
 
-| Priority | As a …​                                    | I want to …​                     | So that I can…​                                                        |
-| -------- | ------------------------------------------ | ------------------------------ | ---------------------------------------------------------------------- |
-| `* * *`  | new user                                   | see usage instructions         | refer to instructions when I forget how to use the App                 |
-| `* * *`  | user                                       | add a new person               |                                                                        |
-| `* * *`  | user                                       | delete a person                | remove entries that I no longer need                                   |
-| `* * *`  | user                                       | find a person by name          | locate details of persons without having to go through the entire list |
-| `* *`    | user                                       | hide private contact details   | minimize chance of someone else seeing them by accident                |
-| `*`      | user with many persons in the address book | sort persons by name           | locate a person easily                                                 |
+| Priority | As a …​                             | I want to …​                                  | So that I can…​                                                        |
+| -------- |-------------------------------------|-----------------------------------------------|------------------------------------------------------------------------|
+| `* * *`  | lawyer                              | list all contacts with their relevant details | easily peruse them                                                     |
+| `* * *`  | user                                | add a new person                              |                                                                        |
+| `* * *`  | user                                | delete a person                               | remove entries that I no longer need                                   |
+| `* * *`  | user                                | find a person by name                         | locate details of persons without having to go through the entire list |
+| `* *`    | user                                | hide private contact details                  | minimize chance of someone else seeing them by accident                |
+| `*`      | user with many persons in the address book | sort persons by name                          | locate a person easily                                                 |
 
 *{More to be added}*
 
 ### Use cases
 
-(For all use cases below, the **System** is the `AddressBook` and the **Actor** is the `user`, unless specified otherwise)
+(For all use cases below, the **System** is `Notarius` and the **Actor** is the `User`, unless specified otherwise)
 
-**Use case: Delete a person**
+**System**: `Notarius`
 
-**MSS**
+**Use Case**: `UC04 - Adding a note to contact`
 
-1.  User requests to list persons
-2.  AddressBook shows a list of persons
-3.  User requests to delete a specific person in the list
-4.  AddressBook deletes the person
+**Actor**: `User`
 
-    Use case ends.
+**Guarantees**: `A new note is added to the contact.`
 
-**Extensions**
+**MSS**:
 
-* 2a. The list is empty.
+1. User requests to add a note to a contact.
+2. Notarius adds the note to the contact’s list of notes and confirms the successful addition of the note. 
 
-  Use case ends.
+   Use case ends.
 
-* 3a. The given index is invalid.
+**Extensions**:
 
-    * 3a1. AddressBook shows an error message.
+* 1a. Notarius uncovers a missing description field in the entered input.
+  * 1a1. Notarius displays the error message.
+  * 1a2. User retypes the command with the description field.
+  * Use case resumes from step 2.
+* 1b. Notarius is unable to find the specified contact.
+  * 1b1. Notarius alerts the user about the error.
+  * 1b2. User retypes the command.
+  * Steps 1b-1b2 are repeated until the contact specified exists.
+  * Use case resumes from step 2.
+* 1c. Notarius uncovers an invalid note description.
+  * 1c1. Notarius alerts the user about the error.
+  * 1c2. User retypes the command with a valid note description format.
+  * Steps 1c-1c2 are repeated until the note description format is valid.
+  * Use case resumes from step 2.
+* 1d. Notarius uncovers an empty field description.
+  * 1d1. Notarius alerts the user about the issue.
+  * 1d2. User retypes the command with a non-empty value for the specified field.
+  * Steps 1d-1d2 are repeated until the field is no longer empty.
+  * Use case resumes from step 2.
+* 1e. Notarius uncovers an invalid contact identifier.
+  * 1e1. Notarius alerts the user about the issue.
+  * 1e2. User retypes the command with a valid contact identifier format.
+  * Steps 1e-1e2 are repeated until the contact identifier is valid.
+  * Use case resumes from step 2.
 
-      Use case resumes at step 2.
+**System**: `Notarius`
 
-*{More to be added}*
+**Use Case**: `UC05 - Editing a note of a contact`
+
+**Actor**: `User`
+
+**Guarantees**: `The specified fields of the note are updated to the correct values.`
+
+**MSS**:
+
+1. User requests to edit a field of a specified note of a contact.
+2. Notarius updates the note and confirms the note has been successfully edited.
+
+   Use case ends.
+
+**Extensions**:
+
+* 1a. Notarius uncovers an invalid note identifier.
+  * 1a1. Notarius alerts the user about the issue.
+  * 1a2. User retypes the command with a valid note identifier format.
+  * Steps 1a-1a2 are repeated until the contact identifier is valid.
+  * Use case resumes from step 2.
+* 1b. Notarius is unable to find the specified contact.
+  * 1b1. Notarius alerts the user about the error.
+  * 1b2. User retypes the command.
+  * Steps 1b-1b2 are repeated until the contact specified exists.
+  * Use case resumes from step 2.
+* 1c. Notarius is unable to find the specified note.
+  * 1c1. Notarius alerts the user of the error.
+  * 1c2. User retypes the command.
+  * Steps 1c-1c2 are repeated until the specified note exists.
+  * Use case resumes from step 2.
+* 1d. Notarius uncovers an invalid note description.
+  * 1d1. Notarius alerts the user about the error.
+  * 1d2. User retypes the command with a valid note description format.
+  * Steps 1d-1d2 are repeated until the note description is valid.
+  * Use case resumes from step 2.
+* 1e. Notarius uncovers an empty field description.
+  * 1e1. Notarius alerts the user about the issue.
+  * 1e2. User retypes the command with a non-empty value for the specified field.
+  * Steps 1e-1e2 are repeated until the field is no longer empty.
+  * Use case resumes from step 2.
+* 1f. Notarius uncovers an invalid contact identifier.
+  * 1f1. Notarius alerts the user about the issue.
+  * 1f2. User retypes the command with a valid contact identifier format.
+  * Steps 1f-1f2 are repeated until the contact identifier is valid.
+  * Use case resumes from step 2.
+
+**System**: `Notarius`
+
+**Actor**: `User`
+
+**Use Case**: `UC06 - Deleting a note of a contact.`
+
+**Guarantees**: `The specified note is deleted successfully.`
+
+**MSS**:
+
+1. User specifies the note of a contact to delete.
+2. System deletes the note and confirms the successful deletion.
+
+   Use case ends.
+
+**Extensions**:
+
+* 1a. Notarius is unable to find the specified note.
+  * 1a1. Notarius alerts the user of the error.
+  * 1a2. User retypes the command.
+  * Steps 1a-1a2 are repeated until the specified note exists.
+  * Use case resumes from step 2.
+* 1b. Notarius uncovers an invalid note identifier.
+  * 1b1. Notarius alerts the user about the issue.
+  * 1b2. User retypes the command with a valid note identifier format.
+  * Steps 1b-1b2 are repeated until the contact identifier is valid.
+  * Use case resumes from step 2.
+* 1c. Notarius is unable to find the specified contact.
+  * 1c1. Notarius alerts the user about the error.
+  * 1c2. User retypes the command.
+  * Steps 1c-1c2 are repeated until the contact specified exists.
+  * Use case resumes from step 2.
+* 1d. Notarius uncovers an invalid contact identifier.
+  * 1d1. Notarius alerts the user about the issue.
+  * 1d2. User retypes the command with a valid contact identifier format.
+  * Steps 1d-1d2 are repeated until the contact identifier is valid.
+  * Use case resumes from step 2.
+
+**System**: `Notarius`
+
+**Actor**: `User`
+
+**Use Case**: `UC07 - Getting all notes belonging to a contact`
+
+**Guarantees**: `All notes belonging to the specified contact are displayed.`
+
+**MSS**:
+
+1. User requests for the notes of a contact.
+2. Notarius displays all notes belonging to the contact.
+
+   Use case ends.
+
+**Extensions**:
+
+* 1a. Notarius is unable to find the specified contact.
+  * 1a1. Notarius alerts the user about the error.
+  * 1a2. User retypes the command.
+  * Steps 1a-1a2 are repeated until the contact specified exists.
+  * Use case resumes from step 2.
+* 1b. Notarius uncovers an invalid contact identifier.
+  * 1b1. Notarius alerts the user about the issue.
+  * 1b2. User retypes the command with a valid contact identifier format.
+  * Steps 1b-1b2 are repeated until the contact identifier is valid.
+  * Use case resumes from step 2.
+* 2a. Notarius cannot find any notes related to the contact.
+  * 2a1. Notarius alerts the user with a relevant message.
+  * Use case ends.
+
 
 ### Non-Functional Requirements
 
-1.  Should work on any _mainstream OS_ as long as it has Java `17` or above installed.
-2.  Should be able to hold up to 1000 persons without a noticeable sluggishness in performance for typical usage.
-3.  A user with above average typing speed for regular English text (i.e. not code, not system admin commands) should be able to accomplish most of the tasks faster using commands than using the mouse.
+1. Should work on any _mainstream OS_ as long as it has Java `17` or above installed.
+2. Should be able to hold up to 1000 persons without a noticeable sluggishness in performance for typical usage.
+3. A user with above average typing speed for regular English text (i.e. not code, not system admin commands) should be able to accomplish most of the tasks faster using commands than using the mouse.
 
 *{More to be added}*
 
 ### Glossary
 
-* **Mainstream OS**: Windows, Linux, Unix, MacOS
-* **Private contact detail**: A contact detail that is not meant to be shared with others
+* **Mainstream OS**: Windows, Linux, Unix, MacOS.
+* **Private contact detail**: A contact detail that is not meant to be shared with others.
 
 --------------------------------------------------------------------------------------------------------------------
 
