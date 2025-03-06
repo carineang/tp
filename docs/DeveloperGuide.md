@@ -566,8 +566,11 @@ Priorities: High (must have) - `* * *`, Medium (nice to have) - `* *`, Low (unli
 
 ### Glossary
 
-* **Mainstream OS**: Windows, Linux, Unix, MacOS.
-* **Private contact detail**: A contact detail that is not meant to be shared with others.
+* **Above-average typing Speed**: >=60 words per minute
+* **Crucial client information**: Important client information such as phone number, address, name, as well as notes stored that could contain legal information for cases
+* **Time Stamped**: The saved date in a specific format
+* **Cases(in law)**: The legal disputes that lawyers work on that involve many parties
+
 
 --------------------------------------------------------------------------------------------------------------------
 
