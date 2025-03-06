@@ -584,16 +584,15 @@ Priorities: High (must have) - `* * *`, Medium (nice to have) - `* *`, Low (unli
 6. GUI should work well with standard screen resolutions 1920x1080 and higher, and, for screen scales 100% and 125%.
 7. GUI should be usable for resolutions 1280x720 and higher, and for screen scales 150%.
 8. Application should come packaged as a single jar file.
-9. The jar/zip file should not exceed 100 MBs.
+9. The .jar/.zip file should not exceed 100 MBs.
 10. Documents packaged with the application should each not exceed 15 MBs.
 11. The application should respond within 5 seconds.
 
 ### Glossary
 
 * **Mainstream OS**: Windows, Linux, Unix, MacOS.
-* **Above-average typing Speed**: >=60 words per minute
+* **Above-average typing speed**: >=60 words per minute
 * **Crucial client information**: Important client information such as phone number, address, name, as well as notes stored that could contain legal information for cases
-* **Time Stamped**: The saved date in a specific format
 * **Local system**: The user's computer that they are using to run the application.
 * **Cases(in law)**: The legal disputes that lawyers work on that involve many parties
 
