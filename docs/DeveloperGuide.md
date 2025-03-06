@@ -594,7 +594,7 @@ Priorities: High (must have) - `* * *`, Medium (nice to have) - `* *`, Low (unli
 2. Should be able to hold up to 1000 contacts without a noticeable lag in user requests.
 3. A user with _above average typing speed_ for regular English text (i.e. not code, not system admin commands) should be able to accomplish most of the tasks faster using commands than using the mouse.
 4. Data should be stored locally as human editable file.
-5. Software should work without an installer
+5. Software should work without an installer.
 6. GUI should work well with standard screen resolutions 1920x1080 and higher, and for screen scales 100% and 125%.
 7. GUI should be usable for resolutions 1280x720 and higher, and for screen scales 150%.
 8. Application should come packaged as a single jar file.
