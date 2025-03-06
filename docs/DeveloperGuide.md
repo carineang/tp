@@ -321,7 +321,7 @@ Priorities: High (must have) - `* * *`, Medium (nice to have) - `* *`, Low (unli
 
 **Use Case**: `UC01 - Deleting a contact`
 
-**Guarantee**: `If MSS reaches step 4, the requested contact will be deleted`
+**Guarantees**: `If MSS reaches step 4, the requested contact will be deleted`
 
 **MSS**:
 1. User requests to list contacts
@@ -357,7 +357,7 @@ Priorities: High (must have) - `* * *`, Medium (nice to have) - `* *`, Low (unli
 
 **Use Case**: `UC02 - Finding a particular contact by name`
 
-**Guarantee**: `If MSS reaches step 2, the contact will return a list of contacts whose names contain the keyword the user entered`
+**Guarantees**: `If MSS reaches step 2, the contact will return a list of contacts whose names contain the keyword the user entered`
 
 **MSS**:
 1. User enters the keyword that the person’s name contains
