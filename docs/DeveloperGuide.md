@@ -598,7 +598,7 @@ Priorities: High (must have) - `* * *`, Medium (nice to have) - `* *`, Low (unli
 6. GUI should work well with standard screen resolutions 1920x1080 and higher, and for screen scales 100% and 125%.
 7. GUI should be usable for resolutions 1280x720 and higher, and for screen scales 150%.
 8. Application should come packaged as a single jar file.
-9. The ``.jar/.zip`` file should not exceed 100 MB.
+9. The `.jar/.zip`` file should not exceed 100 MB.
 10. Documents packaged with the application should each not exceed 15 MB per file.
 11. The application should respond within 5 seconds to any user request.
 
