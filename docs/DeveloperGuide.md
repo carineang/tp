@@ -292,7 +292,7 @@ Priorities: High (must have) - `* * *`, Medium (nice to have) - `* *`, Low (unli
 
 **System**: `Notarius`
 
-**Actor**: `Lawyer`
+**Actor**: `User`
 
 **Use Case**: `UC01 - Deleting a contact`
 
@@ -328,7 +328,7 @@ Priorities: High (must have) - `* * *`, Medium (nice to have) - `* *`, Low (unli
 
 **System**: `Notarius`
 
-**Actor**: `Lawyer`
+**Actor**: `User`
 
 **Use Case**: `UC02 - Finding a particular contact by name`
 
@@ -352,7 +352,7 @@ Priorities: High (must have) - `* * *`, Medium (nice to have) - `* *`, Low (unli
 
 **System**: `Notarius`
 
-**Actor**: `Lawyer`
+**Actor**: `User`
 
 **Use Case**: `UC03 - Editing a contact`
 
