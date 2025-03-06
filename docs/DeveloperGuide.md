@@ -437,21 +437,25 @@ Priorities: High (must have) - `* * *`, Medium (nice to have) - `* *`, Low (unli
   * 1a1. Notarius displays the error message.
   * 1a2. User retypes the command with the description field.
   * Use case resumes from step 2.
+
 * 1b. Notarius is unable to find the specified contact.
   * 1b1. Notarius alerts the user about the error.
   * 1b2. User retypes the command.
   * Steps 1b-1b2 are repeated until the contact specified exists.
   * Use case resumes from step 2.
+ 
 * 1c. Notarius uncovers an invalid note description.
   * 1c1. Notarius alerts the user about the error.
   * 1c2. User retypes the command with a valid note description format.
   * Steps 1c-1c2 are repeated until the note description format is valid.
   * Use case resumes from step 2.
+
 * 1d. Notarius uncovers an empty field description.
   * 1d1. Notarius alerts the user about the issue.
   * 1d2. User retypes the command with a non-empty value for the specified field.
   * Steps 1d-1d2 are repeated until the field is no longer empty.
   * Use case resumes from step 2.
+
 * 1e. Notarius uncovers an invalid contact identifier.
   * 1e1. Notarius alerts the user about the issue.
   * 1e2. User retypes the command with a valid contact identifier format.
@@ -480,26 +484,31 @@ Priorities: High (must have) - `* * *`, Medium (nice to have) - `* *`, Low (unli
   * 1a2. User retypes the command with a valid note identifier format.
   * Steps 1a-1a2 are repeated until the contact identifier is valid.
   * Use case resumes from step 2.
+
 * 1b. Notarius is unable to find the specified contact.
   * 1b1. Notarius alerts the user about the error.
   * 1b2. User retypes the command.
   * Steps 1b-1b2 are repeated until the contact specified exists.
   * Use case resumes from step 2.
+ 
 * 1c. Notarius is unable to find the specified note.
   * 1c1. Notarius alerts the user of the error.
   * 1c2. User retypes the command.
   * Steps 1c-1c2 are repeated until the specified note exists.
   * Use case resumes from step 2.
+ 
 * 1d. Notarius uncovers an invalid note description.
   * 1d1. Notarius alerts the user about the error.
   * 1d2. User retypes the command with a valid note description format.
   * Steps 1d-1d2 are repeated until the note description is valid.
   * Use case resumes from step 2.
+
 * 1e. Notarius uncovers an empty field description.
   * 1e1. Notarius alerts the user about the issue.
   * 1e2. User retypes the command with a non-empty value for the specified field.
   * Steps 1e-1e2 are repeated until the field is no longer empty.
   * Use case resumes from step 2.
+
 * 1f. Notarius uncovers an invalid contact identifier.
   * 1f1. Notarius alerts the user about the issue.
   * 1f2. User retypes the command with a valid contact identifier format.
@@ -528,16 +537,19 @@ Priorities: High (must have) - `* * *`, Medium (nice to have) - `* *`, Low (unli
   * 1a2. User retypes the command.
   * Steps 1a-1a2 are repeated until the specified note exists.
   * Use case resumes from step 2.
+
 * 1b. Notarius uncovers an invalid note identifier.
   * 1b1. Notarius alerts the user about the issue.
   * 1b2. User retypes the command with a valid note identifier format.
   * Steps 1b-1b2 are repeated until the contact identifier is valid.
   * Use case resumes from step 2.
+ 
 * 1c. Notarius is unable to find the specified contact.
   * 1c1. Notarius alerts the user about the error.
   * 1c2. User retypes the command.
   * Steps 1c-1c2 are repeated until the contact specified exists.
   * Use case resumes from step 2.
+
 * 1d. Notarius uncovers an invalid contact identifier.
   * 1d1. Notarius alerts the user about the issue.
   * 1d2. User retypes the command with a valid contact identifier format.
@@ -566,35 +578,38 @@ Priorities: High (must have) - `* * *`, Medium (nice to have) - `* *`, Low (unli
   * 1a2. User retypes the command.
   * Steps 1a-1a2 are repeated until the contact specified exists.
   * Use case resumes from step 2.
+
 * 1b. Notarius uncovers an invalid contact identifier.
   * 1b1. Notarius alerts the user about the issue.
   * 1b2. User retypes the command with a valid contact identifier format.
   * Steps 1b-1b2 are repeated until the contact identifier is valid.
   * Use case resumes from step 2.
+
 * 2a. Notarius cannot find any notes related to the contact.
   * 2a1. Notarius alerts the user with a relevant message.
  
 ### Non-Functional Requirements
 
 1. Should work on any _mainstream OS_ as long as it has Java `17` or above installed.
-2. Should be able to hold up to 1000 persons without a noticeable sluggishness in performance for typical usage.
+2. Should be able to hold up to 1000 contacts without a noticeable lag in user requests.
 3. A user with _above average typing speed_ for regular English text (i.e. not code, not system admin commands) should be able to accomplish most of the tasks faster using commands than using the mouse.
 4. Data should be stored locally as human editable file.
-5. Software should work without an installer.
-6. GUI should work well with standard screen resolutions 1920x1080 and higher, and, for screen scales 100% and 125%.
+5. Software should work without an installer
+6. GUI should work well with standard screen resolutions 1920x1080 and higher, and for screen scales 100% and 125%.
 7. GUI should be usable for resolutions 1280x720 and higher, and for screen scales 150%.
 8. Application should come packaged as a single jar file.
-9. The .jar/.zip file should not exceed 100 MBs.
-10. Documents packaged with the application should each not exceed 15 MBs.
-11. The application should respond within 5 seconds.
+9. The ``.jar/.zip`` file should not exceed 100 MB.
+10. Documents packaged with the application should each not exceed 15 MB per file.
+11. The application should respond within 5 seconds to any user request.
 
 ### Glossary
 
 * **Mainstream OS**: Windows, Linux, Unix, MacOS.
-* **Above-average typing speed**: >=60 words per minute
-* **Crucial client information**: Important client information such as phone number, address, name, as well as notes stored that could contain legal information for cases
+* **Above-average typing speed**: >=60 words per minute.
+* **Crucial client information**: Important client information such as phone number, address, name, as well as notes stored that could contain legal information for cases.
 * **Local system**: The user's computer that they are using to run the application.
-* **Cases(in law)**: The legal disputes that lawyers work on that involve many parties
+* **Cases(in law)**: The legal disputes that lawyers work on that involve many parties.
+* **User Request**: The commands the user gives to Notarius via the command line interface.
 
 --------------------------------------------------------------------------------------------------------------------
 
