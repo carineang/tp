@@ -324,10 +324,10 @@ Priorities: High (must have) - `* * *`, Medium (nice to have) - `* *`, Low (unli
 **Guarantees**: `If MSS reaches step 4, the requested contact will be deleted`
 
 **MSS**:
-1. User requests to list contacts
-2. Notarius displays a list of contacts
-3. User requests to delete a specific contact in the list
-4. Notarius deletes the contact and confirms that the contact has been deleted
+1. User requests to list contacts.
+2. Notarius displays a list of contacts.
+3. User requests to delete a specific contact in the list.
+4. Notarius deletes the contact and confirms that the contact has been deleted.
 
    Use case ends.
 
@@ -360,15 +360,15 @@ Priorities: High (must have) - `* * *`, Medium (nice to have) - `* *`, Low (unli
 **Guarantees**: `If MSS reaches step 2, the contact will return a list of contacts whose names contain the keyword the user entered`
 
 **MSS**:
-1. User enters the keyword that the person’s name contains
-2. Notarius shows the corresponding results
+1. User enters the keyword that the person’s name contains.
+2. Notarius shows the corresponding results.
 
    Use case ends.
 
 **Extensions**:
 * 1a. Notarius uncovers that the user wrote an empty input.
   * 1a1. Notarius alerts the user of the error.
-  * 1a2. User retypes the command .
+  * 1a2. User retypes the command.
   * Steps 1a-1b are repeated until the user input is not empty.
   * Use case resumes from step 2.
 
@@ -384,8 +384,8 @@ Priorities: High (must have) - `* * *`, Medium (nice to have) - `* *`, Low (unli
 **Guarantees**: `If MSS reaches step 2, the contact will have the specified field updated correctly to the new value`
 
 **MSS**:
-1. User requests to edit field of a contact given by their id
-2. Notarius updates that field to the new value and confirms the contact has been edited
+1. User requests to edit field of a contact given by their id.
+2. Notarius updates that field to the new value and confirms the contact has been edited.
 
    Use case ends.
 
