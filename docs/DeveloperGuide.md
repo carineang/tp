@@ -548,9 +548,7 @@ Priorities: High (must have) - `* * *`, Medium (nice to have) - `* *`, Low (unli
   * Use case resumes from step 2.
 * 2a. Notarius cannot find any notes related to the contact.
   * 2a1. Notarius alerts the user with a relevant message.
-  * Use case ends.
-
-
+ 
 ### Non-Functional Requirements
 
 1. Runs on mainstream OSes like Windows 11, Linux, Unix, MacOS as long as Java 17 is installed
