@@ -49,6 +49,10 @@ public class CommandBox extends UiPart<Region> {
         }
     }
 
+    protected void setCommandTextField(String text) {
+        commandTextField.setText(text);
+    }
+
     /**
      * Sets the command box style to use the default style.
      */

@@ -6,6 +6,7 @@ import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.control.MenuItem;
 import javafx.scene.control.TextInputControl;
+import javafx.scene.input.KeyCode;
 import javafx.scene.input.KeyCombination;
 import javafx.scene.input.KeyEvent;
 import javafx.scene.layout.StackPane;
@@ -34,6 +35,8 @@ public class MainWindow extends UiPart<Stage> {
     private PersonListPanel personListPanel;
     private ResultDisplay resultDisplay;
     private HelpWindow helpWindow;
+    private CommandHistoryMenu commandHistoryMenu;
+
 
     @FXML
     private StackPane commandBoxPlaceholder;
@@ -74,6 +77,23 @@ public class MainWindow extends UiPart<Stage> {
 
     private void setAccelerators() {
         setAccelerator(helpMenuItem, KeyCombination.valueOf("F1"));
+
+        // set accelerators for cycling (up & down) the command history
+        getRoot().addEventFilter(KeyEvent.KEY_PRESSED, event -> {
+
+            boolean isPageUpAndCtrlDown = event.getCode() == KeyCode.UP && event.isControlDown();
+            boolean isPageDownAndCtrlDown = event.getCode() == KeyCode.DOWN && event.isControlDown();
+
+            if (isPageUpAndCtrlDown) {
+                commandHistoryMenu.onMovementUp();
+                event.consume();
+            }
+
+            if (isPageDownAndCtrlDown) {
+                commandHistoryMenu.onMovementDown();
+                event.consume();
+            }
+        });
     }
 
     /**
@@ -104,6 +124,7 @@ public class MainWindow extends UiPart<Stage> {
                 event.consume();
             }
         });
+
     }
 
     /**
@@ -121,6 +142,8 @@ public class MainWindow extends UiPart<Stage> {
 
         CommandBox commandBox = new CommandBox(this::executeCommand);
         commandBoxPlaceholder.getChildren().add(commandBox.getRoot());
+
+        commandHistoryMenu = new CommandHistoryMenu(logic.getCommandHistoryList(), commandBox::setCommandTextField);
     }
 
     /**
@@ -174,6 +197,7 @@ public class MainWindow extends UiPart<Stage> {
      */
     private CommandResult executeCommand(String commandText) throws CommandException, ParseException {
         try {
+
             CommandResult commandResult = logic.execute(commandText);
             logger.info("Result: " + commandResult.getFeedbackToUser());
             resultDisplay.setFeedbackToUser(commandResult.getFeedbackToUser());
