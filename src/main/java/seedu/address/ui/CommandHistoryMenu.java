@@ -60,6 +60,10 @@ public class CommandHistoryMenu extends UiPart<Region> {
         commandSetter.setCommandInput(pastCommands.get(selection));
     }
 
+    public void resetSelection() {
+        selection = 0;
+    }
+
     /**
      * Represents the setter for the command box input.
      */

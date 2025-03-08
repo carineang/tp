@@ -7,7 +7,6 @@ import java.nio.file.Path;
 import java.util.function.Predicate;
 import java.util.logging.Logger;
 
-import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.collections.transformation.FilteredList;
 import seedu.address.commons.core.GuiSettings;
@@ -23,7 +22,8 @@ public class ModelManager implements Model {
     private final AddressBook addressBook;
     private final UserPrefs userPrefs;
     private final FilteredList<Person> filteredPersons;
-    private final ObservableList<String> pastCommands;
+    private final InputHistory pastCommands;
+
 
     /**
      * Initializes a ModelManager with the given addressBook and userPrefs.
@@ -36,8 +36,7 @@ public class ModelManager implements Model {
         this.addressBook = new AddressBook(addressBook);
         this.userPrefs = new UserPrefs(userPrefs);
         filteredPersons = new FilteredList<>(this.addressBook.getPersonList());
-        // Initialise an empty command history on load
-        this.pastCommands = FXCollections.observableArrayList();
+        pastCommands = new InputHistory();
     }
 
     public ModelManager() {
@@ -134,12 +133,12 @@ public class ModelManager implements Model {
 
     @Override
     public void addPastCommandInput(String rawCommandInput) {
-        pastCommands.add(rawCommandInput);
+        pastCommands.addInput(rawCommandInput);
     }
 
     @Override
     public ObservableList<String> getCommandInputHistoryList() {
-        return pastCommands;
+        return pastCommands.getPastCommands();
     }
 
     @Override

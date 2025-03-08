@@ -77,21 +77,32 @@ public class MainWindow extends UiPart<Stage> {
 
     private void setAccelerators() {
         setAccelerator(helpMenuItem, KeyCombination.valueOf("F1"));
+        setCommandHistoryAccelerator();
+    }
 
-        // set accelerators for cycling (up & down) the command history
+    /**
+     * Sets the accelerator for cycling (up & down) the command history.
+     * The accelerator is Ctrl + Up for moving up, and Ctrl + Down for moving down.
+     * Pressing enter resets the selection (and closes the context menu).
+     */
+    private void setCommandHistoryAccelerator() {
         getRoot().addEventFilter(KeyEvent.KEY_PRESSED, event -> {
-
             boolean isPageUpAndCtrlDown = event.getCode() == KeyCode.UP && event.isControlDown();
             boolean isPageDownAndCtrlDown = event.getCode() == KeyCode.DOWN && event.isControlDown();
+            boolean isEnterPressed = event.getCode() == KeyCode.ENTER;
 
             if (isPageUpAndCtrlDown) {
                 commandHistoryMenu.onMovementUp();
                 event.consume();
+                return;
             }
-
             if (isPageDownAndCtrlDown) {
                 commandHistoryMenu.onMovementDown();
                 event.consume();
+                return;
+            }
+            if (isEnterPressed) {
+                commandHistoryMenu.resetSelection();
             }
         });
     }
