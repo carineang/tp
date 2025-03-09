@@ -6,7 +6,6 @@ import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.control.MenuItem;
 import javafx.scene.control.TextInputControl;
-import javafx.scene.input.KeyCode;
 import javafx.scene.input.KeyCombination;
 import javafx.scene.input.KeyEvent;
 import javafx.scene.layout.StackPane;
@@ -17,6 +16,7 @@ import seedu.address.logic.Logic;
 import seedu.address.logic.commands.CommandResult;
 import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.logic.parser.exceptions.ParseException;
+import seedu.address.ui.controller.CommandHistoryMenuController;
 
 /**
  * The Main Window. Provides the basic application layout containing
@@ -86,25 +86,8 @@ public class MainWindow extends UiPart<Stage> {
      * Pressing enter resets the selection (and closes the context menu).
      */
     private void setCommandHistoryAccelerator() {
-        getRoot().addEventFilter(KeyEvent.KEY_PRESSED, event -> {
-            boolean isPageUpAndCtrlDown = event.getCode() == KeyCode.UP && event.isControlDown();
-            boolean isPageDownAndCtrlDown = event.getCode() == KeyCode.DOWN && event.isControlDown();
-            boolean isEnterPressed = event.getCode() == KeyCode.ENTER;
-
-            if (isPageUpAndCtrlDown) {
-                commandHistoryMenu.handleMovementUp();
-                event.consume();
-                return;
-            }
-            if (isPageDownAndCtrlDown) {
-                commandHistoryMenu.handleMovementDown();
-                event.consume();
-                return;
-            }
-            if (isEnterPressed) {
-                commandHistoryMenu.resetSelection();
-            }
-        });
+        getRoot().addEventFilter(KeyEvent.KEY_PRESSED,
+                CommandHistoryMenuController.bakeEventHandler(() -> commandHistoryMenu));
     }
 
     /**
