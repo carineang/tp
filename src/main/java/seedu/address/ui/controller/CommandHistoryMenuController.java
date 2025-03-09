@@ -10,7 +10,7 @@ import javafx.scene.input.KeyEvent;
 /**
  * Represents the controller for the command history menu ui component.
  */
-public class CommandHistoryMenuController {
+public final class CommandHistoryMenuController {
     static final int DEFAULT_SELECTION_INDEX = 0;
 
     final ObservableList<String> pastCommands;
@@ -66,10 +66,6 @@ public class CommandHistoryMenuController {
 
     int getCommandSelectionIndex() {
         return commandSelectionIndex;
-    }
-
-    void setCommandSelectionIndex(int commandSelectionIndex) {
-        this.commandSelectionIndex = commandSelectionIndex;
     }
 
     /**

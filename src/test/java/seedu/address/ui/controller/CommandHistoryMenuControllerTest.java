@@ -44,8 +44,12 @@ public class CommandHistoryMenuControllerTest {
     @Test
     public void moveUp_multipleElementsLastSelected_wrapsAround() {
         controller = new CommandHistoryMenuController(
-                nonEmptyCommandHistory, text -> assertEquals(nonEmptyCommandHistory.get(0), text));
-        controller.setCommandSelectionIndex(2);
+                nonEmptyCommandHistory, text -> {});
+        assertEquals(0, controller.getCommandSelectionIndex());
+        controller.moveUp();
+        assertEquals(1, controller.getCommandSelectionIndex());
+        controller.moveUp();
+        assertEquals(2, controller.getCommandSelectionIndex());
         controller.moveUp();
         assertEquals(0, controller.getCommandSelectionIndex());
     }
@@ -59,19 +63,24 @@ public class CommandHistoryMenuControllerTest {
     }
 
     @Test
-    public void moveDown_multipleElements_decrementsOnce() {
-        controller = new CommandHistoryMenuController(FXCollections.observableArrayList("test1", "test2", "test3"),
-                text -> assertEquals("test2", text));
-        controller.setCommandSelectionIndex(2);
+    public void moveDown_multipleElements_decrementsCorrectly() {
+        controller = new CommandHistoryMenuController(nonEmptyCommandHistory, text -> {});
+        assertEquals(0, controller.getCommandSelectionIndex());
+        controller.moveDown();
+        assertEquals(2, controller.getCommandSelectionIndex());
         controller.moveDown();
         assertEquals(1, controller.getCommandSelectionIndex());
+        controller.moveDown();
+        assertEquals(0, controller.getCommandSelectionIndex());
     }
 
     @Test
     public void resetSelection_multipleElements_resetsToZero() {
         controller = new CommandHistoryMenuController(FXCollections.observableArrayList("test1", "test2", "test3"),
                 text -> {});
-        controller.setCommandSelectionIndex(2);
+        assertEquals(0, controller.getCommandSelectionIndex());
+        controller.moveUp();
+        assertEquals(1, controller.getCommandSelectionIndex());
         controller.resetSelection();
         assertEquals(0, controller.getCommandSelectionIndex());
     }
