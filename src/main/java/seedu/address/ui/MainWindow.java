@@ -92,12 +92,12 @@ public class MainWindow extends UiPart<Stage> {
             boolean isEnterPressed = event.getCode() == KeyCode.ENTER;
 
             if (isPageUpAndCtrlDown) {
-                commandHistoryMenu.onMovementUp();
+                commandHistoryMenu.handleMovementUp();
                 event.consume();
                 return;
             }
             if (isPageDownAndCtrlDown) {
-                commandHistoryMenu.onMovementDown();
+                commandHistoryMenu.handleMovementDown();
                 event.consume();
                 return;
             }

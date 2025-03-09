@@ -16,7 +16,7 @@ public class CommandHistoryMenu extends UiPart<Region> {
     private final ObservableList<String> pastCommands;
     private final CommandBoxInputSetter commandSetter;
 
-    private int selection = 0;
+    private int commandSelectionIndex = 0;
 
     @FXML
     private ListView<String> commandHistoryList;
@@ -39,29 +39,36 @@ public class CommandHistoryMenu extends UiPart<Region> {
      * Handles the Ctrl + Up key pressed event.
      * Cycles up the list of previously entered commands.
      */
-    public void onMovementUp() {
+    public void handleMovementUp() {
         if (pastCommands.isEmpty()) {
             return;
         }
-        selection = (selection + 1) % pastCommands.size();
-        commandSetter.setCommandInput(pastCommands.get(selection));
+        commandSelectionIndex = (commandSelectionIndex + 1) % pastCommands.size();
+        setInputToSelection();
     }
 
     /**
      * Handles the Ctrl + Down key pressed event.
      * Cycles down the list of previously entered commands.
      */
-    public void onMovementDown() {
+    public void handleMovementDown() {
         if (pastCommands.isEmpty()) {
             return;
         }
-        selection = (pastCommands.size() + selection - 1) % pastCommands.size();
-        assert selection >= 0 && selection < pastCommands.size();
-        commandSetter.setCommandInput(pastCommands.get(selection));
+        commandSelectionIndex = (pastCommands.size() + commandSelectionIndex - 1) % pastCommands.size();
+        assert commandSelectionIndex >= 0 && commandSelectionIndex < pastCommands.size();
+        setInputToSelection();
     }
 
+    /**
+     * Resets the selected input to the default index value.
+     */
     public void resetSelection() {
-        selection = 0;
+        commandSelectionIndex = 0;
+    }
+
+    private void setInputToSelection() {
+        commandSetter.setCommandInput(pastCommands.get(commandSelectionIndex));
     }
 
     /**

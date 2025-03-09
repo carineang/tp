@@ -8,6 +8,8 @@ import javafx.collections.ObservableList;
  * Only the {@link #MAX_HISTORY_SIZE} most recently entered inputs are considered.
  */
 public class InputHistory {
+
+    /** Max number of input histories stored. Must be > 0. */
     private static final int MAX_HISTORY_SIZE = 20;
     private final ObservableList<String> pastCommands;
 
@@ -33,9 +35,9 @@ public class InputHistory {
     }
 
     /**
-     * Returns the list of previously entered commands.
+     * Returns an unmodifiable list of previously entered commands.
      */
     public ObservableList<String> getPastCommands() {
-        return pastCommands;
+        return FXCollections.unmodifiableObservableList(pastCommands);
     }
 }
