@@ -1,6 +1,7 @@
 package seedu.address.logic;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.fail;
 import static seedu.address.logic.Messages.MESSAGE_INVALID_PERSON_DISPLAYED_INDEX;
 import static seedu.address.logic.Messages.MESSAGE_UNKNOWN_COMMAND;
 import static seedu.address.logic.commands.CommandTestUtil.ADDRESS_DESC_AMY;
@@ -13,6 +14,7 @@ import static seedu.address.testutil.TypicalPersons.AMY;
 import java.io.IOException;
 import java.nio.file.AccessDeniedException;
 import java.nio.file.Path;
+import java.util.List;
 
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
@@ -83,8 +85,33 @@ public class LogicManagerTest {
     }
 
     @Test
+    public void execute_commandInputStoredInHistory_success() {
+        String[] dummyCommands = {"help", "list", "12hdh3jk efjkkfhs", "add n/John Doe p/98765432 e/123@123 a/123123"};
+
+        for (String dummyCommand : dummyCommands) {
+            try {
+                logic.execute(dummyCommand);
+            } catch (CommandException | ParseException ignored) {
+                // Ignored as invalid inputs should also be saved to history.
+            }
+        }
+        assertEquals(List.of(dummyCommands), logic.getCommandHistoryList());
+    }
+
+    @Test
     public void getFilteredPersonList_modifyList_throwsUnsupportedOperationException() {
         assertThrows(UnsupportedOperationException.class, () -> logic.getFilteredPersonList().remove(0));
+    }
+
+    @Test
+    public void getCommandHistoryList_modifyList_throwsUnsupportedOperationException() {
+        final String dummyCommand = "help";
+        try {
+            logic.execute(dummyCommand);
+        } catch (CommandException | ParseException e) {
+            fail("Invalid command.");
+        }
+        assertThrows(UnsupportedOperationException.class, () -> logic.getCommandHistoryList().remove(0));
     }
 
     /**
