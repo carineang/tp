@@ -1,7 +1,6 @@
 package seedu.address.model.person;
 
 import static java.util.Objects.requireNonNull;
-import static seedu.address.commons.util.AppUtil.checkArgument;
 
 /**
  * Represents a Person's note in the address book.
@@ -62,7 +61,7 @@ public class Note {
 
     @Override
     public int hashCode() {
-       return value.hashCode();
+        return value.hashCode();
     }
 
     public static Note createDefaultNote() {
