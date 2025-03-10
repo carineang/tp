@@ -16,6 +16,7 @@ import seedu.address.logic.Logic;
 import seedu.address.logic.commands.CommandResult;
 import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.logic.parser.exceptions.ParseException;
+import seedu.address.ui.controller.CommandHistoryMenuController;
 
 /**
  * The Main Window. Provides the basic application layout containing
@@ -34,6 +35,8 @@ public class MainWindow extends UiPart<Stage> {
     private PersonListPanel personListPanel;
     private ResultDisplay resultDisplay;
     private HelpWindow helpWindow;
+    private CommandHistoryMenu commandHistoryMenu;
+
 
     @FXML
     private StackPane commandBoxPlaceholder;
@@ -74,6 +77,17 @@ public class MainWindow extends UiPart<Stage> {
 
     private void setAccelerators() {
         setAccelerator(helpMenuItem, KeyCombination.valueOf("F1"));
+        setCommandHistoryAccelerator();
+    }
+
+    /**
+     * Sets the accelerator for cycling (up & down) the command history.
+     * The accelerator is Ctrl + Up for moving up, and Ctrl + Down for moving down.
+     * Pressing enter resets the selection (and closes the context menu).
+     */
+    private void setCommandHistoryAccelerator() {
+        getRoot().addEventFilter(KeyEvent.KEY_PRESSED,
+                CommandHistoryMenuController.bakeEventHandler(() -> commandHistoryMenu));
     }
 
     /**
@@ -104,6 +118,7 @@ public class MainWindow extends UiPart<Stage> {
                 event.consume();
             }
         });
+
     }
 
     /**
@@ -121,6 +136,8 @@ public class MainWindow extends UiPart<Stage> {
 
         CommandBox commandBox = new CommandBox(this::executeCommand);
         commandBoxPlaceholder.getChildren().add(commandBox.getRoot());
+
+        commandHistoryMenu = new CommandHistoryMenu(logic.getCommandHistoryList(), commandBox::setCommandTextField);
     }
 
     /**
@@ -174,6 +191,7 @@ public class MainWindow extends UiPart<Stage> {
      */
     private CommandResult executeCommand(String commandText) throws CommandException, ParseException {
         try {
+
             CommandResult commandResult = logic.execute(commandText);
             logger.info("Result: " + commandResult.getFeedbackToUser());
             resultDisplay.setFeedbackToUser(commandResult.getFeedbackToUser());

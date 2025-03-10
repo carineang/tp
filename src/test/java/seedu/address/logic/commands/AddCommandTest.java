@@ -157,6 +157,16 @@ public class AddCommandTest {
         public void updateFilteredPersonList(Predicate<Person> predicate) {
             throw new AssertionError("This method should not be called.");
         }
+
+        @Override
+        public void addPastCommandInput(String pastCommandInput) {
+            throw new AssertionError("This method should not be called.");
+        }
+
+        @Override
+        public ObservableList<String> getCommandInputHistoryList() {
+            throw new AssertionError("This method should not be called.");
+        }
     }
 
     /**

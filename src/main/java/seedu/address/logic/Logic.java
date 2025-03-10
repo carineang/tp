@@ -34,6 +34,12 @@ public interface Logic {
     ObservableList<Person> getFilteredPersonList();
 
     /**
+     * Returns an unmodifiable view of an ordered (tail element being the latest),
+     * observable list of past commands.
+     */
+    ObservableList<String> getCommandHistoryList();
+
+    /**
      * Returns the user prefs' address book file path.
      */
     Path getAddressBookFilePath();

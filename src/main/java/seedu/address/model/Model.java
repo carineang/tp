@@ -84,4 +84,17 @@ public interface Model {
      * @throws NullPointerException if {@code predicate} is null.
      */
     void updateFilteredPersonList(Predicate<Person> predicate);
+
+    /**
+     * Adds a past command input to the list of past command inputs.
+     *
+     * @param pastCommandInput The command input to be added.
+     */
+    void addPastCommandInput(String pastCommandInput);
+
+    /**
+     * Returns an unmodifiable ordered view of the list of past command inputs.
+     * The most recent input is at the tail.
+     */
+    ObservableList<String> getCommandInputHistoryList();
 }
