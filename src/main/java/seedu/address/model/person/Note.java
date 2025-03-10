@@ -52,7 +52,7 @@ public class Note {
         }
 
         // instanceof handles nulls
-        if (!(other instanceof Address)) {
+        if (!(other instanceof Note)) {
             return false;
         }
 

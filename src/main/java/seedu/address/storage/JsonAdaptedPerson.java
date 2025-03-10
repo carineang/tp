@@ -24,8 +24,8 @@ class JsonAdaptedPerson {
     private final String phone;
     private final String email;
     private final String address;
-    private final String note;
     private final List<JsonAdaptedTag> tags = new ArrayList<>();
+    private final String note;
 
     /**
      * Constructs a {@code JsonAdaptedPerson} with the given person details.
@@ -107,7 +107,9 @@ class JsonAdaptedPerson {
             throw new IllegalValueException(String.format(MISSING_FIELD_MESSAGE_FORMAT, Note.class.getSimpleName()));
         }
 
-        return new Person(modelName, modelPhone, modelEmail, modelAddress, modelTags);
+        final Note modelNote = new Note(note);
+
+        return new Person(modelName, modelPhone, modelEmail, modelAddress, modelTags, modelNote);
 
     }
 
