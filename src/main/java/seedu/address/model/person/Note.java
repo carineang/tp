@@ -13,6 +13,8 @@ public class Note {
 
     public static final String BLANK_NOTE_VALUE = "<Blank Note>";
 
+    public static final String DEFAULT_NOTE_VALUE = "";
+
     public final String value;
 
     /**
@@ -61,6 +63,10 @@ public class Note {
     @Override
     public int hashCode() {
        return value.hashCode();
+    }
+
+    public static Note createDefaultNote() {
+        return new Note(DEFAULT_NOTE_VALUE);
     }
 
 }
