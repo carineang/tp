@@ -1,16 +1,20 @@
 package seedu.address.logic.commands;
 
 import static seedu.address.commons.util.CollectionUtil.requireAllNonNull;
+import static java.util.Objects.requireNonNull;
+
+import java.util.List;
+
 import seedu.address.commons.core.index.Index;
 import seedu.address.logic.Messages;
 import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.model.Model;
 import seedu.address.model.person.Person;
 
-import java.util.List;
-
-import static java.util.Objects.requireNonNull;
-
+/**
+ * Pins a person identified by the index number used in the last displayed person listing.
+ * The pinned person will always appear at the top of the list.
+ */
 public class PinCommand extends Command {
 
     public static final String COMMAND_WORD = "pin";
@@ -26,12 +30,23 @@ public class PinCommand extends Command {
 
     private final Index index;
 
+    /**
+     * Creates a PinCommand to pin the specified person at the given index.
+     *
+     * @param index The index of the person to be pinned.
+     */
     public PinCommand(Index index) {
         requireAllNonNull(index);
-
         this.index = index;
     }
 
+    /**
+     * Executes the pin command, moving the selected person to the top of the list.
+     *
+     * @param model The model containing the list of persons.
+     * @return A CommandResult indicating the success of the command.
+     * @throws CommandException If the index is out of bounds.
+     */
     @Override
     public CommandResult execute(Model model) throws CommandException {
         requireNonNull(model);
