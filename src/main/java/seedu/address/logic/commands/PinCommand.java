@@ -1,5 +1,6 @@
 package seedu.address.logic.commands;
 
+import static seedu.address.commons.util.CollectionUtil.requireAllNonNull;
 import seedu.address.commons.core.index.Index;
 import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.model.Model;
@@ -25,6 +26,7 @@ public class PinCommand extends Command {
     private final Index index;
 
     public PinCommand(Index index) {
+        requireAllNonNull(index);
 
         this.index = index;
     }
@@ -33,6 +35,7 @@ public class PinCommand extends Command {
     public CommandResult execute(Model model) throws CommandException {
         requireNonNull(model);
         List<Person> lastShownList = model.getFilteredPersonList();
-        throw new CommandException(MESSAGE_NOT_IMPLEMENTED_YET);
+        throw new CommandException(
+                String.format(MESSAGE_ARGUMENTS, index.getOneBased()));
     }
 }
