@@ -97,4 +97,6 @@ public interface Model {
      * The most recent input is at the tail.
      */
     ObservableList<String> getCommandInputHistoryList();
+
+    void pinPerson(Person personToPin);
 }
