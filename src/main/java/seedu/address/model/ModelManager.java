@@ -114,6 +114,11 @@ public class ModelManager implements Model {
         addressBook.setPerson(target, editedPerson);
     }
 
+    @Override
+    public void pinPerson(Person person) {
+        addressBook.pinPerson(person);
+    }
+
     //=========== Filtered Person List Accessors =============================================================
 
     /**
