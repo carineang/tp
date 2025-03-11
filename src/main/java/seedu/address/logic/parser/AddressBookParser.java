@@ -17,11 +17,8 @@ import seedu.address.logic.commands.ExitCommand;
 import seedu.address.logic.commands.FindCommand;
 import seedu.address.logic.commands.HelpCommand;
 import seedu.address.logic.commands.ListCommand;
-<<<<<<< HEAD
 import seedu.address.logic.commands.NoteCommand;
-=======
 import seedu.address.logic.commands.PinCommand;
->>>>>>> master
 import seedu.address.logic.parser.exceptions.ParseException;
 
 /**
