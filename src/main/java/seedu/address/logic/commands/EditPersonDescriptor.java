@@ -11,6 +11,8 @@ import seedu.address.commons.util.ToStringBuilder;
 import seedu.address.model.person.Address;
 import seedu.address.model.person.Email;
 import seedu.address.model.person.Name;
+import seedu.address.model.person.Note;
+import seedu.address.model.person.Person;
 import seedu.address.model.person.Phone;
 import seedu.address.model.tag.Tag;
 
@@ -24,6 +26,7 @@ public class EditPersonDescriptor {
     private Email email;
     private Address address;
     private Set<Tag> tags;
+    private Note note;
 
     public EditPersonDescriptor() {}
 
@@ -37,6 +40,7 @@ public class EditPersonDescriptor {
         setEmail(toCopy.email);
         setAddress(toCopy.address);
         setTags(toCopy.tags);
+        setNote(toCopy.note);
     }
 
     /**
@@ -95,6 +99,31 @@ public class EditPersonDescriptor {
         return (tags != null) ? Optional.of(Collections.unmodifiableSet(tags)) : Optional.empty();
     }
 
+    public void setNote(Note note) {
+        this.note = note;
+    }
+
+    public Optional<Note> getNote() {
+        return Optional.ofNullable(note);
+    }
+
+    /**
+     * Creates and returns a {@code Person} with the details of {@code personToEdit}
+     * edited with {@code editPersonDescriptor}.
+     */
+    public static Person createEditedPerson(Person personToEdit, EditPersonDescriptor editPersonDescriptor) {
+        assert personToEdit != null;
+
+        Name updatedName = editPersonDescriptor.getName().orElse(personToEdit.getName());
+        Phone updatedPhone = editPersonDescriptor.getPhone().orElse(personToEdit.getPhone());
+        Email updatedEmail = editPersonDescriptor.getEmail().orElse(personToEdit.getEmail());
+        Address updatedAddress = editPersonDescriptor.getAddress().orElse(personToEdit.getAddress());
+        Set<Tag> updatedTags = editPersonDescriptor.getTags().orElse(personToEdit.getTags());
+        Note updatedNote = editPersonDescriptor.getNote().orElse(personToEdit.getNote());
+
+        return new Person(updatedName, updatedPhone, updatedEmail, updatedAddress, updatedTags, updatedNote);
+    }
+
     @Override
     public boolean equals(Object other) {
         if (other == this) {
@@ -111,7 +140,8 @@ public class EditPersonDescriptor {
                 && Objects.equals(phone, otherEditPersonDescriptor.phone)
                 && Objects.equals(email, otherEditPersonDescriptor.email)
                 && Objects.equals(address, otherEditPersonDescriptor.address)
-                && Objects.equals(tags, otherEditPersonDescriptor.tags);
+                && Objects.equals(tags, otherEditPersonDescriptor.tags)
+                && Objects.equals(note, otherEditPersonDescriptor.note);
     }
 
     @Override
@@ -122,6 +152,7 @@ public class EditPersonDescriptor {
                 .add("email", email)
                 .add("address", address)
                 .add("tags", tags)
+                .add("note", note)
                 .toString();
     }
 }
