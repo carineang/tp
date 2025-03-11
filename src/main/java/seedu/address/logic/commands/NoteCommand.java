@@ -4,6 +4,7 @@ import static java.util.Objects.requireNonNull;
 import static seedu.address.commons.util.CollectionUtil.requireAllNonNull;
 import static seedu.address.logic.commands.EditPersonDescriptor.createEditedPerson;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_NOTE;
+import static seedu.address.model.Model.PREDICATE_SHOW_ALL_PERSONS;
 
 import java.util.List;
 
@@ -30,11 +31,15 @@ public class NoteCommand extends Command {
             + "Example: " + COMMAND_WORD + " 1 "
             + PREFIX_NOTE + "Does not like to be called";
 
-    public static final String NOTE_PERSON_SUCCESS = "Changed Note: %1$s";
+    public static final String MESSAGE_NOTE_PERSON_SUCCESS = "Changed Note: %1$s";
 
     private final Index targetIndex;
     private final String noteString;
 
+    /**
+     * @param targetIndex of the person in the filtered person list to change notes
+     * @param noteString new value of the note
+     */
     public NoteCommand(Index targetIndex, String noteString) {
         requireAllNonNull(targetIndex, noteString);
 
@@ -58,8 +63,9 @@ public class NoteCommand extends Command {
         Person editedPerson = createEditedPerson(personToNote, newDescriptor);
 
         model.setPerson(personToNote, editedPerson);
+        model.updateFilteredPersonList(PREDICATE_SHOW_ALL_PERSONS);
 
-        return new CommandResult(String.format(NOTE_PERSON_SUCCESS, Messages.format(editedPerson)));
+        return new CommandResult(String.format(MESSAGE_NOTE_PERSON_SUCCESS, Messages.format(editedPerson)));
     }
 
     @Override
@@ -74,7 +80,8 @@ public class NoteCommand extends Command {
         }
 
         NoteCommand otherNoteCommand = (NoteCommand) other;
-        return targetIndex.equals(otherNoteCommand.targetIndex);
+        return targetIndex.equals(otherNoteCommand.targetIndex)
+                && noteString.equals(otherNoteCommand.noteString);
     }
 
     @Override
