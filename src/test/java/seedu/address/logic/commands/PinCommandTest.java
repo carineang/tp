@@ -6,6 +6,7 @@ import static org.junit.jupiter.api.Assertions.assertTrue;
 import static seedu.address.logic.commands.CommandTestUtil.assertCommandFailure;
 import static seedu.address.logic.commands.CommandTestUtil.assertCommandSuccess;
 import static seedu.address.logic.commands.CommandTestUtil.showPersonAtIndex;
+import static seedu.address.logic.commands.PinCommand.MESSAGE_ARGUMENTS;
 import static seedu.address.logic.commands.PinCommand.MESSAGE_NOT_IMPLEMENTED_YET;
 import static seedu.address.testutil.TypicalIndexes.INDEX_FIRST_PERSON;
 import static seedu.address.testutil.TypicalIndexes.INDEX_SECOND_PERSON;
@@ -30,7 +31,8 @@ public class PinCommandTest {
 
     @Test
     public void execute() {
-        assertCommandFailure(new PinCommand(INDEX_FIRST_PERSON), model, MESSAGE_NOT_IMPLEMENTED_YET);
+        assertCommandFailure(new PinCommand(INDEX_FIRST_PERSON), model,
+                String.format(MESSAGE_ARGUMENTS, INDEX_FIRST_PERSON.getOneBased()));
     }
 
 

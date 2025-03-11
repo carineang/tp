@@ -91,7 +91,9 @@ public class AddressBookParserTest {
 
     @Test
     public void parseCommand_pin() throws Exception {
-        assertTrue(parser.parseCommand(PinCommand.COMMAND_WORD) instanceof PinCommand);
+        PinCommand command = (PinCommand) parser.parseCommand(
+                PinCommand.COMMAND_WORD + " " + INDEX_FIRST_PERSON.getOneBased());
+        assertEquals(new PinCommand(INDEX_FIRST_PERSON), command);
     }
 
     @Test

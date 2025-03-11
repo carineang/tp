@@ -38,4 +38,19 @@ public class PinCommand extends Command {
         throw new CommandException(
                 String.format(MESSAGE_ARGUMENTS, index.getOneBased()));
     }
+
+    @Override
+    public boolean equals(Object other) {
+        if (other == this) {
+            return true;
+        }
+
+        // instanceof handles nulls
+        if (!(other instanceof PinCommand)) {
+            return false;
+        }
+
+        PinCommand e = (PinCommand) other;
+        return index.equals(e.index);
+    }
 }
