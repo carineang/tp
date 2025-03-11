@@ -163,6 +163,19 @@ public class UniquePersonListTest {
     }
 
     @Test
+    public void pinPerson_existingPerson_movesToFirstPosition() {
+        uniquePersonList.add(ALICE);
+        uniquePersonList.add(BOB);
+        uniquePersonList.pinPerson(BOB);
+        assertEquals(BOB, uniquePersonList.asUnmodifiableObservableList().get(0));
+    }
+
+    @Test
+    public void pinPerson_nonExistentPerson_throwsPersonNotFoundException() {
+        assertThrows(PersonNotFoundException.class, () -> uniquePersonList.pinPerson(ALICE));
+    }
+
+    @Test
     public void asUnmodifiableObservableList_modifyList_throwsUnsupportedOperationException() {
         assertThrows(UnsupportedOperationException.class, ()
             -> uniquePersonList.asUnmodifiableObservableList().remove(0));
