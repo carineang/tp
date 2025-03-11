@@ -21,6 +21,7 @@ public class PersonBuilder {
     public static final String DEFAULT_PHONE = "85355255";
     public static final String DEFAULT_EMAIL = "amy@gmail.com";
     public static final String DEFAULT_ADDRESS = "123, Jurong West Ave 6, #08-111";
+    // same as default note value in {@code Note} class, the sample of the default is the same as the default
     public static final String DEFAULT_NOTE = "";
 
     private Name name;
