@@ -1,4 +1,4 @@
-package seedu.address.logic.commands;
+package seedu.address.model.person.descriptors;
 
 import java.util.Collections;
 import java.util.HashSet;
