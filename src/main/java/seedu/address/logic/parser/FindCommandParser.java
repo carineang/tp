@@ -56,7 +56,6 @@ public class FindCommandParser implements Parser<FindCommand> {
                 keywords = Arrays.asList(preamble.split("\\s+"));
             }
         }
-        System.out.println("HELLLLOOOOOO:" + keywords);
 
         if (keywords.isEmpty()) {
             throw new ParseException(
