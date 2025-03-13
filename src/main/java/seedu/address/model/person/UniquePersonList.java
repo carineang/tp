@@ -104,6 +104,24 @@ public class UniquePersonList implements Iterable<Person> {
         return internalUnmodifiableList;
     }
 
+    /**
+     * Pins the person in the list, ensuring they always appear as the first element.
+     * The person must exist in the list.
+     */
+    public void pinPerson(Person toPin) {
+        requireNonNull(toPin);
+
+        int index = internalList.indexOf(toPin);
+        if (index == -1) {
+            throw new PersonNotFoundException();
+        }
+
+        // Remove and reinsert at the first position
+        internalList.remove(index);
+        internalList.add(0, toPin);
+    }
+
+
     @Override
     public Iterator<Person> iterator() {
         return internalList.iterator();
