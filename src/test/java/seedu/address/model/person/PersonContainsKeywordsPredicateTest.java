@@ -1,5 +1,6 @@
 package seedu.address.model.person;
 
+import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
@@ -7,6 +8,7 @@ import java.util.List;
 
 import org.junit.jupiter.api.Test;
 
+import seedu.address.commons.util.ToStringBuilder;
 import seedu.address.testutil.PersonBuilder;
 
 public class PersonContainsKeywordsPredicateTest {
@@ -91,4 +93,24 @@ public class PersonContainsKeywordsPredicateTest {
                         false, false, false);
         assertFalse(firstPredicate.equals(secondPredicate));
     }
+
+    @Test
+    public void toString_validPredicate_correctString() {
+        List<String> keywords = List.of("Alice", "Bob");
+        PersonContainsKeywordsPredicate predicate = new PersonContainsKeywordsPredicate(
+                keywords, true, false,
+                true, false, true);
+
+        String expectedString = new ToStringBuilder(predicate)
+                .add("keywords", keywords)
+                .add("searchName", true)
+                .add("searchPhone", false)
+                .add("searchEmail", true)
+                .add("searchAddress", false)
+                .add("searchTags", true)
+                .toString();
+
+        assertEquals(expectedString, predicate.toString());
+    }
+
 }
