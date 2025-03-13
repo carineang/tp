@@ -16,9 +16,11 @@ public class FindCommand extends Command {
 
     public static final String COMMAND_WORD = "find";
 
-    public static final String MESSAGE_USAGE = COMMAND_WORD + ": Finds all persons whose specified fields contain any of "
+    public static final String MESSAGE_USAGE = COMMAND_WORD
+            + ": Finds all persons whose specified fields contain any of "
             + "the given keywords (case-insensitive) and displays them as a list with index numbers.\n"
-            + "Parameters: [n/\"NAME\"] [p/\"PHONE\"] [e/\"EMAIL\"] [a/\"ADDRESS\"] [t/\"TAG\"] \"KEYWORD\" [\"MORE_KEYWORDS\"]...\n"
+            + "Parameters: [n/\"NAME\"] [p/\"PHONE\"] [e/\"EMAIL\"]"
+            + " [a/\"ADDRESS\"] [t/\"TAG\"] \"KEYWORD\" [\"MORE_KEYWORDS\"]...\n"
             + "Use double quotation marks (\") around multi-word inputs or single keywords to ensure correct parsing.\n"
             + "Example: " + COMMAND_WORD + " n/\"Alice\" \"Bob\" p/\"98765432\" a/\"Bedok Central\" t/\"close friend\"";
 

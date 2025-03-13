@@ -18,6 +18,16 @@ public class PersonContainsKeywordsPredicate implements Predicate<Person> {
     private final boolean searchAddress;
     private final boolean searchTags;
 
+    /**
+     * Constructs a {@code PersonContainsKeywordsPredicate} with the specified search parameters.
+     *
+     * @param keywords A list of keywords to search for.
+     * @param searchName {@code true} if the search should match names, {@code false} otherwise.
+     * @param searchPhone {@code true} if the search should match phone numbers, {@code false} otherwise.
+     * @param searchEmail {@code true} if the search should match emails, {@code false} otherwise.
+     * @param searchAddress {@code true} if the search should match addresses, {@code false} otherwise.
+     * @param searchTags {@code true} if the search should match tags, {@code false} otherwise.
+     */
     public PersonContainsKeywordsPredicate(List<String> keywords, boolean searchName, boolean searchPhone,
                                            boolean searchEmail, boolean searchAddress, boolean searchTags) {
         this.keywords = keywords;

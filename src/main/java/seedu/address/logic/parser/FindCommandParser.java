@@ -7,11 +7,9 @@ import static seedu.address.logic.parser.CliSyntax.PREFIX_NAME;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_PHONE;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_TAG;
 
-
 import java.util.ArrayList;
-import java.util.List;
 import java.util.Arrays;
-import java.util.Optional;
+import java.util.List;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
@@ -65,18 +63,21 @@ public class FindCommandParser implements Parser<FindCommand> {
                     String.format(MESSAGE_INVALID_COMMAND_FORMAT, FindCommand.MESSAGE_USAGE));
         }
 
-        return new FindCommand (new PersonContainsKeywordsPredicate(keywords, searchName, searchPhone, searchEmail, searchAddress, searchTags));
+        return new FindCommand(new PersonContainsKeywordsPredicate(keywords, searchName,
+                searchPhone, searchEmail, searchAddress, searchTags));
     }
 
     /**
-     * Extracts keywords from the argument map, differentiating between a full phrase (inside quotes) and multiple keywords.
+     * Extracts keywords from the argument map
+     * Differentiate between a full phrase (inside quotes) and multiple keywords.
      */
-    private void extractKeywords(ArgumentMultimap argMultimap, Prefix prefix, boolean isPresent, List<String> keywords) {
+    private void extractKeywords(ArgumentMultimap argMultimap, Prefix prefix,
+                                 boolean isPresent, List<String> keywords) {
         if (isPresent && !argMultimap.getValue(prefix).get().isEmpty()) {
             String input = (prefix == null) ? argMultimap.getPreamble() : argMultimap.getValue(prefix).get();
             Matcher matcher = QUOTED_KEYWORD_PATTERN.matcher(input);
             while (matcher.find()) {
-                keywords.add(matcher.group(1));  // Extracts the value inside quotes
+                keywords.add(matcher.group(1));
             }
         }
     }
