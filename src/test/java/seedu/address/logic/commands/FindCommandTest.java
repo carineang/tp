@@ -59,11 +59,12 @@ public class FindCommandTest {
     }
 
     @Test
-    public void execute_singleKeyword_name_success() {
+    public void executeSingleKeyword_name_success() {
         // Find by name
         String expectedMessage = String.format(Messages.MESSAGE_PERSONS_LISTED_OVERVIEW, 1);
         List<String> keywords = Collections.singletonList("Alice");
-        PersonContainsKeywordsPredicate predicate = new PersonContainsKeywordsPredicate(keywords, true, false, false, false, false);
+        PersonContainsKeywordsPredicate predicate = new PersonContainsKeywordsPredicate(keywords, true, false,
+                false, false, false);
         FindCommand command = new FindCommand(predicate);
         expectedModel.updateFilteredPersonList(predicate);
         assertCommandSuccess(command, model, expectedMessage, expectedModel);
@@ -71,11 +72,12 @@ public class FindCommandTest {
     }
 
     @Test
-    public void execute_singleKeyword_phone_success() {
+    public void executeSingleKeyword_phone_success() {
         // Find by phone
         String expectedMessage = String.format(Messages.MESSAGE_PERSONS_LISTED_OVERVIEW, 1);
         List<String> keywords = Collections.singletonList(ALICE.getPhone().value);
-        PersonContainsKeywordsPredicate predicate = new PersonContainsKeywordsPredicate(keywords, false, true, false, false, false);
+        PersonContainsKeywordsPredicate predicate = new PersonContainsKeywordsPredicate(keywords, false, true,
+                false, false, false);
         FindCommand command = new FindCommand(predicate);
         expectedModel.updateFilteredPersonList(predicate);
         assertCommandSuccess(command, model, expectedMessage, expectedModel);
@@ -83,11 +85,12 @@ public class FindCommandTest {
     }
 
     @Test
-    public void execute_singleKeyword_email_success() {
+    public void executeSingleKeyword_email_success() {
         // Find by email
         String expectedMessage = String.format(Messages.MESSAGE_PERSONS_LISTED_OVERVIEW, 1);
         List<String> keywords = Collections.singletonList(ALICE.getEmail().value);
-        PersonContainsKeywordsPredicate predicate = new PersonContainsKeywordsPredicate(keywords, false, false, true, false, false);
+        PersonContainsKeywordsPredicate predicate = new PersonContainsKeywordsPredicate(keywords, false, false,
+                true, false, false);
         FindCommand command = new FindCommand(predicate);
         expectedModel.updateFilteredPersonList(predicate);
         assertCommandSuccess(command, model, expectedMessage, expectedModel);
@@ -95,11 +98,12 @@ public class FindCommandTest {
     }
 
     @Test
-    public void execute_multipleKeywords_name_success() {
+    public void executeMultipleKeywords_name_success() {
         // Find by multiple names
         String expectedMessage = String.format(Messages.MESSAGE_PERSONS_LISTED_OVERVIEW, 2);
         List<String> keywords = Arrays.asList("Alice", "Carl");
-        PersonContainsKeywordsPredicate predicate = new PersonContainsKeywordsPredicate(keywords, true, false, false, false, false);
+        PersonContainsKeywordsPredicate predicate = new PersonContainsKeywordsPredicate(keywords, true, false,
+                false, false, false);
         FindCommand command = new FindCommand(predicate);
         expectedModel.updateFilteredPersonList(predicate);
         assertCommandSuccess(command, model, expectedMessage, expectedModel);
@@ -108,11 +112,12 @@ public class FindCommandTest {
     }
 
     @Test
-    public void execute_singleKeyword_address_success() {
+    public void executeSingleKeyword_address_success() {
         // Find by address
         String expectedMessage = String.format(Messages.MESSAGE_PERSONS_LISTED_OVERVIEW, 1);
         List<String> keywords = Collections.singletonList(ALICE.getAddress().value);
-        PersonContainsKeywordsPredicate predicate = new PersonContainsKeywordsPredicate(keywords, false, false, false, true, false);
+        PersonContainsKeywordsPredicate predicate = new PersonContainsKeywordsPredicate(keywords, false, false,
+                false, true, false);
         FindCommand command = new FindCommand(predicate);
         expectedModel.updateFilteredPersonList(predicate);
         assertCommandSuccess(command, model, expectedMessage, expectedModel);
@@ -120,11 +125,12 @@ public class FindCommandTest {
     }
 
     @Test
-    public void execute_singleKeyword_tag_success() {
+    public void executeSingleKeyword_tag_success() {
         // Find by tag
         String expectedMessage = String.format(Messages.MESSAGE_PERSONS_LISTED_OVERVIEW, 1);
         List<String> keywords = Collections.singletonList(BENSON.getTags().iterator().next().tagName);
-        PersonContainsKeywordsPredicate predicate = new PersonContainsKeywordsPredicate(keywords, false, false, false, false, true);
+        PersonContainsKeywordsPredicate predicate = new PersonContainsKeywordsPredicate(keywords, false, false,
+                false, false, true);
         FindCommand command = new FindCommand(predicate);
         expectedModel.updateFilteredPersonList(predicate);
         assertCommandSuccess(command, model, expectedMessage, expectedModel);
@@ -136,7 +142,8 @@ public class FindCommandTest {
         // Find with no match
         String expectedMessage = String.format(Messages.MESSAGE_PERSONS_LISTED_OVERVIEW, 0);
         List<String> keywords = Collections.singletonList("Nonexistent");
-        PersonContainsKeywordsPredicate predicate = new PersonContainsKeywordsPredicate(keywords, true, true, true, true, true);
+        PersonContainsKeywordsPredicate predicate = new PersonContainsKeywordsPredicate(keywords, true, true,
+                true, true, true);
         FindCommand command = new FindCommand(predicate);
         expectedModel.updateFilteredPersonList(predicate);
         assertCommandSuccess(command, model, expectedMessage, expectedModel);
