@@ -39,6 +39,22 @@ public class StringUtil {
     }
 
     /**
+     * Checks if a given sentence contains a specified phrase, ignoring case differences.
+     *
+     * @param sentence cannot be null.
+     * @param phrase cannot be null, cannot be empty
+     */
+    public static boolean containsPhraseIgnoreCase(String sentence, String phrase) {
+        requireNonNull(sentence);
+        requireNonNull(phrase);
+
+        String preppedPhrase = phrase.trim();
+        checkArgument(!preppedPhrase.isEmpty(), "Phrase parameter cannot be empty");
+
+        return sentence.toLowerCase().contains(preppedPhrase.toLowerCase());
+    }
+
+    /**
      * Returns a detailed message of the t, including the stack trace.
      */
     public static String getDetails(Throwable t) {
