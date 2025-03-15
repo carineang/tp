@@ -167,21 +167,55 @@ public class UniquePersonList implements Iterable<Person> {
         return true;
     }
 
+    /**
+     * Sorts the list of persons based on the specified prefix such as name, phone number, email address, address.
+     *
+     * @param prefix The prefix indicates the sorting criteria.
+     */
     public void sortBy(String prefix) {
         switch (prefix) {
-            case "n/":
-                sortByName();
-                break;
-            default:
-                break;
-        }
+        case "n/":
+            sortByName();
+            break;
+        case "p/":
+            sortByPhoneNumber();
+            break;
+        case "e/":
+            sortByEmailAddress();
+            break;
+        case "a/":
+            sortByAddress();
+            break;
+        default:
+            break;
+       }
     }
 
     /**
-     * Sorts the list by name.
+     * Sort the list by name.
      */
     private void sortByName() {
         internalList.sort(Comparator.comparing(p -> p.getName().toString()));
     }
 
+    /**
+     * Sort the list by phone number.
+     */
+    private void sortByPhoneNumber() {
+        internalList.sort(Comparator.comparing(p -> Integer.parseInt(p.getPhone().toString())));
+    }
+
+    /**
+     * Sort the list by email address.
+     */
+    private void sortByEmailAddress() {
+        internalList.sort(Comparator.comparing(p -> p.getEmail().toString()));
+    }
+
+    /**
+     * Sort the list by address.
+     */
+    private void sortByAddress() {
+        internalList.sort(Comparator.comparing(p -> p.getAddress().toString()));
+    }
 }

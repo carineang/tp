@@ -10,15 +10,17 @@ public class SortCommandParser implements Parser<SortCommand> {
 
     public SortCommand parse(String args) throws ParseException {
         String trimmedArgs = args.trim();
-        if (trimmedArgs.isEmpty()) {
-            throw new ParseException(String.format(MESSAGE_SORT_UNSUCCESSFUL, SortCommand.MESSAGE_USAGE));
-        }
 
         if (trimmedArgs.equals(PREFIX_NAME.getPrefix())) {
-            System.out.println("Sorted successfully...");
             return new SortCommand(PREFIX_NAME.getPrefix());
+        } else if (trimmedArgs.equals(PREFIX_PHONE.getPrefix())) {
+            return new SortCommand(PREFIX_PHONE.getPrefix());
+        } else if (trimmedArgs.equals(PREFIX_EMAIL.getPrefix())) {
+            return new SortCommand(PREFIX_EMAIL.getPrefix());
+        } else if (trimmedArgs.equals(PREFIX_ADDRESS.getPrefix())) {
+            return new SortCommand(PREFIX_ADDRESS.getPrefix());
+        } else {
+            throw new ParseException(String.format(MESSAGE_SORT_UNSUCCESSFUL, SortCommand.MESSAGE_USAGE));
         }
-
-        return null;
     }
 }
