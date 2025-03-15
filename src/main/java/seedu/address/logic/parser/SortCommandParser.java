@@ -19,6 +19,8 @@ public class SortCommandParser implements Parser<SortCommand> {
             return new SortCommand(PREFIX_EMAIL.getPrefix());
         } else if (trimmedArgs.equals(PREFIX_ADDRESS.getPrefix())) {
             return new SortCommand(PREFIX_ADDRESS.getPrefix());
+        } else if (trimmedArgs.equals(PREFIX_TAG.getPrefix())) {
+            return new SortCommand(PREFIX_TAG.getPrefix());
         } else {
             throw new ParseException(String.format(MESSAGE_SORT_UNSUCCESSFUL, SortCommand.MESSAGE_USAGE));
         }

@@ -168,7 +168,7 @@ public class UniquePersonList implements Iterable<Person> {
     }
 
     /**
-     * Sorts the list of persons based on the specified prefix such as name, phone number, email address, address.
+     * Sorts the list of persons based on the specified prefix such as name, phone number, email address, address, tags.
      *
      * @param prefix The prefix indicates the sorting criteria.
      */
@@ -185,6 +185,9 @@ public class UniquePersonList implements Iterable<Person> {
             break;
         case "a/":
             sortByAddress();
+            break;
+        case "t/":
+            sortByTags();
             break;
         default:
             break;
@@ -217,5 +220,12 @@ public class UniquePersonList implements Iterable<Person> {
      */
     private void sortByAddress() {
         internalList.sort(Comparator.comparing(p -> p.getAddress().toString()));
+    }
+
+    /**
+     * Sort the list by tags.
+     */
+    private void sortByTags() {
+        internalList.sort(Comparator.comparing(p -> p.getTags().toString()));
     }
 }
