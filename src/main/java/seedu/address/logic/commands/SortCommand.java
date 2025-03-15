@@ -12,6 +12,8 @@ import static seedu.address.logic.parser.CliSyntax.PREFIX_NAME;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_PHONE;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_TAG;
 
+import java.util.logging.Logger;
+
 /**
  * Represents SortCommand to sort the address book based on specified attribute and update the model
  * to reflect the new sorting order.
@@ -27,6 +29,7 @@ public class SortCommand extends Command {
             + "[" + PREFIX_ADDRESS + "] "
             + "[" + PREFIX_TAG + "] "
             + "Example: " + COMMAND_WORD + " " + PREFIX_NAME;
+    private static final Logger logger = Logger.getLogger(SortCommand.class.getName());
     private final String prefix;
 
     /**
@@ -51,6 +54,7 @@ public class SortCommand extends Command {
         requireNonNull(model);
         model.updateFilteredPersonList(PREDICATE_SHOW_ALL_PERSONS);
         model.updateSortedFilteredPersonList(prefix);
+        logger.info("SortCommand execution completed. List sorted by: " + prefix);
         return new CommandResult(MESSAGE_SORT_SUCCESSFUL);
     }
 }

@@ -10,22 +10,35 @@ import static seedu.address.logic.parser.CliSyntax.PREFIX_NAME;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_PHONE;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_TAG;
 
-public class SortCommandParser implements Parser<SortCommand> {
+import java.util.logging.Logger;
 
+public class SortCommandParser implements Parser<SortCommand> {
+    private static final Logger logger = Logger.getLogger(SortCommandParser.class.getName());
     public SortCommand parse(String args) throws ParseException {
         String trimmedArgs = args.trim();
-
-        if (trimmedArgs.equals(PREFIX_NAME.getPrefix())) {
+        switch (trimmedArgs) {
+        case "n/":
+            logger.info("Sorting by name.");
             return new SortCommand(PREFIX_NAME.getPrefix());
-        } else if (trimmedArgs.equals(PREFIX_PHONE.getPrefix())) {
+
+        case "p/":
+            logger.info("Sorting by phone.");
             return new SortCommand(PREFIX_PHONE.getPrefix());
-        } else if (trimmedArgs.equals(PREFIX_EMAIL.getPrefix())) {
+
+        case "e/":
+            logger.info("Sorting by email.");
             return new SortCommand(PREFIX_EMAIL.getPrefix());
-        } else if (trimmedArgs.equals(PREFIX_ADDRESS.getPrefix())) {
+
+        case "a/":
+            logger.info("Sorting by address.");
             return new SortCommand(PREFIX_ADDRESS.getPrefix());
-        } else if (trimmedArgs.equals(PREFIX_TAG.getPrefix())) {
+
+        case "t/":
+            logger.info("Sorting by tag.");
             return new SortCommand(PREFIX_TAG.getPrefix());
-        } else {
+
+        default:
+            logger.warning("Invalid sorting prefix provided: " + trimmedArgs);
             throw new ParseException(String.format(MESSAGE_SORT_UNSUCCESSFUL, SortCommand.MESSAGE_USAGE));
         }
     }
