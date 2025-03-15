@@ -1,10 +1,12 @@
 package seedu.address.model;
 
 import java.nio.file.Path;
+import java.util.Comparator;
 import java.util.function.Predicate;
 
 import javafx.collections.ObservableList;
 import seedu.address.commons.core.GuiSettings;
+import seedu.address.logic.parser.Prefix;
 import seedu.address.model.person.Person;
 
 /**
@@ -98,5 +100,17 @@ public interface Model {
      */
     ObservableList<String> getCommandInputHistoryList();
 
+    /**
+     * Pins a person in the address book to the top of the list.
+     *
+     * @param personToPin The person to be pinned in the address book.
+     */
     void pinPerson(Person personToPin);
+
+    /**
+     * Updates the filtered and sorted list of persons based on the specified prefix attribute
+     *
+     * @param prefix The prefix indicating the attribute to sort by.
+     */
+    void updateSortedFilteredPersonList(String prefix);
 }
