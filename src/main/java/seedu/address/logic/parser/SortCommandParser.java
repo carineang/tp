@@ -1,9 +1,5 @@
 package seedu.address.logic.parser;
 
-import seedu.address.logic.commands.SortCommand;
-import seedu.address.logic.parser.exceptions.ParseException;
-
-import static seedu.address.logic.Messages.MESSAGE_SORT_UNSUCCESSFUL;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_ADDRESS;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_EMAIL;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_NAME;
@@ -12,8 +8,23 @@ import static seedu.address.logic.parser.CliSyntax.PREFIX_TAG;
 
 import java.util.logging.Logger;
 
+import seedu.address.logic.commands.SortCommand;
+import seedu.address.logic.parser.exceptions.ParseException;
+
+/**
+ * Parses input arguments to create a SortCommand and parsing logic identifies the sorting prefix.
+ *
+ */
 public class SortCommandParser implements Parser<SortCommand> {
     private static final Logger logger = Logger.getLogger(SortCommandParser.class.getName());
+
+    /**
+     * Parses the given prefix string and returns a SortCommand.
+     *
+     * @param args The arguments string provided by the user.
+     * @return SortCommand object based on the specified sorting attribute.
+     * @throws ParseException Prefix is invalid or the arguments are not recognized.
+     */
     public SortCommand parse(String args) throws ParseException {
         String trimmedArgs = args.trim();
         switch (trimmedArgs) {
