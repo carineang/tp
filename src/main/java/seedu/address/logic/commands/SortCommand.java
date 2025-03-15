@@ -6,7 +6,11 @@ import seedu.address.model.Model;
 
 import static java.util.Objects.requireNonNull;
 import static seedu.address.model.Model.PREDICATE_SHOW_ALL_PERSONS;
-import static seedu.address.logic.parser.CliSyntax.*;
+import static seedu.address.logic.parser.CliSyntax.PREFIX_ADDRESS;
+import static seedu.address.logic.parser.CliSyntax.PREFIX_EMAIL;
+import static seedu.address.logic.parser.CliSyntax.PREFIX_NAME;
+import static seedu.address.logic.parser.CliSyntax.PREFIX_PHONE;
+import static seedu.address.logic.parser.CliSyntax.PREFIX_TAG;
 
 /**
  * Represents SortCommand to sort the address book based on specified attribute and update the model
@@ -21,6 +25,7 @@ public class SortCommand extends Command {
             + "[" + PREFIX_PHONE + "] "
             + "[" + PREFIX_EMAIL + "] "
             + "[" + PREFIX_ADDRESS + "] "
+            + "[" + PREFIX_TAG + "] "
             + "Example: " + COMMAND_WORD + " " + PREFIX_NAME;
     private final String prefix;
 
