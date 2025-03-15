@@ -39,7 +39,7 @@ public class SortCommandParser implements Parser<SortCommand> {
 
         default:
             logger.warning("Invalid sorting prefix provided: " + trimmedArgs);
-            throw new ParseException(String.format(MESSAGE_SORT_UNSUCCESSFUL, SortCommand.MESSAGE_USAGE));
+            throw new ParseException("Invalid prefix used.");
         }
     }
 }

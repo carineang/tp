@@ -57,4 +57,8 @@ public class SortCommand extends Command {
         logger.info("SortCommand execution completed. List sorted by: " + prefix);
         return new CommandResult(MESSAGE_SORT_SUCCESSFUL);
     }
+
+    public String getSortPrefix() {
+        return prefix;
+    }
 }

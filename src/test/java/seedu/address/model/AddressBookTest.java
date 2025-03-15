@@ -6,8 +6,7 @@ import static org.junit.jupiter.api.Assertions.assertTrue;
 import static seedu.address.logic.commands.CommandTestUtil.VALID_ADDRESS_BOB;
 import static seedu.address.logic.commands.CommandTestUtil.VALID_TAG_HUSBAND;
 import static seedu.address.testutil.Assert.assertThrows;
-import static seedu.address.testutil.TypicalPersons.ALICE;
-import static seedu.address.testutil.TypicalPersons.getTypicalAddressBook;
+import static seedu.address.testutil.TypicalPersons.*;
 
 import java.util.Arrays;
 import java.util.Collection;
@@ -103,6 +102,21 @@ public class AddressBookTest {
         public ObservableList<Person> getPersonList() {
             return persons;
         }
+    }
+
+    @Test
+    public void updateSortedList_sortByPrefix_updatesCorrectly() {
+        AddressBook addressBook = new AddressBook();
+        addressBook.addPerson(BENSON);
+        addressBook.addPerson(ALICE);
+        addressBook.addPerson(CARL);
+
+        addressBook.updateSortedList("n/");
+
+        ObservableList<Person> personList = addressBook.getPersonList();
+        assertEquals("Alice Pauline", personList.get(0).getName().toString());
+        assertEquals("Benson Meier", personList.get(1).getName().toString());
+        assertEquals("Carl Kurz", personList.get(2).getName().toString());
     }
 
 }
