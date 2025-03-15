@@ -1,9 +1,11 @@
 package seedu.address.logic.parser;
 
-import static org.junit.jupiter.api.Assertions.*;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertThrows;
 
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
+
 import seedu.address.logic.commands.SortCommand;
 import seedu.address.logic.parser.exceptions.ParseException;
 
@@ -16,31 +18,31 @@ public class SortCommandParserTest {
     }
 
     @Test
-    public void parse_validPrefix_name_success() throws ParseException {
+    public void parse_validNamePrefix_success() throws ParseException {
         SortCommand command = parser.parse("n/");
         assertEquals(CliSyntax.PREFIX_NAME.getPrefix(), command.getSortPrefix());
     }
 
     @Test
-    public void parse_validPrefix_phone_success() throws ParseException {
+    public void parse_validPhonePrefix_success() throws ParseException {
         SortCommand command = parser.parse("p/");
         assertEquals(CliSyntax.PREFIX_PHONE.getPrefix(), command.getSortPrefix());
     }
 
     @Test
-    public void parse_validPrefix_email_success() throws ParseException {
+    public void parse_validEmailPrefix_success() throws ParseException {
         SortCommand command = parser.parse("e/");
         assertEquals(CliSyntax.PREFIX_EMAIL.getPrefix(), command.getSortPrefix());
     }
 
     @Test
-    public void parse_validPrefix_address_success() throws ParseException {
+    public void parse_validAddressPrefix_success() throws ParseException {
         SortCommand command = parser.parse("a/");
         assertEquals(CliSyntax.PREFIX_ADDRESS.getPrefix(), command.getSortPrefix());
     }
 
     @Test
-    public void parse_validPrefix_tag_success() throws ParseException {
+    public void parse_validTagPrefix_success() throws ParseException {
         SortCommand command = parser.parse("t/");
         assertEquals(CliSyntax.PREFIX_TAG.getPrefix(), command.getSortPrefix());
     }

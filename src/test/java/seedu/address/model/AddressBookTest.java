@@ -6,7 +6,9 @@ import static org.junit.jupiter.api.Assertions.assertTrue;
 import static seedu.address.logic.commands.CommandTestUtil.VALID_ADDRESS_BOB;
 import static seedu.address.logic.commands.CommandTestUtil.VALID_TAG_HUSBAND;
 import static seedu.address.testutil.Assert.assertThrows;
-import static seedu.address.testutil.TypicalPersons.*;
+import static seedu.address.testutil.TypicalPersons.ALICE;
+import static seedu.address.testutil.TypicalPersons.BENSON;
+import static seedu.address.testutil.TypicalPersons.CARL;
 
 import java.util.Arrays;
 import java.util.Collection;
@@ -20,6 +22,7 @@ import javafx.collections.ObservableList;
 import seedu.address.model.person.Person;
 import seedu.address.model.person.exceptions.DuplicatePersonException;
 import seedu.address.testutil.PersonBuilder;
+import seedu.address.testutil.TypicalPersons;
 
 public class AddressBookTest {
 
@@ -41,6 +44,15 @@ public class AddressBookTest {
         addressBook.resetData(newData);
         assertEquals(newData, addressBook);
     }
+
+    private AddressBook getTypicalAddressBook() {
+        AddressBook ab = new AddressBook();
+        for (Person p : TypicalPersons.getTypicalPersons()) {
+            ab.addPerson(p);
+        }
+        return ab;
+    }
+
 
     @Test
     public void resetData_withDuplicatePersons_throwsDuplicatePersonException() {
