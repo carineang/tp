@@ -34,6 +34,8 @@ public class CommandHistoryMenu extends UiPart<Region> implements CommandHistory
         commandHistoryList.setItems(commandHistory);
         controller = new CommandHistoryMenuController(commandHistory, commandSetter);
 
+        // Listens for changes in listview selection (due to GUI clicks)
+        // and updates the controller with the new selected value.
         commandHistoryList.getSelectionModel().selectedIndexProperty()
                 .addListener((observable, oldValue, newValue) -> {
                     if (newValue.intValue() >= 0) {

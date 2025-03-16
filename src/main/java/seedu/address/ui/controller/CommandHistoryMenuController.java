@@ -66,6 +66,11 @@ public final class CommandHistoryMenuController {
         setInputToSelection();
     }
 
+    /**
+     * Sets the current selected input history item by the provided index.
+     *
+     * @param commandSelectionIndex The provided index of the input to select.
+     */
     public void setSelection(int commandSelectionIndex) {
         logger.log(Level.INFO, "Got selection index: " + commandSelectionIndex);
         if (commandSelectionIndex < 0 || commandSelectionIndex >= pastCommands.size()) {
@@ -75,6 +80,9 @@ public final class CommandHistoryMenuController {
         setInputToSelection();
     }
 
+    /**
+     * Clears the current selection.
+     */
     public void clearSelection() {
         commandSelectionIndex = Optional.empty();
     }
@@ -85,6 +93,10 @@ public final class CommandHistoryMenuController {
         });
     }
 
+    /**
+     * Returns the current selected command history index.
+     * If no command is currently selected, an empty optional is returned.
+     */
     public Optional<Integer> getCommandSelectionIndex() {
         return commandSelectionIndex;
     }
