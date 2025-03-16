@@ -4,6 +4,8 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
+import java.util.Optional;
+
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
@@ -26,63 +28,73 @@ public class CommandHistoryMenuControllerTest {
     }
 
     @Test
-    public void moveUp_emptyList_noChange() {
+    public void moveUp_emptyList_noSelection() {
         controller.moveUp();
-        assertEquals(
-                CommandHistoryMenuController.DEFAULT_SELECTION_INDEX,
-                controller.getCommandSelectionIndex());
+        assertEquals(Optional.empty(), controller.getCommandSelectionIndex());
     }
 
     @Test
-    public void moveUp_multipleElementsMoveUp_incrementsOnce() {
+    public void moveUp_multipleElementsMoveUp_selectsDefaultIndex() {
         controller = new CommandHistoryMenuController(
-                nonEmptyCommandHistory, text -> assertEquals(nonEmptyCommandHistory.get(1), text));
+                nonEmptyCommandHistory, text -> assertEquals(nonEmptyCommandHistory.get(0), text));
         controller.moveUp();
-        assertEquals(1, controller.getCommandSelectionIndex());
+        assertTrue(controller.getCommandSelectionIndex().isPresent());
+        assertEquals(0, controller.getCommandSelectionIndex().get());
     }
 
     @Test
     public void moveUp_multipleElementsLastSelected_wrapsAround() {
         controller = new CommandHistoryMenuController(
                 nonEmptyCommandHistory, text -> {});
-        assertEquals(0, controller.getCommandSelectionIndex());
+        assertTrue(controller.getCommandSelectionIndex().isEmpty());
+
         controller.moveUp();
-        assertEquals(1, controller.getCommandSelectionIndex());
+        assertTrue(controller.getCommandSelectionIndex().isPresent());
+        assertEquals(0, controller.getCommandSelectionIndex().get());
+
         controller.moveUp();
-        assertEquals(2, controller.getCommandSelectionIndex());
+        assertTrue(controller.getCommandSelectionIndex().isPresent());
+        assertEquals(2, controller.getCommandSelectionIndex().get());
+
         controller.moveUp();
-        assertEquals(0, controller.getCommandSelectionIndex());
+        assertTrue(controller.getCommandSelectionIndex().isPresent());
+        assertEquals(1, controller.getCommandSelectionIndex().get());
     }
 
     @Test
-    public void moveDown_emptyList_noChange() {
+    public void moveDown_emptyList_noSelection() {
         controller.moveDown();
-        assertEquals(
-                CommandHistoryMenuController.DEFAULT_SELECTION_INDEX,
-                controller.getCommandSelectionIndex());
+        assertEquals(Optional.empty(), controller.getCommandSelectionIndex());
     }
 
     @Test
     public void moveDown_multipleElements_decrementsCorrectly() {
         controller = new CommandHistoryMenuController(nonEmptyCommandHistory, text -> {});
-        assertEquals(0, controller.getCommandSelectionIndex());
+        assertEquals(Optional.empty(), controller.getCommandSelectionIndex());
+
         controller.moveDown();
-        assertEquals(2, controller.getCommandSelectionIndex());
+        assertTrue(controller.getCommandSelectionIndex().isPresent());
+        assertEquals(0, controller.getCommandSelectionIndex().get());
+
         controller.moveDown();
-        assertEquals(1, controller.getCommandSelectionIndex());
+        assertTrue(controller.getCommandSelectionIndex().isPresent());
+        assertEquals(1, controller.getCommandSelectionIndex().get());
+
         controller.moveDown();
-        assertEquals(0, controller.getCommandSelectionIndex());
+        assertTrue(controller.getCommandSelectionIndex().isPresent());
+        assertEquals(2, controller.getCommandSelectionIndex().get());
     }
 
     @Test
     public void resetSelection_multipleElements_resetsToZero() {
         controller = new CommandHistoryMenuController(FXCollections.observableArrayList("test1", "test2", "test3"),
                 text -> {});
-        assertEquals(0, controller.getCommandSelectionIndex());
+        assertTrue(controller.getCommandSelectionIndex().isEmpty());
         controller.moveUp();
-        assertEquals(1, controller.getCommandSelectionIndex());
-        controller.resetSelection();
-        assertEquals(0, controller.getCommandSelectionIndex());
+        assertTrue(controller.getCommandSelectionIndex().isPresent());
+        assertEquals(0, controller.getCommandSelectionIndex().get());
+        controller.clearSelection();
+        assertTrue(controller.getCommandSelectionIndex().isEmpty());
     }
 
     private KeyEvent getMovementDownKeyEvent() {
@@ -160,7 +172,7 @@ public class CommandHistoryMenuControllerTest {
         }
 
         @Override
-        public void handleEnterPressed() {
+        public void handleCloseAction() {
             isEnterPressedCalled = true;
         }
     }

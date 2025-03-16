@@ -14,6 +14,8 @@ import static seedu.address.testutil.TypicalPersons.AMY;
 import java.io.IOException;
 import java.nio.file.AccessDeniedException;
 import java.nio.file.Path;
+import java.util.Arrays;
+import java.util.Collections;
 import java.util.List;
 
 import org.junit.jupiter.api.BeforeEach;
@@ -95,7 +97,9 @@ public class LogicManagerTest {
                 // Ignored as invalid inputs should also be saved to history.
             }
         }
-        assertEquals(List.of(dummyCommands), logic.getCommandHistoryList());
+        List<String> expectedList = Arrays.asList(dummyCommands);
+        Collections.reverse(expectedList);
+        assertEquals(expectedList, logic.getCommandHistoryList());
     }
 
     @Test

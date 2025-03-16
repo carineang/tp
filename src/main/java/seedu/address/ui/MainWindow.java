@@ -138,6 +138,7 @@ public class MainWindow extends UiPart<Stage> {
         commandBoxPlaceholder.getChildren().add(commandBox.getRoot());
 
         commandHistoryMenu = new CommandHistoryMenu(logic.getCommandHistoryList(), commandBox::setCommandTextField);
+        resultDisplayPlaceholder.getChildren().add(commandHistoryMenu.getRoot());
     }
 
     /**
