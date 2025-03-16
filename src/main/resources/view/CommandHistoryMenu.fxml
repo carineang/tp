@@ -3,8 +3,8 @@
 <?import javafx.scene.control.*?>
 <?import javafx.scene.layout.*?>
 
-<AnchorPane xmlns="http://javafx.com/javafx"
+<StackPane xmlns="http://javafx.com/javafx"
             xmlns:fx="http://javafx.com/fxml"
             prefHeight="400.0" prefWidth="600.0">
-    <ListView fx:id="commandHistoryList" VBox.vgrow="ALWAYS" />
-</AnchorPane>
+    <ListView fx:id="commandHistoryList" VBox.vgrow="ALWAYS" styleClass="history-menu"/>
+</StackPane>
