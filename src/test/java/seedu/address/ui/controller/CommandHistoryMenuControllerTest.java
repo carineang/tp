@@ -3,6 +3,10 @@ package seedu.address.ui.controller;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertTrue;
+import static seedu.address.testutil.KeyEventUtil.getCtrlDownKeyEvent;
+import static seedu.address.testutil.KeyEventUtil.getCtrlUpKeyEvent;
+import static seedu.address.testutil.KeyEventUtil.getEnterKeyEvent;
+import static seedu.address.testutil.KeyEventUtil.getEscapeKeyEvent;
 
 import java.util.Optional;
 
@@ -86,7 +90,24 @@ public class CommandHistoryMenuControllerTest {
     }
 
     @Test
-    public void resetSelection_multipleElements_resetsToZero() {
+    public void setSelection_ignoresInvalidIndex_success() {
+        controller = new CommandHistoryMenuController(nonEmptyCommandHistory, text -> {});
+        controller.setSelection(-1);
+        assertEquals(Optional.empty(), controller.getCommandSelectionIndex());
+    }
+
+    @Test
+    public void setSelection_validIndexSelected_success() {
+        controller = new CommandHistoryMenuController(nonEmptyCommandHistory, text -> {});
+        controller.setSelection(2);
+        assertTrue(controller.getCommandSelectionIndex().isPresent());
+        assertEquals(2, controller.getCommandSelectionIndex().get());
+
+
+    }
+
+    @Test
+    public void clearSelection_multipleElements_resetsToZero() {
         controller = new CommandHistoryMenuController(FXCollections.observableArrayList("test1", "test2", "test3"),
                 text -> {});
         assertTrue(controller.getCommandSelectionIndex().isEmpty());
@@ -97,23 +118,14 @@ public class CommandHistoryMenuControllerTest {
         assertTrue(controller.getCommandSelectionIndex().isEmpty());
     }
 
-    private KeyEvent getMovementDownKeyEvent() {
-        return new KeyEvent(KeyEvent.KEY_PRESSED, "", "", KeyCode.DOWN, false, true, false, false);
-    }
 
-    private KeyEvent getMovementUpKeyEvent() {
-        return new KeyEvent(KeyEvent.KEY_PRESSED, "", "", KeyCode.UP, false, true, false, false);
-    }
 
-    private KeyEvent getEnterKeyEvent() {
-        return new KeyEvent(KeyEvent.KEY_PRESSED, "", "", KeyCode.ENTER, false, false, false, false);
-    }
 
     @Test
     public void bakeEventHandler_movementDownKeyEventHandlerCalled_success() {
         assertFalse(actionHandlerStub.isMovementDownCalled);
         // Set up stubs
-        KeyEvent downKeyEventStub = getMovementDownKeyEvent();
+        KeyEvent downKeyEventStub = getCtrlDownKeyEvent();
         EventHandler<KeyEvent> eventHandler = CommandHistoryMenuController.bakeEventHandler(() -> actionHandlerStub);
 
         eventHandler.handle(downKeyEventStub);
@@ -124,7 +136,7 @@ public class CommandHistoryMenuControllerTest {
     public void bakeEventHandler_movementUpKeyEventHandlerCalled_success() {
         assertFalse(actionHandlerStub.isMovementUpCalled);
         // Set up stubs
-        KeyEvent upKeyEventStub = getMovementUpKeyEvent();
+        KeyEvent upKeyEventStub = getCtrlUpKeyEvent();
         EventHandler<KeyEvent> eventHandler = CommandHistoryMenuController.bakeEventHandler(() -> actionHandlerStub);
 
         eventHandler.handle(upKeyEventStub);
@@ -132,20 +144,33 @@ public class CommandHistoryMenuControllerTest {
     }
     @Test
     public void bakeEventHandler_enterKeyEventHandlerCalled_success() {
-        assertFalse(actionHandlerStub.isEnterPressedCalled);
+        assertFalse(actionHandlerStub.isCloseActionCalled);
         // Set up stubs
         KeyEvent enterKeyEventStub = getEnterKeyEvent();
         EventHandler<KeyEvent> eventHandler = CommandHistoryMenuController
                 .bakeEventHandler(() -> actionHandlerStub);
 
         eventHandler.handle(enterKeyEventStub);
-        assertTrue(actionHandlerStub.isEnterPressedCalled);
+        assertTrue(actionHandlerStub.isCloseActionCalled);
     }
+
+    @Test
+    public void bakeEventHandler_escapeKeyEventHandlerCalled_success() {
+        assertFalse(actionHandlerStub.isCloseActionCalled);
+        // Set up stubs
+        KeyEvent escapeKeyEventStub = getEscapeKeyEvent();
+        EventHandler<KeyEvent> eventHandler = CommandHistoryMenuController
+                .bakeEventHandler(() -> actionHandlerStub);
+
+        eventHandler.handle(escapeKeyEventStub);
+        assertTrue(actionHandlerStub.isCloseActionCalled);
+    }
+
     @Test
     public void bakeEventHandle_nonKeyEvent_handlerCalled() {
         assertFalse(actionHandlerStub.isMovementUpCalled);
         assertFalse(actionHandlerStub.isMovementDownCalled);
-        assertFalse(actionHandlerStub.isEnterPressedCalled);
+        assertFalse(actionHandlerStub.isCloseActionCalled);
         // Set up stubs
         EventHandler<KeyEvent> eventHandler = CommandHistoryMenuController.bakeEventHandler(() -> actionHandlerStub);
         KeyEvent unrelatedKeyEvent = new KeyEvent(KeyEvent.KEY_PRESSED, "", "", KeyCode.A, false, false, false, false);
@@ -153,13 +178,13 @@ public class CommandHistoryMenuControllerTest {
         eventHandler.handle(unrelatedKeyEvent);
         assertFalse(actionHandlerStub.isMovementUpCalled);
         assertFalse(actionHandlerStub.isMovementDownCalled);
-        assertFalse(actionHandlerStub.isEnterPressedCalled);
+        assertFalse(actionHandlerStub.isCloseActionCalled);
     }
 
     static class CommandHistoryActionHandlerStub implements CommandHistoryActionHandler {
         private boolean isMovementUpCalled = false;
         private boolean isMovementDownCalled = false;
-        private boolean isEnterPressedCalled = false;
+        private boolean isCloseActionCalled = false;
 
         @Override
         public void handleMovementUp() {
@@ -173,7 +198,7 @@ public class CommandHistoryMenuControllerTest {
 
         @Override
         public void handleCloseAction() {
-            isEnterPressedCalled = true;
+            isCloseActionCalled = true;
         }
     }
 }
