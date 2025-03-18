@@ -29,9 +29,9 @@ public class InputHistory {
      */
     public void addInput(String commandInput) {
         if (pastCommands.size() == MAX_HISTORY_SIZE) {
-            pastCommands.remove(0);
+            pastCommands.remove(MAX_HISTORY_SIZE - 1);
         }
-        pastCommands.add(commandInput);
+        pastCommands.add(0, commandInput);
     }
 
     /**

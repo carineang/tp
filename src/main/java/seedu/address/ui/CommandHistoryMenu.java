@@ -33,22 +33,43 @@ public class CommandHistoryMenu extends UiPart<Region> implements CommandHistory
         super(FXML);
         commandHistoryList.setItems(commandHistory);
         controller = new CommandHistoryMenuController(commandHistory, commandSetter);
+
+        // Listens for changes in listview selection (due to GUI clicks)
+        // and updates the controller with the new selected value.
+        commandHistoryList.getSelectionModel().selectedIndexProperty()
+                .addListener((observable, oldValue, newValue) -> {
+                    if (newValue.intValue() >= 0) {
+                        commandHistoryList.scrollTo(newValue.intValue());
+                    }
+                    controller.setSelection(newValue.intValue());
+                });
+
+        // set default visibility to hidden
+        this.getRoot().setVisible(false);
     }
 
 
     @Override
     public void handleMovementUp() {
+        this.getRoot().setVisible(true);
         controller.moveUp();
+        controller.getCommandSelectionIndex()
+                .ifPresent(index -> commandHistoryList.getSelectionModel().select(index));
     }
 
     @Override
     public void handleMovementDown() {
+        this.getRoot().setVisible(true);
         controller.moveDown();
+        controller.getCommandSelectionIndex()
+                .ifPresent(index -> commandHistoryList.getSelectionModel().select(index));
     }
 
     @Override
-    public void handleEnterPressed() {
-        controller.resetSelection();
+    public void handleCloseAction() {
+        controller.clearSelection();
+        commandHistoryList.getSelectionModel().clearSelection();
+        this.getRoot().setVisible(false);
     }
 
 }

@@ -94,7 +94,7 @@ public interface Model {
 
     /**
      * Returns an unmodifiable ordered view of the list of past command inputs.
-     * The most recent input is at the tail.
+     * The most recently added input is at the front of the list.
      */
     ObservableList<String> getCommandInputHistoryList();
 
