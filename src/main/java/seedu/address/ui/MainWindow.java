@@ -181,11 +181,6 @@ public class MainWindow extends UiPart<Stage> {
         primaryStage.hide();
     }
 
-    @FXML
-    private void handleNote(String text) {
-       Label note = new Label(text);
-    }
-
     public PersonListPanel getPersonListPanel() {
         return personListPanel;
     }
