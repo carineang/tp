@@ -19,8 +19,8 @@ import seedu.address.logic.commands.HelpCommand;
 import seedu.address.logic.commands.ListCommand;
 import seedu.address.logic.commands.NoteCommand;
 import seedu.address.logic.commands.PinCommand;
-import seedu.address.logic.commands.ViewNoteCommand;
 import seedu.address.logic.commands.SortCommand;
+import seedu.address.logic.commands.ViewNoteCommand;
 import seedu.address.logic.parser.exceptions.ParseException;
 
 /**
