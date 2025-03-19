@@ -17,7 +17,8 @@ public interface CommandHistoryActionHandler {
     void handleMovementDown();
 
     /**
+     * Handles the Escape or Enter key pressed events.
      * Resets the selected input to the default index value.
      */
-    void handleEnterPressed();
+    void handleCloseAction();
 }

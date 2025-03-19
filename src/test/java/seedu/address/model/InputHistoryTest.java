@@ -22,10 +22,10 @@ public class InputHistoryTest {
         }
         ObservableList<String> previousCommands = emptyInputHistory.getPastCommands();
         assertEquals(20, previousCommands.size());
-        assertEquals("input 0", previousCommands.get(0));
+        assertEquals("input 19", previousCommands.get(0));
 
-        emptyInputHistory.addInput("input 21");
-        assertEquals("input 1", previousCommands.get(0));
-        assertEquals("input 21", previousCommands.get(19));
+        emptyInputHistory.addInput("input 20");
+        assertEquals("input 20", previousCommands.get(0));
+        assertEquals("input 1", previousCommands.get(19));
     }
 }
