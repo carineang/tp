@@ -20,14 +20,15 @@ public class ViewNoteCommandParserTest {
 
     @Test
     public void parse_invalidArgs_throwsParseException() {
+        // not index
         assertParseFailure(parser, "a", String.format(MESSAGE_INVALID_COMMAND_FORMAT,
                 ViewNoteCommand.MESSAGE_USAGE));
         assertParseFailure(parser, "brick", String.format(MESSAGE_INVALID_COMMAND_FORMAT,
                 ViewNoteCommand.MESSAGE_USAGE));
+
+        // incorrect as list starts from index 1
         assertParseFailure(parser, "-1", String.format(MESSAGE_INVALID_COMMAND_FORMAT,
                 ViewNoteCommand.MESSAGE_USAGE));
-
-        // definitely incorrect index
         assertParseFailure(parser, "0", String.format(MESSAGE_INVALID_COMMAND_FORMAT,
                 ViewNoteCommand.MESSAGE_USAGE));
     }
