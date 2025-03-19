@@ -40,17 +40,20 @@ public class PersonContainsKeywordsPredicate implements Predicate<Person> {
 
     @Override
     public boolean test(Person person) {
-        return (isSearchByName && keywords.stream()
-                .anyMatch(keyword -> StringUtil.containsPhraseIgnoreCase(person.getName().fullName, keyword)))
+        return (isSearchByName && matches(person.getName().fullName))
                 || (isSearchByPhone && keywords.stream()
                 .anyMatch(keyword -> StringUtil.containsPhraseIgnoreCase(person.getPhone().value, keyword)))
-                || (isSearchByEmail && keywords.stream()
-                .anyMatch(keyword -> StringUtil.containsPhraseIgnoreCase(person.getEmail().value, keyword)))
-                || (isSearchByAddress && keywords.stream()
-                .anyMatch(keyword -> StringUtil.containsPhraseIgnoreCase(person.getAddress().value, keyword)))
+                || (isSearchByEmail && matches(person.getEmail().value))
+                || (isSearchByAddress && matches(person.getAddress().value))
                 || (isSearchByTags && person.getTags().stream()
                 .anyMatch(tag -> keywords.stream()
                         .anyMatch(keyword -> StringUtil.containsPhraseIgnoreCase(tag.tagName, keyword))));
+    }
+
+    private boolean matches(String fieldValue) {
+        return keywords.stream().anyMatch(keyword ->
+                StringUtil.containsPhraseIgnoreCase(fieldValue, keyword) || StringUtil.isSimilar(fieldValue, keyword, 2)
+        );
     }
 
     @Override
