@@ -106,7 +106,20 @@ public class StringUtil {
         return dp[s1.length()][s2.length()];
     }
 
+    /**
+     * Checks if any word in the given field value is similar to the provided keyword
+     * using the Levenshtein distance metric.
+     *
+     * @param fieldValue The field value to be checked, which may contain multiple words.
+     * @param keyword The keyword to compare against the words in the field value.
+     * @param threshold The maximum allowable Levenshtein distance for a match.
+     * @return {@code true} if any word in the field value is within the threshold distance from the keyword,
+     *     {@code false} otherwise.
+     */
     public static boolean isSimilar(String fieldValue, String keyword, int threshold) {
-        return levenshteinDistance(fieldValue.toLowerCase(), keyword.toLowerCase()) <= threshold;
+        String[] words = fieldValue.split("\\s+");
+
+        return Arrays.stream(words).anyMatch(word ->
+                levenshteinDistance(word.toLowerCase(), keyword.toLowerCase()) <= threshold);
     }
 }
