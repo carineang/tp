@@ -6,6 +6,10 @@ import seedu.address.commons.util.ToStringBuilder;
 import seedu.address.logic.Messages;
 import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.model.Model;
+import seedu.address.model.person.Note;
+import seedu.address.model.person.Person;
+
+import java.util.List;
 
 import static java.util.Objects.requireNonNull;
 import static seedu.address.commons.util.CollectionUtil.requireAllNonNull;
@@ -23,7 +27,7 @@ public class ViewNoteCommand extends Command {
             + "Parameters: INDEX (must be a positive integer)\n"
             + "Example: " + COMMAND_WORD + " 1";
 
-    public static final String MESSAGE_VIEW_NOTE_PERSON_SUCCESS = "Successfully displayed note";
+    public static final String MESSAGE_VIEW_NOTE_PERSON_SUCCESS = "Successfully displaying note: \n %1$s";
 
     private final Index targetIndex;
 
@@ -40,7 +44,16 @@ public class ViewNoteCommand extends Command {
     public CommandResult execute(Model model) throws CommandException {
         requireNonNull(model);
 
-        return new CommandResult(String.format(MESSAGE_VIEW_NOTE_PERSON_SUCCESS));
+        List<Person> lastShownList = model.getFilteredPersonList();
+
+        if (targetIndex.getZeroBased() >= lastShownList.size()) {
+            throw new CommandException(Messages.MESSAGE_INVALID_PERSON_DISPLAYED_INDEX);
+        }
+
+        Person personToView = lastShownList.get(targetIndex.getZeroBased());
+        Note note = personToView.getNote();
+
+        return new CommandResult(String.format(MESSAGE_VIEW_NOTE_PERSON_SUCCESS, note.toString()));
     }
 
     @Override
