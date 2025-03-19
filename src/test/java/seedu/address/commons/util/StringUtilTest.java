@@ -1,5 +1,6 @@
 package seedu.address.commons.util;
 
+import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 import static seedu.address.testutil.Assert.assertThrows;
@@ -140,4 +141,53 @@ public class StringUtilTest {
         assertThrows(NullPointerException.class, () -> StringUtil.getDetails(null));
     }
 
+    @Test
+    public void levenshteinDistance_identicalStrings_returnsZero() {
+        assertEquals(0, StringUtil.levenshteinDistance("hello", "hello"));
+    }
+
+    @Test
+    public void levenshteinDistance_oneDeletion_returnsOne() {
+        assertEquals(1, StringUtil.levenshteinDistance("cats", "cat"));
+    }
+
+    @Test
+    public void levenshteinDistance_oneSubstitution_returnsOne() {
+        assertEquals(1, StringUtil.levenshteinDistance("kitten", "kitton"));
+    }
+
+    @Test
+    public void levenshteinDistance_completelyDifferentStrings_returnsMax() {
+        assertEquals(5, StringUtil.levenshteinDistance("abcde", "vwxyz"));
+    }
+
+    @Test
+    public void isSimilar_exactMatch_returnsTrue() {
+        assertTrue(StringUtil.isSimilar("hello", "hello", 2));
+    }
+
+    @Test
+    public void isSimilar_typoWithinThreshold_returnsTrue() {
+        assertTrue(StringUtil.isSimilar("hello", "hallo", 2));
+    }
+
+    @Test
+    public void isSimilar_typoBeyondThreshold_returnsFalse() {
+        assertFalse(StringUtil.isSimilar("hello", "world", 2));
+    }
+
+    @Test
+    public void isSimilar_matchOne_returnsTrue() {
+        assertTrue(StringUtil.isSimilar("apple orange banana", "appl", 2));
+    }
+
+    @Test
+    public void isSimilar_noMatch_returnsFalse() {
+        assertFalse(StringUtil.isSimilar("apple orange banana", "grape", 2));
+    }
+
+    @Test
+    public void isSimilar_tooDissimilar_returnsFalse() {
+        assertFalse(StringUtil.isSimilar("elephant", "elpht", 1)); // Needs 2 edits but threshold is 1
+    }
 }
