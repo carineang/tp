@@ -8,6 +8,8 @@ import static seedu.address.logic.commands.CommandTestUtil.VALID_TAG_HUSBAND;
 import static seedu.address.testutil.Assert.assertThrows;
 import static seedu.address.testutil.TypicalPersons.ALICE;
 import static seedu.address.testutil.TypicalPersons.BOB;
+import static seedu.address.testutil.TypicalPersons.ISABELLE;
+import static seedu.address.testutil.TypicalPersons.RACHEL;
 
 import java.util.Arrays;
 import java.util.Collections;
@@ -200,6 +202,14 @@ public class UniquePersonListTest {
         uniquePersonList.add(BOB);
         uniquePersonList.sortBy("p/");
         assertEquals(BOB, uniquePersonList.asUnmodifiableObservableList().get(0));
+    }
+
+    @Test
+    public void sortBy_phonePrefix_sortsByLongPhoneNumber() {
+        uniquePersonList.add(RACHEL);
+        uniquePersonList.add(ISABELLE);
+        uniquePersonList.sortBy("p/");
+        assertEquals(ISABELLE, uniquePersonList.asUnmodifiableObservableList().get(0));
     }
 
     @Test
