@@ -55,6 +55,14 @@ public class TypicalPersons {
             .withEmail("hans@example.com").withAddress("chicago ave")
             .withNote("").build();
 
+    public static final Person ISABELLE = new PersonBuilder().withName("Isabelle Sterling").withPhone("908274893759213")
+            .withEmail("isabelle@example.com").withAddress("merlion ave")
+            .withNote("").build();
+
+    public static final Person RACHEL = new PersonBuilder().withName("Rachel Sterling").withPhone("945840238475638")
+            .withEmail("rachel@example.com").withAddress("river ave")
+            .withNote("").build();
+
     // Manually added - Person's details found in {@code CommandTestUtil}
     public static final Person AMY = new PersonBuilder().withName(VALID_NAME_AMY).withPhone(VALID_PHONE_AMY)
             .withEmail(VALID_EMAIL_AMY).withAddress(VALID_ADDRESS_AMY).withTags(VALID_TAG_FRIEND).build();

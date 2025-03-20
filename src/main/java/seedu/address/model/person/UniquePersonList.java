@@ -3,6 +3,7 @@ package seedu.address.model.person;
 import static java.util.Objects.requireNonNull;
 import static seedu.address.commons.util.CollectionUtil.requireAllNonNull;
 
+import java.math.BigInteger;
 import java.util.Comparator;
 import java.util.Iterator;
 import java.util.List;
@@ -205,7 +206,7 @@ public class UniquePersonList implements Iterable<Person> {
      * Sort the list by phone number.
      */
     private void sortByPhoneNumber() {
-        internalList.sort(Comparator.comparing(p -> Integer.parseInt(p.getPhone().toString())));
+        internalList.sort(Comparator.comparing(p -> new BigInteger(p.getPhone().toString())));
     }
 
     /**

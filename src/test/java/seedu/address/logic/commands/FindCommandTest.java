@@ -149,4 +149,27 @@ public class FindCommandTest {
         assertCommandSuccess(command, model, expectedMessage, expectedModel);
         assertEquals(Collections.emptyList(), model.getFilteredPersonList());
     }
+
+    @Test
+    public void execute_typoWithinThreshold_success() {
+        String expectedMessage = String.format(Messages.MESSAGE_PERSONS_LISTED_OVERVIEW, 1);
+        List<String> keywords = Collections.singletonList("Alcie");
+        PersonContainsKeywordsPredicate predicate = new PersonContainsKeywordsPredicate(keywords, true, false,
+                false, false, false);
+        FindCommand command = new FindCommand(predicate);
+        expectedModel.updateFilteredPersonList(predicate);
+        assertCommandSuccess(command, model, expectedMessage, expectedModel);
+    }
+
+    @Test
+    public void execute_typoBeyondThreshold_noResults() {
+        // Searching for "Axiew" should not match Alice (if threshold is 2)
+        String expectedMessage = String.format(Messages.MESSAGE_PERSONS_LISTED_OVERVIEW, 0);
+        List<String> keywords = Collections.singletonList("Axiew");
+        PersonContainsKeywordsPredicate predicate = new PersonContainsKeywordsPredicate(keywords, true, false,
+                false, false, false);
+        FindCommand command = new FindCommand(predicate);
+        expectedModel.updateFilteredPersonList(predicate);
+        assertCommandSuccess(command, model, expectedMessage, expectedModel);
+    }
 }
