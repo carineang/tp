@@ -1,10 +1,10 @@
 /* Theme colors */
 .root {
-    -fx-bg: #fff;
+    -fx-bg: #F5F5EF;
     -fx-text: #000;
-    -fx-primary: #FFBF61;
-    -fx-secondary: #E9EED9;
-    -fx-secondary-bg: #FEF9F2;
+    -fx-primary: #FFBB61;
+    -fx-secondary: #CEBB9D;
+    -fx-secondary-bg: #EBE6E1;
     -fx-secondary-select: #B0E0E6;
     -fx-focus: derive(-fx-primary, -40%);
     -fx-link: #3e7b91;
