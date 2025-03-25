@@ -26,6 +26,7 @@ public class Person {
     private final Address address;
     private final Set<Tag> tags = new HashSet<>();
     private final Note note;
+    private Pin pin;
 
     /**
      * Every parameter must be present and not null.
@@ -45,6 +46,19 @@ public class Person {
         this.address = address;
         this.tags.addAll(tags);
         this.note = note;
+        this.pin = new Pin(false);
+
+    }
+
+    public Person(Name name, Phone phone, Email email, Address address, Note note, Set<Tag> tags, Pin pin) {
+        requireAllNonNull(name, phone, email, address, note, tags, pin);
+        this.name = name;
+        this.phone = phone;
+        this.email = email;
+        this.address = address;
+        this.tags.addAll(tags);
+        this.note = note;
+        this.pin = pin;
     }
 
     public Name getName() {
@@ -66,6 +80,8 @@ public class Person {
     public Note getNote() {
         return note;
     }
+
+    public Pin getPin() { return pin; }
 
     /**
      * Returns an immutable tag set, which throws {@code UnsupportedOperationException}
@@ -109,13 +125,14 @@ public class Person {
                 && email.equals(otherPerson.email)
                 && address.equals(otherPerson.address)
                 && tags.equals(otherPerson.tags)
-                && note.equals(otherPerson.note);
+                && note.equals(otherPerson.note)
+                && pin.equals(otherPerson.pin);
     }
 
     @Override
     public int hashCode() {
         // use this method for custom fields hashing instead of implementing your own
-        return Objects.hash(name, phone, email, address, tags, note);
+        return Objects.hash(name, phone, email, address, tags, note, pin);
     }
 
     @Override
@@ -127,6 +144,7 @@ public class Person {
                 .add("address", address)
                 .add("tags", tags)
                 .add("note", note)
+                .add("pin", pin)
                 .toString();
     }
 

@@ -24,7 +24,6 @@ public class PinCommand extends Command {
             + "Parameters: INDEX (must be a positive integer)\n"
             + "Example: " + COMMAND_WORD + " 1";
 
-    public static final String MESSAGE_NOT_IMPLEMENTED_YET = "Pin command not implemented yet";
 
     public static final String MESSAGE_ARGUMENTS = "Index: %1$d";
 
