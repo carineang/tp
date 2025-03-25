@@ -29,7 +29,7 @@ We are a team based in the [School of Computing, National University of Singapor
 
 <img src="images/carineang.png" width="200px">
 
-[[github](https://github.com/carineang)] 
+[[github](https://github.com/carineang)]
 
 * Role: Developer
 * Responsibilities: Feature Development, UI
