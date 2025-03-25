@@ -35,6 +35,15 @@ public class ParserUtil {
         return Index.fromOneBased(Integer.parseInt(trimmedIndex));
     }
 
+    public static Set<Index> parseIndexes(Collection<String> oneBasedIndexes) throws ParseException {
+        requireNonNull(oneBasedIndexes);
+        final Set<Index> indexSet = new HashSet<>();
+        for (String oneBasedIndex : oneBasedIndexes) {
+            indexSet.add(parseIndex(oneBasedIndex));
+        }
+        return indexSet;
+    }
+
     /**
      * Parses a {@code String name} into a {@code Name}.
      * Leading and trailing whitespaces will be trimmed.
