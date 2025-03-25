@@ -15,10 +15,9 @@
 }
 
 .label-header {
-    -fx-font-size: 32pt;
-    -fx-font-family: "Segoe UI Light";
-    -fx-text-fill: -fx-text;
-    -fx-opacity: 1;
+    -fx-font-size: 14pt;
+    -fx-font-family: "Segoe UI Semibold";
+    -fx-text-fill: #A9A9A9;
 }
 
 .text-field {
@@ -122,11 +121,10 @@
     -fx-background-color: derive(-fx-secondary-bg, -5%);
 }
 
-/*.list-cell:filled:selected {
-    -fx-background-color: -fx-primary !important;
-    -fx-border-color: derive(-fx-primary, -20%);
+.list-cell:filled:selected {
+    -fx-background-color: -fx-secondary-select !important;
     -fx-border-width: 1;
-}*/
+}
 
 .list-cell:filled:selected #cardPane {
     -fx-border-color: #3e7b91;
@@ -134,6 +132,10 @@
 }
 
 .list-cell .label {
+    -fx-text-fill: black;
+}
+
+.label-title {
     -fx-text-fill: black;
 }
 
@@ -192,7 +194,7 @@
 }
 
 .grid-pane {
-    -fx-background-color: -fx-bg
+    -fx-background-color: -fx-bg;
     -fx-border-color: -fx-bg;
     -fx-border-width: 1px;
 }
