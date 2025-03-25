@@ -1,0 +1,38 @@
+@startuml
+!include style.puml
+skinparam ArrowFontStyle plain
+
+box Ui UI_COLOR_T1
+participant ":CommandHistoryMenu" as CommandHistoryMenu UI_COLOR
+participant ":CommandHistoryMenuController" as CommandHistoryMenuController UI_COLOR
+end box
+participant "root:Region" as Region UI_COLOR_T4
+
+CommandHistoryMenu -> Region : setVisible(true)
+Region --> CommandHistoryMenu
+
+[-> CommandHistoryMenu : handleMovementUp()
+activate CommandHistoryMenu
+
+CommandHistoryMenu -> CommandHistoryMenuController : moveUp() selected index
+activate CommandHistoryMenuController
+
+CommandHistoryMenuController --> CommandHistoryMenu
+deactivate CommandHistoryMenuController
+
+CommandHistoryMenu -> CommandHistoryMenuController : getCommandSelectionIndex()
+activate CommandHistoryMenuController
+
+CommandHistoryMenuController --> CommandHistoryMenu : Optional(integer index)
+deactivate CommandHistoryMenuController
+
+note over CommandHistoryMenu #FFAAAA
+    If the returned index is not empty,
+    Update the javafx ListView to highlight
+    the list element for that index.
+    end note
+
+[<-- CommandHistoryMenu
+deactivate CommandHistoryMenu
+
+@enduml

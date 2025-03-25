@@ -1,0 +1,15 @@
+@startuml
+!include style.puml
+hide footbox
+skinparam linetype ortho
+
+participant ":Logic" as logic LOGIC_COLOR
+participant ":Model" as model MODEL_COLOR
+
+group sd Save command input
+    logic -[LOGIC_COLOR]> model : addPastCommandInput(commandText)
+    activate model MODEL_COLOR
+    model --[MODEL_COLOR]> logic
+    deactivate model
+end
+@enduml
