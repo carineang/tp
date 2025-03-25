@@ -14,20 +14,35 @@ import seedu.address.commons.core.index.Index;
 import seedu.address.logic.parser.exceptions.ParseException;
 
 /**
- * Provides utility methods for parsing multiple 1-based indexes in command arguments.
+ * Provides utility methods for parsing multiple 1-based indexes in command arguments,
+ * which are values prefixed with m/ and formatted according to either {@link MassOpsIndexParser#SPACED_INDEX_PATTERN}
+ * or {@link MassOpsIndexParser#RANGE_INDEX_PATTERN} patterns.
  */
 public class MassOpsIndexParser {
 
-    public static final int MAX_OPERATIONS_RANGE = 100;
-    public static final String MESSAGE_OPS_RANGE_TOO_LARGE = "Index range is too large!";
-    public static final String MESSAGE_INVALID_MASS_OPS_FORMAT = "Mass ops index format is invalid.";
-    public static final String MESSAGE_INVALID_INDEX_RANGE = "Invalid index range specified!"
-            + " Start index should be less than or equal to end index.";
-    public static final String MESSAGE_INVALID_INDEX = "Invalid index specified. "
-            + "Index should be a non-zero integer."
+    static final int MAX_OPERATIONS_SIZE = 100;
+    static final String MESSAGE_RANGE_INDEX_CONSTRAINT = "Start index should be less than or equal to end index.";
+    static final String MESSAGE_RANGE_CONSTRAINT =
+            "Number of specified indices should not exceed " + MAX_OPERATIONS_SIZE
+            + " indexes.";
+    static final String MESSAGE_MASS_OPS_CONSTRAINTS = "Constraints:"
             + System.lineSeparator()
-            + "Valid index formats: 1, 2, 3, ..., " + Integer.MAX_VALUE;
+            + "1. Index should be a non-zero integer."
+            + System.lineSeparator()
+            + " Valid index formats: 1, 2, 3, ..., " + Integer.MAX_VALUE
+            + System.lineSeparator()
+            + "2. " + MESSAGE_RANGE_INDEX_CONSTRAINT
+            + System.lineSeparator()
+            + "3. " + MESSAGE_RANGE_CONSTRAINT;
 
+    public static final String MESSAGE_RANGE_SIZE_EXCEEDED = "Number of specified indexes exceeded limit."
+            + System.lineSeparator() + MESSAGE_MASS_OPS_CONSTRAINTS;
+
+    public static final String MESSAGE_INVALID_INDEX = "Invalid mass-ops indexes specified."
+            + System.lineSeparator() + MESSAGE_MASS_OPS_CONSTRAINTS;
+
+    public static final String MESSAGE_INVALID_RANGE_ORDER = "Start index should not be greater than end index."
+            + System.lineSeparator() + MESSAGE_MASS_OPS_CONSTRAINTS;
 
     // These two patterns should match mutually exclusively (both cannot be true at the same time).
     private static final Pattern SPACED_INDEX_PATTERN = Pattern.compile(
@@ -37,8 +52,9 @@ public class MassOpsIndexParser {
     );
 
     /**
-     * Parses the given {@code String} of arguments in the context of the MassOpsIndexParser
-     * and returns a Set of Index objects for execution.
+     * Parses the given string argument according to the spaced and ranged parsing formats.
+     * Space format e.g.: "1 2 3 4 5", Range format: "1-200"
+     * Returns a Set of Index objects for command execution.
      * Leading and trailing spaces are ignored in the matching.
      *
      * @throws ParseException if the user input does not conform the expected format
@@ -51,7 +67,7 @@ public class MassOpsIndexParser {
         final boolean isSpacedMatch = spacedMatcher.matches();
         final boolean isRangedMatch = rangedMatcher.matches();
         if (!isSpacedMatch && !isRangedMatch) {
-            throw new ParseException(MESSAGE_INVALID_MASS_OPS_FORMAT);
+            throw new ParseException(MESSAGE_INVALID_INDEX);
         }
         if (isSpacedMatch) {
             assert !isRangedMatch;
@@ -79,11 +95,11 @@ public class MassOpsIndexParser {
         final int oneBasedEndIndex = Integer.parseInt(endIndexString);
 
         if (oneBasedStartIndex > oneBasedEndIndex) {
-            throw new ParseException(MESSAGE_INVALID_INDEX_RANGE);
+            throw new ParseException(MESSAGE_INVALID_RANGE_ORDER);
         }
 
-        if ((long) oneBasedEndIndex - (long) oneBasedStartIndex + 1 > MAX_OPERATIONS_RANGE) {
-            throw new ParseException(MESSAGE_OPS_RANGE_TOO_LARGE);
+        if ((long) oneBasedEndIndex - (long) oneBasedStartIndex + 1 > MAX_OPERATIONS_SIZE) {
+            throw new ParseException(MESSAGE_RANGE_SIZE_EXCEEDED);
         }
 
         Set<Index> indexes = new HashSet<>();
@@ -100,6 +116,17 @@ public class MassOpsIndexParser {
 
         String rawIndexes = spacedMatcher.group("indexes").trim();
         Collection<String> oneBasedIndexStrings = Arrays.asList(rawIndexes.split("\\s+"));
-        return ParserUtil.parseIndexes(oneBasedIndexStrings);
+        Set<Index> indexes;
+        try {
+            indexes = ParserUtil.parseIndexes(oneBasedIndexStrings);
+        } catch (ParseException pe) {
+            throw new ParseException(MESSAGE_INVALID_INDEX, pe);
+        }
+
+        if (indexes.size() > MAX_OPERATIONS_SIZE) {
+            throw new ParseException(MESSAGE_RANGE_SIZE_EXCEEDED);
+        } else {
+            return indexes;
+        }
     }
 }
