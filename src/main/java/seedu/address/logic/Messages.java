@@ -1,5 +1,8 @@
 package seedu.address.logic;
 
+import static seedu.address.commons.util.CollectionUtil.requireAllNonNull;
+
+import java.util.Collection;
 import java.util.Set;
 import java.util.stream.Collectors;
 import java.util.stream.Stream;
@@ -50,6 +53,19 @@ public class Messages {
         builder.append("; Note: ")
                 .append(person.getNote());
         return builder.toString();
+    }
+
+    /**
+     * Formats a group of persons for display to the user.
+     *
+     * @param persons The group of persons to be formatted.
+     * @return The formatted string to be displayed.
+     */
+    public static String format(Collection<? extends Person> persons) {
+        requireAllNonNull(persons);
+        return persons.stream()
+                .map(Messages::format)
+                .collect(Collectors.joining(System.lineSeparator()));
     }
 
 }
