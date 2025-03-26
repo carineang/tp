@@ -15,7 +15,8 @@ import seedu.address.logic.parser.exceptions.ParseException;
 
 /**
  * Provides utility methods for parsing multiple 1-based indexes in command arguments,
- * which are values prefixed with m/ and formatted according to either {@link MassOpsIndexParser#SPACED_INDEX_PATTERN}
+ * which are values prefixed with {@link CliSyntax#PREFIX_MASS_OPS}
+ * and formatted according to either {@link MassOpsIndexParser#SPACED_INDEX_PATTERN}
  * or {@link MassOpsIndexParser#RANGE_INDEX_PATTERN} patterns.
  */
 public class MassOpsIndexParser {
@@ -52,8 +53,8 @@ public class MassOpsIndexParser {
     );
 
     /**
-     * Parses the given string argument according to the spaced and ranged parsing formats.
-     * Space format e.g.: "1 2 3 4 5", Range format: "1-200"
+     * Parses the given string argument according to the spaced and ranged parsing formats. <br/>
+     * Space format e.g.: "1 2 3 4 5", Range format: "1-200". <br/>
      * Returns a Set of Index objects for command execution.
      * Leading and trailing spaces are ignored in the matching.
      *
@@ -61,11 +62,13 @@ public class MassOpsIndexParser {
      */
     public Set<Index> parseIndexes(String args) throws ParseException {
         requireNonNull(args);
+
         final Matcher spacedMatcher = SPACED_INDEX_PATTERN.matcher(args.trim());
         final Matcher rangedMatcher = RANGE_INDEX_PATTERN.matcher(args.trim());
 
         final boolean isSpacedMatch = spacedMatcher.matches();
         final boolean isRangedMatch = rangedMatcher.matches();
+
         if (!isSpacedMatch && !isRangedMatch) {
             throw new ParseException(MESSAGE_INVALID_INDEX);
         }
@@ -73,8 +76,8 @@ public class MassOpsIndexParser {
             assert !isRangedMatch;
             return parseSpacedIndexes(spacedMatcher);
         }
-        return parseRangedIndexes(rangedMatcher);
 
+        return parseRangedIndexes(rangedMatcher);
     }
 
     private Set<Index> parseRangedIndexes(Matcher rangedMatcher) throws ParseException {
@@ -116,6 +119,7 @@ public class MassOpsIndexParser {
 
         String rawIndexes = spacedMatcher.group("indexes").trim();
         Collection<String> oneBasedIndexStrings = Arrays.asList(rawIndexes.split("\\s+"));
+
         Set<Index> indexes;
         try {
             indexes = ParserUtil.parseIndexes(oneBasedIndexStrings);

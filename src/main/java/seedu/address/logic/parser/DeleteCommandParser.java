@@ -24,7 +24,7 @@ public class DeleteCommandParser implements Parser<DeleteCommand> {
     public DeleteCommand parse(String args) throws ParseException {
         try {
             ArgumentMultimap argMultimap = ArgumentTokenizer.tokenize(args, PREFIX_MASS_OPS);
-            // At most one m/ prefix is allowed
+            // At most one such prefix is allowed
             argMultimap.verifyNoDuplicatePrefixesFor(PREFIX_MASS_OPS);
 
             Optional<String> maybeMassOps = argMultimap.getValue(PREFIX_MASS_OPS);

@@ -32,7 +32,7 @@ public class DeleteCommandParserTest {
     @Test
     public void parse_invalidArgs_throwsParseException() {
         assertParseFailure(parser, "a", String.format(MESSAGE_INVALID_COMMAND_FORMAT, DeleteCommand.MESSAGE_USAGE));
-        assertParseFailure(parser, "m/123", String.format(MESSAGE_INVALID_COMMAND_FORMAT, DeleteCommand.MESSAGE_USAGE));
+        assertParseFailure(parser, "i/123", String.format(MESSAGE_INVALID_COMMAND_FORMAT, DeleteCommand.MESSAGE_USAGE));
     }
 
     @Test
@@ -40,25 +40,25 @@ public class DeleteCommandParserTest {
         DeleteCommand expectedCommand = new DeleteCommand(
                 Set.of(INDEX_FIRST_PERSON, INDEX_SECOND_PERSON, INDEX_THIRD_PERSON));
 
-        assertParseSuccess(parser, " m/1 2 3", expectedCommand);
-        assertParseSuccess(parser, " m/ 1 2 3  ", expectedCommand);
-        assertParseSuccess(parser, " m/1-3 ", expectedCommand);
-        assertParseSuccess(parser, " m/3 ", new DeleteCommand(INDEX_THIRD_PERSON));
+        assertParseSuccess(parser, " i/1 2 3", expectedCommand);
+        assertParseSuccess(parser, " i/ 1 2 3  ", expectedCommand);
+        assertParseSuccess(parser, " i/1-3 ", expectedCommand);
+        assertParseSuccess(parser, " i/3 ", new DeleteCommand(INDEX_THIRD_PERSON));
     }
 
     @Test
     public void parse_invalidMassOpsArgs_throwsException() {
-        assertParseFailure(parser, " m/12- 2 3 4",
+        assertParseFailure(parser, " i/12- 2 3 4",
                 String.format(MESSAGE_INVALID_COMMAND_FORMAT, DeleteCommand.MESSAGE_USAGE));
-        assertParseFailure(parser, " m/1-3-4",
+        assertParseFailure(parser, " i/1-3-4",
                 String.format(MESSAGE_INVALID_COMMAND_FORMAT, DeleteCommand.MESSAGE_USAGE));
-        assertParseFailure(parser, " m/1-3 4",
+        assertParseFailure(parser, " i/1-3 4",
                 String.format(MESSAGE_INVALID_COMMAND_FORMAT, DeleteCommand.MESSAGE_USAGE));
-        assertParseFailure(parser, " m/1-3 4-5",
+        assertParseFailure(parser, " i/1-3 4-5",
                 String.format(MESSAGE_INVALID_COMMAND_FORMAT, DeleteCommand.MESSAGE_USAGE));
 
         // out-of-range index
-        assertParseFailure(parser, " m/1243474758943-234875783495789345",
+        assertParseFailure(parser, " i/1243474758943-234875783495789345",
                 String.format(MESSAGE_INVALID_COMMAND_FORMAT, DeleteCommand.MESSAGE_USAGE));
     }
 }

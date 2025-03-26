@@ -29,15 +29,15 @@ public class DeleteCommand extends Command {
             + System.lineSeparator()
             + "For deleting multiple persons at once:"
             + System.lineSeparator()
-            + "1. (Spaced format) Parameters: m/INDEX1 INDEX2 INDEX3 ... INDEXN (Each INDEX must be a positive "
+            + "1. (Spaced format) Parameters: i/INDEX1 INDEX2 INDEX3 ... INDEXN (Each INDEX must be a positive "
             + "integer.)"
             + System.lineSeparator()
-            + " Example: " + COMMAND_WORD + " m/1 2 3 4 5"
+            + " Example: " + COMMAND_WORD + " i/1 2 3 4 5"
             + System.lineSeparator()
-            + "2. (Ranged format) Parameters: m/START_INDEX-END_INDEX (START_INDEX and END_INDEX "
+            + "2. (Ranged format) Parameters: i/START_INDEX-END_INDEX (START_INDEX and END_INDEX "
             + "must be a positive integer.)"
             + System.lineSeparator()
-            + " Example: " + COMMAND_WORD + " m/9-99";
+            + " Example: " + COMMAND_WORD + " i/9-99";
 
     public static final String MESSAGE_DELETE_PERSON_SUCCESS = "Deleted Person(s): "
             + System.lineSeparator()
@@ -45,6 +45,7 @@ public class DeleteCommand extends Command {
 
     /** Specifies the highest index to be the element at the start of {@code targetIndexes}. */
     private static final Integer HIGHEST_TARGET_INDEX_POSITION = 0;
+
     /**
      * This instance variable must obey the following constraints:
      * 1. Unique
