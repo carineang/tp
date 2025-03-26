@@ -26,7 +26,15 @@ public class VersionedAddressBook extends AddressBook {
 
     }
 
-    public VersionedAddressBook() {}
+    public VersionedAddressBook() {
+        super();
+
+        addressBookStateList = new ArrayList<>();
+
+        addressBookStateList.add(this);
+
+        currentStatePointer = 0;
+    }
 
     public void commit() {
 
