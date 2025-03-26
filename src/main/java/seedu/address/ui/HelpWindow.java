@@ -16,7 +16,15 @@ import seedu.address.commons.core.LogsCenter;
 public class HelpWindow extends UiPart<Stage> {
 
     public static final String USERGUIDE_URL = "https://ay2425s2-cs2103t-t17-1.github.io/tp/UserGuide.html";
-    public static final String HELP_MESSAGE = "Refer to the user guide: " + USERGUIDE_URL;
+    public static final String HELP_MESSAGE = "Here are the available commands:\n"
+            + "1. `add`: Add a person.\n"
+            + "2. `exit`: Exit the program.\n"
+            + "3. `find`: Find a person based on keyword.\n"
+            + "4. `sort`: Sort the list of persons.\n"
+            + "5. `list`: List all persons.\n"
+            + "6. `delete`: Delete a person.\n"
+            + "Use `help <command>` for detailed information about a specific command.\n\n"
+            + "Refer to the full user guide: " + USERGUIDE_URL;
 
     private static final Logger logger = LogsCenter.getLogger(HelpWindow.class);
     private static final String FXML = "HelpWindow.fxml";
@@ -35,6 +43,17 @@ public class HelpWindow extends UiPart<Stage> {
     public HelpWindow(Stage root) {
         super(FXML, root);
         helpMessage.setText(HELP_MESSAGE);
+    }
+
+    /**
+     * Creates a new HelpWindow with a custom help message.
+     *
+     * @param root Stage to use as the root of the HelpWindow.
+     * @param message The custom message to be displayed in the help window.
+     */
+    public HelpWindow(Stage root, String message) {
+        super(FXML, root);
+        helpMessage.setText(message);
     }
 
     /**
