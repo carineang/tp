@@ -14,6 +14,11 @@ activate ui UI_COLOR
 ui -[UI_COLOR]> logic : execute("delete 1")
 activate logic LOGIC_COLOR
 
+skinparam sequenceReferenceBackgroundColor #f7807c
+ref over logic, model
+    Save command input
+end ref
+
 logic -[LOGIC_COLOR]> model : deletePerson(p)
 activate model MODEL_COLOR
 

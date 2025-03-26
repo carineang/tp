@@ -427,7 +427,7 @@ Priorities: High (must have) - `* * *`, Medium (nice to have) - `* *`, Low (unli
 **MSS**:
 
 1. User requests to add a note to a contact.
-2. Notarius adds the note to the contact’s list of notes and confirms the successful addition of the note. 
+2. Notarius adds the note to the contact’s list of notes and confirms the successful addition of the note.
 
    Use case ends.
 
@@ -443,7 +443,7 @@ Priorities: High (must have) - `* * *`, Medium (nice to have) - `* *`, Low (unli
   * 1b2. User retypes the command.
   * Steps 1b-1b2 are repeated until the contact specified exists.
   * Use case resumes from step 2.
- 
+
 * 1c. Notarius uncovers an invalid note description.
   * 1c1. Notarius alerts the user about the error.
   * 1c2. User retypes the command with a valid note description format.
@@ -490,13 +490,13 @@ Priorities: High (must have) - `* * *`, Medium (nice to have) - `* *`, Low (unli
   * 1b2. User retypes the command.
   * Steps 1b-1b2 are repeated until the contact specified exists.
   * Use case resumes from step 2.
- 
+
 * 1c. Notarius is unable to find the specified note.
   * 1c1. Notarius alerts the user of the error.
   * 1c2. User retypes the command.
   * Steps 1c-1c2 are repeated until the specified note exists.
   * Use case resumes from step 2.
- 
+
 * 1d. Notarius uncovers an invalid note description.
   * 1d1. Notarius alerts the user about the error.
   * 1d2. User retypes the command with a valid note description format.
@@ -543,7 +543,7 @@ Priorities: High (must have) - `* * *`, Medium (nice to have) - `* *`, Low (unli
   * 1b2. User retypes the command with a valid note identifier format.
   * Steps 1b-1b2 are repeated until the contact identifier is valid.
   * Use case resumes from step 2.
- 
+
 * 1c. Notarius is unable to find the specified contact.
   * 1c1. Notarius alerts the user about the error.
   * 1c2. User retypes the command.
@@ -587,7 +587,7 @@ Priorities: High (must have) - `* * *`, Medium (nice to have) - `* *`, Low (unli
 
 * 2a. Notarius cannot find any notes related to the contact.
   * 2a1. Notarius alerts the user with a relevant message.
- 
+
 ### Non-Functional Requirements
 
 1. Should work on any _mainstream OS_ as long as it has Java `17` or above installed.
