@@ -113,7 +113,7 @@ public class ModelManager implements Model {
     @Override
     public void addPerson(Person person) {
         addressBook.addPerson(person);
-        updateFilteredPersonList(PREDICATE_SHOW_ALL_PERSONS);
+        updateFilteredPersonListCommitless(PREDICATE_SHOW_ALL_PERSONS);
 
         commitAddressBook();
     }
@@ -147,10 +147,15 @@ public class ModelManager implements Model {
 
     @Override
     public void updateFilteredPersonList(Predicate<Person> predicate) {
-        requireNonNull(predicate);
-        filteredPersons.setPredicate(predicate);
+        updateFilteredPersonListCommitless(predicate);
 
         commitAddressBook();
+    }
+
+    @Override
+    public void updateFilteredPersonListCommitless(Predicate<Person> predicate) {
+        requireNonNull(predicate);
+        filteredPersons.setPredicate(predicate);
     }
 
     @Override

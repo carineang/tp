@@ -85,6 +85,8 @@ public interface Model {
      */
     void updateFilteredPersonList(Predicate<Person> predicate);
 
+    void updateFilteredPersonListCommitless(Predicate<Person> predicate);
+
     /**
      * Adds a past command input to the list of past command inputs.
      *
