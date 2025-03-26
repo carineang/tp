@@ -28,8 +28,9 @@ public class HelpCommand extends Command {
         COMMAND_HELP.put("add", "Usage: add n/NAME p/PHONE e/EMAIL a/ADDRESS [t/TAG]...\n"
                 + "Adds a person to the address book.\nExample: "
                 + "add n/John Doe p/98765432 e/johnd@example.com a/311, Clementi Ave 2, #02-25");
-        COMMAND_HELP.put("delete", "Usage: delete INDEX\n"
-                + "Deletes the person at the specified index.\nExample: delete 2");
+        COMMAND_HELP.put("delete", "Usage: delete i/INDEX\n"
+                + "Deletes the person(s) identified by the index number(s) used in the displayed person list.\n"
+                + "Example: delete i/2-5");
         COMMAND_HELP.put("find", "Usage: find [n/\"NAME\"] [p/\"PHONE\"] [e/\"EMAIL\"] "
                 + "[a/\"ADDRESS\"] [t/\"TAG\"] \"KEYWORD\" [\"MORE_KEYWORDS\"]...\n"
                 + "Finds all persons whose specified fields contain any of the given keywords (case-insensitive).\n"
