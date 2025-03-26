@@ -4,6 +4,10 @@ import static seedu.address.logic.Messages.MESSAGE_INVALID_COMMAND_FORMAT;
 import static seedu.address.logic.parser.CommandParserTestUtil.assertParseFailure;
 import static seedu.address.logic.parser.CommandParserTestUtil.assertParseSuccess;
 import static seedu.address.testutil.TypicalIndexes.INDEX_FIRST_PERSON;
+import static seedu.address.testutil.TypicalIndexes.INDEX_SECOND_PERSON;
+import static seedu.address.testutil.TypicalIndexes.INDEX_THIRD_PERSON;
+
+import java.util.Set;
 
 import org.junit.jupiter.api.Test;
 
@@ -28,5 +32,33 @@ public class DeleteCommandParserTest {
     @Test
     public void parse_invalidArgs_throwsParseException() {
         assertParseFailure(parser, "a", String.format(MESSAGE_INVALID_COMMAND_FORMAT, DeleteCommand.MESSAGE_USAGE));
+        assertParseFailure(parser, "i/123", String.format(MESSAGE_INVALID_COMMAND_FORMAT, DeleteCommand.MESSAGE_USAGE));
+    }
+
+    @Test
+    public void parse_validMassOpsArgs_returnsDeleteCommand() {
+        DeleteCommand expectedCommand = new DeleteCommand(
+                Set.of(INDEX_FIRST_PERSON, INDEX_SECOND_PERSON, INDEX_THIRD_PERSON));
+
+        assertParseSuccess(parser, " i/1 2 3", expectedCommand);
+        assertParseSuccess(parser, " i/ 1 2 3  ", expectedCommand);
+        assertParseSuccess(parser, " i/1-3 ", expectedCommand);
+        assertParseSuccess(parser, " i/3 ", new DeleteCommand(INDEX_THIRD_PERSON));
+    }
+
+    @Test
+    public void parse_invalidMassOpsArgs_throwsException() {
+        assertParseFailure(parser, " i/12- 2 3 4",
+                String.format(MESSAGE_INVALID_COMMAND_FORMAT, DeleteCommand.MESSAGE_USAGE));
+        assertParseFailure(parser, " i/1-3-4",
+                String.format(MESSAGE_INVALID_COMMAND_FORMAT, DeleteCommand.MESSAGE_USAGE));
+        assertParseFailure(parser, " i/1-3 4",
+                String.format(MESSAGE_INVALID_COMMAND_FORMAT, DeleteCommand.MESSAGE_USAGE));
+        assertParseFailure(parser, " i/1-3 4-5",
+                String.format(MESSAGE_INVALID_COMMAND_FORMAT, DeleteCommand.MESSAGE_USAGE));
+
+        // out-of-range index
+        assertParseFailure(parser, " i/1243474758943-234875783495789345",
+                String.format(MESSAGE_INVALID_COMMAND_FORMAT, DeleteCommand.MESSAGE_USAGE));
     }
 }

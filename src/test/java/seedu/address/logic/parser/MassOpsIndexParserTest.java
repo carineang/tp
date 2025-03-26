@@ -1,0 +1,92 @@
+package seedu.address.logic.parser;
+
+
+import static org.junit.jupiter.api.Assertions.assertDoesNotThrow;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertThrows;
+import static seedu.address.testutil.TypicalIndexes.INDEX_FIRST_PERSON;
+import static seedu.address.testutil.TypicalIndexes.INDEX_SECOND_PERSON;
+import static seedu.address.testutil.TypicalIndexes.INDEX_THIRD_PERSON;
+
+import java.util.Set;
+
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Test;
+
+import seedu.address.commons.core.index.Index;
+import seedu.address.logic.parser.exceptions.ParseException;
+
+public class MassOpsIndexParserTest {
+    private MassOpsIndexParser massOpsIndexParser;
+    private final Set<Index> tripleIndexes = Set.of(INDEX_FIRST_PERSON, INDEX_SECOND_PERSON, INDEX_THIRD_PERSON);
+    private final Set<Index> doubleIndexes = Set.of(INDEX_FIRST_PERSON, INDEX_SECOND_PERSON);
+    private final String singleIndexString = "12345";
+    private final Set<Index> singleIndex = Set.of(Index.fromOneBased(Integer.parseInt(singleIndexString)));
+
+    @BeforeEach
+    public void setUp() {
+        massOpsIndexParser = new MassOpsIndexParser();
+    }
+    @Test
+    public void parseIndexes_validSpacePattern_success() {
+        assertDoesNotThrow(() -> tripleIndexes.equals(massOpsIndexParser.parseIndexes("1 2 3")));
+        assertDoesNotThrow(() -> tripleIndexes.equals(massOpsIndexParser.parseIndexes(" 1 2  3")));
+        assertDoesNotThrow(() -> doubleIndexes.equals(massOpsIndexParser.parseIndexes("1   2 ")));
+        assertDoesNotThrow(() -> doubleIndexes.equals(massOpsIndexParser.parseIndexes("   1   2 ")));
+        assertDoesNotThrow(() -> singleIndex.equals(massOpsIndexParser.parseIndexes(singleIndexString)));
+    }
+
+    @Test
+    public void parseIndexes_invalidSpacePattern_exceptionThrown() {
+        ParseException pe = assertThrows(ParseException.class, () -> massOpsIndexParser.parseIndexes("1    123oi"));
+        assertEquals(MassOpsIndexParser.MESSAGE_INVALID_INDEX, pe.getMessage());
+    }
+
+    @Test
+    public void parseIndexes_overflowingIndex_exceptionThrown() {
+        ParseException pe = assertThrows(
+                ParseException.class, () -> massOpsIndexParser.parseIndexes("18327234238349853457834975"));
+        assertEquals(MassOpsIndexParser.MESSAGE_INVALID_INDEX, pe.getMessage());
+
+        ParseException pe1 = assertThrows(
+                ParseException.class, () -> massOpsIndexParser.parseIndexes("1293889123-124823723857349852378329747"));
+        assertEquals(MassOpsIndexParser.MESSAGE_INVALID_INDEX, pe1.getMessage());
+    }
+
+    @Test
+    public void parseIndexes_validRangePattern_success() {
+        assertDoesNotThrow(() -> tripleIndexes.equals(massOpsIndexParser.parseIndexes("1-3")));
+        assertDoesNotThrow(() -> tripleIndexes.equals(massOpsIndexParser.parseIndexes(" 1 - 3 ")));
+        assertDoesNotThrow(() -> doubleIndexes.equals(massOpsIndexParser.parseIndexes("1-2")));
+        assertDoesNotThrow(() -> doubleIndexes.equals(massOpsIndexParser.parseIndexes(" 1 -     2 ")));
+        assertDoesNotThrow(() -> singleIndex.equals(massOpsIndexParser.parseIndexes("12345-12345")));
+    }
+
+    @Test
+    public void parseIndexes_invalidRangePattern_exceptionThrown() {
+        ParseException pe = assertThrows(ParseException.class, () -> massOpsIndexParser.parseIndexes("1- 123oi"));
+        assertEquals(MassOpsIndexParser.MESSAGE_INVALID_INDEX, pe.getMessage());
+    }
+
+    @Test
+    public void parseIndexes_rangeExceedsLimit_exceptionThrown() {
+        ParseException pe = assertThrows(ParseException.class, () -> massOpsIndexParser.parseIndexes("1-101"));
+        assertEquals(MassOpsIndexParser.MESSAGE_RANGE_SIZE_EXCEEDED, pe.getMessage());
+
+        StringBuilder builder = new StringBuilder();
+        for (int i = 1; i <= MassOpsIndexParser.MAX_OPERATIONS_SIZE + 1; i++) {
+            builder.append(" ").append(i);
+        }
+        ParseException pe1 = assertThrows(
+                ParseException.class, () -> massOpsIndexParser.parseIndexes(builder.toString()));
+        assertEquals(MassOpsIndexParser.MESSAGE_RANGE_SIZE_EXCEEDED, pe1.getMessage());
+    }
+
+    @Test
+    public void parseIndexes_invalidRangeBoundOrder_exceptionThrown() {
+        ParseException pe = assertThrows(ParseException.class, () -> massOpsIndexParser.parseIndexes("100-2"));
+        assertEquals(MassOpsIndexParser.MESSAGE_INVALID_RANGE_ORDER, pe.getMessage());
+    }
+
+
+}
