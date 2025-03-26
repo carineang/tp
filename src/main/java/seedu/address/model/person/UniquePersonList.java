@@ -121,6 +121,25 @@ public class UniquePersonList implements Iterable<Person> {
         // Remove and reinsert at the first position
         internalList.remove(index);
         internalList.add(0, toPin);
+
+        // TODO: Add the pin object to the person ???
+    }
+
+    /**
+     * Unpins the person in the list if they were previously pinned.
+     * The person must exist in the list.
+     */
+    public void unpinPerson(Person toUnpin) {
+        requireNonNull(toUnpin);
+
+        int index = internalList.indexOf(toUnpin);
+        if (index == -1) {
+            throw new PersonNotFoundException();
+        }
+
+        // TODO: Remove and reinsert below all other pinned persons
+        //internalList.remove(index);
+        //internalList.add(0, toPin);
     }
 
 

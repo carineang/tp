@@ -94,8 +94,20 @@ public class AddressBook implements ReadOnlyAddressBook {
         persons.remove(key);
     }
 
+    /**
+     * Pins a person to the top of the address book.
+     * @param person
+     */
     public void pinPerson(Person person) {
         persons.pinPerson(person);
+    }
+
+    /**
+     * Unpins a person who was previously pinned.
+     * @param person
+     */
+    public void unpinPerson(Person person) {
+        persons.unpinPerson(person);
     }
 
     /**
