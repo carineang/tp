@@ -111,4 +111,14 @@ public interface Model {
      * @param prefix The prefix indicating the attribute to sort by.
      */
     void updateSortedFilteredPersonList(String prefix);
+
+    void commitAddressBook();
+
+    void undoAddressBook();
+
+    void redoAddressBook();
+
+    boolean addressBookHasUndo();
+
+    boolean addressBookHasRedo();
 }
