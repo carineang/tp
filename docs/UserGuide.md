@@ -58,20 +58,29 @@ title: User Guide
 * Parameters can be in any order.<br>
   e.g. if the command specifies `n/NAME p/PHONE_NUMBER`, `p/PHONE_NUMBER n/NAME` is also acceptable.
 
-* Extraneous parameters for commands that do not take in parameters (such as `help`, `list`, `exit` and `clear`) will be ignored.<br>
-  e.g. if the command specifies `help 123`, it will be interpreted as `help`.
+* Extraneous parameters for commands that do not take in parameters (such as `list`, `exit` and `clear`) will be ignored.<br>
+  e.g. if the command specifies `list 123`, it will be interpreted as `list`.
 
 * If you are using a PDF version of this document, be careful when copying and pasting commands that span multiple lines as space characters surrounding line-breaks may be omitted when copied over to the application.
 </div>
 
 ### Viewing help : `help`
 
-Shows a message explaning how to access the help page.
+The `help` command provides guidance on how to use the application, including available commands and their formats.
 
-![help message](images/helpMessage.png)
+Format: `help [COMMAND]`
 
-Format: `help`
+![help_message](images/helpMessage.png)
 
+* Display general help message when used without arguments.
+* Provides specific command help with format and example of usage 
+when a valid command name is specified.
+* Case-insensitive command lookup (e.g.`help FiNd` works for `find`).
+* Handles unknown commands gracefully, informing the user if the command does not exist.
+
+Examples:
+* `help add` displays the correct format and usage of the `add` command.
+* `help me` returns: `"Unknown command! Use 'help' to see available commands.`
 
 ### Adding a person: `add`
 
@@ -112,20 +121,27 @@ Examples:
 
 ### Locating persons by name: `find`
 
-Finds persons whose names contain any of the given keywords.
+The `find` command allows you to search for contacts based on their name,
+phone number, email, address, or tags.
 
-Format: `find KEYWORD [MORE_KEYWORDS]`
+Format: `find [n/"NAME" "MORE_NAMES"] [p/"PHONE" "MORE_PHONES"] 
+     [e/"EMAIL" "MORE_EMAILS"] [a/"ADDRESS" "MORE_ADDRESSES"] 
+     [t/"TAG" "MORE_TAGS"] `
 
-* The search is case-insensitive. e.g `hans` will match `Hans`
-* The order of the keywords does not matter. e.g. `Hans Bo` will match `Bo Hans`
-* Only the name is searched.
-* Only full words will be matched e.g. `Han` will not match `Hans`
-* Persons matching at least one keyword will be returned (i.e. `OR` search).
-  e.g. `Hans Bo` will return `Hans Gruber`, `Bo Yang`
+* Use double quotation marks (") around each keyword to ensure correct parsing.
+* The search is case-insensitive. e.g the name `hans` will match `Hans`
+* You can search by `name`, `phone number`, `email`, `address`, or `tags`.
+* Supports OR search: At least one field must match any of the provided keywords.
+* Allows small typos for `name`, `email` and `address` fields: 
+  - e.g. Searching for `Alce` will match `Alice`.
+  - Searching for `Bbo@example.com` will match `Bob@example.com.`
+* Supports multiple entries per field:
+  - e.g. `find n/"Alice" "Bob" p/"98765432" "91234567"`,
+  matches contacts named `Alice` or `Bob`, or with phone numbers `98765432` or `91234567`.
 
 Examples:
-* `find John` returns `john` and `John Doe`
-* `find alex david` returns `Alex Yeoh`, `David Li`<br>
+* `find p/"87438807" "91031282"` returns `Alex Yeoh` and `David Li`
+* `find n/"Alxe" "Davdi"` returns `Alex Yeoh`, `David Li`<br>
   ![result for 'find alex david'](images/findAlexDavidResult.png)
 
 ### Deleting a person : `delete`

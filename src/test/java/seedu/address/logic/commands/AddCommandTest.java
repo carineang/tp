@@ -167,6 +167,11 @@ public class AddCommandTest {
         }
 
         @Override
+        public void updateFilteredPersonListCommitless(Predicate<Person> predicate) {
+            throw new AssertionError("This method should not be called.");
+        }
+
+        @Override
         public void addPastCommandInput(String pastCommandInput) {
             throw new AssertionError("This method should not be called.");
         }
@@ -180,6 +185,32 @@ public class AddCommandTest {
         public void updateSortedFilteredPersonList(String prefix) {
             throw new AssertionError("This method should not be called.");
         }
+
+        @Override
+        public void commitAddressBook() {
+            throw new AssertionError("This method should not be called.");
+        }
+
+        @Override
+        public void undoAddressBook() {
+            throw new AssertionError("This method should not be called.");
+        }
+
+        @Override
+        public void redoAddressBook() {
+            throw new AssertionError("This method should not be called.");
+        }
+
+        @Override
+        public boolean addressBookHasUndo() {
+            return false;
+        }
+
+        @Override
+        public boolean addressBookHasRedo() {
+            return false;
+        }
+
     }
 
     /**

@@ -36,6 +36,22 @@ public class ParserUtil {
     }
 
     /**
+     * Parses the collection of raw one-based indexes into a set of indexes and returns it.
+     * Individual elements will be parsed using {@link ParserUtil#parseIndex}.
+     *
+     * @param oneBasedIndexes The collection of one-based indexes to be parsed.
+     * @throws ParseException If the specified index is invalid (as specified by {@link ParserUtil#parseIndex}.
+     */
+    public static Set<Index> parseIndexes(Collection<String> oneBasedIndexes) throws ParseException {
+        requireNonNull(oneBasedIndexes);
+        final Set<Index> indexSet = new HashSet<>();
+        for (String oneBasedIndex : oneBasedIndexes) {
+            indexSet.add(parseIndex(oneBasedIndex));
+        }
+        return indexSet;
+    }
+
+    /**
      * Parses a {@code String name} into a {@code Name}.
      * Leading and trailing whitespaces will be trimmed.
      *

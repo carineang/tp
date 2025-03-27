@@ -1,5 +1,8 @@
 package seedu.address.logic;
 
+import static seedu.address.commons.util.CollectionUtil.requireAllNonNull;
+
+import java.util.Collection;
 import java.util.Set;
 import java.util.stream.Collectors;
 import java.util.stream.Stream;
@@ -20,6 +23,8 @@ public class Messages {
                 "Multiple values specified for the following single-valued field(s): ";
     public static final String MESSAGE_SORT_SUCCESSFUL = "Sorted successfully.";
     public static final String MESSAGE_SORT_UNSUCCESSFUL = "Unable to sort.";
+    public static final String MESSAGE_INVALID_NO_UNDO = "There is nothing to undo";
+    public static final String MESSAGE_INVALID_NO_REDO = "There is nothing to redo";
 
     /**
      * Returns an error message indicating the duplicate prefixes.
@@ -50,6 +55,19 @@ public class Messages {
         builder.append("; Note: ")
                 .append(person.getNote());
         return builder.toString();
+    }
+
+    /**
+     * Formats a group of persons for display to the user.
+     *
+     * @param persons The group of persons to be formatted.
+     * @return The formatted string to be displayed.
+     */
+    public static String format(Collection<? extends Person> persons) {
+        requireAllNonNull(persons);
+        return persons.stream()
+                .map(Messages::format)
+                .collect(Collectors.joining(System.lineSeparator()));
     }
 
 }

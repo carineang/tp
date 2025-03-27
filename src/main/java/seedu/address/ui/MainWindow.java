@@ -16,6 +16,7 @@ import seedu.address.logic.Logic;
 import seedu.address.logic.commands.CommandResult;
 import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.logic.parser.exceptions.ParseException;
+import seedu.address.model.person.Person;
 import seedu.address.ui.controller.CommandHistoryMenuController;
 
 /**
@@ -36,7 +37,7 @@ public class MainWindow extends UiPart<Stage> {
     private ResultDisplay resultDisplay;
     private HelpWindow helpWindow;
     private CommandHistoryMenu commandHistoryMenu;
-
+    private PersonDetailPanel personDetailPanel;
 
     @FXML
     private StackPane commandBoxPlaceholder;
@@ -52,6 +53,9 @@ public class MainWindow extends UiPart<Stage> {
 
     @FXML
     private StackPane statusbarPlaceholder;
+
+    @FXML
+    private StackPane personDetailPlaceholder;
 
     /**
      * Creates a {@code MainWindow} with the given {@code Stage} and {@code Logic}.
@@ -125,7 +129,7 @@ public class MainWindow extends UiPart<Stage> {
      * Fills up all the placeholders of this window.
      */
     void fillInnerParts() {
-        personListPanel = new PersonListPanel(logic.getFilteredPersonList());
+        personListPanel = new PersonListPanel(logic.getFilteredPersonList(), this);
         personListPanelPlaceholder.getChildren().add(personListPanel.getRoot());
 
         resultDisplay = new ResultDisplay();
@@ -139,6 +143,9 @@ public class MainWindow extends UiPart<Stage> {
 
         commandHistoryMenu = new CommandHistoryMenu(logic.getCommandHistoryList(), commandBox::setCommandTextField);
         resultDisplayPlaceholder.getChildren().add(commandHistoryMenu.getRoot());
+
+        personDetailPanel = new PersonDetailPanel();
+        personDetailPlaceholder.getChildren().add(personDetailPanel.getRoot());
     }
 
     /**
@@ -211,5 +218,15 @@ public class MainWindow extends UiPart<Stage> {
             resultDisplay.setFeedbackToUser(e.getMessage());
             throw e;
         }
+    }
+
+    /**
+     * Displays the details of the specified person in the person detail panel.
+     *
+     * @param person The person whose details should be shown.
+     */
+    public void showPersonDetail(Person person) {
+        personDetailPlaceholder.getChildren().clear();
+        personDetailPlaceholder.getChildren().add(new PersonDetailCard(person).getRoot());
     }
 }
