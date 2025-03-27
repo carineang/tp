@@ -38,7 +38,7 @@ public class HelpCommandTest {
     public void execute_helpWithInvalidCommand_showsUnknownCommandMessage() {
         HelpCommand helpCommand = new HelpCommand("nonexistent");
 
-        String expectedFeedback = "Unknown command: nonexistent. Use `help` to see available commands.";
+        String expectedFeedback = "Unknown command! Use `help` to see available commands.";
 
         CommandResult result = helpCommand.execute(model);
         assertTrue(result.getFeedbackToUser().contains(expectedFeedback));
