@@ -19,6 +19,8 @@ Class Email
 Class Name
 Class Phone
 Class Tag
+Class Note
+Class VersionedAddressBook
 
 Class I #FFFFFF
 }
@@ -33,8 +35,10 @@ Model .right.> ReadOnlyUserPrefs
 Model .left.> ReadOnlyAddressBook
 ModelManager -left-> "1" AddressBook
 ModelManager -right-> "1" UserPrefs
+ModelManager --> "~* filtered" Person
 UserPrefs .up.|> ReadOnlyUserPrefs
 
+AddressBook <|-- VersionedAddressBook
 AddressBook *--> "1" UniquePersonList
 UniquePersonList --> "~* all" Person
 Person *--> Name
@@ -42,6 +46,7 @@ Person *--> Phone
 Person *--> Email
 Person *--> Address
 Person *--> "*" Tag
+Person *--> Note
 
 Person -[hidden]up--> I
 UniquePersonList -[hidden]right-> I
@@ -50,5 +55,5 @@ Name -[hidden]right-> Phone
 Phone -[hidden]right-> Address
 Address -[hidden]right-> Email
 
-ModelManager --> "~* filtered" Person
+VersionedAddressBook --> "*" ReadOnlyAddressBook
 @enduml
