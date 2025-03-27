@@ -96,6 +96,7 @@ public class AddressBook implements ReadOnlyAddressBook {
 
     /**
      * Pins a person to the top of the address book.
+     *
      * @param person
      */
     public void pinPerson(Person person) {

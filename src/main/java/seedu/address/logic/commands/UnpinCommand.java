@@ -31,7 +31,7 @@ public class UnpinCommand extends Command {
 
     private final Index index;
 
-    private final Boolean pin;
+    private final Boolean isPinned;
 
     /**
      * Creates an UnpinCommand to unpin the specified person at the given index.
@@ -41,7 +41,7 @@ public class UnpinCommand extends Command {
     public UnpinCommand(Index index) {
         requireAllNonNull(index);
         this.index = index;
-        this.pin = false;
+        this.isPinned = false;
     }
 
     /**
@@ -62,7 +62,7 @@ public class UnpinCommand extends Command {
 
         Person personToUnpin = lastShownList.get(index.getZeroBased());
         EditPersonDescriptor newDescriptor = new EditPersonDescriptor();
-        Pin unPin = new Pin(pin);
+        Pin unPin = new Pin(isPinned);
         newDescriptor.setPin(unPin);
         Person editedPerson = createEditedPerson(personToUnpin, newDescriptor);
 

@@ -31,7 +31,7 @@ public class PinCommand extends Command {
 
     private final Index index;
 
-    private final Boolean pin;
+    private final Pin pin;
 
     /**
      * Creates a PinCommand to pin the specified person at the given index.
@@ -41,7 +41,7 @@ public class PinCommand extends Command {
     public PinCommand(Index index) {
         requireAllNonNull(index);
         this.index = index;
-        this.pin = true;
+        this.pin = new Pin(true);
     }
 
     /**
@@ -62,7 +62,7 @@ public class PinCommand extends Command {
 
         Person personToPin = lastShownList.get(index.getZeroBased());
         EditPersonDescriptor newDescriptor = new EditPersonDescriptor();
-        Pin newPin = new Pin(pin);
+        Pin newPin = new Pin(pin.isPinned());
         newDescriptor.setPin(newPin);
         Person editedPerson = createEditedPerson(personToPin, newDescriptor);
 
