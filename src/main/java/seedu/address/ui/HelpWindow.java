@@ -23,6 +23,11 @@ public class HelpWindow extends UiPart<Stage> {
             + "4. `sort`: Sort the list of persons.\n"
             + "5. `list`: List all persons.\n"
             + "6. `delete`: Delete a person.\n"
+            + "7. 'edit: Edit a person\n"
+            + "8. 'pin': Pins a person.\n"
+            + "9. 'unpin': Unpins a person.\n"
+            + "10. 'note': Change note of a person.\n"
+            + "11. 'viewnote': view note of a person\n"
             + "Use `help <command>` for detailed information about a specific command.\n\n"
             + "Refer to the full user guide: " + USERGUIDE_URL;
 

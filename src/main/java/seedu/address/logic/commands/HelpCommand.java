@@ -13,6 +13,8 @@ public class HelpCommand extends Command {
 
     public static final String COMMAND_WORD = "help";
 
+    public static final String COMMAND_NOT_FOUND = "Unknown command! Use `help` to see available commands.";
+
     public static final String MESSAGE_USAGE = COMMAND_WORD + ": Shows program usage instructions.\n"
             + "Usage: help [COMMAND]\n"
             + "  - `help` : Displays a list of available commands.\n"
@@ -31,11 +33,26 @@ public class HelpCommand extends Command {
         COMMAND_HELP.put("delete", "Usage: delete i/INDEX\n"
                 + "Deletes the person(s) identified by the index number(s) used in the displayed person list.\n"
                 + "Example: delete i/2-5");
+        COMMAND_HELP.put("edit", "Usage: edit INDEX [n/NAME] [p/PHONE] [e/EMAIL] [a/ADDRESS] [t/TAG]…\n"
+                + "Edits the information of person identified by the index number\n"
+                + "Example: edit 1 p/91234567 e/johndoe@example.com");
+        COMMAND_HELP.put("pin", "Usage: pin INDEX\n"
+                + "Pins the person identified in the index number.\n"
+                + "Example: pin 1");
+        COMMAND_HELP.put("unpin", "Usage: unpin INDEX\n"
+                + "Unpins the person identified by the index number used in the last person listing if they were pinned.\n"
+                + "Example: unpin 1");
         COMMAND_HELP.put("find", "Usage: find [n/\"NAME\"] [p/\"PHONE\"] [e/\"EMAIL\"] "
                 + "[a/\"ADDRESS\"] [t/\"TAG\"] \"KEYWORD\" [\"MORE_KEYWORDS\"]...\n"
                 + "Finds all persons whose specified fields contain any of the given keywords (case-insensitive).\n"
                 + "Use double quotation marks (\") around each input\n"
                 + "Example: find n/\"Alice\" \"Bob\" p/\"98765432\" a/\"Bedok Central\" t/\"close friend\"");
+        COMMAND_HELP.put("note", "Usage: note INDEX nt/NOTE\n"
+                + "Changes the note of the person identified by the index number used in the displayed person list.\n"
+                + "Example: note 1 nt/Does not like to be called");
+        COMMAND_HELP.put("viewnote", "Usage: viewnote INDEX\n"
+                + "Displays the note of the person identified by the index number used in the displayed person list.\n"
+                + "Example: viewnote 2");
         COMMAND_HELP.put("sort", "Usage: sort [n/] [p/] [e/] [a/] [t/]\n"
                 + "Sorts all persons by the specified attribute and displays them as a list.\n"
                 + "Example: sort n/");
@@ -56,6 +73,7 @@ public class HelpCommand extends Command {
 
     /**
      * Creates a HelpCommand for a specific command.
+     *
      * @param commandName The name of the command to show help for.
      */
     public HelpCommand(String commandName) {
@@ -64,7 +82,7 @@ public class HelpCommand extends Command {
 
     /**
      * Executes the HelpCommand to display help information to the user.
-     * <p>
+     *
      * If no specific command is provided, it displays a general help message with a list of available commands.
      * If a specific command is provided, it shows detailed help information for that command.
      * If the command is not recognized, it informs the user that the command is unknown and suggests using `help`
@@ -83,8 +101,7 @@ public class HelpCommand extends Command {
             if (helpMessage != null) {
                 return new CommandResult(helpMessage);
             } else {
-                return new CommandResult("Unknown command: " + commandName
-                        + ". Use `help` to see available commands.");
+                return new CommandResult(COMMAND_NOT_FOUND);
             }
         }
     }
