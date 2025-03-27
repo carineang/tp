@@ -47,7 +47,7 @@ public class PinTest {
         assertEquals("", new Pin(false).toString());
     }
 
-    @@Test
+    @Test
     public void equalsAndHashCode_correctlyEvaluatesEquality() {
         Pin pin1 = new Pin(true);
         Pin pin2 = new Pin("[PINNED]");
