@@ -140,6 +140,9 @@ public class UniquePersonList implements Iterable<Person> {
         //internalList.add(0, toPin);
     }
 
+    /**
+     * Moves all the pinned people to the top of the list, retaining the sort order among the pinned people.
+     */
     public void prioritisePins() {
         int pinnedIndex = 0;
         for (Person person : internalList) {

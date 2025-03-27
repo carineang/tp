@@ -50,6 +50,9 @@ public class Person {
 
     }
 
+    /**
+     * Person constructor that includes notes and pins.
+     */
     public Person(Name name, Phone phone, Email email, Address address, Note note, Set<Tag> tags, Pin pin) {
         requireAllNonNull(name, phone, email, address, note, tags, pin);
         this.name = name;

@@ -21,18 +21,25 @@ public class Pin {
      *
      * @param isPinned whether to pin the person.
      */
-    public Pin (Boolean isPinned) {
+    public Pin(Boolean isPinned) {
         requireNonNull(isPinned);
         this.isPinned = isPinned;
         this.value = isPinned ? PINNED_SYMBOL : NOT_PINNED_SYMBOL;
     }
 
-    public Pin (){
+    /**
+     * Pins a {@code Person}
+     */
+    public Pin() {
         this.isPinned = true;
         this.value = PINNED_SYMBOL;
     }
 
-    public Pin (String pin) {
+    /**
+     * Pins a {@code Person}
+     * @param pin String format of whether to pin the person.
+     */
+    public Pin(String pin) {
         requireNonNull(pin);
         if (pin.isEmpty()) {
             this.isPinned = false;
