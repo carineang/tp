@@ -121,8 +121,6 @@ public class UniquePersonList implements Iterable<Person> {
         // Remove and reinsert at the first position
         internalList.remove(index);
         internalList.add(0, toPin);
-
-        // TODO: Add the pin object to the person ???
     }
 
     /**
@@ -140,6 +138,18 @@ public class UniquePersonList implements Iterable<Person> {
         // TODO: Remove and reinsert below all other pinned persons
         //internalList.remove(index);
         //internalList.add(0, toPin);
+    }
+
+    public void prioritisePins() {
+        int pinnedIndex = 0;
+        for (Person person : internalList) {
+            if (person.getPin().isPinned()) {
+                int index = internalList.indexOf(person);
+                internalList.remove(index);
+                internalList.add(pinnedIndex, person);
+                pinnedIndex++;
+            }
+        }
     }
 
 
@@ -219,6 +229,7 @@ public class UniquePersonList implements Iterable<Person> {
      */
     private void sortByName() {
         internalList.sort(Comparator.comparing(p -> p.getName().toString()));
+        prioritisePins();
     }
 
     /**
@@ -226,6 +237,7 @@ public class UniquePersonList implements Iterable<Person> {
      */
     private void sortByPhoneNumber() {
         internalList.sort(Comparator.comparing(p -> new BigInteger(p.getPhone().toString())));
+        prioritisePins();
     }
 
     /**
@@ -233,6 +245,7 @@ public class UniquePersonList implements Iterable<Person> {
      */
     private void sortByEmailAddress() {
         internalList.sort(Comparator.comparing(p -> p.getEmail().toString()));
+        prioritisePins();
     }
 
     /**
@@ -240,6 +253,7 @@ public class UniquePersonList implements Iterable<Person> {
      */
     private void sortByAddress() {
         internalList.sort(Comparator.comparing(p -> p.getAddress().toString()));
+        prioritisePins();
     }
 
     /**
@@ -247,5 +261,6 @@ public class UniquePersonList implements Iterable<Person> {
      */
     private void sortByTags() {
         internalList.sort(Comparator.comparing(p -> p.getTags().toString()));
+        prioritisePins();
     }
 }
