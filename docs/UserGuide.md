@@ -31,7 +31,7 @@ title: User Guide
    * `add n/John Doe p/98765432 e/johnd@example.com a/John street, block 123, #01-01` : Adds a contact named `John Doe` to the Address Book.
 
    * `delete 3` : Deletes the 3rd contact shown in the current list.
-
+    
    * `clear` : Deletes all contacts.
 
    * `exit` : Exits the app.
@@ -163,6 +163,66 @@ Examples:
 Clears all entries from the address book.
 
 Format: `clear`
+
+### Changing a note : `note`
+
+Changes a note of a client contact in the address book.
+
+Format: `note INDEX [nt/NOTE]`
+
+* Changes the person at the specified `INDEX`.
+* The index refers to the index number shown in the displayed client contact list.
+* The index **must be a positive integer** 1, 2, 3, …​
+
+Example:
+* `note 3 nt/Away for a long time` changes the note of the 3rd person from the top 
+in the address book into "Away for a long time".
+* `sort /n` followed by `note 2` changes the note of the 
+2nd person from the top listed in the sorted address book.
+* `note 1` changes the note of the 1st person from the top into a blank note.
+
+### Viewing a note : `viewnote`
+
+Displays the contents of a note of a particular client contact in the address book.
+
+Format: `viewnote INDEX`
+
+* Displays the note of the person at the specified `INDEX`.
+* The index refers to the index number shown in the displayed person list.
+* The index **must be a positive integer** 1, 2, 3, …​
+
+Example:
+* `note 3 nt/Away for a long time` changes the note of the 3rd person from the top
+  in the address book into "Away for a long time".
+* `sort /n` followed by `note 2` changes the note of the
+  2nd person from the top listed in the sorted address book.
+* `note 1` changes the note of the 1st person from the top in the address book into a blank note.
+
+### Undoing a command : `undo`
+
+Undoes a command.
+
+Format: `undo`
+
+* There should be a previous command to undo.
+
+Examples:
+* `undo` undoes the last command.
+* `pin 4` followed by `undo` undoes the pin on the 4th person from the top in the address book.
+
+### Redoing a command : `redo`
+
+Redoes an undone command.
+
+Format: `redo`
+
+* An undone command is a previously typed command that was reversed by the `undo` command
+* There should be an undone command to redo.
+ 
+Examples:
+* `redo` redoes the last undone command.
+* `pin 4` followed by `undo` followed by `redo` results in
+there being a pin on the 4th person from the top in the address book.
 
 ### Exiting the program : `exit`
 
