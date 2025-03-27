@@ -1,13 +1,15 @@
 package seedu.address.logic.commands;
 
+import static java.util.Objects.requireNonNull;
+
 import seedu.address.logic.Messages;
 import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.model.Model;
 
-import java.nio.charset.CoderMalfunctionError;
-
-import static java.util.Objects.requireNonNull;
-
+/**
+ * Undoes the last command
+ * The undos only affect commands that change the state of the address book
+ */
 public class UndoCommand extends Command {
 
     public static final String COMMAND_WORD = "undo";

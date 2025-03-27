@@ -4,8 +4,11 @@ import java.util.ArrayList;
 import java.util.Objects;
 
 /**
+ * Addressbook that contains old and new copies of itself for the undo and redo commands
+ *
  * This uses the proposed implementation of undo/redo
- * given in @see <a href="https://se-education.org/addressbook-level3/DeveloperGuide.html">AB3 Develop Guide</a>
+ * given in
+ * @see <a href="https://se-education.org/addressbook-level3/DeveloperGuide.html">AB3 Develop Guide</a>
  */
 public class VersionedAddressBook extends AddressBook {
 
@@ -14,6 +17,9 @@ public class VersionedAddressBook extends AddressBook {
     // Stores the state of the AddressBook as a list
     private ArrayList<ReadOnlyAddressBook> addressBookStateList;
 
+    /**
+     * Creates an VersionedAddressBook using the Persons in the {@code toBeCopied}
+     */
     public VersionedAddressBook(ReadOnlyAddressBook toBeCopied) {
         super(toBeCopied);
 
@@ -26,10 +32,16 @@ public class VersionedAddressBook extends AddressBook {
 
     }
 
+    /**
+     * Creates a new empty VersionedAddressBook
+     */
     public VersionedAddressBook() {
         this(new AddressBook());
     }
 
+    /**
+     * Saves the state of the address book
+     */
     public void commit() {
 
         // remove all states after the current
@@ -42,8 +54,13 @@ public class VersionedAddressBook extends AddressBook {
         currentStatePointer += 1;
     }
 
+    /**
+     * Restores the state of the address book to the
+     * last saved address book state
+     *
+     * @throws IndexOutOfBoundsException if there is no last saved address book state
+     */
     public void undo() throws IndexOutOfBoundsException {
-        // restores last state
 
         // must have a last state to be undoable
         // this is the responsibility of the person using this function
@@ -60,6 +77,12 @@ public class VersionedAddressBook extends AddressBook {
         resetData(lastBook);
     }
 
+    /**
+     * Restores the state of the address book to the
+     * last saved undone address book state
+     *
+     * @throws IndexOutOfBoundsException if there is no last saved undone address book state
+     */
     public void redo() throws IndexOutOfBoundsException {
         // restores the state ahead
 
@@ -78,14 +101,23 @@ public class VersionedAddressBook extends AddressBook {
         resetData(undoneBook);
     }
 
+    /**
+     * Checks if the address book has a state to undo
+     */
     public boolean hasUndo() {
         return currentStatePointer - 1 >= 0;
     }
 
+    /**
+     * Checks if the address book has an undone state to redo
+     */
     public boolean hasRedo() {
         return currentStatePointer + 1 < addressBookStateList.size();
     }
 
+    /**
+     * Removes all states ahead of the current state
+     */
     private void removeAheadCurrent() {
         int curSize = addressBookStateList.size();
 
