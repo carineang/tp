@@ -131,14 +131,12 @@ public class AddressBookParserTest {
 
     @Test
     public void parseCommand_undo() throws Exception {
-        UndoCommand command = (UndoCommand) parser.parseCommand(UndoCommand.COMMAND_WORD);
-        assertEquals(new UndoCommand(), command);
+        assertTrue(parser.parseCommand(UndoCommand.COMMAND_WORD) instanceof UndoCommand);
     }
 
     @Test
     public void parseCommand_redo() throws Exception {
-        RedoCommand command = (RedoCommand) parser.parseCommand(RedoCommand.COMMAND_WORD);
-        assertEquals(new RedoCommand(), command);
+        assertTrue(parser.parseCommand(RedoCommand.COMMAND_WORD) instanceof RedoCommand);
     }
 
     @Test
