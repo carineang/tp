@@ -19,15 +19,16 @@ import seedu.address.model.UserPrefs;
 public class ListCommandTest {
 
     private Model model;
+    private Model expectedModel;
 
     @BeforeEach
     public void setUp() {
         model = new ModelManager(getTypicalAddressBook(), new UserPrefs());
+        expectedModel = new ModelManager(getTypicalAddressBook(), new UserPrefs());
     }
 
     @Test
     public void execute_listIsNotFiltered_showsSameList() {
-        Model expectedModel = new ModelManager(getTypicalAddressBook(), new UserPrefs());
         expectedModel.updateFilteredPersonList(PREDICATE_SHOW_ALL_PERSONS);
         assertCommandSuccess(new ListCommand(), model, ListCommand.MESSAGE_SUCCESS, expectedModel);
     }
@@ -36,7 +37,6 @@ public class ListCommandTest {
     public void execute_listIsFiltered_showsEverything() {
         showPersonAtIndex(model, INDEX_FIRST_PERSON);
 
-        Model expectedModel = new ModelManager(getTypicalAddressBook(), new UserPrefs());
         expectedModel.updateFilteredPersonList(PREDICATE_SHOW_ALL_PERSONS);
         assertCommandSuccess(new ListCommand(), model, ListCommand.MESSAGE_SUCCESS, expectedModel);
     }
