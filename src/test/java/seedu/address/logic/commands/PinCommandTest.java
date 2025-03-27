@@ -15,6 +15,7 @@ import seedu.address.model.Model;
 import seedu.address.model.ModelManager;
 import seedu.address.model.UserPrefs;
 import seedu.address.model.person.Person;
+import seedu.address.model.person.Pin;
 
 /**
  * Contains integration tests (interaction with the Model) and unit tests for
@@ -22,15 +23,20 @@ import seedu.address.model.person.Person;
  */
 public class PinCommandTest {
 
-    private Model model = new ModelManager(getTypicalAddressBook(), new UserPrefs());
+    private final Model model = new ModelManager(getTypicalAddressBook(), new UserPrefs());
 
     @Test
     public void execute_validIndex_pinsPerson() throws Exception {
         Person personToPin = model.getFilteredPersonList().get(INDEX_FIRST_PERSON.getZeroBased());
         PinCommand pinCommand = new PinCommand(INDEX_FIRST_PERSON);
 
-        // Ensure that person is now at index 0
-        assertEquals(personToPin, model.getFilteredPersonList().get(0));
+        CommandResult result = pinCommand.execute(model);
+
+        // Ensure person is now at the top of the list and pinned
+        Person pinnedPerson = model.getFilteredPersonList().get(0);
+        assertTrue(pinnedPerson.getPin().isPinned());
+        assertEquals(String.format(PinCommand.MESSAGE_PIN_PERSON_SUCCESS, INDEX_FIRST_PERSON.getOneBased()),
+                result.getFeedbackToUser());
     }
 
     @Test
@@ -42,13 +48,11 @@ public class PinCommandTest {
                 Messages.MESSAGE_INVALID_PERSON_DISPLAYED_INDEX);
     }
 
-
     /**
      * Updates {@code model}'s filtered list to show no one.
      */
     private void showNoPerson(Model model) {
         model.updateFilteredPersonList(p -> false);
-
         assertTrue(model.getFilteredPersonList().isEmpty());
     }
 }
