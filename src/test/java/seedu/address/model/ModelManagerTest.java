@@ -8,6 +8,7 @@ import static seedu.address.testutil.Assert.assertThrows;
 import static seedu.address.testutil.TypicalPersons.ALICE;
 import static seedu.address.testutil.TypicalPersons.BENSON;
 import static seedu.address.testutil.TypicalPersons.CARL;
+import static seedu.address.testutil.TypicalPersons.DANIEL;
 
 import java.nio.file.Path;
 import java.nio.file.Paths;
@@ -128,11 +129,57 @@ public class ModelManagerTest {
     }
 
     @Test
+    public void redoAddressBook_addPerson_success() {
+        AddressBook addressBook = new AddressBookBuilder().withPerson(ALICE).withPerson(BENSON).build();
+        modelManager = new ModelManager(addressBook, new UserPrefs());
+        modelManager.addPerson(CARL);
+        modelManager.undoAddressBook();
+        modelManager.redoAddressBook();
+    }
+
+    @Test
+    public void redoAddressBook_deletePerson_success() {
+        AddressBook addressBook = new AddressBookBuilder().withPerson(ALICE).build();
+        modelManager = new ModelManager(addressBook, new UserPrefs());
+        modelManager.deletePerson(ALICE);
+        modelManager.undoAddressBook();
+        modelManager.redoAddressBook();
+    }
+
+    @Test
+    public void redoAddressBook_setPerson_success() {
+        AddressBook addressBook = new AddressBookBuilder().withPerson(ALICE).build();
+        Person editedAPerson = new PersonBuilder(ALICE).withName("a l i c e").build();
+        modelManager = new ModelManager(addressBook, new UserPrefs());
+        modelManager.setPerson(ALICE, editedAPerson);
+        modelManager.undoAddressBook();
+        modelManager.redoAddressBook();
+    }
+
+    @Test
+    public void redoAddressBook_pinPerson_success() {
+        AddressBook addressBook = new AddressBookBuilder().withPerson(ALICE).build();
+        modelManager = new ModelManager(addressBook, new UserPrefs());
+        modelManager.pinPerson(ALICE);
+        modelManager.undoAddressBook();
+        modelManager.redoAddressBook();
+    }
+
+
+    @Test
     public void updateFilteredPersonListCommitless_undo_failure() {
         AddressBook addressBook = new AddressBookBuilder().build();
         modelManager = new ModelManager(addressBook, new UserPrefs());
         modelManager.updateFilteredPersonListCommitless(PREDICATE_SHOW_ALL_PERSONS);
         assertThrows(IndexOutOfBoundsException.class, () -> modelManager.undoAddressBook());
+    }
+
+    @Test
+    public void updateFilteredPersonList_undo_successs() {
+        AddressBook addressBook = new AddressBookBuilder().build();
+        modelManager = new ModelManager(addressBook, new UserPrefs());
+        modelManager.updateFilteredPersonList(PREDICATE_SHOW_ALL_PERSONS);
+        modelManager.undoAddressBook();
     }
 
     @Test
@@ -162,6 +209,92 @@ public class ModelManagerTest {
         modelManager.undoAddressBook();
         modelManager.undoAddressBook();
         assertThrows(IndexOutOfBoundsException.class, () -> modelManager.undoAddressBook());
+    }
+
+    @Test
+    public void redoAddressBook_noPreviousCommands_failure() {
+        AddressBook addressBook = new AddressBookBuilder().build();
+        modelManager = new ModelManager(addressBook, new UserPrefs());
+        assertThrows(IndexOutOfBoundsException.class, () -> modelManager.redoAddressBook());
+    }
+
+    @Test
+    public void redoAddressBook_onePreviousCommand_failure() {
+        AddressBook addressBook = new AddressBookBuilder().build();
+        modelManager = new ModelManager(addressBook, new UserPrefs());
+        modelManager.addPerson(CARL);
+        modelManager.undoAddressBook();
+        modelManager.redoAddressBook();
+        assertThrows(IndexOutOfBoundsException.class, () -> modelManager.redoAddressBook());
+    }
+
+    @Test
+    public void redoAddressBook_manyPreviousCommands_failure() {
+        AddressBook addressBook = new AddressBookBuilder().build();
+        modelManager = new ModelManager(addressBook, new UserPrefs());
+        modelManager.addPerson(CARL);
+        modelManager.deletePerson(CARL);
+        modelManager.addPerson(BENSON);
+        modelManager.undoAddressBook();
+        modelManager.undoAddressBook();
+        modelManager.undoAddressBook();
+        modelManager.redoAddressBook();
+        modelManager.redoAddressBook();
+        modelManager.redoAddressBook();
+        assertThrows(IndexOutOfBoundsException.class, () -> modelManager.redoAddressBook());
+    }
+
+    @Test
+    public void addressBookHasUndo_hasUndo_success() {
+        AddressBook addressBook = new AddressBookBuilder().build();
+        modelManager = new ModelManager(addressBook, new UserPrefs());
+        modelManager.addPerson(CARL);
+        assertTrue(modelManager.addressBookHasUndo());
+    }
+
+    @Test
+    public void addressBookHasUndo_hasNoUndo_success() {
+        AddressBook addressBook = new AddressBookBuilder().build();
+        modelManager = new ModelManager(addressBook, new UserPrefs());
+        assertFalse(modelManager.addressBookHasUndo());
+
+        modelManager.addPerson(CARL);
+        modelManager.undoAddressBook();
+        assertFalse(modelManager.addressBookHasUndo());
+
+    }
+
+    @Test
+    public void addressBookHasRedo_hasRedo_success() {
+        AddressBook addressBook = new AddressBookBuilder().build();
+        modelManager = new ModelManager(addressBook, new UserPrefs());
+        modelManager.addPerson(CARL);
+        modelManager.undoAddressBook();
+        assertTrue(modelManager.addressBookHasRedo());
+    }
+
+    @Test
+    public void addressBookHasRedo_hasNoRedo_success() {
+        AddressBook addressBook = new AddressBookBuilder().build();
+        modelManager = new ModelManager(addressBook, new UserPrefs());
+        assertFalse(modelManager.addressBookHasRedo());
+
+        modelManager.addPerson(CARL);
+        assertFalse(modelManager.addressBookHasRedo());
+
+        modelManager.undoAddressBook();
+        modelManager.redoAddressBook();
+        assertFalse(modelManager.addressBookHasRedo());
+
+        // test if removed ahead
+        modelManager.addPerson(ALICE);
+        modelManager.addPerson(DANIEL);
+        modelManager.undoAddressBook();
+        modelManager.undoAddressBook();
+        modelManager.addPerson(BENSON);
+        assertFalse(modelManager.addressBookHasRedo());
+
+
     }
 
     @Test
@@ -205,11 +338,11 @@ public class ModelManagerTest {
 
         // different filteredList -> returns false
         String[] keywords = ALICE.getName().fullName.split("\\s+");
-        modelManager.updateFilteredPersonList(new NameContainsKeywordsPredicate(Arrays.asList(keywords)));
+        modelManager.updateFilteredPersonListCommitless(new NameContainsKeywordsPredicate(Arrays.asList(keywords)));
         assertFalse(modelManager.equals(new ModelManager(addressBook, userPrefs)));
 
         // resets modelManager to initial state for upcoming tests
-        modelManager.updateFilteredPersonList(PREDICATE_SHOW_ALL_PERSONS);
+        modelManager.updateFilteredPersonListCommitless(PREDICATE_SHOW_ALL_PERSONS);
 
         // different userPrefs -> returns false
         UserPrefs differentUserPrefs = new UserPrefs();
