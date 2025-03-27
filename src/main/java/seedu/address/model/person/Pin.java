@@ -41,10 +41,10 @@ public class Pin {
      */
     public Pin(String pin) {
         requireNonNull(pin);
-        if (pin.isEmpty()) {
+        if (pin.isEmpty() || pin.equalsIgnoreCase("false")) {
             this.isPinned = false;
             this.value = NOT_PINNED_SYMBOL;
-        } else if (pin.equals(PINNED_SYMBOL)) {
+        } else if (pin.equals(PINNED_SYMBOL) || pin.equalsIgnoreCase("true")) {
             this.isPinned = true;
             this.value = PINNED_SYMBOL;
         } else {

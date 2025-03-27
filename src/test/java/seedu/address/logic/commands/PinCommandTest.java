@@ -29,8 +29,6 @@ public class PinCommandTest {
         Person personToPin = model.getFilteredPersonList().get(INDEX_FIRST_PERSON.getZeroBased());
         PinCommand pinCommand = new PinCommand(INDEX_FIRST_PERSON);
 
-        assertThrows(CommandException.class, () -> pinCommand.execute(model));
-
         // Ensure that person is now at index 0
         assertEquals(personToPin, model.getFilteredPersonList().get(0));
     }

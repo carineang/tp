@@ -135,9 +135,7 @@ public class UniquePersonList implements Iterable<Person> {
             throw new PersonNotFoundException();
         }
 
-        // TODO: Remove and reinsert below all other pinned persons
-        //internalList.remove(index);
-        //internalList.add(0, toPin);
+        prioritisePins();
     }
 
     /**
