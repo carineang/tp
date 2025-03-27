@@ -75,7 +75,7 @@ Format: `help [COMMAND]`
 * Display general help message when used without arguments.
 * Provides specific command help with format and example of usage 
 when a valid command name is specified.
-* Case-insensitive command lookup (e.g., `help FiNd` works for `find`).
+* Case-insensitive command lookup (e.g.`help FiNd` works for `find`).
 * Handles unknown commands gracefully, informing the user if the command does not exist.
 
 Examples:
