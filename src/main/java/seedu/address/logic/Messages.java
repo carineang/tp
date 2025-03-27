@@ -23,6 +23,8 @@ public class Messages {
                 "Multiple values specified for the following single-valued field(s): ";
     public static final String MESSAGE_SORT_SUCCESSFUL = "Sorted successfully.";
     public static final String MESSAGE_SORT_UNSUCCESSFUL = "Unable to sort.";
+    public static final String MESSAGE_INVALID_NO_UNDO = "There is nothing to undo";
+    public static final String MESSAGE_INVALID_NO_REDO = "There is nothing to redo";
 
     /**
      * Returns an error message indicating the duplicate prefixes.

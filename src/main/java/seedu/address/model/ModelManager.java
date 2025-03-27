@@ -20,7 +20,7 @@ import seedu.address.model.person.Person;
 public class ModelManager implements Model {
     private static final Logger logger = LogsCenter.getLogger(ModelManager.class);
 
-    private final AddressBook addressBook;
+    private final VersionedAddressBook addressBook;
     private final UserPrefs userPrefs;
     private final FilteredList<Person> filteredPersons;
     private final InputHistory pastCommands;
@@ -36,7 +36,7 @@ public class ModelManager implements Model {
 
         logger.fine("Initializing with address book: " + addressBook + " and user prefs " + userPrefs);
 
-        this.addressBook = new AddressBook(addressBook);
+        this.addressBook = new VersionedAddressBook(addressBook);
         this.userPrefs = new UserPrefs(userPrefs);
         filteredPersons = new FilteredList<>(this.addressBook.getPersonList());
         pastCommands = new InputHistory();
@@ -45,7 +45,7 @@ public class ModelManager implements Model {
     }
 
     public ModelManager() {
-        this(new AddressBook(), new UserPrefs());
+        this(new VersionedAddressBook(), new UserPrefs());
     }
 
     //=========== UserPrefs ==================================================================================
@@ -88,6 +88,8 @@ public class ModelManager implements Model {
     @Override
     public void setAddressBook(ReadOnlyAddressBook addressBook) {
         this.addressBook.resetData(addressBook);
+
+        commitAddressBook();
     }
 
     @Override
@@ -104,12 +106,16 @@ public class ModelManager implements Model {
     @Override
     public void deletePerson(Person target) {
         addressBook.removePerson(target);
+
+        commitAddressBook();
     }
 
     @Override
     public void addPerson(Person person) {
         addressBook.addPerson(person);
-        updateFilteredPersonList(PREDICATE_SHOW_ALL_PERSONS);
+        updateFilteredPersonListCommitless(PREDICATE_SHOW_ALL_PERSONS);
+
+        commitAddressBook();
     }
 
     @Override
@@ -117,11 +123,15 @@ public class ModelManager implements Model {
         requireAllNonNull(target, editedPerson);
 
         addressBook.setPerson(target, editedPerson);
+
+        commitAddressBook();
     }
 
     @Override
     public void pinPerson(Person person) {
         addressBook.pinPerson(person);
+
+        commitAddressBook();
     }
 
     //=========== Filtered Person List Accessors =============================================================
@@ -137,6 +147,13 @@ public class ModelManager implements Model {
 
     @Override
     public void updateFilteredPersonList(Predicate<Person> predicate) {
+        updateFilteredPersonListCommitless(predicate);
+
+        commitAddressBook();
+    }
+
+    @Override
+    public void updateFilteredPersonListCommitless(Predicate<Person> predicate) {
         requireNonNull(predicate);
         filteredPersons.setPredicate(predicate);
     }
@@ -164,6 +181,33 @@ public class ModelManager implements Model {
     public void updateSortedFilteredPersonList(String prefix) {
         requireNonNull(prefix);
         addressBook.updateSortedList(prefix);
+
+        commitAddressBook();
+    }
+
+    @Override
+    public void commitAddressBook() {
+        addressBook.commit();
+    }
+
+    @Override
+    public void undoAddressBook() {
+        addressBook.undo();
+    }
+
+    @Override
+    public void redoAddressBook() {
+        addressBook.redo();
+    }
+
+    @Override
+    public boolean addressBookHasUndo() {
+        return addressBook.hasUndo();
+    }
+
+    @Override
+    public boolean addressBookHasRedo() {
+        return addressBook.hasRedo();
     }
 
     @Override

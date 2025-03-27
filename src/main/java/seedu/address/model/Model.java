@@ -85,6 +85,8 @@ public interface Model {
      */
     void updateFilteredPersonList(Predicate<Person> predicate);
 
+    void updateFilteredPersonListCommitless(Predicate<Person> predicate);
+
     /**
      * Adds a past command input to the list of past command inputs.
      *
@@ -111,4 +113,29 @@ public interface Model {
      * @param prefix The prefix indicating the attribute to sort by.
      */
     void updateSortedFilteredPersonList(String prefix);
+
+    /**
+     * Saves the state of the address book
+     */
+    void commitAddressBook();
+
+    /**
+     * Restores the state of the address book to the last saved state
+     */
+    void undoAddressBook();
+
+    /**
+     * Restores the state of the address book to the last saved undone state
+     */
+    void redoAddressBook();
+
+    /**
+     * Checks if the address book has a state to undo
+     */
+    boolean addressBookHasUndo();
+
+    /**
+     * Checks if the address book has an undone state to redo
+     */
+    boolean addressBookHasRedo();
 }
