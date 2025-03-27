@@ -40,7 +40,8 @@ public class HelpCommand extends Command {
                 + "Pins the person identified in the index number.\n"
                 + "Example: pin 1");
         COMMAND_HELP.put("unpin", "Usage: unpin INDEX\n"
-                + "Unpins the person identified by the index number used in the last person listing if they were pinned.\n"
+                + "Unpins the person identified by the index number used "
+                + "in the last person listing if they were pinned.\n"
                 + "Example: unpin 1");
         COMMAND_HELP.put("find", "Usage: find [n/\"NAME\"] [p/\"PHONE\"] [e/\"EMAIL\"] "
                 + "[a/\"ADDRESS\"] [t/\"TAG\"] \"KEYWORD\" [\"MORE_KEYWORDS\"]...\n"
