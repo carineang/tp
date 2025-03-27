@@ -25,7 +25,7 @@ public class RedoCommandTest {
     }
 
     @Test
-    public void execute_noUndosLeft_failure() {
+    public void execute_noRedosLeft_failure() {
         Model model = new ModelManager();
 
         assertCommandFailure(new RedoCommand(), model, Messages.MESSAGE_INVALID_NO_REDO);

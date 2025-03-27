@@ -10,6 +10,7 @@ import static seedu.address.testutil.TypicalIndexes.INDEX_FIRST_PERSON;
 import static seedu.address.testutil.TypicalIndexes.INDEX_SECOND_PERSON;
 import static seedu.address.testutil.TypicalPersons.getTypicalAddressBook;
 
+import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
 import seedu.address.commons.core.index.Index;
@@ -22,7 +23,12 @@ import seedu.address.model.person.Person;
 
 public class ViewNoteCommandTest {
 
-    private Model model = new ModelManager(getTypicalAddressBook(), new UserPrefs());
+    private Model model;
+
+    @BeforeEach
+    public void setUp() {
+        model = new ModelManager(getTypicalAddressBook(), new UserPrefs());
+    }
 
     @Test
     public void execute_unfilteredList_success() {
@@ -33,7 +39,7 @@ public class ViewNoteCommandTest {
 
         String expectedMessage = String.format(ViewNoteCommand.MESSAGE_VIEW_NOTE_PERSON_SUCCESS,
                 personToView.getNote().toString());
-        ModelManager expectedModel = new ModelManager(model.getAddressBook(), new UserPrefs());
+        Model expectedModel = new ModelManager(getTypicalAddressBook(), new UserPrefs());
 
         assertCommandSuccess(viewNoteCommand, model, expectedMessage, expectedModel);
     }
