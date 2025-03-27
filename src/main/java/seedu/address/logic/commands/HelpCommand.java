@@ -61,6 +61,10 @@ public class HelpCommand extends Command {
                 + "Lists all contacts in the address book.");
         COMMAND_HELP.put("exit", "Usage: exit\n"
                 + "Exits the program.");
+        COMMAND_HELP.put("undo", "Usage: undo\n"
+                + "Undoes the last command\n");
+        COMMAND_HELP.put("redo", "Usage: redo\n"
+                + "Redoes the effect of last undo\n");
     }
 
     private final String commandName;
