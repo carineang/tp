@@ -186,6 +186,20 @@ Examples:
 * `sort n/` returns person by ascending names `Alex`, `Bernice`, `Charlotte`.
 * `sort p/` returns person by ascending phone numbers `87438807`, `91031282`, `92492021`.
 
+### Pinning a person : `pin`
+
+Pins the specified person to the top of the address book.
+
+Format: `pin INDEX`
+
+* Pins the person at the specified `INDEX` to the top of the list.
+* The index refers to the index number shown in the displayed person list.
+* The index **must be a positive integer** 1, 2,3, …​
+
+Examples:
+* `list` followed by `pin 2` pins the 2nd person in the address book to the top.
+* `sort p/` followed by pin 1 pins the 1st person when sorted according to phone number.
+
 ### Clearing all entries : `clear`
 
 Clears all entries from the address book.
