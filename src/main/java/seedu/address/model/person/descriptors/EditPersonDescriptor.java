@@ -14,6 +14,7 @@ import seedu.address.model.person.Name;
 import seedu.address.model.person.Note;
 import seedu.address.model.person.Person;
 import seedu.address.model.person.Phone;
+import seedu.address.model.person.Pin;
 import seedu.address.model.tag.Tag;
 
 /**
@@ -27,6 +28,7 @@ public class EditPersonDescriptor {
     private Address address;
     private Set<Tag> tags;
     private Note note;
+    private Pin pin;
 
     public EditPersonDescriptor() {}
 
@@ -41,6 +43,7 @@ public class EditPersonDescriptor {
         setAddress(toCopy.address);
         setTags(toCopy.tags);
         setNote(toCopy.note);
+        setPin(toCopy.pin);
     }
 
     /**
@@ -107,6 +110,10 @@ public class EditPersonDescriptor {
         return Optional.ofNullable(note);
     }
 
+    public void setPin(Pin pin) { this.pin = pin; }
+
+    public Optional<Pin> getPin() { return Optional.ofNullable(pin); }
+
     /**
      * Creates and returns a {@code Person} with the details of {@code personToEdit}
      * edited with {@code editPersonDescriptor}.
@@ -120,8 +127,10 @@ public class EditPersonDescriptor {
         Address updatedAddress = editPersonDescriptor.getAddress().orElse(personToEdit.getAddress());
         Set<Tag> updatedTags = editPersonDescriptor.getTags().orElse(personToEdit.getTags());
         Note updatedNote = editPersonDescriptor.getNote().orElse(personToEdit.getNote());
+        Pin updatedPin = editPersonDescriptor.getPin().orElse(personToEdit.getPin());
 
-        return new Person(updatedName, updatedPhone, updatedEmail, updatedAddress, updatedTags, updatedNote);
+        return new Person(updatedName, updatedPhone, updatedEmail, updatedAddress, updatedNote, updatedTags,
+                updatedPin);
     }
 
     @Override
@@ -141,7 +150,8 @@ public class EditPersonDescriptor {
                 && Objects.equals(email, otherEditPersonDescriptor.email)
                 && Objects.equals(address, otherEditPersonDescriptor.address)
                 && Objects.equals(tags, otherEditPersonDescriptor.tags)
-                && Objects.equals(note, otherEditPersonDescriptor.note);
+                && Objects.equals(note, otherEditPersonDescriptor.note)
+                && Objects.equals(pin, otherEditPersonDescriptor.pin);
     }
 
     @Override
