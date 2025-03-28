@@ -39,9 +39,9 @@ public class UnpinCommandParserTest {
     }
 
     @Test
-    public void parse_extraArgs_parsesOnlyFirstIndex() throws Exception {
-        // Should still return UnpinCommand for the first valid index
-        UnpinCommand command = parser.parse("1 extra");
-        assertEquals(new UnpinCommand(INDEX_FIRST_PERSON), command);
+    public void parse_extraArgs_throwsParseException() {
+        assertThrows(ParseException.class, () -> parser.parse("1 extra"),
+                String.format(MESSAGE_INVALID_COMMAND_FORMAT, UnpinCommand.MESSAGE_USAGE));
     }
+
 }

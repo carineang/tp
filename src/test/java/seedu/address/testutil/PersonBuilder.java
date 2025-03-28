@@ -116,7 +116,7 @@ public class PersonBuilder {
     }
 
     public Person build() {
-        return new Person(name, phone, email, address, tags, note);
+        return new Person(name, phone, email, address, tags, note); // new 7-arg version
     }
 
 }

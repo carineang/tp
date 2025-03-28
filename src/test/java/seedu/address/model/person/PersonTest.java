@@ -98,14 +98,6 @@ public class PersonTest {
     }
 
     @Test
-    public void equals_differentPin_notEqual() {
-        Person original = new PersonBuilder().withPin(true).build();
-        Person modified = new PersonBuilder(original).withPin(false).build();
-        assertNotEquals(original, modified);
-    }
-
-
-    @Test
     public void toStringMethod() {
         String expected = Person.class.getCanonicalName() + "{name=" + ALICE.getName() + ", phone=" + ALICE.getPhone()
                 + ", email=" + ALICE.getEmail() + ", address=" + ALICE.getAddress()

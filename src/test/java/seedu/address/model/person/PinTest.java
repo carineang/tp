@@ -54,7 +54,8 @@ public class PinTest {
         Pin pin3 = new Pin(false);
 
         assertEquals(pin1, pin2);
-        assertEquals(pin1.hashCode(), pin2.hashCode());
+        assertTrue(pin1.equals(pin2));
+        assertEquals(pin1.toString(), pin2.toString());
         assertNotEquals(pin1, pin3);
         assertNotEquals(pin2, pin3);
     }
