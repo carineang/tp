@@ -30,7 +30,7 @@ Feature | Purpose
 Note | Add and view notes of client contacts to keep track of important information about them.
 Pin/Unpin | Pin and unpin client contacts to easily track important client information.
 Sort | Sort clients by key attributes to easily find certain clients.
-Find | Filters clients by various fields along with how similar they are to the quern commands.
+Find | Filters clients by various fields along with how similar they are to the query commands.
 Undo/Redo | Undo and redo commands to easily correct mistaken commands.
 Command History | View and reaccess previously typed commands to easily edit typos.
 
@@ -175,9 +175,11 @@ Formats:
 
 1. Single-indexing: `delete INDEX`
     * Deletes the client contact at the specified `INDEX`.
-2. Spaced-indexing: `delete i/INDEX INDEX1 INDEX2 … INDEXN`
-    * Deletes the client contact(s) specified at the indexes: `INDEX1`, `INDEX2`, and `INDEXN`
-3. Ranged-indexing: `delete i/START_INDEX-END_INDEX`
+1. Spaced-indexing: `delete i/FIRST_INDEX SECOND_INDEX … NTH_INDEX`
+    * Deletes the client contact(s) specified by `FIRST_INDEX`, `SECOND_INDEX` and up to `NTH_INDEX` inclusive.
+    * In this case, `…` simply means that you can specify 1 or more indexes after the prefix `i/`.
+    * Indexes specified this way must be separated by spaces.
+1. Ranged-indexing: `delete i/START_INDEX-END_INDEX`
     * Deletes the client contact(s) whose index is specified from `START_INDEX` to `END_INDEX` inclusive.
     * `START_INDEX` must be `<=` `END_INDEX`.
 
@@ -425,7 +427,7 @@ Action | Format, Examples
 --------|------------------
 **Add** | `add n/NAME p/PHONE_NUMBER e/EMAIL a/ADDRESS [t/TAG]…​` <br> e.g., `add n/James Ho p/22224444 e/jamesho@example.com a/123, Clementi Rd, 1234665 t/friend t/colleague`
 **Clear** | `clear`
-**Delete** | `delete INDEX`, `delete i/START_INDEX-END_INDEX`, `delete i/INDEX1 INDEX2 …​`<br> e.g., `delete 3`, `delete i/1-2`, `delete i/1 3 5`
+**Delete** | `delete INDEX`, `delete i/START_INDEX-END_INDEX`, `delete i/FIRST_INDEX SECOND_INDEX …​ NTH_INDEX`<br> e.g., `delete 3`, `delete i/1-2`, `delete i/1 3 5`
 **Edit** | `edit INDEX [n/NAME] [p/PHONE_NUMBER] [e/EMAIL] [a/ADDRESS] [t/TAG]…​`<br> e.g.,`edit 2 n/James Lee e/jameslee@example.com`
 **Find** | `find [n/"NAME" "MORE_NAMES"] [p/"PHONE" "MORE_PHONES"] [e/"EMAIL" "MORE_EMAILS"] [a/"ADDRESS" "MORE_ADDRESSES"] [t/"TAG" "MORE_TAGS"]`<br> e.g., `find n/"James" "Jake"`
 **List** | `list`
