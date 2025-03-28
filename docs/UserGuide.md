@@ -94,44 +94,44 @@ Examples:
 * `help add` displays the correct format and usage of the `add` command.
 * `help me` returns: `"Unknown command! Use 'help' to see available commands.`
 
-### Adding a client contact: `add`
+### Adding a person: `add`
 
-Adds a client contact to the address book.
+Adds a person to the address book.
 
 Format: `add n/NAME p/PHONE_NUMBER e/EMAIL a/ADDRESS [t/TAG]…​`
 
 <div markdown="span" class="alert alert-primary">:bulb: **Tip:**
-A client can have any number of tags (including 0)
+A person can have any number of tags (including 0)
 </div>
 
 Examples:
 * `add n/John Doe p/98765432 e/johnd@example.com a/John street, block 123, #01-01`
 * `add n/Betsy Crowe t/friend e/betsycrowe@example.com a/Newgate Prison p/1234567 t/criminal`
 
-### Listing all client contacts : `list`
+### Listing all persons : `list`
 
-Shows a list of all client contacts in the address book.
+Shows a list of all persons in the address book.
 
 Format: `list`
 
-### Editing a client contact : `edit`
+### Editing a person : `edit`
 
-Edits an existing client contact in the address book.
+Edits an existing person in the address book.
 
 Format: `edit INDEX [n/NAME] [p/PHONE] [e/EMAIL] [a/ADDRESS] [t/TAG]…​`
 
-* Edits the client contact at the specified `INDEX`. The index refers to the index number shown in the displayed list. The index **must be a positive integer** 1, 2, 3, …​
+* Edits the person at the specified `INDEX`. The index refers to the index number shown in the displayed person list. The index **must be a positive integer** 1, 2, 3, …​
 * At least one of the optional fields must be provided.
 * Existing values will be updated to the input values.
-* When editing tags, the existing tags of the client contact will be removed i.e adding of tags is not cumulative.
-* You can remove all the contact’s tags by typing `t/` without
+* When editing tags, the existing tags of the person will be removed i.e adding of tags is not cumulative.
+* You can remove all the person’s tags by typing `t/` without
     specifying any tags after it.
 
 Examples:
-*  `edit 1 p/91234567 e/johndoe@example.com` Edits the phone number and email address of the 1st client to be `91234567` and `johndoe@example.com` respectively.
-*  `edit 2 n/Betsy Crower t/` Edits the name of the 2nd contact to be `Betsy Crower` and clears all existing tags.
+*  `edit 1 p/91234567 e/johndoe@example.com` Edits the phone number and email address of the 1st person to be `91234567` and `johndoe@example.com` respectively.
+*  `edit 2 n/Betsy Crower t/` Edits the name of the 2nd person to be `Betsy Crower` and clears all existing tags.
 
-### Locating client contacts by name: `find`
+### Locating persons by name: `find`
 
 The `find` command allows you to search for contacts based on their name,
 phone number, email, address, or tags.
@@ -156,19 +156,19 @@ Examples:
 * `find n/"Alxe" "Davdi"` returns `Alex Yeoh`, `David Li`<br>
   ![result for 'find alex david'](images/findAlexDavidResult.png)
 
-### Deleting a client contact : `delete`
+### Deleting a person : `delete`
 
-Deletes the specified client contact from the address book.
+Deletes the specified person from the address book.
 
 Format: `delete INDEX`
 
-* Deletes the client contact at the specified `INDEX`.
-* The index refers to the index number shown in the displayed list.
+* Deletes the person at the specified `INDEX`.
+* The index refers to the index number shown in the displayed person list.
 * The index **must be a positive integer** 1, 2, 3, …​
 
 Examples:
-* `list` followed by `delete 2` deletes the 2nd client contact in the address book.
-* `find Betsy` followed by `delete 1` deletes the 1st client contact in the results of the `find` command.
+* `list` followed by `delete 2` deletes the 2nd person in the address book.
+* `find Betsy` followed by `delete 1` deletes the 1st person in the results of the `find` command.
 
 ### Sorting of contacts : `sort`
 
@@ -183,36 +183,8 @@ Format: `sort [n/]`
 * `sort t/` sorts contacts by ascending tags.
 
 Examples:
-* `sort n/` returns client contacts by ascending names `Alex`, `Bernice`, `Charlotte`.
-* `sort p/` returns client contacts by ascending phone numbers `87438807`, `91031282`, `92492021`.
-
-### Pinning a client contact : `pin`
-
-Pins the specified client contact to the top of the address book.
-
-Format: `pin INDEX`
-
-* Pins the client contact at the specified `INDEX` to the top of the list.
-* The index refers to the index number shown in the displayed list.
-* The index **must be a positive integer** 1, 2,3, …​
-
-Examples:
-* `list` followed by `pin 2` pins the 2nd client contact in the address book to the top.
-* `sort p/` followed by `pin 1` pins the 1st client contact when sorted according to phone number.
-
-### Unpinning a pinned client contact : `unpin`
-
-Unpins the specified client contact from the top of the address book if they were previously pinned.
-
-Format: `unpin INDEX`
-
-* Unpins the client contact at the specified `INDEX` from the top of the list if they were previously pinned.
-* The index refers to the index number shown in the displayed list.
-* The index **must be a positive integer** 1, 2,3, …​
-
-Examples:
-* `list` followed by `unpin 1` unpins the 1st client contact in the address book.
-* `sort p/` followed by `unpin 1` unpins the 1st client contact when sorted according to phone number.
+* `sort n/` returns person by ascending names `Alex`, `Bernice`, `Charlotte`.
+* `sort p/` returns person by ascending phone numbers `87438807`, `91031282`, `92492021`.
 
 ### Clearing all entries : `clear`
 
@@ -283,5 +255,3 @@ Action | Format, Examples
 **Find** | `find [n/"NAME" "MORE_NAMES"] [p/"PHONE" "MORE_PHONES"] [e/"EMAIL" "MORE_EMAILS"] [a/"ADDRESS" "MORE_ADDRESSES"] [t/"TAG" "MORE_TAGS"]`<br> e.g., `find n/"James" "Jake"`
 **List** | `list`
 **Help** | `help [COMMAND]`<br> e.g., `help add`
-**Pin** | `pin INDEX`<br> e.g., `pin 2`
-**Unpin** | `unpin INDEX`<br> e.g., `unpin 1`
