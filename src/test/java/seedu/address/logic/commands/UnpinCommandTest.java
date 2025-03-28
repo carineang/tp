@@ -7,6 +7,7 @@ import static org.junit.jupiter.api.Assertions.assertNotEquals;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 import static seedu.address.testutil.TypicalIndexes.INDEX_FIRST_PERSON;
+import static seedu.address.testutil.TypicalIndexes.INDEX_SECOND_PERSON;
 import static seedu.address.testutil.TypicalPersons.getTypicalAddressBook;
 
 import org.junit.jupiter.api.Test;
@@ -41,6 +42,18 @@ public class UnpinCommandTest {
         assertNotEquals(5, command); // Line 83
     }
 
+    @Test
+    public void equals_differentIndex_returnsFalse() {
+        UnpinCommand command1 = new UnpinCommand(INDEX_FIRST_PERSON);
+        UnpinCommand command2 = new UnpinCommand(INDEX_SECOND_PERSON);
+        assertNotEquals(command1, command2);
+    }
+
+    @Test
+    public void equals_null_returnsFalse() {
+        UnpinCommand command = new UnpinCommand(INDEX_FIRST_PERSON);
+        assertNotEquals(null, command);
+    }
 
     @Test
     public void execute_validIndex_unpinsPerson() throws Exception {
