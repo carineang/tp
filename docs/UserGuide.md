@@ -3,12 +3,45 @@ layout: page
 title: User Guide
 ---
 
-*Notarius* is a **desktop app for lawyers to manage contacts, optimized for use via a Command Line Interface** (CLI) while still having the benefits of a Graphical User Interface (GUI). If you can type fast, *Notarius* can get your contact management tasks done faster than traditional GUI apps.
 
 * Table of Contents
 {:toc}
 
 --------------------------------------------------------------------------------------------------------------------
+
+## Introducing Notarius
+
+*Ever a **fast-typing lawyer** with **too many** clients to keep track of manually in your old and slow contact app? We offer a **far better** alternative.*
+
+**Notarius** is a **desktop addressbook** application on ***steroids***, meticulously refined for **lawyers** to track and manage their
+clients' contact information. The app speeds up client contact management processes by providing fast-typing lawyers with a **Command Line Interface** (CLI) based input,
+while also providing a seamless and intuitive **Graphical User Interface** (GUI) for visual cues to those who prefer it.
+
+## Notarius Feature Overview
+
+While this application may seem *as-if* it were a *typical* address-book application, allowing you to 
+list, add, edit and delete client contacts, **Notarius** is packed with convenient and essential features that drive your productivity at work,
+helping to provide you with a seamless experience. You can reaccess previously typed commands, undo/redo them, 
+take down notes of your clients, pin important client contacts, search and even sort them!
+
+Feature | Purpose
+--------|------------------
+Note | Add and view notes of client contacts to keep track of important information about them.
+Pin/Unpin | Pin and unpin client contacts to easily track important client information.
+Sort | Sort clients by key attributes to easily find certain clients
+Find | Filters clients by various fields along with how similar they are to the query
+Undo/Redo | Undo and redo commands to easily correct mistakes
+Command History | View and reaccess previously typed commands
+
+## Glossary of terms
+
+While exploring this user guide, you may come across some terms that you may not be familiar with. 
+Here is a list of commonly used terminology to provide better clarity.
+
+Term(s) | Meaning
+--------|----------
+Prefix | Prefixes are format-specific keywords that are used to specify the type of data following it. For instance, `n/` is a prefix that specifies that the data following it is the name of a client.
+Command | Command refers to a user's input into the input box of the application. Commands are used to interact with Notarius and perform various operations such as deleting a contact.
 
 ## Quick start
 
@@ -72,6 +105,56 @@ Shows a message explaning how to access the help page.
 
 Format: `help`
 
+### Deleting person(s) : `delete`
+
+Deletes the specified person(s) from the address book.
+
+Formats: 
+1. `delete INDEX`
+    * Deletes the person at the specified `INDEX`.
+2. `delete i/INDEX INDEX1 INDEX2 ... INDEXN`
+    * Deletes the persons specified at the indexes: `INDEX1`, `INDEX2`, ... up to `INDEXN`
+3. `delete i/START_INDEX-END_INDEX`
+    * Deletes the persons whose index is specified from `START_INDEX` to `END_INDEX` inclusive.
+    * `START_INDEX` must be `<=` `END_INDEX`.
+
+
+
+Examples:
+
+![[deleteIndexSpaced]](images/deleteIndexSpaced.png)
+
+<div style="text-align:center; font-weight:bold">An example of deleting the first 3 client contacts after listing</div>
+
+<br>
+
+* `list` followed by `delete 2` 
+  * Deletes the 2nd person in the address book. 
+* `list` followed by `delete i/1-2` 
+  * Deletes the 1st and 2nd persons in the address book.
+* `list` followed by `delete i/2 3` 
+  * Deletes the 2nd and 3rd person in the address book.
+* `find Betsy` followed by `delete 1` 
+  * Deletes the 1st person in the results of the `find` command.
+* `find Alex` followed by `delete i/1-2` 
+  * Deletes the 1st and 2nd person in the results of the `find` command.
+
+<div markdown="block" class="alert alert-info">
+
+**:information_source: Index constraints:**<br>
+
+* The indexes must refer to the index numbers shown in the displayed person list.
+
+* The indexes **must be a positive integer** 1, 2, 3, …​
+
+* All specified indexes must correspond to some index number shown in the displayed person list, otherwise the command fails.
+
+* Duplicate indexes specified will be treated *as-if* that index was specified only once.
+
+* Up to 100 indexes can be specified (either via spaced or ranged format); beyond which the command will fail.
+
+</div>
+
 
 ### Adding a person: `add`
 
@@ -128,19 +211,6 @@ Examples:
 * `find alex david` returns `Alex Yeoh`, `David Li`<br>
   ![result for 'find alex david'](images/findAlexDavidResult.png)
 
-### Deleting a person : `delete`
-
-Deletes the specified person from the address book.
-
-Format: `delete INDEX`
-
-* Deletes the person at the specified `INDEX`.
-* The index refers to the index number shown in the displayed person list.
-* The index **must be a positive integer** 1, 2, 3, …​
-
-Examples:
-* `list` followed by `delete 2` deletes the 2nd person in the address book.
-* `find Betsy` followed by `delete 1` deletes the 1st person in the results of the `find` command.
 
 ### Clearing all entries : `clear`
 
@@ -153,6 +223,17 @@ Format: `clear`
 Exits the program.
 
 Format: `exit`
+
+### Command history
+
+We know it can be **very annoying** to re-type commands consisting of long client details, especially due to a small typo. 
+
+As such, Notarius keeps a history of the commands you have entered. You can navigate through the history using the `Ctrl + Up` and `Ctrl + Down` arrow keys.
+
+**MacOS users:** Use `Ctrl + Opt + Up` and `Ctrl + Opt + Down` arrow keys instead.
+
+![[commandHistory]](images/commandHistory.png)
+<div style="text-align:center; font-weight:bold;">An example of re-accessing a previous edit command</div>
 
 ### Saving the data
 
@@ -193,7 +274,7 @@ Action | Format, Examples
 --------|------------------
 **Add** | `add n/NAME p/PHONE_NUMBER e/EMAIL a/ADDRESS [t/TAG]…​` <br> e.g., `add n/James Ho p/22224444 e/jamesho@example.com a/123, Clementi Rd, 1234665 t/friend t/colleague`
 **Clear** | `clear`
-**Delete** | `delete INDEX`<br> e.g., `delete 3`
+**Delete** | `delete INDEX`, `delete i/START_INDEX-END_INDEX`, `delete i/INDEX1 INDEX2 ..`<br> e.g., `delete 3`, `delete i/1-2`, `delete i/1 3 5`
 **Edit** | `edit INDEX [n/NAME] [p/PHONE_NUMBER] [e/EMAIL] [a/ADDRESS] [t/TAG]…​`<br> e.g.,`edit 2 n/James Lee e/jameslee@example.com`
 **Find** | `find KEYWORD [MORE_KEYWORDS]`<br> e.g., `find James Jake`
 **List** | `list`
