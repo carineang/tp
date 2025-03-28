@@ -52,7 +52,7 @@ public class UnpinCommandTest {
     @Test
     public void equals_null_returnsFalse() {
         UnpinCommand command = new UnpinCommand(INDEX_FIRST_PERSON);
-        assertNotEquals(null, command);
+        assertFalse(command.equals(null));
     }
 
     @Test
