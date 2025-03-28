@@ -204,11 +204,11 @@ Examples:
 
 **:information_source: Index constraints:**<br>
 
-* The indexes must refer to the index numbers shown in the displayed person list.
+* The indexes must refer to the index numbers shown in the displayed client contacts list.
 
 * The indexes **must be a positive integer** 1, 2, 3, …
 
-* All specified indexes must correspond to some index number shown in the displayed person list, otherwise the command fails.
+* All specified indexes must correspond to some index number shown in the displayed client contacts list, otherwise the command fails.
 
 * Duplicate indexes specified will be treated *as-if* that index was specified only once.
 
