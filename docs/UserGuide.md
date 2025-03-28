@@ -142,6 +142,22 @@ Examples:
 * `list` followed by `delete 2` deletes the 2nd person in the address book.
 * `find Betsy` followed by `delete 1` deletes the 1st person in the results of the `find` command.
 
+### Sorting of contacts : `sort`
+
+Sort the address book by specified attribute in lexicographical order.
+
+Format: `sort [n/]`
+
+* `sort n/` sorts contacts by ascending names.
+* `sort p/` sorts contacts by ascending phone numbers.
+* `sort e/` sorts contacts by ascending emails.
+* `sort a/` sorts contacts by ascending addresses.
+* `sort t/` sorts contacts by ascending tags.
+
+Examples:
+* `sort n/` returns person by ascending names `Alex`, `Bernice`, `Charlotte`.
+* `sort p/` returns person by ascending phone numbers `87438807`, `91031282`, `92492021`.
+
 ### Clearing all entries : `clear`
 
 Clears all entries from the address book.
@@ -206,6 +222,7 @@ Action | Format, Examples
 **Add** | `add n/NAME p/PHONE_NUMBER e/EMAIL a/ADDRESS [t/TAG]…​` <br> e.g., `add n/James Ho p/22224444 e/jamesho@example.com a/123, Clementi Rd, 1234665 t/friend t/colleague`
 **Clear** | `clear`
 **Delete** | `delete INDEX`<br> e.g., `delete 3`
+**Sort** | `sort ATTRIBUTE`<br> e.g., `sort n/`
 **Edit** | `edit INDEX [n/NAME] [p/PHONE_NUMBER] [e/EMAIL] [a/ADDRESS] [t/TAG]…​`<br> e.g.,`edit 2 n/James Lee e/jameslee@example.com`
 **Find** | `find KEYWORD [MORE_KEYWORDS]`<br> e.g., `find James Jake`
 **List** | `list`
