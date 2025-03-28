@@ -76,6 +76,18 @@ Operating System/OS | The type of computer software that you are using, commonly
 
 --------------------------------------------------------------------------------------------------------------------
 
+## Overview of UI
+
+<p align="center">
+  <img src="images/userinterface1.png" alt="Ui" />
+</p>
+
+<p align="center">
+  <img src="images/userinterface2.png" alt="Ui" />
+</p>
+
+--------------------------------------------------------------------------------------------------------------------
+
 ## Features
 
 <div markdown="block" class="alert alert-info">
@@ -234,6 +246,22 @@ Examples:
   ![result for 'find alex david'](images/findAlexDavidResult.png)
 
 
+### Sorting of contacts : `sort`
+
+Sort the address book by specified attribute in lexicographical order.
+
+Format: `sort [n/]`
+
+* `sort n/` sorts contacts by ascending names.
+* `sort p/` sorts contacts by ascending phone numbers.
+* `sort e/` sorts contacts by ascending emails.
+* `sort a/` sorts contacts by ascending addresses.
+* `sort t/` sorts contacts by ascending tags.
+
+Examples:
+* `sort n/` returns person by ascending names `Alex`, `Bernice`, `Charlotte`.
+* `sort p/` returns person by ascending phone numbers `87438807`, `91031282`, `92492021`.
+
 ### Clearing all entries : `clear`
 
 Clears all entries from the address book.
@@ -280,8 +308,20 @@ _Details coming soon ..._
 
 ## FAQ
 
+**Q**: How can I check my Java version?<br>
+**A**: You can open a command line and type `java -version`. If you do not have Java installed, you can install Java 17 using the Oracle guide [here](https://www.oracle.com/java/technologies/downloads/#java17). Alternatively, you can install the OpenJDK version. For macOS users, you may wish to follow the instructions [here](https://nus-cs2103-ay2425s2.github.io/website/admin/programmingLanguages.html).
+
 **Q**: How do I transfer my data to another Computer?<br>
 **A**: Install the app in the other computer and overwrite the empty data file it creates with the file that contains the data of your previous AddressBook home folder.
+
+**Q**: How do I save my data?<br>
+**A**: Data is saved in the hard disk automatically after any commands that changes the data.
+
+**Q**: Do I need an internet connection to use Notarius?<br>
+**A**: All functionalities can be used offline, hence no internet connection is required.
+
+**Q**: What are the available commands in Notarius?<br>
+**A**: Please refer to the [Command Summary](#command-summary) for the list of available commands.
 
 --------------------------------------------------------------------------------------------------------------------
 
@@ -299,7 +339,8 @@ Action | Format, Examples
 **Add** | `add n/NAME p/PHONE_NUMBER e/EMAIL a/ADDRESS [t/TAG]…​` <br> e.g., `add n/James Ho p/22224444 e/jamesho@example.com a/123, Clementi Rd, 1234665 t/friend t/colleague`
 **Clear** | `clear`
 **Delete** | `delete INDEX`, `delete i/START_INDEX-END_INDEX`, `delete i/INDEX1 INDEX2 ..`<br> e.g., `delete 3`, `delete i/1-2`, `delete i/1 3 5`
+**Sort** | `sort ATTRIBUTE`<br> e.g., `sort n/`
 **Edit** | `edit INDEX [n/NAME] [p/PHONE_NUMBER] [e/EMAIL] [a/ADDRESS] [t/TAG]…​`<br> e.g.,`edit 2 n/James Lee e/jameslee@example.com`
-**Find** | `find KEYWORD [MORE_KEYWORDS]`<br> e.g., `find James Jake`
+**Find** | `find [n/"NAME" "MORE_NAMES"] [p/"PHONE" "MORE_PHONES"] [e/"EMAIL" "MORE_EMAILS"] [a/"ADDRESS" "MORE_ADDRESSES"] [t/"TAG" "MORE_TAGS"]`<br> e.g., `find n/"James" "Jake"`
 **List** | `list`
-**Help** | `help`
+**Help** | `help [COMMAND]`<br> e.g., `help add`
