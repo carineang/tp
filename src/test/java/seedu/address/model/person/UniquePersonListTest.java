@@ -211,6 +211,34 @@ public class UniquePersonListTest {
     }
 
     @Test
+    public void prioritisePins_allUnpinned_noReorder() {
+        Person unpinnedAlice = new PersonBuilder(ALICE).withPin(false).build();
+        Person unpinnedBob = new PersonBuilder(BOB).withPin(false).build();
+
+        uniquePersonList.add(unpinnedAlice);
+        uniquePersonList.add(unpinnedBob);
+
+        uniquePersonList.prioritisePins();
+
+        assertEquals(unpinnedAlice, uniquePersonList.asUnmodifiableObservableList().get(0));
+    }
+
+    @Test
+    public void prioritisePins_allPinned_reordersToOriginalOrder() {
+        Person pinnedAlice = new PersonBuilder(ALICE).withPin(true).build();
+        Person pinnedBob = new PersonBuilder(BOB).withPin(true).build();
+
+        uniquePersonList.add(pinnedBob);
+        uniquePersonList.add(pinnedAlice);
+
+        uniquePersonList.prioritisePins();
+
+        assertEquals(pinnedBob, uniquePersonList.asUnmodifiableObservableList().get(0));
+    }
+
+
+
+    @Test
     public void asUnmodifiableObservableList_modifyList_throwsUnsupportedOperationException() {
         assertThrows(UnsupportedOperationException.class, ()
             -> uniquePersonList.asUnmodifiableObservableList().remove(0));
