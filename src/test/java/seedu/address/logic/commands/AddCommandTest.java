@@ -167,11 +167,6 @@ public class AddCommandTest {
         }
 
         @Override
-        public void updateFilteredPersonListCommitless(Predicate<Person> predicate) {
-            throw new AssertionError("This method should not be called.");
-        }
-
-        @Override
         public void addPastCommandInput(String pastCommandInput) {
             throw new AssertionError("This method should not be called.");
         }
@@ -247,6 +242,10 @@ public class AddCommandTest {
         public void addPerson(Person person) {
             requireNonNull(person);
             personsAdded.add(person);
+        }
+
+        @Override
+        public void commitAddressBook() {
         }
 
         @Override

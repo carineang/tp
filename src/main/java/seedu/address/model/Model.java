@@ -85,8 +85,6 @@ public interface Model {
      */
     void updateFilteredPersonList(Predicate<Person> predicate);
 
-    void updateFilteredPersonListCommitless(Predicate<Person> predicate);
-
     /**
      * Adds a past command input to the list of past command inputs.
      *
@@ -123,6 +121,7 @@ public interface Model {
 
     /**
      * Saves the state of the address book
+     * It is up to the user of this method to decide when to commit the address book
      */
     void commitAddressBook();
 

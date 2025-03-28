@@ -49,6 +49,7 @@ public class NoteCommandTest {
 
         Model expectedModel = new ModelManager(new AddressBook(model.getAddressBook()), new UserPrefs());
         expectedModel.setPerson(personToEdit, editedPerson);
+        expectedModel.commitAddressBook();
 
         assertCommandSuccess(noteCommand, model, expectedMessage, expectedModel);
     }
@@ -66,6 +67,7 @@ public class NoteCommandTest {
 
         Model expectedModel = new ModelManager(new AddressBook(model.getAddressBook()), new UserPrefs());
         expectedModel.setPerson(model.getFilteredPersonList().get(0), editedPerson);
+        expectedModel.commitAddressBook();
 
         assertCommandSuccess(noteCommand, model, expectedMessage, expectedModel);
     }

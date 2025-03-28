@@ -69,6 +69,7 @@ public class UnpinCommandTest {
                 new Pin(true)
         );
         model.setPerson(originalPerson, pinnedPerson);
+        model.commitAddressBook();
 
         UnpinCommand unpinCommand = new UnpinCommand(INDEX_FIRST_PERSON);
         CommandResult result = unpinCommand.execute(model);
@@ -93,9 +94,11 @@ public class UnpinCommandTest {
         Model model = new ModelManager();
         Person person = new PersonBuilder().withPin(true).build();
         model.addPerson(person);
+        model.commitAddressBook();
 
         Person unpinned = new PersonBuilder(person).withPin(false).build();
         model.setPerson(person, unpinned);
+        model.commitAddressBook();
 
         model.unpinPerson(unpinned);
         assertFalse(model.getFilteredPersonList().get(0).getPin().isPinned());
