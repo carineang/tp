@@ -20,21 +20,21 @@ import seedu.address.testutil.PersonBuilder;
 public class AddCommandIntegrationTest {
 
     private Model model;
+    private Model expectedModel;
 
     @BeforeEach
     public void setUp() {
         model = new ModelManager(getTypicalAddressBook(), new UserPrefs());
+        expectedModel = new ModelManager(getTypicalAddressBook(), new UserPrefs());
     }
 
     @Test
     public void execute_newPerson_success() {
         Person validPerson = new PersonBuilder().build();
-
-        Model actualModel = new ModelManager(model.getAddressBook(), new UserPrefs());
-        Model expectedModel = new ModelManager(model.getAddressBook(), new UserPrefs());
         expectedModel.addPerson(validPerson);
+        expectedModel.commitAddressBook();
 
-        assertCommandSuccess(new AddCommand(validPerson), actualModel,
+        assertCommandSuccess(new AddCommand(validPerson), model,
                 String.format(AddCommand.MESSAGE_SUCCESS, Messages.format(validPerson)),
                 expectedModel);
     }
