@@ -134,7 +134,6 @@ public class UniquePersonList implements Iterable<Person> {
         if (index == -1) {
             throw new PersonNotFoundException();
         }
-
         prioritisePins();
     }
 
