@@ -283,3 +283,5 @@ Action | Format, Examples
 **Find** | `find [n/"NAME" "MORE_NAMES"] [p/"PHONE" "MORE_PHONES"] [e/"EMAIL" "MORE_EMAILS"] [a/"ADDRESS" "MORE_ADDRESSES"] [t/"TAG" "MORE_TAGS"]`<br> e.g., `find n/"James" "Jake"`
 **List** | `list`
 **Help** | `help [COMMAND]`<br> e.g., `help add`
+**Pin** | `pin INDEX`<br> e.g., `pin 2`
+**Unpin** | `unpin INDEX`<br> e.g., `unpin 1`
