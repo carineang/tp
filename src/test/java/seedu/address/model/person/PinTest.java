@@ -60,4 +60,11 @@ public class PinTest {
         assertNotEquals(pin2, pin3);
     }
 
+    @Test
+    public void equals_differentInstanceSamePin_returnsTrue() {
+        Pin pin1 = new Pin(true);
+        Pin pin2 = new Pin("[PINNED]");
+        assertEquals(pin1, pin2); // Line 80
+    }
+
 }

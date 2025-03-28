@@ -3,6 +3,7 @@ package seedu.address.logic.commands;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertFalse;
+import static org.junit.jupiter.api.Assertions.assertNotEquals;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 import static seedu.address.testutil.TypicalIndexes.INDEX_FIRST_PERSON;
@@ -27,6 +28,19 @@ import seedu.address.testutil.PersonBuilder;
 public class UnpinCommandTest {
 
     private final Model model = new ModelManager(getTypicalAddressBook(), new UserPrefs());
+
+    @Test
+    public void equals_sameObject_returnsTrue() {
+        UnpinCommand command = new UnpinCommand(INDEX_FIRST_PERSON);
+        assertEquals(command, command); // Line 78
+    }
+
+    @Test
+    public void equals_differentType_returnsFalse() {
+        UnpinCommand command = new UnpinCommand(INDEX_FIRST_PERSON);
+        assertNotEquals(5, command); // Line 83
+    }
+
 
     @Test
     public void execute_validIndex_unpinsPerson() throws Exception {
