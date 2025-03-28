@@ -53,7 +53,10 @@ public class SortCommand extends Command {
         requireNonNull(model);
         model.updateFilteredPersonList(PREDICATE_SHOW_ALL_PERSONS);
         model.updateSortedFilteredPersonList(prefix);
+        model.commitAddressBook();
+
         logger.info("SortCommand execution completed. List sorted by: " + prefix);
+
         return new CommandResult(MESSAGE_SORT_SUCCESSFUL);
     }
 

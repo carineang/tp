@@ -58,6 +58,7 @@ public class PinCommand extends Command {
 
         Person personToPin = lastShownList.get(index.getZeroBased());
         model.pinPerson(personToPin);
+        model.commitAddressBook();
         throw new CommandException(
                 String.format(MESSAGE_ARGUMENTS, index.getOneBased()));
     }

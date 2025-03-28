@@ -88,8 +88,6 @@ public class ModelManager implements Model {
     @Override
     public void setAddressBook(ReadOnlyAddressBook addressBook) {
         this.addressBook.resetData(addressBook);
-
-        commitAddressBook();
     }
 
     @Override
@@ -106,16 +104,12 @@ public class ModelManager implements Model {
     @Override
     public void deletePerson(Person target) {
         addressBook.removePerson(target);
-
-        commitAddressBook();
     }
 
     @Override
     public void addPerson(Person person) {
         addressBook.addPerson(person);
-        updateFilteredPersonListCommitless(PREDICATE_SHOW_ALL_PERSONS);
-
-        commitAddressBook();
+        updateFilteredPersonList(PREDICATE_SHOW_ALL_PERSONS);
     }
 
     @Override
@@ -123,15 +117,11 @@ public class ModelManager implements Model {
         requireAllNonNull(target, editedPerson);
 
         addressBook.setPerson(target, editedPerson);
-
-        commitAddressBook();
     }
 
     @Override
     public void pinPerson(Person person) {
         addressBook.pinPerson(person);
-
-        commitAddressBook();
     }
 
     //=========== Filtered Person List Accessors =============================================================
@@ -147,13 +137,6 @@ public class ModelManager implements Model {
 
     @Override
     public void updateFilteredPersonList(Predicate<Person> predicate) {
-        updateFilteredPersonListCommitless(predicate);
-
-        commitAddressBook();
-    }
-
-    @Override
-    public void updateFilteredPersonListCommitless(Predicate<Person> predicate) {
         requireNonNull(predicate);
         filteredPersons.setPredicate(predicate);
     }
@@ -181,8 +164,6 @@ public class ModelManager implements Model {
     public void updateSortedFilteredPersonList(String prefix) {
         requireNonNull(prefix);
         addressBook.updateSortedList(prefix);
-
-        commitAddressBook();
     }
 
     @Override
