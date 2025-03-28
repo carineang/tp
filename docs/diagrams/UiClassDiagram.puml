@@ -53,8 +53,11 @@ PersonDetailCard --|> UiPart
 StatusBarFooter --|> UiPart
 HelpWindow --|> UiPart
 
-PersonCard ..> Model
-PersonDetailCard ..> Model
+PersonCard -[hidden]right- PersonDetailCard : " "
+
+PersonCard ..down..> Model
+PersonDetailCard ..down..> Model
+
 UiManager -right-> Logic
 MainWindow -left-> Logic
 
