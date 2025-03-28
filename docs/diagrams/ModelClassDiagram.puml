@@ -20,6 +20,7 @@ Class Name
 Class Phone
 Class Tag
 Class Note
+Class Pin
 Class VersionedAddressBook
 
 Class I #FFFFFF
@@ -46,8 +47,9 @@ Person *--down-> Name
 Person *--down-> Phone
 Person *--down-> Email
 Person *--down-> Address
-Person *--down-> "*" Tag
 Person *--down-> Note
+Person *--down-> Pin
+Person *--down-> "*" Tag
 
 Person -[hidden]--> I
 UniquePersonList -[hidden]-> I
