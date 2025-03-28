@@ -124,6 +124,11 @@ public class ModelManager implements Model {
         addressBook.pinPerson(person);
     }
 
+    @Override
+    public void unpinPerson(Person person) {
+        addressBook.unpinPerson(person);
+    }
+
     //=========== Filtered Person List Accessors =============================================================
 
     /**

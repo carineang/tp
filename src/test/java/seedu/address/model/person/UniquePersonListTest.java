@@ -178,6 +178,67 @@ public class UniquePersonListTest {
     }
 
     @Test
+    public void unpinPerson_existingPinnedPerson_success() {
+        Person pinnedBob = new PersonBuilder(BOB).withPin(true).build();
+
+        uniquePersonList.add(ALICE);
+        uniquePersonList.add(pinnedBob);
+
+        uniquePersonList.unpinPerson(pinnedBob);
+        uniquePersonList.sortBy("n/");
+        assertEquals(ALICE, uniquePersonList.asUnmodifiableObservableList().get(0));
+    }
+
+    @Test
+    public void unpinPerson_personNotInList_throwsPersonNotFoundException() {
+        Person notAdded = new PersonBuilder(BOB).withPin(false).build();
+        assertThrows(PersonNotFoundException.class, () -> uniquePersonList.unpinPerson(notAdded));
+    }
+
+    @Test
+    public void prioritisePins_mixedPins_reordersCorrectly() {
+        Person unpinnedBob = new PersonBuilder(BOB).withPin(false).build();
+        Person pinnedBob = new PersonBuilder(BOB).withPin(true).build();
+        Person unpinnedAlice = new PersonBuilder(ALICE).withPin(false).build();
+
+        uniquePersonList.add(unpinnedAlice);
+        uniquePersonList.add(unpinnedBob);
+        uniquePersonList.pinPerson(unpinnedBob);
+
+        uniquePersonList.prioritisePins();
+
+        assertEquals(pinnedBob, uniquePersonList.asUnmodifiableObservableList().get(0));
+    }
+
+    @Test
+    public void prioritisePins_allUnpinned_noReorder() {
+        Person unpinnedAlice = new PersonBuilder(ALICE).withPin(false).build();
+        Person unpinnedBob = new PersonBuilder(BOB).withPin(false).build();
+
+        uniquePersonList.add(unpinnedAlice);
+        uniquePersonList.add(unpinnedBob);
+
+        uniquePersonList.prioritisePins();
+
+        assertEquals(unpinnedAlice, uniquePersonList.asUnmodifiableObservableList().get(0));
+    }
+
+    @Test
+    public void prioritisePins_allPinned_reordersToOriginalOrder() {
+        Person pinnedAlice = new PersonBuilder(ALICE).withPin(true).build();
+        Person pinnedBob = new PersonBuilder(BOB).withPin(true).build();
+
+        uniquePersonList.add(pinnedBob);
+        uniquePersonList.add(pinnedAlice);
+
+        uniquePersonList.prioritisePins();
+
+        assertEquals(pinnedBob, uniquePersonList.asUnmodifiableObservableList().get(0));
+    }
+
+
+
+    @Test
     public void asUnmodifiableObservableList_modifyList_throwsUnsupportedOperationException() {
         assertThrows(UnsupportedOperationException.class, ()
             -> uniquePersonList.asUnmodifiableObservableList().remove(0));

@@ -95,6 +95,19 @@ public class AddressBookTest {
     }
 
     @Test
+    public void unpinPerson_validPerson_success() {
+        AddressBook addressBook = new AddressBook();
+        Person person = new PersonBuilder().withPin(true).build();
+        addressBook.addPerson(person);
+
+        Person unpinned = new PersonBuilder(person).withPin(false).build();
+        addressBook.setPerson(person, unpinned);
+
+        addressBook.unpinPerson(unpinned);
+    }
+
+
+    @Test
     public void toStringMethod() {
         String expected = AddressBook.class.getCanonicalName() + "{persons=" + addressBook.getPersonList() + "}";
         assertEquals(expected, addressBook.toString());

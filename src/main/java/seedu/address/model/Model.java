@@ -106,6 +106,13 @@ public interface Model {
     void pinPerson(Person personToPin);
 
     /**
+     * Unpins a person in the address book that was previously pinned.
+     *
+     * @param personToUnpin The person to be unpinned in the address book.
+     */
+    void unpinPerson(Person personToUnpin);
+
+    /**
      * Updates the filtered and sorted list of persons based on the specified prefix attribute
      *
      * @param prefix The prefix indicating the attribute to sort by.
