@@ -107,7 +107,6 @@ public class DeleteCommandTest {
         // its in reverse order so second person deletes first
         expectedModel.deletePerson(secondPersonToDelete);
         expectedModel.deletePerson(firstPersonToDelete);
-        
         expectedModel.commitAddressBook();
 
         assertCommandSuccess(deleteCommand, model, expectedMessage, expectedModel);
