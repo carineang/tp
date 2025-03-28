@@ -134,6 +134,11 @@ public class ModelManager implements Model {
         commitAddressBook();
     }
 
+    @Override
+    public void unpinPerson(Person person) {
+        addressBook.unpinPerson(person);
+    }
+
     //=========== Filtered Person List Accessors =============================================================
 
     /**

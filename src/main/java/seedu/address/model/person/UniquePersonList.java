@@ -123,6 +123,35 @@ public class UniquePersonList implements Iterable<Person> {
         internalList.add(0, toPin);
     }
 
+    /**
+     * Unpins the person in the list if they were previously pinned.
+     * The person must exist in the list.
+     */
+    public void unpinPerson(Person toUnpin) {
+        requireNonNull(toUnpin);
+
+        int index = internalList.indexOf(toUnpin);
+        if (index == -1) {
+            throw new PersonNotFoundException();
+        }
+        prioritisePins();
+    }
+
+    /**
+     * Moves all the pinned people to the top of the list, retaining the sort order among the pinned people.
+     */
+    public void prioritisePins() {
+        int pinnedIndex = 0;
+        for (Person person : internalList) {
+            if (person.getPin().isPinned()) {
+                int index = internalList.indexOf(person);
+                internalList.remove(index);
+                internalList.add(pinnedIndex, person);
+                pinnedIndex++;
+            }
+        }
+    }
+
 
     @Override
     public Iterator<Person> iterator() {
@@ -200,6 +229,7 @@ public class UniquePersonList implements Iterable<Person> {
      */
     private void sortByName() {
         internalList.sort(Comparator.comparing(p -> p.getName().toString()));
+        prioritisePins();
     }
 
     /**
@@ -207,6 +237,7 @@ public class UniquePersonList implements Iterable<Person> {
      */
     private void sortByPhoneNumber() {
         internalList.sort(Comparator.comparing(p -> new BigInteger(p.getPhone().toString())));
+        prioritisePins();
     }
 
     /**
@@ -214,6 +245,7 @@ public class UniquePersonList implements Iterable<Person> {
      */
     private void sortByEmailAddress() {
         internalList.sort(Comparator.comparing(p -> p.getEmail().toString()));
+        prioritisePins();
     }
 
     /**
@@ -221,6 +253,7 @@ public class UniquePersonList implements Iterable<Person> {
      */
     private void sortByAddress() {
         internalList.sort(Comparator.comparing(p -> p.getAddress().toString()));
+        prioritisePins();
     }
 
     /**
@@ -228,5 +261,6 @@ public class UniquePersonList implements Iterable<Person> {
      */
     private void sortByTags() {
         internalList.sort(Comparator.comparing(p -> p.getTags().toString()));
+        prioritisePins();
     }
 }
