@@ -17,7 +17,7 @@ title: User Guide
 clients' contact information. The app speeds up client contact management processes by providing fast-typing lawyers with a **Command Line Interface** (CLI) based input,
 while also providing a seamless and intuitive **Graphical User Interface** (GUI) for visual cues to those who prefer it.
 
-## Notarius Feature Overview
+## Features Overview
 
 While this application may seem *as-if* it were a *typical* address-book application, allowing you to 
 list, add, edit and delete client contacts, **Notarius** is packed with convenient and essential features that drive your productivity at work,
@@ -91,25 +91,36 @@ Command | Command refers to a user's input into the input box of the application
 * Parameters can be in any order.<br>
   e.g. if the command specifies `n/NAME p/PHONE_NUMBER`, `p/PHONE_NUMBER n/NAME` is also acceptable.
 
-* Extraneous parameters for commands that do not take in parameters (such as `help`, `list`, `exit` and `clear`) will be ignored.<br>
-  e.g. if the command specifies `help 123`, it will be interpreted as `help`.
+* Extraneous parameters for commands that do not take in parameters (such as `list`, `exit` and `clear`) will be ignored.<br>
+  e.g. if the command specifies `list 123`, it will be interpreted as `list`.
 
 * If you are using a PDF version of this document, be careful when copying and pasting commands that span multiple lines as space characters surrounding line-breaks may be omitted when copied over to the application.
 </div>
 
 ### Viewing help : `help`
 
-Shows a message explaning how to access the help page.
+The `help` command provides guidance on how to use the application, including available commands and their formats.
 
-![help message](images/helpMessage.png)
+Format: `help [COMMAND]`
 
-Format: `help`
+![help_message](images/helpMessage.png)
+
+* Display general help message when used without arguments.
+* Provides specific command help with format and example of usage 
+when a valid command name is specified.
+* Case-insensitive command lookup (e.g.`help FiNd` works for `find`).
+* Handles unknown commands gracefully, informing the user if the command does not exist.
+
+Examples:
+* `help add` displays the correct format and usage of the `add` command.
+* `help me` returns: `"Unknown command! Use 'help' to see available commands.`
+
 
 ### Deleting person(s) : `delete`
 
 Deletes the specified person(s) from the address book.
 
-Formats: 
+Formats:
 1. `delete INDEX`
     * Deletes the person at the specified `INDEX`.
 2. `delete i/INDEX INDEX1 INDEX2 ... INDEXN`
@@ -128,16 +139,16 @@ Examples:
 
 <br>
 
-* `list` followed by `delete 2` 
-  * Deletes the 2nd person in the address book. 
-* `list` followed by `delete i/1-2` 
-  * Deletes the 1st and 2nd persons in the address book.
-* `list` followed by `delete i/2 3` 
-  * Deletes the 2nd and 3rd person in the address book.
-* `find Betsy` followed by `delete 1` 
-  * Deletes the 1st person in the results of the `find` command.
-* `find Alex` followed by `delete i/1-2` 
-  * Deletes the 1st and 2nd person in the results of the `find` command.
+* `list` followed by `delete 2`
+    * Deletes the 2nd person in the address book.
+* `list` followed by `delete i/1-2`
+    * Deletes the 1st and 2nd persons in the address book.
+* `list` followed by `delete i/2 3`
+    * Deletes the 2nd and 3rd person in the address book.
+* `find Betsy` followed by `delete 1`
+    * Deletes the 1st person in the results of the `find` command.
+* `find Alex` followed by `delete i/1-2`
+    * Deletes the 1st and 2nd person in the results of the `find` command.
 
 <div markdown="block" class="alert alert-info">
 
@@ -195,20 +206,27 @@ Examples:
 
 ### Locating persons by name: `find`
 
-Finds persons whose names contain any of the given keywords.
+The `find` command allows you to search for contacts based on their name,
+phone number, email, address, or tags.
 
-Format: `find KEYWORD [MORE_KEYWORDS]`
+Format: `find [n/"NAME" "MORE_NAMES"] [p/"PHONE" "MORE_PHONES"] 
+     [e/"EMAIL" "MORE_EMAILS"] [a/"ADDRESS" "MORE_ADDRESSES"] 
+     [t/"TAG" "MORE_TAGS"] `
 
-* The search is case-insensitive. e.g `hans` will match `Hans`
-* The order of the keywords does not matter. e.g. `Hans Bo` will match `Bo Hans`
-* Only the name is searched.
-* Only full words will be matched e.g. `Han` will not match `Hans`
-* Persons matching at least one keyword will be returned (i.e. `OR` search).
-  e.g. `Hans Bo` will return `Hans Gruber`, `Bo Yang`
+* Use double quotation marks (") around each keyword to ensure correct parsing.
+* The search is case-insensitive. e.g the name `hans` will match `Hans`
+* You can search by `name`, `phone number`, `email`, `address`, or `tags`.
+* Supports OR search: At least one field must match any of the provided keywords.
+* Allows small typos for `name`, `email` and `address` fields: 
+  - e.g. Searching for `Alce` will match `Alice`.
+  - Searching for `Bbo@example.com` will match `Bob@example.com.`
+* Supports multiple entries per field:
+  - e.g. `find n/"Alice" "Bob" p/"98765432" "91234567"`,
+  matches contacts named `Alice` or `Bob`, or with phone numbers `98765432` or `91234567`.
 
 Examples:
-* `find John` returns `john` and `John Doe`
-* `find alex david` returns `Alex Yeoh`, `David Li`<br>
+* `find p/"87438807" "91031282"` returns `Alex Yeoh` and `David Li`
+* `find n/"Alxe" "Davdi"` returns `Alex Yeoh`, `David Li`<br>
   ![result for 'find alex david'](images/findAlexDavidResult.png)
 
 

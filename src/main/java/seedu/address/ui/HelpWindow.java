@@ -28,6 +28,8 @@ public class HelpWindow extends UiPart<Stage> {
             + "9. 'unpin': Unpins a person.\n"
             + "10. 'note': Change note of a person.\n"
             + "11. 'viewnote': view note of a person\n"
+            + "12. 'undo': Undoes the last command\n"
+            + "13. 'redo': Redoes the effect of the last undo\n"
             + "Use `help <command>` for detailed information about a specific command.\n\n"
             + "Refer to the full user guide: " + USERGUIDE_URL;
 
