@@ -198,7 +198,21 @@ Format: `pin INDEX`
 
 Examples:
 * `list` followed by `pin 2` pins the 2nd person in the address book to the top.
-* `sort p/` followed by pin 1 pins the 1st person when sorted according to phone number.
+* `sort p/` followed by `pin 1` pins the 1st person when sorted according to phone number.
+
+### Unpinning a pinned person : `unpin`
+
+Unpins the specified person from the top of the address book if they were previously pinned.
+
+Format: `unpin INDEX`
+
+* Unpins the person at the specified `INDEX` from the top of the list if they were previously pinned.
+* The index refers to the index number shown in the displayed person list.
+* The index **must be a positive integer** 1, 2,3, …​
+
+Examples:
+* `list` followed by `unpin 1` unpins the 1st person in the address book.
+* `sort p/` followed by `unpin 1` unpins the 1st person when sorted according to phone number.
 
 ### Clearing all entries : `clear`
 
