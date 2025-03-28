@@ -338,7 +338,7 @@ Action | Format, Examples
 --------|------------------
 **Add** | `add n/NAME p/PHONE_NUMBER e/EMAIL a/ADDRESS [t/TAG]…​` <br> e.g., `add n/James Ho p/22224444 e/jamesho@example.com a/123, Clementi Rd, 1234665 t/friend t/colleague`
 **Clear** | `clear`
-**Delete** | `delete INDEX`, `delete i/START_INDEX-END_INDEX`, `delete i/INDEX1 INDEX2 …​`<br> e.g., `delete 3`, `delete i/1-2`, `delete i/1 3 5`
+**Delete** | `delete INDEX`, `delete i/START_INDEX-END_INDEX`, `delete i/FIRST_INDEX SECOND_INDEX …​ NTH_INDEX`<br> e.g., `delete 3`, `delete i/1-2`, `delete i/1 3 5`
 **Sort** | `sort ATTRIBUTE`<br> e.g., `sort n/`
 **Edit** | `edit INDEX [n/NAME] [p/PHONE_NUMBER] [e/EMAIL] [a/ADDRESS] [t/TAG]…​`<br> e.g.,`edit 2 n/James Lee e/jameslee@example.com`
 **Find** | `find [n/"NAME" "MORE_NAMES"] [p/"PHONE" "MORE_PHONES"] [e/"EMAIL" "MORE_EMAILS"] [a/"ADDRESS" "MORE_ADDRESSES"] [t/"TAG" "MORE_TAGS"]`<br> e.g., `find n/"James" "Jake"`
