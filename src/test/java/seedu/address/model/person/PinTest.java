@@ -68,7 +68,7 @@ public class PinTest {
     }
 
     @Test
-    public void equals_different_type_returnsFalse() {
+    public void equals_differentType_returnsFalse() {
         Pin pin = new Pin(true);
         assertFalse(pin.equals(new Object()));
     }
