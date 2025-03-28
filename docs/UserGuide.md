@@ -175,8 +175,20 @@ _Details coming soon ..._
 
 ## FAQ
 
+**Q**: How can I check my Java version?<br>
+**A**: You can open a command line and type `java -version`. If you do not have Java installed, you can install Java 17 using the Oracle guide [here](https://www.oracle.com/java/technologies/downloads/#java17). Alternatively, you can install the OpenJDK version. For macOS users, you may wish to follow the instructions [here](https://nus-cs2103-ay2425s2.github.io/website/admin/programmingLanguages.html).
+
 **Q**: How do I transfer my data to another Computer?<br>
 **A**: Install the app in the other computer and overwrite the empty data file it creates with the file that contains the data of your previous AddressBook home folder.
+
+**Q**: How do I save my data?<br>
+**A**: Data is saved in the hard disk automatically after any commands that changes the data.
+
+**Q**: Do I need an internet connection to use Notarius?<br>
+**A**: All functionalities can be used offline, hence no internet connection is required.
+
+**Q**: What are the available commands in Notarius?<br>
+**A**: Please refer to the [Command Summary](#command-summary) for the list of available commands.
 
 --------------------------------------------------------------------------------------------------------------------
 
