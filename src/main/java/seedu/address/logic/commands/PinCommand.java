@@ -68,6 +68,7 @@ public class PinCommand extends Command {
 
         model.setPerson(personToPin, editedPerson);
         model.pinPerson(editedPerson);
+        model.commitAddressBook();
 
         return new CommandResult(String.format(MESSAGE_PIN_PERSON_SUCCESS, index.getOneBased()));
     }
