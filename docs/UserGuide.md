@@ -170,16 +170,16 @@ Changes a note of a client contact in the address book.
 
 Format: `note INDEX [nt/NOTE]`
 
-* Changes the person at the specified `INDEX`.
+* Changes the note of the client contact at the specified `INDEX`.
 * The index refers to the index number shown in the displayed client contact list.
 * The index **must be a positive integer** 1, 2, 3, …​
 
 Example:
-* `note 3 nt/Away for a long time` changes the note of the 3rd person from the top 
+* `note 3 nt/Away for a long time` changes the note of the 3rd client contact from the top 
 in the address book into "Away for a long time".
 * `sort /n` followed by `note 2` changes the note of the 
-2nd person from the top listed in the sorted address book.
-* `note 1` changes the note of the 1st person from the top into a blank note.
+2nd client contact from the top listed in the sorted address book.
+* `note 1` changes the note of the 1st client contact from the top into a blank note.
 
 ### Viewing a note : `viewnote`
 
@@ -187,16 +187,13 @@ Displays the contents of a note of a particular client contact in the address bo
 
 Format: `viewnote INDEX`
 
-* Displays the note of the person at the specified `INDEX`.
-* The index refers to the index number shown in the displayed person list.
+* Displays the note of the client contact at the specified `INDEX`.
+* The index refers to the index number shown in the displayed client contact list.
 * The index **must be a positive integer** 1, 2, 3, …​
 
 Example:
-* `note 3 nt/Away for a long time` changes the note of the 3rd person from the top
-  in the address book into "Away for a long time".
-* `sort /n` followed by `note 2` changes the note of the
-  2nd person from the top listed in the sorted address book.
-* `note 1` changes the note of the 1st person from the top in the address book into a blank note.
+* `viewnote 3` displays the note of the 3rd client contact from the top.
+* `viewnote 1` displays the note of the 1st client contact from the top.
 
 ### Undoing a command : `undo`
 
@@ -208,7 +205,7 @@ Format: `undo`
 
 Examples:
 * `undo` undoes the last command.
-* `pin 4` followed by `undo` undoes the pin on the 4th person from the top in the address book.
+* `pin 4` followed by `undo` undoes the pin on the 4th client contact from the top in the address book.
 
 ### Redoing a command : `redo`
 
@@ -222,7 +219,7 @@ Format: `redo`
 Examples:
 * `redo` redoes the last undone command.
 * `pin 4` followed by `undo` followed by `redo` results in
-there being a pin on the 4th person from the top in the address book.
+there being a pin on the 4th client contact from the top in the address book.
 
 ### Exiting the program : `exit`
 
