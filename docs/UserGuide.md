@@ -40,6 +40,18 @@ title: User Guide
 
 --------------------------------------------------------------------------------------------------------------------
 
+## Overview of UI
+
+<p align="center">
+  <img src="images/userinterface1.png" alt="Ui" />
+</p>
+
+<p align="center">
+  <img src="images/userinterface2.png" alt="Ui" />
+</p>
+
+--------------------------------------------------------------------------------------------------------------------
+
 ## Features
 
 <div markdown="block" class="alert alert-info">
