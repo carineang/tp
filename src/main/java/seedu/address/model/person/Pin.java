@@ -76,10 +76,10 @@ public class Pin {
         }
 
         // instanceof handles nulls
-        if (!(other instanceof Pin otherPin)) {
+        if (!(other instanceof Pin)) {
             return false;
         }
-
+        Pin otherPin = (Pin) other;
         return isPinned == otherPin.isPinned();
     }
 
