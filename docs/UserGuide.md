@@ -67,7 +67,7 @@ Operating System/OS | The type of computer software that you are using, commonly
    * `add n/John Doe p/98765432 e/johnd@example.com a/John street, block 123, #01-01` : Adds a contact named `John Doe` to the Address Book.
 
    * `delete 3` : Deletes the 3rd contact shown in the current list.
-
+    
    * `clear` : Deletes all contacts.
 
    * `exit` : Exits the app.
@@ -266,6 +266,63 @@ Clears all entries from the address book.
 
 Format: `clear`
 
+### Changing a note : `note`
+
+Changes a note of a client contact in the address book.
+
+Format: `note INDEX [nt/NOTE]`
+
+* Changes the note of the client contact at the specified `INDEX`.
+* The index refers to the index number shown in the displayed client contact list.
+* The index **must be a positive integer** 1, 2, 3, …​
+
+Example:
+* `note 3 nt/Away for a long time` changes the note of the 3rd client contact from the top 
+in the address book into "Away for a long time".
+* `sort /n` followed by `note 2` changes the note of the 
+2nd client contact from the top listed in the sorted address book.
+* `note 1` changes the note of the 1st client contact from the top into a blank note.
+
+### Viewing a note : `viewnote`
+
+Displays the contents of a note of a particular client contact in the address book.
+
+Format: `viewnote INDEX`
+
+* Displays the note of the client contact at the specified `INDEX`.
+* The index refers to the index number shown in the displayed client contact list.
+* The index **must be a positive integer** 1, 2, 3, …​
+
+Example:
+* `viewnote 3` displays the note of the 3rd client contact from the top.
+* `viewnote 1` displays the note of the 1st client contact from the top.
+
+### Undoing a command : `undo`
+
+Undoes a command.
+
+Format: `undo`
+
+* There should be a previous command to undo.
+
+Examples:
+* `undo` undoes the last command.
+* `pin 4` followed by `undo` undoes the pin on the 4th client contact from the top in the address book.
+
+### Redoing a command : `redo`
+
+Redoes an undone command.
+
+Format: `redo`
+
+* An undone command is a previously typed command that was reversed by the `undo` command
+* There should be an undone command to redo.
+ 
+Examples:
+* `redo` redoes the last undone command.
+* `pin 4` followed by `undo` followed by `redo` results in
+there being a pin on the 4th client contact from the top in the address book.
+
 ### Exiting the program : `exit`
 
 Exits the program.
@@ -335,10 +392,14 @@ _Details coming soon ..._
 Action | Format, Examples
 --------|------------------
 **Add** | `add n/NAME p/PHONE_NUMBER e/EMAIL a/ADDRESS [t/TAG]…​` <br> e.g., `add n/James Ho p/22224444 e/jamesho@example.com a/123, Clementi Rd, 1234665 t/friend t/colleague`
-**Clear** | `clear`
-**Delete** | `delete INDEX`, `delete i/START_INDEX-END_INDEX`, `delete i/INDEX1 INDEX2 …​`<br> e.g., `delete 3`, `delete i/1-2`, `delete i/1 3 5`
-**Sort** | `sort ATTRIBUTE`<br> e.g., `sort n/`
-**Edit** | `edit INDEX [n/NAME] [p/PHONE_NUMBER] [e/EMAIL] [a/ADDRESS] [t/TAG]…​`<br> e.g.,`edit 2 n/James Lee e/jameslee@example.com`
-**Find** | `find [n/"NAME" "MORE_NAMES"] [p/"PHONE" "MORE_PHONES"] [e/"EMAIL" "MORE_EMAILS"] [a/"ADDRESS" "MORE_ADDRESSES"] [t/"TAG" "MORE_TAGS"]`<br> e.g., `find n/"James" "Jake"`
 **List** | `list`
+**Edit** | `edit INDEX [n/NAME] [p/PHONE_NUMBER] [e/EMAIL] [a/ADDRESS] [t/TAG]…​`<br> e.g.,`edit 2 n/James Lee e/jameslee@example.com`
+**Delete** | `delete INDEX`, `delete i/START_INDEX-END_INDEX`, `delete i/INDEX1 INDEX2 …​`<br> e.g., `delete 3`, `delete i/1-2`, `delete i/1 3 5`
+**Clear** | `clear`
+**Find** | `find [n/"NAME" "MORE_NAMES"] [p/"PHONE" "MORE_PHONES"] [e/"EMAIL" "MORE_EMAILS"] [a/"ADDRESS" "MORE_ADDRESSES"] [t/"TAG" "MORE_TAGS"]`<br> e.g., `find n/"James" "Jake"`
+**Sort** | `sort ATTRIBUTE`<br> e.g., `sort n/`
+**Change Note** | `note INDEX [nt/NOTE]`<br> e.g., `note 3 nt/Currently in jail.`
+**View Note** | `viewnote INDEX`<br> e.g., `viewnote 3`
+**Undo** | `undo`
+**Redo** | `redo`
 **Help** | `help [COMMAND]`<br> e.g., `help add`
