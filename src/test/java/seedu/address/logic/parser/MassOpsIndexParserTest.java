@@ -4,10 +4,12 @@ package seedu.address.logic.parser;
 import static org.junit.jupiter.api.Assertions.assertDoesNotThrow;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertThrows;
+import static org.junit.jupiter.api.Assertions.fail;
 import static seedu.address.testutil.TypicalIndexes.INDEX_FIRST_PERSON;
 import static seedu.address.testutil.TypicalIndexes.INDEX_SECOND_PERSON;
 import static seedu.address.testutil.TypicalIndexes.INDEX_THIRD_PERSON;
 
+import java.util.HashSet;
 import java.util.Set;
 
 import org.junit.jupiter.api.BeforeEach;
@@ -86,6 +88,23 @@ public class MassOpsIndexParserTest {
     public void parseIndexes_invalidRangeBoundOrder_exceptionThrown() {
         ParseException pe = assertThrows(ParseException.class, () -> massOpsIndexParser.parseIndexes("100-2"));
         assertEquals(MassOpsIndexParser.MESSAGE_INVALID_RANGE_ORDER, pe.getMessage());
+    }
+
+    @Test
+    public void parseIndexes_duplicateIndexes_duplicatesIgnored() {
+        try {
+            Set<Index> expectedIndexes = new HashSet<>();
+            expectedIndexes.add(INDEX_FIRST_PERSON);
+            expectedIndexes.add(INDEX_SECOND_PERSON);
+            expectedIndexes.add(INDEX_THIRD_PERSON);
+
+            Set<Index> resultIndexes = massOpsIndexParser.parseIndexes("1 2 2 3 3");
+            assertEquals(expectedIndexes, resultIndexes);
+            Set<Index> resultIndexesReversed = massOpsIndexParser.parseIndexes("3 2 1 1");
+            assertEquals(expectedIndexes, resultIndexesReversed);
+        } catch (ParseException pe) {
+            fail();
+        }
     }
 
 
