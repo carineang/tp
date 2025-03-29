@@ -6,6 +6,8 @@ import javafx.collections.ObservableList;
 /**
  * Represents the data model for the collection of previously entered user inputs.
  * Only the {@link #MAX_HISTORY_SIZE} most recently entered inputs are considered.
+ * {@code InputHistory} objects with the same number and ordering of the last {@link #MAX_HISTORY_SIZE}
+ * inputs are considered equal.
  */
 public class InputHistory {
 
