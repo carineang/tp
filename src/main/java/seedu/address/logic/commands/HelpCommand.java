@@ -4,6 +4,7 @@ import java.util.HashMap;
 import java.util.Map;
 
 import seedu.address.model.Model;
+import seedu.address.model.person.Note;
 
 
 /**
@@ -27,45 +28,15 @@ public class HelpCommand extends Command {
 
     static {
         COMMAND_HELP = new HashMap<>();
-        COMMAND_HELP.put(AddCommand.COMMAND_WORD, "Usage: add n/NAME p/PHONE e/EMAIL a/ADDRESS [t/TAG]...\n"
-                + "Adds a person to the address book.\nExample: "
-                + "add n/John Doe p/98765432 e/johnd@example.com a/311, Clementi Ave 2, #02-25");
-        COMMAND_HELP.put(DeleteCommand.COMMAND_WORD, "Usage: delete [i/]INDEX\n"
-                + "Deletes the person(s) identified by the index number(s) used in the displayed person list.\n"
-                + "Parameters: INDEX (must be a positive integer)\n"
-                + "Example: delete 1\n"
-                + "For deleting multiple persons at once:\n"
-                + "1. (Spaced format) Parameters: i/INDEX1 INDEX2 INDEX3 ... INDEXN "
-                + "(Each INDEX must be a positive integer.)\n"
-                + "Example: delete i/1 2 3 4 5\n"
-                + "2. (Ranged format) Parameters: i/START_INDEX-END_INDEX "
-                + "(START_INDEX and END_INDEX must be a positive integer.)\n"
-                + "Example: delete i/9-99");
-        COMMAND_HELP.put(EditCommand.COMMAND_WORD, "Usage: edit INDEX "
-                + "[n/NAME] [p/PHONE] [e/EMAIL] [a/ADDRESS] [t/TAG]…\n"
-                + "Edits the information of person identified by the index number\n"
-                + "Example: edit 1 p/91234567 e/johndoe@example.com");
-        COMMAND_HELP.put(PinCommand.COMMAND_WORD, "Usage: pin INDEX\n"
-                + "Pins the person identified in the index number.\n"
-                + "Example: pin 1");
-        COMMAND_HELP.put(UnpinCommand.COMMAND_WORD, "Usage: unpin INDEX\n"
-                + "Unpins the person identified by the index number used "
-                + "in the last person listing if they were pinned.\n"
-                + "Example: unpin 1");
-        COMMAND_HELP.put(FindCommand.COMMAND_WORD, "Usage: find [n/\"NAME\"] [p/\"PHONE\"] [e/\"EMAIL\"] "
-                + "[a/\"ADDRESS\"] [t/\"TAG\"] \"KEYWORD\" [\"MORE_KEYWORDS\"]...\n"
-                + "Finds all persons whose specified fields contain any of the given keywords (case-insensitive).\n"
-                + "Use double quotation marks (\") around each input\n"
-                + "Example: find n/\"Alice\" \"Bob\" p/\"98765432\" a/\"Bedok Central\" t/\"close friend\"");
-        COMMAND_HELP.put(NoteCommand.COMMAND_WORD, "Usage: note INDEX nt/NOTE\n"
-                + "Changes the note of the person identified by the index number used in the displayed person list.\n"
-                + "Example: note 1 nt/Does not like to be called");
-        COMMAND_HELP.put(ViewNoteCommand.COMMAND_WORD, "Usage: viewnote INDEX\n"
-                + "Displays the note of the person identified by the index number used in the displayed person list.\n"
-                + "Example: viewnote 2");
-        COMMAND_HELP.put(SortCommand.COMMAND_WORD, "Usage: sort [n/] [p/] [e/] [a/] [t/]\n"
-                + "Sorts all persons by the specified attribute and displays them as a list.\n"
-                + "Example: sort n/");
+        COMMAND_HELP.put(AddCommand.COMMAND_WORD, AddCommand.MESSAGE_USAGE);
+        COMMAND_HELP.put(DeleteCommand.COMMAND_WORD, DeleteCommand.MESSAGE_USAGE);
+        COMMAND_HELP.put(EditCommand.COMMAND_WORD, EditCommand.MESSAGE_USAGE);
+        COMMAND_HELP.put(PinCommand.COMMAND_WORD, PinCommand.MESSAGE_USAGE);
+        COMMAND_HELP.put(UnpinCommand.COMMAND_WORD, UnpinCommand.MESSAGE_USAGE);
+        COMMAND_HELP.put(FindCommand.COMMAND_WORD, FindCommand.MESSAGE_USAGE);
+        COMMAND_HELP.put(NoteCommand.COMMAND_WORD, NoteCommand.MESSAGE_USAGE);
+        COMMAND_HELP.put(ViewNoteCommand.COMMAND_WORD, ViewNoteCommand.MESSAGE_USAGE);
+        COMMAND_HELP.put(SortCommand.COMMAND_WORD, SortCommand.MESSAGE_USAGE);
         COMMAND_HELP.put(ListCommand.COMMAND_WORD, "Usage: list\n"
                 + "Lists all contacts in the address book.");
         COMMAND_HELP.put(ExitCommand.COMMAND_WORD, "Usage: exit\n"

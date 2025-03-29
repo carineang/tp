@@ -26,7 +26,7 @@ public class SortCommand extends Command {
             + "[" + PREFIX_PHONE + "] "
             + "[" + PREFIX_EMAIL + "] "
             + "[" + PREFIX_ADDRESS + "] "
-            + "[" + PREFIX_TAG + "] "
+            + "[" + PREFIX_TAG + "] \n"
             + "Example: " + COMMAND_WORD + " " + PREFIX_NAME;
     private static final Logger logger = Logger.getLogger(SortCommand.class.getName());
     private final String prefix;
