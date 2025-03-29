@@ -1,34 +1,14 @@
 .list-view {
     -fx-background-insets: 0;
     -fx-padding: 1;
-    -fx-background-color: derive(#1d1d1d, 20%);
 }
 
 .list-cell {
     -fx-label-padding: 1 1 1 1;
     -fx-graphic-text-gap : 0;
     -fx-padding: 1 1 1 1;
-    -fx-text-fill: white;
     -fx-font-size: 16px;
 }
 
 .list-cell:even {
-    -fx-background-color: #515658;
 }
-
-.list-cell:odd {
-    -fx-background-color: #515658;
-}
-
-.list-cell:filled:even {
-    -fx-background-color: #515658;
-}
-
-.list-cell:filled:odd {
-    -fx-background-color: #515658;
-}
-
-.list-cell:filled:selected {
-    -fx-background-color: #424d5f;
-}
-
