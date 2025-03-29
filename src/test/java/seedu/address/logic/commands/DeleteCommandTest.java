@@ -11,6 +11,7 @@ import static seedu.address.testutil.TypicalIndexes.INDEX_SECOND_PERSON;
 import static seedu.address.testutil.TypicalIndexes.INDEX_THIRD_PERSON;
 import static seedu.address.testutil.TypicalPersons.getTypicalAddressBook;
 
+import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
 
@@ -123,6 +124,46 @@ public class DeleteCommandTest {
         DeleteCommand deleteCommand = new DeleteCommand(Set.of(INDEX_FIRST_PERSON, outOfBoundIndex));
 
         assertCommandFailure(deleteCommand, model, Messages.MESSAGE_INVALID_PERSON_DISPLAYED_INDEX);
+    }
+
+    private Model prepareTypicalModelWithoutPersons(Person... persons) {
+        Model expectedModel = new ModelManager(getTypicalAddressBook(), new UserPrefs());
+
+        for (Person person : persons) {
+            expectedModel.deletePerson(person);
+        }
+        expectedModel.commitAddressBook();
+
+        return expectedModel;
+    }
+
+    @Test
+    public void execute_duplicateIndexesFilteredList_duplicatesIgnored() {
+        // hardcoded size based on getTypicalPersons()
+        int originalExpectedSize = 7;
+        assertTrue(model.getFilteredPersonList().size() >= originalExpectedSize);
+
+        Set<Index> deleteIndexes = new HashSet<>();
+        deleteIndexes.add(INDEX_FIRST_PERSON);
+        deleteIndexes.add(INDEX_SECOND_PERSON);
+        deleteIndexes.add(INDEX_THIRD_PERSON);
+
+        // Add a duplicate index
+        deleteIndexes.add(Index.fromOneBased(2));
+
+
+        DeleteCommand deleteCommand = new DeleteCommand(deleteIndexes);
+
+        Person firstPersonToDelete = model.getFilteredPersonList().get(INDEX_FIRST_PERSON.getZeroBased());
+        Person secondPersonToDelete = model.getFilteredPersonList().get(INDEX_SECOND_PERSON.getZeroBased());
+        Person thirdPersonToDelete = model.getFilteredPersonList().get(INDEX_THIRD_PERSON.getZeroBased());
+
+        String expectedMessage = String.format(DeleteCommand.MESSAGE_DELETE_PERSON_SUCCESS,
+                Messages.format(List.of(firstPersonToDelete, secondPersonToDelete, thirdPersonToDelete)));
+        Model expectedModel = prepareTypicalModelWithoutPersons(firstPersonToDelete,
+                secondPersonToDelete, thirdPersonToDelete);
+
+        assertCommandSuccess(deleteCommand, model, expectedMessage, expectedModel);
     }
 
     @Test
