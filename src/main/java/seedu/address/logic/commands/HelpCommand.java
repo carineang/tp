@@ -4,8 +4,6 @@ import java.util.HashMap;
 import java.util.Map;
 
 import seedu.address.model.Model;
-import seedu.address.model.person.Note;
-
 
 /**
  * Displays help information for the user.
