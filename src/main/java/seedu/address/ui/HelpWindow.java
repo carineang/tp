@@ -9,6 +9,19 @@ import javafx.scene.input.Clipboard;
 import javafx.scene.input.ClipboardContent;
 import javafx.stage.Stage;
 import seedu.address.commons.core.LogsCenter;
+import seedu.address.logic.commands.AddCommand;
+import seedu.address.logic.commands.DeleteCommand;
+import seedu.address.logic.commands.EditCommand;
+import seedu.address.logic.commands.ExitCommand;
+import seedu.address.logic.commands.FindCommand;
+import seedu.address.logic.commands.ListCommand;
+import seedu.address.logic.commands.NoteCommand;
+import seedu.address.logic.commands.PinCommand;
+import seedu.address.logic.commands.RedoCommand;
+import seedu.address.logic.commands.SortCommand;
+import seedu.address.logic.commands.UndoCommand;
+import seedu.address.logic.commands.UnpinCommand;
+import seedu.address.logic.commands.ViewNoteCommand;
 
 /**
  * Controller for a help page
@@ -17,20 +30,21 @@ public class HelpWindow extends UiPart<Stage> {
 
     public static final String USERGUIDE_URL = "https://ay2425s2-cs2103t-t17-1.github.io/tp/UserGuide.html";
     public static final String HELP_MESSAGE = "Here are the available commands:\n"
-            + "1. `add`: Add a person.\n"
-            + "2. `exit`: Exit the program.\n"
-            + "3. `find`: Find a person based on keyword.\n"
-            + "4. `sort`: Sort the list of persons.\n"
-            + "5. `list`: List all persons.\n"
-            + "6. `delete`: Delete a person.\n"
-            + "7. 'edit: Edit a person\n"
-            + "8. 'pin': Pins a person.\n"
-            + "9. 'unpin': Unpins a person.\n"
-            + "10. 'note': Change note of a person.\n"
-            + "11. 'viewnote': view note of a person\n"
-            + "12. 'undo': Undoes the last command\n"
-            + "13. 'redo': Redoes the effect of the last undo\n"
+            + "1. '" + AddCommand.COMMAND_WORD +"': Add a person.\n"
+            + "2. '" + ExitCommand.COMMAND_WORD +"': Exit the program.\n"
+            + "3. '" + FindCommand.COMMAND_WORD +"': Find a person based on keyword.\n"
+            + "4. '" + SortCommand.COMMAND_WORD +"': Sort the list of persons.\n"
+            + "5. '" + ListCommand.COMMAND_WORD +"': List all persons.\n"
+            + "6. '" + DeleteCommand.COMMAND_WORD +"': Delete a person.\n"
+            + "7. '" + EditCommand.COMMAND_WORD +"': Edit a person\n"
+            + "8. '" + PinCommand.COMMAND_WORD +"': Pins a person.\n"
+            + "9. '" + UnpinCommand.COMMAND_WORD +"': Unpins a person.\n"
+            + "10. '" + NoteCommand.COMMAND_WORD +"': Change note of a person.\n"
+            + "11. '" + ViewNoteCommand.COMMAND_WORD +"': view note of a person\n"
+            + "12. '" + UndoCommand.COMMAND_WORD +"': Undoes the last command\n"
+            + "13. '" + RedoCommand.COMMAND_WORD +"': Redoes the effect of the last undo\n"
             + "Use `help <command>` for detailed information about a specific command.\n\n"
+            + "Use Ctrl + UP and Ctrl + DOWN to see previously entered commands.\n\n"
             + "Refer to the full user guide: " + USERGUIDE_URL;
 
     private static final Logger logger = LogsCenter.getLogger(HelpWindow.class);
