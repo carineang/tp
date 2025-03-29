@@ -2,6 +2,7 @@ package seedu.address.ui;
 
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
+import javafx.scene.control.Label;
 import javafx.scene.control.ListView;
 import javafx.scene.layout.Region;
 import seedu.address.ui.controller.CommandHistoryActionHandler;
@@ -14,6 +15,7 @@ import seedu.address.ui.controller.CommandHistoryMenuController.CommandBoxInputS
 public class CommandHistoryMenu extends UiPart<Region> implements CommandHistoryActionHandler {
 
     private static final String FXML = "CommandHistoryMenu.fxml";
+    private static final String EMPTY_HISTORY_PLACEHOLDER = "Your command history is empty. Enter a command!";
 
     /** Handles the action logic of the command history menu */
     private final CommandHistoryMenuController controller;
@@ -32,6 +34,8 @@ public class CommandHistoryMenu extends UiPart<Region> implements CommandHistory
                               CommandBoxInputSetter commandSetter) {
         super(FXML);
         commandHistoryList.setItems(commandHistory);
+        commandHistoryList.setPlaceholder(new Label(EMPTY_HISTORY_PLACEHOLDER));
+
         controller = new CommandHistoryMenuController(commandHistory, commandSetter);
 
         // Listens for changes in listview selection (due to GUI clicks)
