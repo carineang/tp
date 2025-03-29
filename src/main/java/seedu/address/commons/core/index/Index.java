@@ -47,6 +47,16 @@ public class Index {
         return new Index(oneBasedIndex - 1);
     }
 
+    /**
+     * Returns a hash that is consistent with the index equality definition.
+     *
+     * @return a hash code for this index object.
+     */
+    @Override
+    public int hashCode() {
+        return zeroBasedIndex;
+    }
+
     @Override
     public boolean equals(Object other) {
         if (other == this) {
