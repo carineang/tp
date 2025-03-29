@@ -30,7 +30,7 @@ public class InputHistoryTest {
 
     @Test
     public void maxHistorySize_isPositiveInteger() {
-       assertTrue(InputHistory.MAX_HISTORY_SIZE > 0);
+        assertTrue(InputHistory.MAX_HISTORY_SIZE > 0);
     }
 
     @Test
