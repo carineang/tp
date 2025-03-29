@@ -139,16 +139,16 @@ public class DeleteCommandTest {
 
     @Test
     public void execute_duplicateIndexesFilteredList_duplicatesIgnored() {
-        // hardcoded size based on getTypicalPersons()
-        int originalExpectedSize = 7;
-        assertTrue(model.getFilteredPersonList().size() >= originalExpectedSize);
+        int requiredInitialExpectedSize = 4;
+        // Ensures precondition of the test is held before running.
+        assertTrue(model.getFilteredPersonList().size() >= requiredInitialExpectedSize);
 
         Set<Index> deleteIndexes = new HashSet<>();
         deleteIndexes.add(INDEX_FIRST_PERSON);
         deleteIndexes.add(INDEX_SECOND_PERSON);
         deleteIndexes.add(INDEX_THIRD_PERSON);
 
-        // Add a duplicate index
+        // Add a duplicate index corresponding to the 2nd person index.
         deleteIndexes.add(Index.fromOneBased(2));
 
 
