@@ -28,7 +28,8 @@ public class HelpCommandTest {
                 + "the given keywords (case-insensitive) and displays them as a list with index numbers.\n"
                 + "Parameters: [n/\"NAME\"] [p/\"PHONE\"] [e/\"EMAIL\"]"
                 + " [a/\"ADDRESS\"] [t/\"TAG\"] \"KEYWORD\" [\"MORE_KEYWORDS\"]...\n"
-                + "Use double quotation marks (\") around multi-word inputs or single keywords to ensure correct parsing.\n"
+                + "Use double quotation marks (\") around multi-word inputs or "
+                + "single keywords to ensure correct parsing.\n"
                 + "Example: " + "find" + " n/\"Alice\" \"Bob\" p/\"98765432\" a/\"Bedok Central\" t/\"close friend\"";
 
         CommandResult result = helpCommand.execute(model);
