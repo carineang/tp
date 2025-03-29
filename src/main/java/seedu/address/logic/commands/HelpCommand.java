@@ -5,7 +5,6 @@ import java.util.Map;
 
 import seedu.address.model.Model;
 
-
 /**
  * Displays help information for the user.
  */
@@ -27,43 +26,22 @@ public class HelpCommand extends Command {
 
     static {
         COMMAND_HELP = new HashMap<>();
-        COMMAND_HELP.put("add", "Usage: add n/NAME p/PHONE e/EMAIL a/ADDRESS [t/TAG]...\n"
-                + "Adds a person to the address book.\nExample: "
-                + "add n/John Doe p/98765432 e/johnd@example.com a/311, Clementi Ave 2, #02-25");
-        COMMAND_HELP.put("delete", "Usage: delete i/INDEX\n"
-                + "Deletes the person(s) identified by the index number(s) used in the displayed person list.\n"
-                + "Example: delete i/2-5");
-        COMMAND_HELP.put("edit", "Usage: edit INDEX [n/NAME] [p/PHONE] [e/EMAIL] [a/ADDRESS] [t/TAG]…\n"
-                + "Edits the information of person identified by the index number\n"
-                + "Example: edit 1 p/91234567 e/johndoe@example.com");
-        COMMAND_HELP.put("pin", "Usage: pin INDEX\n"
-                + "Pins the person identified in the index number.\n"
-                + "Example: pin 1");
-        COMMAND_HELP.put("unpin", "Usage: unpin INDEX\n"
-                + "Unpins the person identified by the index number used "
-                + "in the last person listing if they were pinned.\n"
-                + "Example: unpin 1");
-        COMMAND_HELP.put("find", "Usage: find [n/\"NAME\"] [p/\"PHONE\"] [e/\"EMAIL\"] "
-                + "[a/\"ADDRESS\"] [t/\"TAG\"] \"KEYWORD\" [\"MORE_KEYWORDS\"]...\n"
-                + "Finds all persons whose specified fields contain any of the given keywords (case-insensitive).\n"
-                + "Use double quotation marks (\") around each input\n"
-                + "Example: find n/\"Alice\" \"Bob\" p/\"98765432\" a/\"Bedok Central\" t/\"close friend\"");
-        COMMAND_HELP.put("note", "Usage: note INDEX nt/NOTE\n"
-                + "Changes the note of the person identified by the index number used in the displayed person list.\n"
-                + "Example: note 1 nt/Does not like to be called");
-        COMMAND_HELP.put("viewnote", "Usage: viewnote INDEX\n"
-                + "Displays the note of the person identified by the index number used in the displayed person list.\n"
-                + "Example: viewnote 2");
-        COMMAND_HELP.put("sort", "Usage: sort [n/] [p/] [e/] [a/] [t/]\n"
-                + "Sorts all persons by the specified attribute and displays them as a list.\n"
-                + "Example: sort n/");
-        COMMAND_HELP.put("list", "Usage: list\n"
+        COMMAND_HELP.put(AddCommand.COMMAND_WORD, AddCommand.MESSAGE_USAGE);
+        COMMAND_HELP.put(DeleteCommand.COMMAND_WORD, DeleteCommand.MESSAGE_USAGE);
+        COMMAND_HELP.put(EditCommand.COMMAND_WORD, EditCommand.MESSAGE_USAGE);
+        COMMAND_HELP.put(PinCommand.COMMAND_WORD, PinCommand.MESSAGE_USAGE);
+        COMMAND_HELP.put(UnpinCommand.COMMAND_WORD, UnpinCommand.MESSAGE_USAGE);
+        COMMAND_HELP.put(FindCommand.COMMAND_WORD, FindCommand.MESSAGE_USAGE);
+        COMMAND_HELP.put(NoteCommand.COMMAND_WORD, NoteCommand.MESSAGE_USAGE);
+        COMMAND_HELP.put(ViewNoteCommand.COMMAND_WORD, ViewNoteCommand.MESSAGE_USAGE);
+        COMMAND_HELP.put(SortCommand.COMMAND_WORD, SortCommand.MESSAGE_USAGE);
+        COMMAND_HELP.put(ListCommand.COMMAND_WORD, "Usage: list\n"
                 + "Lists all contacts in the address book.");
-        COMMAND_HELP.put("exit", "Usage: exit\n"
+        COMMAND_HELP.put(ExitCommand.COMMAND_WORD, "Usage: exit\n"
                 + "Exits the program.");
-        COMMAND_HELP.put("undo", "Usage: undo\n"
+        COMMAND_HELP.put(UndoCommand.COMMAND_WORD, "Usage: undo\n"
                 + "Undoes the last command\n");
-        COMMAND_HELP.put("redo", "Usage: redo\n"
+        COMMAND_HELP.put(RedoCommand.COMMAND_WORD, "Usage: redo\n"
                 + "Redoes the effect of last undo\n");
     }
 

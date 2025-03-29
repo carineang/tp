@@ -21,14 +21,16 @@ public class HelpCommandTest {
 
     @Test
     public void execute_helpWithValidCommand_success() {
-        // Create the HelpCommand for a specific command (e.g., "find")
         HelpCommand helpCommand = new HelpCommand("find");
 
-        String expectedFeedback = "Usage: find [n/\"NAME\"] [p/\"PHONE\"] [e/\"EMAIL\"] "
-                + "[a/\"ADDRESS\"] [t/\"TAG\"] \"KEYWORD\" [\"MORE_KEYWORDS\"]...\n"
-                + "Finds all persons whose specified fields contain any of the given keywords (case-insensitive).\n"
-                + "Use double quotation marks (\") around each input\n"
-                + "Example: find n/\"Alice\" \"Bob\" p/\"98765432\" a/\"Bedok Central\" t/\"close friend\"";
+        String expectedFeedback = "find"
+                + ": Finds all persons whose specified fields contain any of "
+                + "the given keywords (case-insensitive) and displays them as a list with index numbers.\n"
+                + "Parameters: [n/\"NAME\"] [p/\"PHONE\"] [e/\"EMAIL\"]"
+                + " [a/\"ADDRESS\"] [t/\"TAG\"] \"KEYWORD\" [\"MORE_KEYWORDS\"]...\n"
+                + "Use double quotation marks (\") around multi-word inputs or "
+                + "single keywords to ensure correct parsing.\n"
+                + "Example: " + "find" + " n/\"Alice\" \"Bob\" p/\"98765432\" a/\"Bedok Central\" t/\"close friend\"";
 
         CommandResult result = helpCommand.execute(model);
         assertTrue(result.getFeedbackToUser().contains(expectedFeedback));
