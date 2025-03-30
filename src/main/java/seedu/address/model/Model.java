@@ -115,9 +115,9 @@ public interface Model {
     /**
      * Updates the filtered and sorted list of persons based on the specified prefix attribute
      *
-     * @param prefix The prefix indicating the attribute to sort by.
+     * @param prefixes The prefix indicating the attribute to sort by.
      */
-    void updateSortedFilteredPersonList(String prefix);
+    void updateSortedFilteredPersonList(String... prefixes);
 
     /**
      * Saves the state of the address book

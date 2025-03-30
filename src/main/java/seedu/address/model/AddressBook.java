@@ -105,6 +105,7 @@ public class AddressBook implements ReadOnlyAddressBook {
 
     /**
      * Unpins a person who was previously pinned.
+     *
      * @param person
      */
     public void unpinPerson(Person person) {
@@ -116,7 +117,7 @@ public class AddressBook implements ReadOnlyAddressBook {
      *
      * @param prefix The prefix used for sorting of the person list.
      */
-    public void updateSortedList(String prefix) {
+    public void updateSortedList(String[] prefix) {
         persons.sortBy(prefix);
     }
 
@@ -129,6 +130,11 @@ public class AddressBook implements ReadOnlyAddressBook {
                 .toString();
     }
 
+    /**
+     * Returns an unmodifiable ObservableList of persons in the address book.
+     *
+     * @return An unmodifiable list of persons.
+     */
     @Override
     public ObservableList<Person> getPersonList() {
         return persons.asUnmodifiableObservableList();
@@ -149,6 +155,11 @@ public class AddressBook implements ReadOnlyAddressBook {
         return persons.equals(otherAddressBook.persons);
     }
 
+    /**
+     * Returns the hash code of this AddressBook.
+     *
+     * @return The hash code of this address book.
+     */
     @Override
     public int hashCode() {
         return persons.hashCode();

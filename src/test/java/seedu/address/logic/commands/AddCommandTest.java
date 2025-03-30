@@ -177,7 +177,7 @@ public class AddCommandTest {
         }
 
         @Override
-        public void updateSortedFilteredPersonList(String prefix) {
+        public void updateSortedFilteredPersonList(String... prefixes) {
             throw new AssertionError("This method should not be called.");
         }
 

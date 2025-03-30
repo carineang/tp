@@ -72,7 +72,6 @@ public class UniquePersonList implements Iterable<Person> {
 
     /**
      * Removes the equivalent person from the list.
-     * The person must exist in the list.
      */
     public void remove(Person toRemove) {
         requireNonNull(toRemove);
@@ -81,6 +80,11 @@ public class UniquePersonList implements Iterable<Person> {
         }
     }
 
+    /**
+     * Sets the persons in this list to the persons from another UniquePersonList.
+     *
+     * @param replacement The list of persons to replace the current list.
+     */
     public void setPersons(UniquePersonList replacement) {
         requireNonNull(replacement);
         internalList.setAll(replacement.internalList);
@@ -174,6 +178,11 @@ public class UniquePersonList implements Iterable<Person> {
         return internalList.equals(otherUniquePersonList.internalList);
     }
 
+    /**
+     * Returns a hash code value for the object.
+     *
+     * @return a hash code value for this object.
+     */
     @Override
     public int hashCode() {
         return internalList.hashCode();
@@ -201,27 +210,54 @@ public class UniquePersonList implements Iterable<Person> {
     /**
      * Sorts the list of persons based on the specified prefix such as name, phone number, email address, address, tags.
      *
-     * @param prefix The prefix indicates the sorting criteria.
+     * @param prefixes The prefix indicates the sorting criteria.
      */
-    public void sortBy(String prefix) {
-        switch (prefix) {
-        case "n/":
-            sortByName();
-            break;
-        case "p/":
-            sortByPhoneNumber();
-            break;
-        case "e/":
-            sortByEmailAddress();
-            break;
-        case "a/":
-            sortByAddress();
-            break;
-        case "t/":
-            sortByTags();
-            break;
-        default:
-            break;
+    public void sortBy(String[] prefixes) {
+        if (prefixes.length == 1) {
+            switch (prefixes[0]) {
+            case "t/":
+                sortByTags();
+                break;
+            case "n/":
+                sortByName();
+                break;
+            case "p/":
+                sortByPhoneNumber();
+                break;
+            case "e/":
+                sortByEmailAddress();
+                break;
+            case "a/":
+                sortByAddress();
+                break;
+            default:
+                throw new IllegalArgumentException("Invalid sort prefix: " + prefixes[0]);
+            }
+        } else if (prefixes.length == 2) {
+            if (prefixes[0].equals("t/")) {
+                switch (prefixes[1]) {
+                case "n/":
+                    sortByNameWithinTags();
+                    break;
+                case "p/":
+                    sortByPhoneNumberWithinTags();
+                    break;
+                case "e/":
+                    sortByEmailAddressWithinTags();
+                    break;
+                case "a/":
+                    sortByAddressWithinTags();
+                    break;
+                default:
+                    throw new IllegalArgumentException("Invalid combination of prefixes: "
+                            + String.join(", ", prefixes));
+                }
+            } else {
+                throw new IllegalArgumentException("Invalid sort prefix combination: "
+                        + String.join(", ", prefixes));
+            }
+        } else {
+            throw new IllegalArgumentException("Invalid number of prefixes or combination of prefixes.");
         }
     }
 
@@ -262,6 +298,42 @@ public class UniquePersonList implements Iterable<Person> {
      */
     private void sortByTags() {
         internalList.sort(Comparator.comparing(p -> p.getTags().toString()));
+        prioritisePins();
+    }
+
+    /**
+     * Sort the list first by tags, then by name within each tag group.
+     */
+    private void sortByNameWithinTags() {
+        internalList.sort(Comparator.comparing((Person p) -> p.getTags().toString())
+                .thenComparing(p -> p.getName().toString()));
+        prioritisePins();
+    }
+
+    /**
+     * Sort the list first by tags, then by phone number within each tag group.
+     */
+    private void sortByPhoneNumberWithinTags() {
+        internalList.sort(Comparator.comparing((Person p) -> p.getTags().toString())
+                .thenComparing(p -> new BigInteger(p.getPhone().toString())));
+        prioritisePins();
+    }
+
+    /**
+     * Sort the list first by tags, then by email address within each tag group.
+     */
+    private void sortByEmailAddressWithinTags() {
+        internalList.sort(Comparator.comparing((Person p) -> p.getTags().toString())
+                .thenComparing(p -> p.getEmail().toString()));
+        prioritisePins();
+    }
+
+    /**
+     * Sort the list first by tags, then by address within each tag group.
+     */
+    private void sortByAddressWithinTags() {
+        internalList.sort(Comparator.comparing((Person p) -> p.getTags().toString())
+                .thenComparing(p -> p.getAddress().toString()));
         prioritisePins();
     }
 }

@@ -44,39 +44,72 @@ public class ModelManager implements Model {
         sortedFilteredPersons = new SortedList<>(filteredPersons);
     }
 
+    /**
+     * Initializes a ModelManager with an empty address book and user preferences.
+     */
     public ModelManager() {
         this(new VersionedAddressBook(), new UserPrefs());
     }
 
     //=========== UserPrefs ==================================================================================
 
+    /**
+     * Sets the user preferences to the specified userPrefs.
+     *
+     * @param userPrefs The new user preferences.
+     */
     @Override
     public void setUserPrefs(ReadOnlyUserPrefs userPrefs) {
         requireNonNull(userPrefs);
         this.userPrefs.resetData(userPrefs);
     }
 
+    /**
+     * Returns the current user preferences.
+     *
+     * @return The current user preferences.
+     */
     @Override
     public ReadOnlyUserPrefs getUserPrefs() {
         return userPrefs;
     }
 
+    /**
+     * Returns the current GUI settings.
+     *
+     * @return The current GUI settings.
+     */
     @Override
     public GuiSettings getGuiSettings() {
         return userPrefs.getGuiSettings();
     }
 
+    /**
+     * Sets the GUI settings to the specified gui settings.
+     *
+     * @param guiSettings The new GUI settings.
+     */
     @Override
     public void setGuiSettings(GuiSettings guiSettings) {
         requireNonNull(guiSettings);
         userPrefs.setGuiSettings(guiSettings);
     }
 
+    /**
+     * Returns the file path to the address book file.
+     *
+     * @return The address book file path.
+     */
     @Override
     public Path getAddressBookFilePath() {
         return userPrefs.getAddressBookFilePath();
     }
 
+    /**
+     * Sets the file path for the address book file.
+     *
+     * @param addressBookFilePath The new file path.
+     */
     @Override
     public void setAddressBookFilePath(Path addressBookFilePath) {
         requireNonNull(addressBookFilePath);
@@ -85,33 +118,65 @@ public class ModelManager implements Model {
 
     //=========== AddressBook ================================================================================
 
+    /**
+     * Sets the address book to the specified AddressBook.
+     *
+     * @param addressBook The address book to set.
+     */
     @Override
     public void setAddressBook(ReadOnlyAddressBook addressBook) {
         this.addressBook.resetData(addressBook);
     }
 
+    /**
+     * Returns the current address book.
+     *
+     * @return The current address book.
+     */
     @Override
     public ReadOnlyAddressBook getAddressBook() {
         return addressBook;
     }
 
+    /**
+     * Returns true if a person with the same identity as person exists in the address book.
+     *
+     * @param person The person to check for.
+     * @return True if the person exists, false otherwise.
+     */
     @Override
     public boolean hasPerson(Person person) {
         requireNonNull(person);
         return addressBook.hasPerson(person);
     }
 
+    /**
+     * Deletes the specified target person from the address book.
+     *
+     * @param target The person to delete.
+     */
     @Override
     public void deletePerson(Person target) {
         addressBook.removePerson(target);
     }
 
+    /**
+     * Adds the specified person to the address book.
+     *
+     * @param person The person to add.
+     */
     @Override
     public void addPerson(Person person) {
         addressBook.addPerson(person);
         updateFilteredPersonList(PREDICATE_SHOW_ALL_PERSONS);
     }
 
+    /**
+     * Replaces the target person with the edited person.
+     *
+     * @param target The person to be replaced.
+     * @param editedPerson The person to replace with.
+     */
     @Override
     public void setPerson(Person target, Person editedPerson) {
         requireAllNonNull(target, editedPerson);
@@ -162,13 +227,13 @@ public class ModelManager implements Model {
      * Updates the sorted and filtered person list based on the given prefix.The prefix is used to
      * filter the list of persons in the address book and sort the resulting filtered list.
      *
-     * @param prefix The string prefix used to filter and sort the person list.
+     * @param prefixes The string prefix used to filter and sort the person list.
      * @throws NullPointerException if prefix is null.
      */
     @Override
-    public void updateSortedFilteredPersonList(String prefix) {
-        requireNonNull(prefix);
-        addressBook.updateSortedList(prefix);
+    public void updateSortedFilteredPersonList(String... prefixes) {
+        requireNonNull(prefixes);
+        addressBook.updateSortedList(prefixes);
     }
 
     @Override
