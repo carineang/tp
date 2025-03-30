@@ -33,4 +33,7 @@
       <Label fx:id="email" styleClass="cell_small_label" text="\$email" />
     </VBox>
   </GridPane>
+  <VBox alignment="TOP_RIGHT">
+    <Label fx:id="pin" text="" styleClass="pin-icon" />
+  </VBox>
 </HBox>

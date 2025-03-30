@@ -419,3 +419,8 @@
     -fx-background-radius: 2;
     -fx-font-size: 11;
 }
+
+#pin {
+    -fx-font-size: 20px;
+    -fx-padding: 5px;
+}
