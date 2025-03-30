@@ -43,7 +43,7 @@ public class SortCommand extends Command {
 
     /**
      * Executes sort command by updating the filtered list of persons in the model
-     * and sorting them based on the given prefix.
+     * and sorting them based on given prefix.
      *
      * @param model The model containing the address book data and the logic for sorting the address book.
      * @return The result of executing the sort command, containing a success message.
