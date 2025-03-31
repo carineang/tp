@@ -399,6 +399,24 @@ Examples:
 * `undo` undoes the last command.
 * `pin 4` followed by `undo` undoes the pin on the 4th client contact from the top in the address book.
 
+<br>
+
+![beforeUndo](images/beforeUndo.png)
+<div style="text-align:center;">
+
+<span style="font-weight:bold;">Example:</span> Before undoing a delete: <code>delete i/1-2</code>
+
+</div>
+
+<br>
+
+![afterUndo](images/afterUndo.png)
+<div style="text-align:center;">
+
+<span style="font-weight:bold;">Example:</span> After undoing a delete using <code>undo</code>
+
+</div>
+
 #### Redoing a command : `redo`
 
 Redoes an undone command.
@@ -413,6 +431,14 @@ Examples:
 * `pin 4` followed by `undo` followed by `redo` results in
   there being a pin on the 4th client contact from the top in the address book.
 
+![afterRedo](images/afterRedo.png)
+<div style="text-align:center;">
+
+<span style="font-weight:bold;">Example:</span> <code>redo</code> an <code>undo</code> of <code>delete i/1-2</code> 
+
+</div>
+
+<br>
 
 #### Command history
 
