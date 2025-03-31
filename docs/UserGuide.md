@@ -51,11 +51,14 @@ Operating System/OS | The type of computer software that you are using, commonly
 1. Ensure you have Java `17` or above installed in your Computer.<br>
    **Mac users:** Ensure you have the precise JDK version prescribed [here](https://se-education.org/guides/tutorials/javaInstallationMac.html).
 
-1. Download the latest `.jar` file from [here](https://github.com/AY2425S2-CS2103T-T17-1/tp/releases).
+1. Download the latest `.jar` file from [here](https://github.com/AY2425S2-CS2103T-T17-1/tp/releases).<br>
+   * Under `Assets` of the latest release, click on `Notarius.jar` to download it.
 
-1. Copy the file to the folder you want to use as the _home folder_ for your AddressBook.
+1. Copy the file to the folder where you want to store all your contact information for Notarius.
 
-1. Open a command terminal, `cd` into the folder you put the jar file in, and use the `java -jar notarius.jar` command to run the application.<br>
+1. Copy the path of the folder using `Ctrl + Shift + C`.
+
+1. Open a command terminal, type `cd` and paste the copied path, and use the `java -jar Notarius.jar` command to run the application.<br>
    A GUI similar to the below should appear in a few seconds. Note how the app contains some sample data.<br>
    ![Ui](images/Ui.png)
 
@@ -142,7 +145,7 @@ A contact can have any number of tags (including 0)
 
 Examples:
 * `add n/John Doe p/98765432 e/johnd@example.com a/John street, block 123, #01-01`
-* `add n/Betsy Crowe t/friend e/betsycrowe@example.com a/Newgate Prison p/1234567 t/criminal`
+* `add n/Betsy Crowe t/criminal e/betsycrowe@example.com a/Newgate Prison p/1234567 t/case44`
 
 ### Listing all client contacts : `list`
 
@@ -154,7 +157,7 @@ Format: `list`
 
 Edits an existing contact in the address book.
 
-Format: `edit INDEX [n/NAME] [p/PHONE] [e/EMAIL] [a/ADDRESS] [t/TAG]…​`
+Format: `edit INDEX [n/NAME] [p/PHONE] [e/EMAIL] [a/ADDRESS] [t/TAG] [t/MORE TAG]…​`
 
 * Edits the contact at the specified `INDEX`. The index refers to the index number shown in the displayed person list. The index **must be a positive integer** 1, 2, 3, …​
 * At least one of the optional fields must be provided.
@@ -165,6 +168,7 @@ Format: `edit INDEX [n/NAME] [p/PHONE] [e/EMAIL] [a/ADDRESS] [t/TAG]…​`
 
 Examples:
 *  `edit 1 p/91234567 e/johndoe@example.com` Edits the phone number and email address of the 1st contact to be `91234567` and `johndoe@example.com` respectively.
+*  `edit 3 t/Witness t/Case44` Overwrite the currents tag(s) of the 3rd contact with `Witness` and `Case44`.
 *  `edit 2 n/Betsy Crower t/` Edits the name of the 2nd contact to be `Betsy Crower` and clears all existing tags.
 
 ### Deleting client contact(s) : `delete`
@@ -191,9 +195,9 @@ Examples:
     * Deletes the 1st and 2nd client contacts in the address book from the top.
 * `list` followed by `delete i/2 3`
     * Deletes the 2nd and 3rd client contacts in the address book from the top.
-* `find Betsy` followed by `delete 1`
+* `find n/"Betsy"` followed by `delete 1`
     * Deletes the 1st client contact in the displayed results of the `find` command.
-* `find Alex` followed by `delete i/1-2`
+* `find n/"Alex"` followed by `delete i/1-2`
     * Deletes the 1st and 2nd client contacts in the displayed results of the `find` command.
 
 ![[deleteIndexSpaced]](images/deleteIndexSpaced.png)
@@ -232,6 +236,7 @@ Format: `find [n/"NAME" "MORE_NAMES"] [p/"PHONE" "MORE_PHONES"]
 * Use double quotation marks (") around each keyword to ensure correct parsing.
 * The search is case-insensitive. e.g the name `hans` will match `Hans`
 * You can search by `name`, `phone number`, `email`, `address`, or `tags`.
+* If not prefix (e.g. n/) is given, find by name is assumed.
 * Supports OR search: At least one field must match any of the provided keywords.
 * Allows small typos for `name`, `email` and `address` fields:
     - e.g. Searching for `Alce` will match `Alice`.
@@ -241,6 +246,7 @@ Format: `find [n/"NAME" "MORE_NAMES"] [p/"PHONE" "MORE_PHONES"]
       matches contacts named `Alice` or `Bob`, or with phone numbers `98765432` or `91234567`.
 
 Examples:
+* `find Alex` returns `Alex Yeoh`
 * `find p/"87438807" "91031282"` returns `Alex Yeoh` and `David Li`
 * `find n/"Alxe" "Davdi"` returns `Alex Yeoh`, `David Li`<br>
   ![result for 'find alex david'](images/findAlexDavidResult.png)
