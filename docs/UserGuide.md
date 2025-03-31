@@ -236,7 +236,7 @@ Format: `find [n/"NAME" "MORE_NAMES"] [p/"PHONE" "MORE_PHONES"]
 * Use double quotation marks (") around each keyword to ensure correct parsing.
 * The search is case-insensitive. e.g the name `hans` will match `Hans`
 * You can search by `name`, `phone number`, `email`, `address`, or `tags`.
-* If not prefix (e.g. n/) is given, find by name is assumed.
+* If no prefix (e.g. n/) is given, find by name is assumed.
 * Supports OR search: At least one field must match any of the provided keywords.
 * Allows small typos for `name`, `email` and `address` fields:
     - e.g. Searching for `Alce` will match `Alice`.
