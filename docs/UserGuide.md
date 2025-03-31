@@ -369,9 +369,27 @@ We know it can be **very annoying** to re-type commands consisting of long clien
 
 As such, Notarius keeps a history of the commands you have entered. You can navigate through the history using various shortcuts below, depending on your operating system:
 
-**Windows/Linux users:** Use `Ctrl + Up` and `Ctrl + Down` arrow keys to cycle up and down the command history.
+**Windows/Linux users:** Use `Ctrl + Up` key combination to cycle up the command history, and `Ctrl + Down` arrow key combinations to cycle down it.
 
-**MacOS users:** Use `Ctrl + Opt + Up` and `Ctrl + Opt + Down` arrow keys instead.
+**MacOS users:** Use `Ctrl + Opt + Up` and `Ctrl + Opt + Down` arrow key combinations to respectively cycle up and down instead.
+
+
+<div markdown="block" class="alert alert-warning">
+
+:exclamation: **Terminology alert:**<br>
+
+
+* Cycling up the command history refers to moving up the currently selected result from the command history to a more recent result in the history above it. Similarly when cycling down, you will be moving this selection to a less recently entered input below.
+
+* Upon reaching the top (newest input) in the command history, cycling up another time will bring you back to the oldest input at the bottom of the command history.
+
+* Similarly, when reaching the bottom (oldest input) of the command history, cycling down another time will bring you back to the most recent at the top.
+
+</div>
+
+<br>
+
+Examples:
 
 ![[emptyCommandHistory]](images/emptyCommandHistory.png)
 <div style="text-align:center; font-weight:bold;">An example of an empty command history</div>
@@ -387,19 +405,19 @@ As such, Notarius keeps a history of the commands you have entered. You can navi
 
 <div markdown="block" class="alert alert-info">
 
-**:information_source: Command history notes:**<br>
+:information_source: **Command history usage notes:**<br>
 
-* Invalid/Unknown commands will be considered and saved into the input history.
+* Invalid/Unknown commands will be considered and saved into the command history, since it may have been a typo.
+
+* Empty or blank inputs are not useful command inputs and thus won't be added.
 
 * The command history will not be saved when the application is closed.
 
-* Restarting the application will reset the command history.
+* Restarting the application will clear the command history.
 
-* Inputs that are duplicates of the previously entered input will not be added another time.
+* Inputs that are duplicates of the previously saved command history input will not be added another time.
 
 * Up to 20 of your most recently entered inputs will be saved in the command history.
-
-* Empty or blank inputs are not considered as command inputs and thus won't be added.
 
 </div>
 
