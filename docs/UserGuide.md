@@ -116,6 +116,7 @@ Here is a list of commonly used terminology to provide better clarity.
 </div>
 
 ### Basic Features
+
 #### Viewing help : `help`
 
 The `help` command provides guidance on how to use the application, including available commands and their formats.
@@ -173,19 +174,24 @@ Examples:
 
 #### Deleting client contact(s) : `delete`
 
-Deletes the specified client contact(s) from **Notarius**.
+Deletes **client** contact(s) from your list of contacts in Notarius so that you can remove
+outdated and no longer needed client contact information.
 
 Formats:
 
-1. Single-indexing: `delete INDEX`
+For deleting a single client:
+
+* Single-delete: `delete INDEX`
     * Deletes the client contact at the specified `INDEX`.
-1. Spaced-indexing: `delete i/FIRST_INDEX SECOND_INDEX … NTH_INDEX`
-    * Deletes the client contact(s) specified by `FIRST_INDEX`, `SECOND_INDEX` and up to `NTH_INDEX` inclusive.
-    * In this case, `…` simply means that you can specify 1 or more indexes after the prefix `i/`.
+
+For deleting multiple clients:
+
+* Spaced-delete: `delete i/FIRST_INDEX [MORE_INDEXES]…`
+    * Deletes the client contact(s) specified by `FIRST_INDEX` and the indexes in `[MORE_INDEXES]`
+    * Simply allows you to specify 1 or more indexes after the prefix `i/`.
     * Indexes specified this way must be separated by spaces.
-1. Ranged-indexing: `delete i/START_INDEX-END_INDEX`
-    * Deletes the client contact(s) whose index is specified from `START_INDEX` to `END_INDEX` inclusive.
-    * `START_INDEX` must be `<=` `END_INDEX`.
+* Ranged-delete: `delete i/START_INDEX-END_INDEX`
+    * Deletes the client contacts whose indexes are within the index range from `START_INDEX` to `END_INDEX` inclusive.
 
 Examples:
 
@@ -200,15 +206,18 @@ Examples:
 * `find Alex` followed by `delete i/1-2`
     * Deletes the 1st and 2nd client contacts in the displayed results of the `find` command.
 
-![[deleteIndexSpaced]](images/deleteIndexSpaced.png)
+![deleteIndexSpaced](images/deleteIndexSpaced.png)
 
-<div style="text-align:center; font-weight:bold">An example of deleting the first 3 client contacts after listing</div>
+<div style="text-align:center;">
+<span style="font-weight:bold;">Example:</span> Deleting the first 3 client contacts after <code>list</code> using 
+<code>delete i/1-3</code>
+</div>
 
 <br>
 
-<div markdown="block" class="alert alert-info">
+<div markdown="block" class="alert alert-warning">
 
-**:information_source: Index constraints:**<br>
+**:exclamation: Index constraints:**<br>
 
 * The indexes must refer to the index numbers shown in the displayed client contacts list.
 
@@ -216,11 +225,13 @@ Examples:
 
 * All specified indexes must correspond to some index number shown in the displayed client contacts list, otherwise the command fails.
 
-* Duplicate indexes specified will be treated *as-if* that index was specified only once.
+* For ranged and spaced delete formats, duplicate indexes specified will be treated *as-if* that index was specified only once.
 
-* Up to 100 indexes can be specified (either via spaced or ranged indexing formats); beyond which the command will fail.
+* Up to 100 indexes can be specified (either via spaced or ranged delete formats); beyond which the command will fail.
 
-* At least 1 index should be specified when using ranged or spaced indexing formats.
+* At least 1 index should be specified when using ranged or spaced delete formats.
+
+* For ranged-delete format, `START_INDEX` must be at most equal to `END_INDEX` (For e.g. `delete i/3-2` is invalid).
 
 </div>
 
@@ -267,6 +278,17 @@ Examples:
 * `sort n/` returns contact by ascending names `Alex`, `Bernice`, `Charlotte`.
 * `sort p/` returns contact by ascending phone numbers `87438807`, `91031282`, `92492021`.
 
+<br>
+
+![[sortByPhone]](images/sortByPhone.png)
+<div style="text-align:center;">
+
+<span style="font-weight:bold;">Example:</span> Sorting a list of contacts by phone number using <code>sort p/</code>
+
+</div>
+
+<br>
+
 #### Pinning a client contact : `pin`
 
 Pins the specified client contact to the top of the address book.<br>
@@ -282,6 +304,17 @@ Examples:
 * `list` followed by `pin 2` pins the 2nd contact in the address book to the top.
 * `sort p/` followed by `pin 1` pins the 1st contact when sorted according to phone number.
 
+<br>
+
+![[pinFirstPerson]](images/pinFirstPerson.png)
+<div style="text-align:center;">
+
+<span style="font-weight:bold;">Example:</span> Pinning the first client contact (<code>Alex Yeoh</code>)
+using <code>pin 1</code>
+</div>
+
+<br>
+
 #### Unpinning a pinned client contact : `unpin`
 
 Unpins the specified contact from the top of the address book if they were previously pinned.<br>
@@ -296,6 +329,26 @@ Format: `unpin INDEX`
 Examples:
 * `list` followed by `unpin 1` unpins the 1st contact in the address book.
 * `sort p/` followed by `unpin 1` unpins the 1st contact when sorted according to phone number.
+
+<br>
+
+![[beforeUnpin]](images/beforeUnpin.png)
+<div style="text-align:center;">
+
+<span style="font-weight:bold;">Example:</span> Before unpinning a pinned client contact (<code>Alex Yeoh</code>)
+
+</div>
+
+<br>
+
+![[afterUnpin]](images/afterUnpin.png)
+<div style="text-align:center;">
+
+<span style="font-weight:bold;">Example:</span> After unpinning <code>Alex Yeoh</code> using
+<code>unpin 1</code>
+
+</div>
+
 
 #### Clearing all entries : `clear`
 
@@ -386,12 +439,12 @@ You can open and navigate through this history by using various shortcuts below,
 
  
 
-<div markdown="span" class="alert alert-primary">:bulb: **Tip:**
-Pressing **either** of the key combinations above **based on** your operating system will **open** the command history.
-</div>
+<div markdown="block" class="alert alert-primary">:bulb: **Tips:**
 
-<div markdown="span" class="alert alert-primary">:bulb: **Tip:**
-You can **close** the command history by either pressing `Enter` to submit the command input, or the `Escape` key.
+* Pressing **either** of the key combinations above **based on** your operating system will **open** the command history.
+
+* You can **close** the command history by either pressing `Enter` to submit the command input, or the `Escape` key.
+
 </div>
 
 <br>
@@ -489,19 +542,19 @@ A: Please refer to the [Command Summary](#command-summary) for the list of avail
 
 ## Command summary
 
-| Action              | Formats and Examples                                                                                                                                                                                                                                                                      |
-|---------------------|-------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|
-| **Add**             | Format: `add n/NAME p/PHONE_NUMBER e/EMAIL a/ADDRESS [t/TAG]…` <br> <br> Example: `add n/James Ho p/22224444 e/jamesho@example.com a/123, Clementi Rd, 1234665 t/plaintiff t/client`                                                                                                      |
-| **Clear**           | Format: `clear` <br> <br> Example: `clear`                                                                                                                                                                                                                                                |
-| **Delete**          | Single-delete Format: `delete INDEX` <br> <br> Example: `delete 3` <br> <br> Ranged-delete Format: `delete i/START_INDEX-END_INDEX` <br> <br> Example: `delete i/1-2` <br> <br> Spaced-delete Format: `delete i/FIRST_INDEX SECOND_INDEX … NTH_INDEX` <br> <br> Example: `delete i/1 3 5` |
-| **Edit**            | Format: `edit INDEX [n/NAME] [p/PHONE_NUMBER] [e/EMAIL] [a/ADDRESS] [t/TAG]…` <br> <br> Example: `edit 2 n/James Lee e/jameslee@example.com`                                                                                                                                              |
-| **Find**            | Format: `find [n/"NAME" "MORE_NAMES"] [p/"PHONE" "MORE_PHONES"] [e/"EMAIL" "MORE_EMAILS"] [a/"ADDRESS" "MORE_ADDRESSES"] [t/"TAG" "MORE_TAGS"]` <br> <br> Example: `find n/"James" "Jake"`                                                                                                |
-| **List**            | Format: `list` <br> <br> Example: `list`                                                                                                                                                                                                                                                  |
-| **Add/Change Note** | Format: `note INDEX [nt/NOTE]` <br> <br> Example: `note 3 nt/Currently in jail.`                                                                                                                                                                                                          |
-| **View Note**       | Format: `viewnote INDEX` <br> <br> Example: `viewnote 3`                                                                                                                                                                                                                                  |
-| **Pin**             | Format: `pin INDEX` <br> <br> Example: `pin 2`                                                                                                                                                                                                                                            |
-| **Unpin**           | Format: `unpin INDEX` <br> <br> Example: `unpin 1`                                                                                                                                                                                                                                        |
-| **Sort**            | Format: `sort ATTRIBUTE` <br> <br> Example: `sort n/`                                                                                                                                                                                                                                     |
-| **Undo**            | Format: `undo` <br> <br> Example: `undo`                                                                                                                                                                                                                                                  |
-| **Redo**            | Format: `redo` <br> <br> Example: `redo`                                                                                                                                                                                                                                                  |
-| **Help**            | Format: `help [COMMAND]` <br> <br> Example: `help add`                                                                                                                                                                                                                                    |
+| Action              | Formats and Examples                                                                                                                                                                                                                                                              |
+|---------------------|-----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|
+| **Add**             | Format: `add n/NAME p/PHONE_NUMBER e/EMAIL a/ADDRESS [t/TAG]…` <br> <br> Example: `add n/James Ho p/22224444 e/jamesho@example.com a/123, Clementi Rd, 1234665 t/plaintiff t/client`                                                                                              |
+| **Clear**           | Format: `clear` <br> <br> Example: `clear`                                                                                                                                                                                                                                        |
+| **Delete**          | Single-delete Format: `delete INDEX` <br> <br> Example: `delete 3` <br> <br> Ranged-delete Format: `delete i/START_INDEX-END_INDEX` <br> <br> Example: `delete i/1-2` <br> <br> Spaced-delete Format: `delete i/FIRST_INDEX [MORE_INDEXES]… ` <br> <br> Example: `delete i/1 3 5` |
+| **Edit**            | Format: `edit INDEX [n/NAME] [p/PHONE_NUMBER] [e/EMAIL] [a/ADDRESS] [t/TAG]…` <br> <br> Example: `edit 2 n/James Lee e/jameslee@example.com`                                                                                                                                      |
+| **Find**            | Format: `find [n/"NAME" "MORE_NAMES"] [p/"PHONE" "MORE_PHONES"] [e/"EMAIL" "MORE_EMAILS"] [a/"ADDRESS" "MORE_ADDRESSES"] [t/"TAG" "MORE_TAGS"]` <br> <br> Example: `find n/"James" "Jake"`                                                                                        |
+| **List**            | Format: `list` <br> <br> Example: `list`                                                                                                                                                                                                                                          |
+| **Add/Change Note** | Format: `note INDEX [nt/NOTE]` <br> <br> Example: `note 3 nt/Currently in jail.`                                                                                                                                                                                                  |
+| **View Note**       | Format: `viewnote INDEX` <br> <br> Example: `viewnote 3`                                                                                                                                                                                                                          |
+| **Pin**             | Format: `pin INDEX` <br> <br> Example: `pin 2`                                                                                                                                                                                                                                    |
+| **Unpin**           | Format: `unpin INDEX` <br> <br> Example: `unpin 1`                                                                                                                                                                                                                                |
+| **Sort**            | Format: `sort ATTRIBUTE` <br> <br> Example: `sort n/`                                                                                                                                                                                                                             |
+| **Undo**            | Format: `undo` <br> <br> Example: `undo`                                                                                                                                                                                                                                          |
+| **Redo**            | Format: `redo` <br> <br> Example: `redo`                                                                                                                                                                                                                                          |
+| **Help**            | Format: `help [COMMAND]` <br> <br> Example: `help add`                                                                                                                                                                                                                            |
