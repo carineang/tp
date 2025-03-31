@@ -60,7 +60,14 @@ Operating System/OS | The type of computer software that you are using, commonly
    * For `Window/Linux users`: right-click folder + `Copy as Path`.
    * For `MacOS users`: right-click folder + Opt + `copy <filename> as pathname`
 
-1. Open a command terminal, type `cd` and paste the copied path, and use the `java -jar Notarius.jar` command to run the application.<br>
+1. Open a command terminal:
+    * Windows: Press `Win + X`, select `Terminal`.
+    * Linux: Press `Ctrl + Alt + T`.
+    * MacOS: Press `Cmd + Space` to open Spotlight, type `Terminal`, and press `Enter`.
+
+3. Type `cd` and paste the `copied path`, press `Enter`. 
+
+5. Type `java -jar Notarius.jar` command to run the application.<br>
    A GUI similar to the below should appear in a few seconds. Note how the app contains some sample data.<br>
    ![Ui](images/Ui.png)
 
