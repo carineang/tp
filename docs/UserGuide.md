@@ -25,26 +25,26 @@ helping to provide you with a seamless experience. You can re-access previously 
 
 Additionally, we offer **cool** *quality-of-life* features too. You can note-take crucial details of your clients, and even pin important client contacts!
 
-Feature | Purpose
---------|------------------
-Note | Add and view notes of client contacts to keep track of important information about them.
-Pin/Unpin | Pin and unpin client contacts to easily track important client information.
-Sort | Sort clients by key attributes to easily find certain clients.
-Find | Filters clients by various fields along with how similar they are to the query commands.
-Undo/Redo | Undo and redo commands to easily correct mistaken commands.
-Command History | View and reaccess previously typed commands to easily edit typos.
+| Feature         | Purpose                                                                                  |
+|-----------------|------------------------------------------------------------------------------------------|
+| Note            | Add and view notes of client contacts to keep track of important information about them. |
+| Pin/Unpin       | Pin and unpin client contacts to easily track important client information.              |
+| Sort            | Sort clients by key attributes to easily find certain clients.                           |
+| Find            | Filters clients by various fields along with how similar they are to the query commands. |
+| Undo/Redo       | Undo and redo commands to easily correct mistaken commands.                              |
+| Command History | View and reaccess previously typed commands to easily edit typos.                        |
 
 ## Glossary of terms
 
 While exploring this user guide, you may come across some terms that you may not be familiar with.
 Here is a list of commonly used terminology to provide better clarity.
 
-Term(s) | Meaning
---------|----------
-Prefix | Prefixes are format-specific keywords that are used to specify the type of data following it. For instance, `n/` is a prefix that specifies that the data following it is the name of a client.
-Command | Command refers to a user's input into the input box of the application. Commands are used to interact with Notarius and perform various operations such as deleting a contact.
-Index | Index refers to the position of a client in the list of clients displayed by Notarius. For example, an `INDEX` of 1 refers to the first client in the displayed list.
-Operating System/OS | The type of computer software that you are using, commonly referred to as OS. Examples include **Windows**, **MacOS**, and **Linux**. Click <a href="https://en.wikipedia.org/wiki/Operating_system">here</a> to learn more.
+| Terms               | Meaning                                                                                                                                                                                                                      |
+|---------------------|------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|
+| Prefix              | Prefixes are format-specific keywords that are used to specify the type of data following it. For instance, `n/` is a prefix that specifies that the data following it is the name of a client.                              |
+| Command             | Command refers to a user's input into the input box of the application. Commands are used to interact with Notarius and perform various operations such as deleting a contact.                                               |
+| Index               | Index refers to the position of a client in the list of clients displayed by Notarius. For example, an `INDEX` of 1 refers to the first client in the displayed list.                                                        |
+| Operating System/OS | The type of computer software that you are using, commonly referred to as OS. Examples include **Windows**, **MacOS**, and **Linux**. Click <a href="https://en.wikipedia.org/wiki/Operating_system">here</a> to learn more. |
 
 ## Quick start
 
