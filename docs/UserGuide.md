@@ -54,7 +54,7 @@ Operating System/OS | The type of computer software that you are using, commonly
 1. Download the latest `.jar` file from [here](https://github.com/AY2425S2-CS2103T-T17-1/tp/releases).<br>
    * Under `Assets` of the latest release, click on `Notarius.jar` to download it.
 
-1. Copy the file to the folder where you want to store all your contact information for Notarius.
+1. Copy the file to an empty folder where you want to store all your contact information for Notarius.
 
 1. Copy the path of the folder using `Ctrl + Shift + C`.
 
@@ -137,7 +137,7 @@ Examples:
 
 Adds a client contact to the address book.
 
-Format: `add n/NAME p/PHONE_NUMBER e/EMAIL a/ADDRESS [t/TAG]…​`
+Format: `add n/NAME p/PHONE_NUMBER e/EMAIL a/ADDRESS [t/TAG] [t/ADDITIONAL TAG]…​`
 
 <div markdown="span" class="alert alert-primary">:bulb: **Tip:**
 A contact can have any number of tags (including 0)
@@ -145,7 +145,7 @@ A contact can have any number of tags (including 0)
 
 Examples:
 * `add n/John Doe p/98765432 e/johnd@example.com a/John street, block 123, #01-01`
-* `add n/Betsy Crowe t/criminal e/betsycrowe@example.com a/Newgate Prison p/1234567 t/case44`
+* `add n/Betsy Crowe t/DUI e/betsycrowe@example.com a/Newgate Prison p/1234567 t/case44`
 
 ### Listing all client contacts : `list`
 
@@ -157,7 +157,7 @@ Format: `list`
 
 Edits an existing contact in the address book.
 
-Format: `edit INDEX [n/NAME] [p/PHONE] [e/EMAIL] [a/ADDRESS] [t/TAG] [t/MORE TAG]…​`
+Format: `edit INDEX [n/NAME] [p/PHONE] [e/EMAIL] [a/ADDRESS] [t/TAG] [t/ADDITIONAL TAG]…​`
 
 * Edits the contact at the specified `INDEX`. The index refers to the index number shown in the displayed person list. The index **must be a positive integer** 1, 2, 3, …​
 * At least one of the optional fields must be provided.
@@ -168,7 +168,7 @@ Format: `edit INDEX [n/NAME] [p/PHONE] [e/EMAIL] [a/ADDRESS] [t/TAG] [t/MORE TAG
 
 Examples:
 *  `edit 1 p/91234567 e/johndoe@example.com` Edits the phone number and email address of the 1st contact to be `91234567` and `johndoe@example.com` respectively.
-*  `edit 3 t/Witness t/Case44` Overwrite the currents tag(s) of the 3rd contact with `Witness` and `Case44`.
+*  `edit 3 t/Custody t/Case45` Overwrite the currents tag(s) of the 3rd contact with `Witness` and `Case44`.
 *  `edit 2 n/Betsy Crower t/` Edits the name of the 2nd contact to be `Betsy Crower` and clears all existing tags.
 
 ### Deleting client contact(s) : `delete`
@@ -237,6 +237,7 @@ Format: `find [n/"NAME" "MORE_NAMES"] [p/"PHONE" "MORE_PHONES"]
 * The search is case-insensitive. e.g the name `hans` will match `Hans`
 * You can search by `name`, `phone number`, `email`, `address`, or `tags`.
 * If no prefix (e.g. n/) is given, find by name is assumed.
+    * e.g. `find Alice Bernice` is treated as `find n/"Alice" "Bernice"`
 * Supports OR search: At least one field must match any of the provided keywords.
 * Allows small typos for `name`, `email` and `address` fields:
     - e.g. Searching for `Alce` will match `Alice`.
@@ -458,10 +459,10 @@ _Details coming soon ..._
 
 Action | Format, Examples
 --------|------------------
-**Add** | `add n/NAME p/PHONE_NUMBER e/EMAIL a/ADDRESS [t/TAG]…​` <br> e.g., `add n/James Ho p/22224444 e/jamesho@example.com a/123, Clementi Rd, 1234665 t/friend t/colleague`
+**Add** | `add n/NAME p/PHONE_NUMBER e/EMAIL a/ADDRESS [t/TAG] [t/ADDITIONAL TAG]…​` <br> e.g., `add n/James Ho p/22224444 e/jamesho@example.com a/123, Clementi Rd, 1234665 t/friend t/colleague`
 **Clear** | `clear`
 **Delete** | `delete INDEX`, `delete i/START_INDEX-END_INDEX`, `delete i/FIRST_INDEX SECOND_INDEX …​ NTH_INDEX`<br> e.g., `delete 3`, `delete i/1-2`, `delete i/1 3 5`
-**Edit** | `edit INDEX [n/NAME] [p/PHONE_NUMBER] [e/EMAIL] [a/ADDRESS] [t/TAG]…​`<br> e.g.,`edit 2 n/James Lee e/jameslee@example.com`
+**Edit** | `edit INDEX [n/NAME] [p/PHONE_NUMBER] [e/EMAIL] [a/ADDRESS] [t/TAG] [t/ADDITIONAL TAG]…​`<br> e.g.,`edit 2 n/James Lee e/jameslee@example.com`
 **Find** | `find [n/"NAME" "MORE_NAMES"] [p/"PHONE" "MORE_PHONES"] [e/"EMAIL" "MORE_EMAILS"] [a/"ADDRESS" "MORE_ADDRESSES"] [t/"TAG" "MORE_TAGS"]`<br> e.g., `find n/"James" "Jake"`
 **List** | `list`
 **Add/Change Note** | `note INDEX [nt/NOTE]`<br> e.g., `note 3 nt/Currently in jail.`
