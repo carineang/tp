@@ -39,12 +39,15 @@ Additionally, we offer **cool** *quality-of-life* features too. You can note-tak
 While exploring this user guide, you may come across some terms that you may not be familiar with.
 Here is a list of commonly used terminology to provide better clarity.
 
-| Terms               | Meaning                                                                                                                                                                                                                      |
-|---------------------|------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|
-| Prefix              | Prefixes are format-specific keywords that are used to specify the type of data following it. For instance, `n/` is a prefix that specifies that the data following it is the name of a client.                              |
-| Command             | Command refers to a user's input into the input box of the application. Commands are used to interact with Notarius and perform various operations such as deleting a contact.                                               |
-| Index               | Index refers to the position of a client in the list of clients displayed by Notarius. For example, an `INDEX` of 1 refers to the first client in the displayed list.                                                        |
-| Operating System/OS | The type of computer software that you are using, commonly referred to as OS. Examples include **Windows**, **MacOS**, and **Linux**. Click <a href="https://en.wikipedia.org/wiki/Operating_system">here</a> to learn more. |
+| Terms                           | Meaning                                                                                                                                                                                                                      |
+|---------------------------------|------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|
+| Prefix                          | Prefixes are format-specific keywords that are used to specify the type of data following it. For instance, `n/` is a prefix that specifies that the data following it is the name of a client.                              |
+| Command                         | Command refers to a user's input into the input box of the application. Commands are used to interact with Notarius and perform various operations such as deleting a contact.                                               |
+| Index                           | Index refers to the position of a client in the list of clients displayed by Notarius. For example, an `INDEX` of 1 refers to the first client in the displayed list.                                                        |
+| Operating System/OS             | The type of computer software that you are using, commonly referred to as OS. Examples include **Windows**, **macOS**, and **Linux**. Click <a href="https://en.wikipedia.org/wiki/Operating_system">here</a> to learn more. |
+| Command Input(s)                | The user inputs entered in the input box.                                                                                                                                                                                    |
+| Whitespace Character            | Usually refer to characters entered by a user's keyboard that are not visible. Examples include spaces (by pressing space-bar), tabs (by pressing the tab key), and new lines (from pressing enter).                         |
+| Blank Inputs                    | Inputs entered by users that are either empty or only contain whitespace characters                                                                                                                                          |
 
 ## Quick start
 
@@ -362,49 +365,68 @@ Examples:
 
 We know it can be **very annoying** to re-type commands consisting of long client details, especially due to a small typo.
 
-As such, Notarius keeps a history of the commands you have entered. You can navigate through the history using various shortcuts below, depending on your operating system:
+As such, **Notarius** keeps a history of the command inputs you have entered. When the command history is open, 
+the inputs shown are **ordered** from the **most recently** entered input at the **top** to the **least recently** 
+entered input at the **bottom**. Furthermore, the **currently selected input** in the command history 
+is automatically entered into the input bar, as shown below:
 
-**Windows/Linux users:** Use `Ctrl + Up` key combination to cycle up the command history, and `Ctrl + Down` arrow key combinations to cycle down it.
+![[commandHistoryOrder]](images/commandHistoryOrder.png)
+<div style="text-align:center;"><span style="font-weight:bold;">Example:</span> Older and newer command inputs in the command history
+<br>
+The <span style="font-weight:bold;">currently selected input</span> is "more recently entered command input"
+</div>
 
-**MacOS users:** Use `Ctrl + Opt + Up` and `Ctrl + Opt + Down` arrow key combinations to respectively cycle up and down instead.
+<br>
 
+You can open and navigate through this history by using various shortcuts below, depending on your operating system:
 
-<div markdown="block" class="alert alert-warning">
+**Windows/Linux users:** Use `Ctrl + Up` key combination to cycle up the command history, and `Ctrl + Down` arrow key combinations to cycle down. 
 
-:exclamation: **Terminology Alert:**<br>
+**macOS users:** Use `Ctrl + Opt + Up` and `Ctrl + Opt + Down` arrow key combinations to respectively cycle up and down instead.
 
+ 
 
-* Cycling up the command history refers to moving up the currently selected result from the command history to a more recent result in the history above it. Similarly when cycling down, you will be moving this selection to a less recently entered input below.
+<div markdown="span" class="alert alert-primary">:bulb: **Tip:**
+Pressing **either** of the key combinations above **based on** your operating system will **open** the command history.
+</div>
 
-* Upon reaching the top (newest input) in the command history, cycling up another time will bring you back to the oldest input at the bottom of the command history.
+<div markdown="span" class="alert alert-primary">:bulb: **Tip:**
+You can **close** the command history by either pressing `Enter` to submit the command input, or the `Escape` key.
+</div>
 
-* Similarly, when reaching the bottom (oldest input) of the command history, cycling down another time will bring you back to the most recent at the top.
+<br>
+
+**Cycling up** or **down** the command history simply refers to moving the **currently selected input** of the command history 
+to a **more recent/newer** or **less recent/older** command input respectively.
+
+<div markdown="block" class="alert alert-info">
+
+:information_source: **Important Notes:**<br>
+
+* When the **currently selected input** is at the top of the command history, cycling up another time will bring it down to the **oldest** input at the bottom of the command history.
+
+* Similarly, when the **currently selected input** is at the bottom of the command history, cycling down another time brings it back to the **newest** input at the top of the command history.
 
 </div>
 
 <br>
 
 Examples:
-
+* Opening an empty command history using `Ctrl + Up` on **Windows** or `Ctrl + Opt + Up` on **macOS**:
 ![[emptyCommandHistory]](images/emptyCommandHistory.png)
-<div style="text-align:center; font-weight:bold;">An example of an empty command history</div>
 
-<br>
-
+* Entering `list`, then `edit 1 p/987654321` followed by `list` and using `Ctrl + Down` on **Windows** (`Ctrl + Opt + Down` on **macOS**) to re-access the edit command via the command history:
 ![[commandHistory]](images/commandHistory.png)
-<div style="text-align:center; font-weight:bold;">An example of re-accessing a previous edit command</div>
 
 <br>
 
-<br>
+<div markdown="block" class="alert alert-warning">
 
-<div markdown="block" class="alert alert-info">
-
-:information_source: **Command history usage notes:**<br>
+:exclamation: **Constraints:**<br>
 
 * Invalid/Unknown commands will be considered and saved into the command history, since it may have been a typo.
 
-* Empty or blank inputs are not useful command inputs and thus won't be added.
+* Blank inputs (including empty inputs) are not useful command inputs and won't be added.
 
 * The command history will not be saved when the application is closed.
 
