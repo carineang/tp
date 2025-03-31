@@ -101,7 +101,8 @@ Operating System/OS | The type of computer software that you are using, commonly
       <pre>
 
     1. Copy the path of the folder
-        - Right-click the folder and select "Copy as Path".
+        - Click the address bar of the folder (this might require pressing Ctrl + L).
+        - Copy with Ctrl + C.
 
     2. Open a command terminal
         - Press Ctrl + Alt + T.
