@@ -56,20 +56,71 @@ Operating System/OS | The type of computer software that you are using, commonly
 
 1. Copy the file to an empty folder where you want to store all your contact information for Notarius.
 
-1. Copy the path of the folder:
-   * For `Window/Linux users`: right-click folder + `Copy as Path`.
-   * For `MacOS users`: right-click folder + Opt + `copy <filename> as pathname`
+1. Follow the steps for your device:
 
-1. Open a command terminal:
-    * Windows: Press `Win + X`, select `Terminal`.
-    * Linux: Press `Ctrl + Alt + T`.
-    * MacOS: Press `Cmd + Space` to open Spotlight, type `Terminal`, and press `Enter`.
 
-3. Type `cd` and paste the `copied path`, press `Enter`. 
+    <details>
+        <summary> Windows</summary>
+        <pre>
 
-5. Type `java -jar Notarius.jar` command to run the application.<br>
-   A GUI similar to the below should appear in a few seconds. Note how the app contains some sample data.<br>
-   ![Ui](images/Ui.png)
+    1. Copy the path of the folder
+        - Right-click the folder and select "Copy as Path".
+
+    2. Open a command terminal
+        - Press Win + X, then select Terminal.
+
+    3. Navigate to the folder
+        - Type "cd" and paste the copied path, then press Enter.
+
+    4. Run the application
+        - Type "java -jar Notarius.jar" and press Enter.
+   
+           </pre>
+       </details>
+
+    <details>
+      <summary>MacOS</summary>
+      <pre>
+    1. Copy the path of the folder
+        - Right-click the folder, hold Opt, then click "Copy (folder name) as Pathname".
+
+    2. Open a command terminal
+        - Press Cmd + Space to open Spotlight, type "Terminal", and press Enter.
+
+    3. Navigate to the folder
+        - Type "cd" and paste the copied path, then press Enter.
+
+    4. Run the application
+        - Type "java -jar Notarius.jar" and press Enter.
+      </pre>
+    </details>
+
+
+    <details>
+      <summary>Linux</summary>
+      <pre>
+
+    1. Copy the path of the folder
+        - Right-click the folder and select "Copy as Path".
+
+    2. Open a command terminal
+        - Press Ctrl + Alt + T.
+
+    3. Navigate to the folder
+        - Type "cd" and paste the copied path, then press Enter.
+
+    4. Run the application
+        - Type "java -jar Notarius.jar" and press Enter.
+
+
+      </pre>
+    </details>
+
+
+<br>
+A GUI similar to the below should appear in a few seconds. Note how the app contains some sample data.
+
+![Ui](images/Ui.png)
 
 1. Type the command in the command box and press Enter to execute it. e.g. typing **`help`** and pressing Enter will open the help window.<br>
    Some example commands you can try:
