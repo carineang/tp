@@ -111,7 +111,7 @@ public class LogicManagerTest {
             try {
                 logic.execute(dummyCommand);
             } catch (CommandException | ParseException ignored) {
-                // Ignored as invalid inputs should also be saved to history.
+                // Ignored as invalid inputs should be considered by the command history.
             }
         }
         assertEquals(Collections.emptyList(), logic.getCommandHistoryList());
