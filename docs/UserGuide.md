@@ -404,7 +404,7 @@ Examples:
 ![beforeUndo](images/beforeUndo.png)
 <div style="text-align:center;">
 
-<span style="font-weight:bold;">Example:</span> Before undoing a delete: <code>delete i/1-2</code>
+<span style="font-weight:bold;">Example:</span> Before undoing the delete: <code>delete i/1-2</code>
 
 </div>
 
@@ -413,7 +413,7 @@ Examples:
 ![afterUndo](images/afterUndo.png)
 <div style="text-align:center;">
 
-<span style="font-weight:bold;">Example:</span> After undoing a delete using <code>undo</code>
+<span style="font-weight:bold;">Example:</span> After undoing the delete using <code>undo</code>
 
 </div>
 
