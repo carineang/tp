@@ -112,7 +112,8 @@ Here is a list of commonly used terminology to provide better clarity.
 * If you are using a PDF version of this document, be careful when copying and pasting commands that span multiple lines as space characters surrounding line-breaks may be omitted when copied over to the application.
 </div>
 
-### Viewing help : `help`
+### Basic Features
+#### Viewing help : `help`
 
 The `help` command provides guidance on how to use the application, including available commands and their formats.
 
@@ -130,7 +131,7 @@ Examples:
 * `help add` displays the correct format and usage of the `add` command.
 * `help me` returns: `"Unknown command! Use 'help' to see available commands.`
 
-### Adding a client contact: `add`
+#### Adding a client contact: `add`
 
 Adds a client contact to the address book.
 
@@ -144,13 +145,13 @@ Examples:
 * `add n/John Doe p/98765432 e/johnd@example.com a/John street, block 123, #01-01`
 * `add n/Betsy Crowe t/friend e/betsycrowe@example.com a/Newgate Prison p/1234567 t/criminal`
 
-### Listing all client contacts : `list`
+#### Listing all client contacts : `list`
 
 Shows a list of all contacts in the address book.
 
 Format: `list`
 
-### Editing a client contact : `edit`
+#### Editing a client contact : `edit`
 
 Edits an existing contact in the address book.
 
@@ -167,7 +168,7 @@ Examples:
 *  `edit 1 p/91234567 e/johndoe@example.com` Edits the phone number and email address of the 1st contact to be `91234567` and `johndoe@example.com` respectively.
 *  `edit 2 n/Betsy Crower t/` Edits the name of the 2nd contact to be `Betsy Crower` and clears all existing tags.
 
-### Deleting client contact(s) : `delete`
+#### Deleting client contact(s) : `delete`
 
 Deletes the specified client contact(s) from **Notarius**.
 
@@ -220,7 +221,7 @@ Examples:
 
 </div>
 
-### Locating client contacts by name: `find`
+#### Locating client contacts by name: `find`
 
 The `find` command allows you to search for contacts based on their name,
 phone number, email, address, or tags.
@@ -245,8 +246,9 @@ Examples:
 * `find n/"Alxe" "Davdi"` returns `Alex Yeoh`, `David Li`<br>
   ![result for 'find alex david'](images/findAlexDavidResult.png)
 
+### Special Features
 
-### Sorting of client contacts : `sort`
+#### Sorting of client contacts : `sort`
 
 Sort the address book by specified attribute in lexicographical order.
 
@@ -262,7 +264,7 @@ Examples:
 * `sort n/` returns contact by ascending names `Alex`, `Bernice`, `Charlotte`.
 * `sort p/` returns contact by ascending phone numbers `87438807`, `91031282`, `92492021`.
 
-### Pinning a client contact : `pin`
+#### Pinning a client contact : `pin`
 
 Pins the specified client contact to the top of the address book.<br>
 Does nothing if they were already pinned.
@@ -277,7 +279,7 @@ Examples:
 * `list` followed by `pin 2` pins the 2nd contact in the address book to the top.
 * `sort p/` followed by `pin 1` pins the 1st contact when sorted according to phone number.
 
-### Unpinning a pinned client contact : `unpin`
+#### Unpinning a pinned client contact : `unpin`
 
 Unpins the specified contact from the top of the address book if they were previously pinned.<br>
 Does nothing if they were not pinned.
@@ -292,15 +294,13 @@ Examples:
 * `list` followed by `unpin 1` unpins the 1st contact in the address book.
 * `sort p/` followed by `unpin 1` unpins the 1st contact when sorted according to phone number.
 
-### Clearing all entries : `clear`
+#### Clearing all entries : `clear`
 
 Clears all entries from the address book.
 
 Format: `clear`
 
-
-
-### Adding/Changing a note : `note`
+#### Adding/Changing a note : `note`
 
 Changes a note of a client contact in the address book.
 
@@ -317,7 +317,7 @@ Example:
   2nd client contact from the top listed in the sorted address book.
 * `note 1` changes the note of the 1st client contact from the top into a blank note.
 
-### Viewing a note : `viewnote`
+#### Viewing a note : `viewnote`
 
 Displays the contents of a note of a particular client contact in the address book.
 
@@ -331,7 +331,7 @@ Example:
 * `viewnote 3` displays the note of the 3rd client contact from the top.
 * `viewnote 1` displays the note of the 1st client contact from the top.
 
-### Undoing a command : `undo`
+#### Undoing a command : `undo`
 
 Undoes a command.
 
@@ -343,7 +343,7 @@ Examples:
 * `undo` undoes the last command.
 * `pin 4` followed by `undo` undoes the pin on the 4th client contact from the top in the address book.
 
-### Redoing a command : `redo`
+#### Redoing a command : `redo`
 
 Redoes an undone command.
 
@@ -357,13 +357,8 @@ Examples:
 * `pin 4` followed by `undo` followed by `redo` results in
   there being a pin on the 4th client contact from the top in the address book.
 
-### Exiting the program : `exit`
 
-Exits the program.
-
-Format: `exit`
-
-### Command history
+#### Command history
 
 We know it can be **very annoying** to re-type commands consisting of long client details, especially due to a small typo.
 
@@ -376,7 +371,7 @@ As such, Notarius keeps a history of the commands you have entered. You can navi
 
 <div markdown="block" class="alert alert-warning">
 
-:exclamation: **Terminology alert:**<br>
+:exclamation: **Terminology Alert:**<br>
 
 
 * Cycling up the command history refers to moving up the currently selected result from the command history to a more recent result in the history above it. Similarly when cycling down, you will be moving this selection to a less recently entered input below.
@@ -420,6 +415,12 @@ Examples:
 * Up to 20 of your most recently entered inputs will be saved in the command history.
 
 </div>
+
+### Exiting the program : `exit`
+
+Exits the program.
+
+Format: `exit`
 
 ### Saving the data
 
