@@ -56,7 +56,9 @@ Operating System/OS | The type of computer software that you are using, commonly
 
 1. Copy the file to an empty folder where you want to store all your contact information for Notarius.
 
-1. Copy the path of the folder using `Ctrl + Shift + C`.
+1. Copy the path of the folder:
+   * For `Window/Linux users`: right-click folder + `Copy as Path`.
+   * For `MacOS users`: right-click folder + Opt + `copy <filename> as pathname`
 
 1. Open a command terminal, type `cd` and paste the copied path, and use the `java -jar Notarius.jar` command to run the application.<br>
    A GUI similar to the below should appear in a few seconds. Note how the app contains some sample data.<br>
