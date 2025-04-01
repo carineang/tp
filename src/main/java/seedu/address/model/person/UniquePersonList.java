@@ -205,50 +205,67 @@ public class UniquePersonList implements Iterable<Person> {
      */
     public void sortBy(String... prefixes) {
         if (prefixes.length == 1) {
-            switch (prefixes[0]) {
-            case "t/":
-                sortByTags();
-                break;
-            case "n/":
-                sortByName();
-                break;
-            case "p/":
-                sortByPhoneNumber();
-                break;
-            case "e/":
-                sortByEmailAddress();
-                break;
-            case "a/":
-                sortByAddress();
-                break;
-            default:
-                throw new IllegalArgumentException("Invalid sort prefix: " + prefixes[0]);
-            }
-        } else if (prefixes.length == 2) {
-            if (prefixes[0].equals("t/")) {
-                switch (prefixes[1]) {
-                case "n/":
-                    sortByNameWithinTags();
-                    break;
-                case "p/":
-                    sortByPhoneNumberWithinTags();
-                    break;
-                case "e/":
-                    sortByEmailAddressWithinTags();
-                    break;
-                case "a/":
-                    sortByAddressWithinTags();
-                    break;
-                default:
-                    throw new IllegalArgumentException("Invalid combination of prefixes: "
-                            + String.join(", ", prefixes));
-                }
-            } else {
-                throw new IllegalArgumentException("Invalid sort prefix combination: "
-                        + String.join(", ", prefixes));
-            }
+            sortSinglePrefix(prefixes[0]);
+        } else if (prefixes.length == 2 && prefixes[0].equals("t/")) {
+            sortWithinTags(prefixes[1]);
+        } else if (prefixes.length > 2) {
+            throw new IllegalArgumentException("Invalid number of prefixes.");
         } else {
-            throw new IllegalArgumentException("Invalid number of prefixes or combination of prefixes.");
+            throw new IllegalArgumentException("Invalid combination of prefixes.");
+        }
+    }
+
+    /**
+     * Sorts the list based on a single prefix.
+     *
+     * @param prefix The prefix indicating the sorting criteria.
+     * @throws IllegalArgumentException If the provided prefix is invalid or unrecognized.
+     */
+    private void sortSinglePrefix(String prefix) {
+        switch (prefix) {
+        case "t/":
+            sortByTags();
+            break;
+        case "n/":
+            sortByName();
+            break;
+        case "p/":
+            sortByPhoneNumber();
+            break;
+        case "e/":
+            sortByEmailAddress();
+            break;
+        case "a/":
+            sortByAddress();
+            break;
+        default:
+            throw new IllegalArgumentException("Invalid sort prefix.");
+        }
+    }
+
+    /**
+     * Sorts the list by a specified attribute within the tag grouping. The first prefix is "t/" to indicate
+     * sorting by tags, and the second prefix indicates the attribute to sort within each tag group.
+     *
+     * @param secondPrefix The second prefix indicating the sorting criteria within the tags.
+     * @throws IllegalArgumentException If the combination of prefixes is invalid or unrecognized.
+     */
+    private void sortWithinTags(String secondPrefix) {
+        switch (secondPrefix) {
+        case "n/":
+            sortByNameWithinTags();
+            break;
+        case "p/":
+            sortByPhoneNumberWithinTags();
+            break;
+        case "e/":
+            sortByEmailAddressWithinTags();
+            break;
+        case "a/":
+            sortByAddressWithinTags();
+            break;
+        default:
+            throw new IllegalArgumentException("Invalid combination of prefixes.");
         }
     }
 
