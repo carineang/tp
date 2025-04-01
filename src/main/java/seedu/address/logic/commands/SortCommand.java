@@ -7,7 +7,7 @@ import static seedu.address.logic.parser.CliSyntax.PREFIX_EMAIL;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_NAME;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_PHONE;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_TAG;
-import static seedu.address.model.Model.PREDICATE_SHOW_ALL_PERSONS;
+//import static seedu.address.model.Model.PREDICATE_SHOW_ALL_PERSONS;
 
 import java.util.logging.Logger;
 
@@ -51,7 +51,7 @@ public class SortCommand extends Command {
     @Override
     public CommandResult execute(Model model) {
         requireNonNull(model);
-        model.updateFilteredPersonList(PREDICATE_SHOW_ALL_PERSONS);
+        model.updateSortedPersonList(prefix);
         model.updateSortedFilteredPersonList(prefix);
         model.commitAddressBook();
 
@@ -60,6 +60,11 @@ public class SortCommand extends Command {
         return new CommandResult(MESSAGE_SORT_SUCCESSFUL);
     }
 
+    /**
+     * Returns the prefix that was used to specify the attribute by which the list was sorted.
+     *
+     * @return The prefix indicating the attribute used for sorting.
+     */
     public String getSortPrefix() {
         return prefix;
     }
