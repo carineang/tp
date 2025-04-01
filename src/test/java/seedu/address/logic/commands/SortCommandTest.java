@@ -1,6 +1,7 @@
 package seedu.address.logic.commands;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertThrows;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 import static seedu.address.testutil.TypicalPersons.ALICE;
 import static seedu.address.testutil.TypicalPersons.BENSON;
@@ -125,5 +126,23 @@ public class SortCommandTest {
         assertTrue(model.getFilteredPersonList().get(2).getTags().toString().contains("owesMoney"));
         assertTrue(model.getFilteredPersonList().get(3).getTags().isEmpty());
         assertTrue(model.getFilteredPersonList().get(4).getTags().isEmpty());
+    }
+
+    @Test
+    public void constructor_nullPrefixes_throwsIllegalArgumentException() {
+        String[] prefixes = null;
+        IllegalArgumentException exception = assertThrows(IllegalArgumentException.class, () -> {
+            new SortCommand(prefixes);
+        });
+        assertEquals("Prefixes cannot be null or empty", exception.getMessage());
+    }
+
+    @Test
+    public void constructor_emptyPrefixes_throwsIllegalArgumentException() {
+        String[] prefixes = new String[0];
+        IllegalArgumentException exception = assertThrows(IllegalArgumentException.class, () -> {
+            new SortCommand(prefixes);
+        });
+        assertEquals("Prefixes cannot be null or empty", exception.getMessage());
     }
 }

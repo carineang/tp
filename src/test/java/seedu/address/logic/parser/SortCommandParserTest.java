@@ -72,4 +72,40 @@ public class SortCommandParserTest {
         });
         assertEquals(String.format(MESSAGE_INVALID_COMMAND_FORMAT, SortCommand.MESSAGE_USAGE), exception.getMessage());
     }
+
+    @Test
+    public void parse_invalidFirstPrefix_throwsParseException() {
+        String input = "n/ p/";
+        ParseException exception = assertThrows(ParseException.class, () -> {
+            parser.parse(input);
+        });
+        assertEquals(String.format(MESSAGE_INVALID_COMMAND_FORMAT, SortCommand.MESSAGE_USAGE), exception.getMessage());
+    }
+
+    @Test
+    public void parse_invalidSecondPrefix_throwsParseException() {
+        String input = "t/ x/";
+        ParseException exception = assertThrows(ParseException.class, () -> {
+            parser.parse(input);
+        });
+        assertEquals(String.format(MESSAGE_INVALID_COMMAND_FORMAT, SortCommand.MESSAGE_USAGE), exception.getMessage());
+    }
+
+    @Test
+    public void parse_invalidNumberOfPrefixes_throwsParseException() {
+        String input = "t/ n/ p/";
+        ParseException exception = assertThrows(ParseException.class, () -> {
+            parser.parse(input);
+        });
+        assertEquals("Invalid number of prefixes.", exception.getMessage());
+    }
+
+    @Test
+    public void parse_extraSpacesBetweenPrefixes_throwsParseException() {
+        String input = "t/  n/";
+        ParseException exception = assertThrows(ParseException.class, () -> {
+            parser.parse(input);
+        });
+        assertEquals(String.format(MESSAGE_INVALID_COMMAND_FORMAT, SortCommand.MESSAGE_USAGE), exception.getMessage());
+    }
 }
