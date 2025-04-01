@@ -257,10 +257,10 @@ Format: `sort PREFIX`
 * `sort e/` sorts contacts by ascending emails.
 * `sort a/` sorts contacts by ascending addresses.
 * `sort t/` sorts contacts by ascending tags.
-* `sort t/ n/` sorts contacts by tags first, within the tags, sort by names.
-* `sort t/ p/` sorts contacts by tags first, within the tags, sort by phone numbers.
-* `sort t/ e/` sorts contacts by tags first, within the tags, sort by emails.
-* `sort t/ a/` sorts contacts by tags first, within the tags, sort by addresses.
+* `sort t/ n/` sorts contacts by tags first, then names.
+* `sort t/ p/` sorts contacts by tags first, then phone numbers.
+* `sort t/ e/` sorts contacts by tags first, then emails.
+* `sort t/ a/` sorts contacts by tags first, the addresses.
 
 Examples:
 * `sort n/` returns contact by ascending names `Alex`, `Bernice`, `Charlotte`.
