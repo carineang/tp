@@ -313,7 +313,7 @@ public class ModelManagerTest {
     }
 
     @Test
-    public void getFilteredPersonList_modifyList_throwsUnsupportedOperationException() {
+    public void getFilteredPersonList_throwsUnsupportedOperationException() {
         assertThrows(UnsupportedOperationException.class, () -> modelManager.getFilteredPersonList().remove(0));
     }
 
@@ -330,7 +330,7 @@ public class ModelManagerTest {
     }
 
     @Test
-    public void updateSortedFilteredPersonList_nullPrefix_throwsNullPointerException() {
+    public void updateSortedFilteredPersonList_throwsNullPointerException() {
         assertThrows(NullPointerException.class, () -> modelManager.updateSortedFilteredPersonList(null));
     }
 
@@ -344,7 +344,7 @@ public class ModelManagerTest {
     }
 
     @Test
-    public void updateSortedFilteredPersonList_multiplePersonsWithSamePrefix_sortedWithSortByFilteredList() {
+    public void updateSortedFilteredPersonList_multiplePersonsWithSamePrefix() {
         AddressBook addressBook = new AddressBookBuilder().withPerson(ALICE).withPerson(BENSON).build();
         modelManager = new ModelManager(addressBook, new UserPrefs());
         modelManager.updateSortedFilteredPersonList("n/");
