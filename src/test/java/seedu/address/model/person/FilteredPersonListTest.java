@@ -9,7 +9,6 @@ import org.junit.jupiter.api.Test;
 
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
-
 import seedu.address.testutil.TypicalPersons;
 
 public class FilteredPersonListTest {
