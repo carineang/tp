@@ -1,16 +1,16 @@
 package seedu.address.model.person;
 
-import org.junit.jupiter.api.BeforeEach;
-import org.junit.jupiter.api.Test;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertThrows;
+import static org.junit.jupiter.api.Assertions.assertTrue;
 
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 
-import seedu.address.testutil.TypicalPersons;
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Test;
 
-import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.junit.jupiter.api.Assertions.assertThrows;
-import static org.junit.jupiter.api.Assertions.assertTrue;
+import seedu.address.testutil.TypicalPersons;
 
 public class FilteredPersonListTest {
 
