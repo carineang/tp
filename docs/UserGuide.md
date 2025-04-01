@@ -368,14 +368,12 @@ Examples:
 correct sorted order. To maintain the sorted order, you will need to run the `sort` command again after adding the new contact.
 
 * **Sorting Multiple Tags:**<br>
-  It prioritizes the **first tag** inserted as the **primary sorting criterion**.<br>
+  It sorts the **first tag** in **alphabetical order**.<br>
   e.g. `t/colleagues t/friends` will sort by `colleagues` tag first and followed by `friends` tag.<br>
   e.g. If `t/colleagues t/friends` and `t/lawyer t/colleagues` are sorted, `t/colleagues t/friends` will appear before
   `t/lawyer t/colleagues`, because `colleagues` tag comes first in the sorting order.
 </div>
 
-### Pinning a client contact : `pin`
-=======
 
 #### Pinning a client contact : `pin`
 
