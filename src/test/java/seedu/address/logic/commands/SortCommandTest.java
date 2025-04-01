@@ -57,7 +57,7 @@ public class SortCommandTest {
         model.addPerson(DANIEL);
         model.addPerson(CARL);
 
-        SortCommand sortCommand = new SortCommand("p/");
+        SortCommand sortCommand = new SortCommand(new String[]{"p/"});
         sortCommand.execute(model);
 
         // Check if the persons in AddressBook are sorted correctly by phone
@@ -76,7 +76,7 @@ public class SortCommandTest {
         model.addPerson(DANIEL);
         model.addPerson(CARL);
 
-        SortCommand sortCommand = new SortCommand("e/");
+        SortCommand sortCommand = new SortCommand(new String[]{"e/"});
         sortCommand.execute(model);
 
         // Check if the persons in AddressBook are sorted correctly by email
@@ -95,7 +95,7 @@ public class SortCommandTest {
         model.addPerson(DANIEL);
         model.addPerson(CARL);
 
-        SortCommand sortCommand = new SortCommand("a/");
+        SortCommand sortCommand = new SortCommand(new String[]{"a/"});
         sortCommand.execute(model);
 
         // Check if the persons in AddressBook are sorted correctly by address
@@ -115,7 +115,7 @@ public class SortCommandTest {
         model.addPerson(CARL);
 
         // Sort the persons by tags
-        SortCommand sortCommand = new SortCommand("t/");
+        SortCommand sortCommand = new SortCommand(new String[]{"t/"});
         sortCommand.execute(model);
 
         // Check if the persons are sorted correctly by tags (alphabetical order of tags)

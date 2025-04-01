@@ -2,12 +2,16 @@ package seedu.address.logic.parser;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertThrows;
+import static org.junit.jupiter.api.Assertions.assertTrue;
+import static seedu.address.logic.Messages.MESSAGE_INVALID_COMMAND_FORMAT;
 
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
 import seedu.address.logic.commands.SortCommand;
 import seedu.address.logic.parser.exceptions.ParseException;
+
+import java.util.Arrays;
 
 public class SortCommandParserTest {
     private SortCommandParser parser;
@@ -20,31 +24,37 @@ public class SortCommandParserTest {
     @Test
     public void parse_validNamePrefix_success() throws ParseException {
         SortCommand command = parser.parse("n/");
-        assertEquals(CliSyntax.PREFIX_NAME.getPrefix(), command.getSortPrefix());
+        assertTrue(Arrays.equals(new String[] {"n/"}, command.getSortPrefix()));
     }
 
     @Test
     public void parse_validPhonePrefix_success() throws ParseException {
         SortCommand command = parser.parse("p/");
-        assertEquals(CliSyntax.PREFIX_PHONE.getPrefix(), command.getSortPrefix());
+        assertTrue(Arrays.equals(new String[] {"p/"}, command.getSortPrefix()));
     }
 
     @Test
     public void parse_validEmailPrefix_success() throws ParseException {
         SortCommand command = parser.parse("e/");
-        assertEquals(CliSyntax.PREFIX_EMAIL.getPrefix(), command.getSortPrefix());
+        assertTrue(Arrays.equals(new String[] {"e/"}, command.getSortPrefix()));
     }
 
     @Test
     public void parse_validAddressPrefix_success() throws ParseException {
         SortCommand command = parser.parse("a/");
-        assertEquals(CliSyntax.PREFIX_ADDRESS.getPrefix(), command.getSortPrefix());
+        assertTrue(Arrays.equals(new String[] {"a/"}, command.getSortPrefix()));
     }
 
     @Test
     public void parse_validTagPrefix_success() throws ParseException {
         SortCommand command = parser.parse("t/");
-        assertEquals(CliSyntax.PREFIX_TAG.getPrefix(), command.getSortPrefix());
+        assertTrue(Arrays.equals(new String[] {"t/"}, command.getSortPrefix()));
+    }
+
+    @Test
+    public void parse_validMultiplePrefixes_success() throws ParseException {
+        SortCommand command = parser.parse("t/ n/");
+        assertTrue(Arrays.equals(new String[] {"t/", "n/"}, command.getSortPrefix()));
     }
 
     @Test
@@ -52,7 +62,7 @@ public class SortCommandParserTest {
         ParseException exception = assertThrows(ParseException.class, () -> {
             parser.parse("abc/");
         });
-        assertEquals("Invalid prefix used.", exception.getMessage());
+        assertEquals(String.format(MESSAGE_INVALID_COMMAND_FORMAT, SortCommand.MESSAGE_USAGE), exception.getMessage());
     }
 
     @Test
@@ -60,6 +70,6 @@ public class SortCommandParserTest {
         ParseException exception = assertThrows(ParseException.class, () -> {
             parser.parse("");
         });
-        assertEquals("Invalid prefix used.", exception.getMessage());
+        assertEquals(String.format(MESSAGE_INVALID_COMMAND_FORMAT, SortCommand.MESSAGE_USAGE), exception.getMessage());
     }
 }
