@@ -21,7 +21,7 @@ public class SortCommand extends Command {
     public static final String COMMAND_WORD = "sort";
     public static final String MESSAGE_USAGE = COMMAND_WORD + ": Sort all persons by the attribute specified "
             + "and displays them as a list with index numbers.\n"
-            + "Parameters: "
+            + "Acceptable prefixes: "
             + "[" + PREFIX_NAME + "] "
             + "[" + PREFIX_PHONE + "] "
             + "[" + PREFIX_EMAIL + "] "
@@ -29,16 +29,18 @@ public class SortCommand extends Command {
             + "[" + PREFIX_TAG + "] \n"
             + "Example: " + COMMAND_WORD + " " + PREFIX_NAME;
     private static final Logger logger = Logger.getLogger(SortCommand.class.getName());
-    private final String prefix;
+    private final String[] prefixes;
 
     /**
      * Constructs a SortCommand to sort the address book based on specified prefix.
      *
-     * @param prefix The prefix indicating the attribute to sort by.
+     * @param prefixes The prefixes indicating the attribute to sort by.
      */
-    public SortCommand(String prefix) {
-        this.prefix = prefix;
-        requireNonNull(prefix);
+    public SortCommand(String... prefixes) {
+        if (prefixes == null || prefixes.length == 0) {
+            throw new IllegalArgumentException("Prefixes cannot be null or empty");
+        }
+        this.prefixes = prefixes;
     }
 
     /**
@@ -51,21 +53,21 @@ public class SortCommand extends Command {
     @Override
     public CommandResult execute(Model model) {
         requireNonNull(model);
-        model.updateSortedPersonList(prefix);
-        model.updateSortedFilteredPersonList(prefix);
+        model.updateSortedPersonList(prefixes);
+        model.updateSortedFilteredPersonList(prefixes);
         model.commitAddressBook();
 
-        logger.info("SortCommand execution completed. List sorted by: " + prefix);
+        logger.info("SortCommand execution completed. List sorted by: " + prefixes);
 
         return new CommandResult(MESSAGE_SORT_SUCCESSFUL);
     }
 
     /**
-     * Returns the prefix that was used to specify the attribute by which the list was sorted.
+     * Returns the prefixes that are used to sort the address book.
      *
-     * @return The prefix indicating the attribute used for sorting.
+     * @return The array of prefixes specifying the attributes which the address book is sorted.
      */
-    public String getSortPrefix() {
-        return prefix;
+    public String[] getSortPrefix() {
+        return prefixes;
     }
 }

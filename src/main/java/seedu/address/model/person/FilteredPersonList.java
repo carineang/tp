@@ -37,63 +37,123 @@ public class FilteredPersonList {
     }
 
     /**
-     * Sorts the filtered list based on the given prefix.
+     * Sorts the list of persons based on the specified prefix such as name, phone number, email address, address, tags.
      *
-     * @param prefix The prefix used to determine the sorting attribute.
+     * @param prefixes The prefix indicates the sorting criteria.
      */
-    public void sortByFilteredList(String prefix) {
-        switch (prefix) {
-        case "n/":
-            sortByName();
-            break;
-        case "p/":
-            sortByPhoneNumber();
-            break;
-        case "e/":
-            sortByEmailAddress();
-            break;
-        case "a/":
-            sortByAddress();
-            break;
-        case "t/":
-            sortByTags();
-            break;
-        default:
-            break;
+    public void sortByFilteredList(String... prefixes) {
+        if (prefixes.length == 1) {
+            switch (prefixes[0]) {
+            case "t/":
+                sortByTags();
+                break;
+            case "n/":
+                sortByName();
+                break;
+            case "p/":
+                sortByPhoneNumber();
+                break;
+            case "e/":
+                sortByEmailAddress();
+                break;
+            case "a/":
+                sortByAddress();
+                break;
+            default:
+                throw new IllegalArgumentException("Invalid sort prefix: " + prefixes[0]);
+            }
+        } else if (prefixes.length == 2) {
+            if (prefixes[0].equals("t/")) {
+                switch (prefixes[1]) {
+                case "n/":
+                    sortByNameWithinTagsFiltered();
+                    break;
+                case "p/":
+                    sortByPhoneNumberWithinTagsFiltered();
+                    break;
+                case "e/":
+                    sortByEmailAddressWithinTagsFiltered();
+                    break;
+                case "a/":
+                    sortByAddressWithinTagsFiltered();
+                    break;
+                default:
+                    throw new IllegalArgumentException("Invalid combination of prefixes: "
+                            + String.join(", ", prefixes));
+                }
+            } else {
+                throw new IllegalArgumentException("Invalid sort prefix combination: "
+                        + String.join(", ", prefixes));
+            }
+        } else {
+            throw new IllegalArgumentException("Invalid number of prefixes or combination of prefixes.");
         }
     }
+
     /**
-     * Sets the comparator to sort the list by name.
+     * Sort the list by name.
      */
     public void sortByName() {
         sortedList.setComparator(Comparator.comparing(p -> p.getName().toString()));
     }
 
     /**
-     * Sets the comparator to sort the list by phone number.
+     * Sort the list by phone number.
      */
     public void sortByPhoneNumber() {
         sortedList.setComparator(Comparator.comparing(p -> new BigInteger(p.getPhone().toString())));
     }
 
     /**
-     * Sets the comparator to sort the list by email address.
+     * Sort the list by email address.
      */
     public void sortByEmailAddress() {
         sortedList.setComparator(Comparator.comparing(p -> p.getEmail().toString()));
     }
 
     /**
-     * Sets the comparator to sort the list by address.
+     * Sort the list by address.
      */
     public void sortByAddress() {
         sortedList.setComparator(Comparator.comparing(p -> p.getAddress().toString()));
     }
 
     /**
-     * Sets the comparator to sort the list by tags.
+     * Sort the list by tags.
      */
     public void sortByTags() {
         sortedList.setComparator(Comparator.comparing(p -> p.getTags().toString()));
+    }
+
+    /**
+     * Sort the list first by tags, then by name within each tag group.
+     */
+    private void sortByNameWithinTagsFiltered() {
+        sortedList.setComparator(Comparator.comparing((Person p) -> p.getTags().toString())
+                .thenComparing(p -> p.getName().toString()));
+    }
+
+    /**
+     * Sort the list first by tags, then by phone number within each tag group.
+     */
+    private void sortByPhoneNumberWithinTagsFiltered() {
+        sortedList.setComparator(Comparator.comparing((Person p) -> p.getTags().toString())
+                .thenComparing(p -> new BigInteger(p.getPhone().toString())));
+    }
+
+    /**
+     * Sort the list first by tags, then by email address within each tag group.
+     */
+    private void sortByEmailAddressWithinTagsFiltered() {
+        sortedList.setComparator(Comparator.comparing((Person p) -> p.getTags().toString())
+                .thenComparing(p -> p.getEmail().toString()));
+    }
+
+    /**
+     * Sort the list first by tags, then by address within each tag group.
+     */
+    private void sortByAddressWithinTagsFiltered() {
+        sortedList.setComparator(Comparator.comparing((Person p) -> p.getTags().toString())
+                .thenComparing(p -> p.getAddress().toString()));
     }
 }
