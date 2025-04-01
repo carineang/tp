@@ -257,10 +257,24 @@ Format: `sort [n/]`
 * `sort e/` sorts contacts by ascending emails.
 * `sort a/` sorts contacts by ascending addresses.
 * `sort t/` sorts contacts by ascending tags.
+* `sort t/ n/` sorts contacts by tags first, within the tags, sort by names.
+* `sort t/ p/` sorts contacts by tags first, within the tags, sort by phone numbers.
+* `sort t/ e/` sorts contacts by tags first, within the tags, sort by emails.
+* `sort t/ a/` sorts contacts by tags first, within the tags, sort by addresses.
 
 Examples:
 * `sort n/` returns contact by ascending names `Alex`, `Bernice`, `Charlotte`.
 * `sort p/` returns contact by ascending phone numbers `87438807`, `91031282`, `92492021`.
+
+Notes on Adding New Contacts:
+* After performing a sort, newly added contacts will **not** automatically be inserted in the correct sorted order.
+* To maintain the sorted order, you will need to run the `sort` command again after adding the new contact.
+
+Notes on Sorting Multiple Tags:
+* When sorting by multiple tags, it will prioritize the **first tag** inserted as the **primary sorting criterion**.
+* For example: `t/colleagues t/friends` will sort by `colleagues` tag first and followed by `friends` tag. 
+* If `t/colleagues t/friends` and `t/lawyer t/colleagues` are sorted, `t/colleagues t/friends` will appear before 
+`t/lawyer t/colleagues`, because `colleagues` tag comes first in the sorting order.
 
 ### Pinning a client contact : `pin`
 
