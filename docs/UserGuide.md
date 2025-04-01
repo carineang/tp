@@ -4,7 +4,7 @@ title: User Guide
 ---
 
 
-* Table of Contents 
+* Table of Contents
 {:toc}
 
 --------------------------------------------------------------------------------------------------------------------
@@ -273,7 +273,7 @@ Examples:
 ![deleteIndexSpaced](images/deleteIndexSpaced.png)
 
 <div style="text-align:center;">
-<span style="font-weight:bold;">Example:</span> Deleting the first 3 client contacts after <code>list</code> using 
+<span style="font-weight:bold;">Example:</span> Deleting the first 3 client contacts after <code>list</code> using
 <code>delete i/1-3</code>
 </div>
 
@@ -501,7 +501,7 @@ Examples:
 ![afterRedo](images/afterRedo.png)
 <div style="text-align:center;">
 
-<span style="font-weight:bold;">Example:</span> <code>redo</code> an <code>undo</code> of <code>delete i/1-2</code> 
+<span style="font-weight:bold;">Example:</span> <code>redo</code> an <code>undo</code> of <code>delete i/1-2</code>
 
 </div>
 
@@ -511,9 +511,9 @@ Examples:
 
 We know it can be **very annoying** to re-type commands consisting of long client details, especially due to a small typo.
 
-As such, **Notarius** keeps a history of the command inputs you have entered. When the command history is open, 
-the inputs shown are **ordered** from the **most recently** entered input at the **top** to the **least recently** 
-entered input at the **bottom**. Furthermore, the **currently selected input** in the command history 
+As such, **Notarius** keeps a history of the command inputs you have entered. When the command history is open,
+the inputs shown are **ordered** from the **most recently** entered input at the **top** to the **least recently**
+entered input at the **bottom**. Furthermore, the **currently selected input** in the command history
 is automatically entered into the input bar, as shown below:
 
 ![[commandHistoryOrder]](images/commandHistoryOrder.png)
@@ -526,11 +526,11 @@ The <span style="font-weight:bold;">currently selected input</span> is "more rec
 
 You can open and navigate through this history by using various shortcuts below, depending on your operating system:
 
-**Windows/Linux users:** Use `Ctrl + Up` key combination to cycle up the command history, and `Ctrl + Down` arrow key combinations to cycle down. 
+**Windows/Linux users:** Use `Ctrl + Up` key combination to cycle up the command history, and `Ctrl + Down` arrow key combinations to cycle down.
 
 **macOS users:** Use `Ctrl + Opt + Up` and `Ctrl + Opt + Down` arrow key combinations to respectively cycle up and down instead.
 
- 
+
 
 <div markdown="block" class="alert alert-primary">:bulb: **Tips:**
 
