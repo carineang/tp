@@ -236,10 +236,39 @@ Examples:
 *  `edit 3 t/Custody t/Case45` Overwrite the currents tag(s) of the 3rd contact with `Witness` and `Case44`.
 *  `edit 2 n/Betsy Crower t/` Edits the name of the 2nd contact to be `Betsy Crower` and clears all existing tags.
 
+
+#### Locating client contacts by name: `find`
+
+The `find` command allows you to search for contacts based on their name,
+phone number, email, address, or tags.
+
+Format: `find [n/"NAME" "MORE_NAMES"] [p/"PHONE" "MORE_PHONES"]
+[e/"EMAIL" "MORE_EMAILS"] [a/"ADDRESS" "MORE_ADDRESSES"]
+[t/"TAG" "MORE_TAGS"] `
+
+* Use double quotation marks (") around each keyword to ensure correct parsing.
+* The search is case-insensitive. e.g the name `hans` will match `Hans`
+* You can search by `name`, `phone number`, `email`, `address`, or `tags`.
+* If no prefix (e.g. n/) is given, find by name is assumed.
+    * e.g. `find Alice Bernice` is treated as `find n/"Alice" "Bernice"`
+* Supports OR search: At least one field must match any of the provided keywords.
+* Allows small typos for `name`, `email` and `address` fields:
+    - e.g. Searching for `Alce` will match `Alice`.
+    - Searching for `Bbo@example.com` will match `Bob@example.com.`
+* Supports multiple entries per field:
+    - e.g. `find n/"Alice" "Bob" p/"98765432" "91234567"`,
+      matches contacts named `Alice` or `Bob`, or with phone numbers `98765432` or `91234567`.
+
+Examples:
+* `find Alex` returns `Alex Yeoh`
+* `find p/"87438807" "91031282"` returns `Alex Yeoh` and `David Li`
+* `find n/"Alxe" "Davdi"` returns `Alex Yeoh`, `David Li`<br>
+  ![result for 'find alex david'](images/findAlexDavidResult.png)
+
+
 #### Deleting client contact(s) : `delete`
 
-Deletes **client** contact(s) from your list of contacts in Notarius so that you can remove
-outdated and no longer needed client contact information.
+Deletes specified **client** contact(s) from your list of contacts in Notarius.
 
 Formats:
 
@@ -299,33 +328,6 @@ Examples:
 
 </div>
 
-#### Locating client contacts by name: `find`
-
-The `find` command allows you to search for contacts based on their name,
-phone number, email, address, or tags.
-
-Format: `find [n/"NAME" "MORE_NAMES"] [p/"PHONE" "MORE_PHONES"]
-[e/"EMAIL" "MORE_EMAILS"] [a/"ADDRESS" "MORE_ADDRESSES"]
-[t/"TAG" "MORE_TAGS"] `
-
-* Use double quotation marks (") around each keyword to ensure correct parsing.
-* The search is case-insensitive. e.g the name `hans` will match `Hans`
-* You can search by `name`, `phone number`, `email`, `address`, or `tags`.
-* If no prefix (e.g. n/) is given, find by name is assumed.
-    * e.g. `find Alice Bernice` is treated as `find n/"Alice" "Bernice"`
-* Supports OR search: At least one field must match any of the provided keywords.
-* Allows small typos for `name`, `email` and `address` fields:
-    - e.g. Searching for `Alce` will match `Alice`.
-    - Searching for `Bbo@example.com` will match `Bob@example.com.`
-* Supports multiple entries per field:
-    - e.g. `find n/"Alice" "Bob" p/"98765432" "91234567"`,
-      matches contacts named `Alice` or `Bob`, or with phone numbers `98765432` or `91234567`.
-
-Examples:
-* `find Alex` returns `Alex Yeoh`
-* `find p/"87438807" "91031282"` returns `Alex Yeoh` and `David Li`
-* `find n/"Alxe" "Davdi"` returns `Alex Yeoh`, `David Li`<br>
-  ![result for 'find alex david'](images/findAlexDavidResult.png)
 
 ### Special Features
 
