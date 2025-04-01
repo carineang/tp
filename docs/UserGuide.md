@@ -266,16 +266,6 @@ Examples:
 * `sort n/` returns contact by ascending names `Alex`, `Bernice`, `Charlotte`.
 * `sort p/` returns contact by ascending phone numbers `87438807`, `91031282`, `92492021`.
 
-Notes on Adding New Contacts:
-* After performing a sort, newly added contacts will **not** automatically be inserted in the correct sorted order.
-* To maintain the sorted order, you will need to run the `sort` command again after adding the new contact.
-
-Notes on Sorting Multiple Tags:
-* When sorting by multiple tags, it will prioritize the **first tag** inserted as the **primary sorting criterion**.
-* For example: `t/colleagues t/friends` will sort by `colleagues` tag first and followed by `friends` tag. 
-* If `t/colleagues t/friends` and `t/lawyer t/colleagues` are sorted, `t/colleagues t/friends` will appear before 
-`t/lawyer t/colleagues`, because `colleagues` tag comes first in the sorting order.
-
 ### Pinning a client contact : `pin`
 
 Pins the specified client contact to the top of the address book.<br>
