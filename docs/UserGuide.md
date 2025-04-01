@@ -248,9 +248,9 @@ Examples:
 
 ### Sorting of client contacts : `sort`
 
-Sort the address book by specified attribute in lexicographical order.
+Sort the address book by specified prefix in lexicographical order.
 
-Format: `sort [n/]`
+Format: `sort PREFIX`
 
 * `sort n/` sorts contacts by ascending names.
 * `sort p/` sorts contacts by ascending phone numbers.
