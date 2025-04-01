@@ -270,34 +270,39 @@ Examples:
 
 Deletes specified **client** contact(s) from your list of contacts in Notarius.
 
-Formats:
+For deleting a **single** client contact:
 
-For deleting a single client:
-
-* Single-delete: `delete INDEX`
+**Single-delete Format:**
+* `delete INDEX`
     * Deletes the client contact at the specified `INDEX`.
 
-For deleting multiple clients:
+Examples:
+* `list` followed by `delete 2`
+    * Deletes the 2nd client contact displayed in the address book from the top.
+* `find n/"Betsy"` followed by `delete 1`
+    * Deletes the 1st client contact in the displayed results of the `find` command.
 
-* Spaced-delete: `delete i/FIRST_INDEX [MORE_INDEXES]…`
+For deleting up to **multiple** client contacts:
+
+**Ranged-delete Format:**
+* `delete i/START_INDEX-END_INDEX`
+    * Deletes the client contacts whose indexes are between `START_INDEX` to `END_INDEX` inclusive.
+
+Examples:
+* `list` followed by `delete i/1-2`
+    * Deletes the 1st and 2nd client contacts in the address book from the top.
+* `find n/"Alex"` followed by `delete i/1-2`
+    * Deletes the 1st and 2nd client contacts in the displayed results of the `find` command.
+
+**Spaced-delete Format:**
+* `delete i/FIRST_INDEX [MORE_INDEXES]…`
     * Deletes the client contact(s) specified by `FIRST_INDEX` and the indexes in `[MORE_INDEXES]`
     * Simply allows you to specify 1 or more indexes after the prefix `i/`.
     * Indexes specified this way must be separated by spaces.
-* Ranged-delete: `delete i/START_INDEX-END_INDEX`
-    * Deletes the client contacts whose indexes are within the index range from `START_INDEX` to `END_INDEX` inclusive.
 
 Examples:
-
-* `list` followed by `delete 2`
-    * Deletes the 2nd client contact displayed in the address book from the top.
-* `list` followed by `delete i/1-2`
-    * Deletes the 1st and 2nd client contacts in the address book from the top.
 * `list` followed by `delete i/2 3`
     * Deletes the 2nd and 3rd client contacts in the address book from the top.
-* `find n/"Betsy"` followed by `delete 1`
-    * Deletes the 1st client contact in the displayed results of the `find` command.
-* `find n/"Alex"` followed by `delete i/1-2`
-    * Deletes the 1st and 2nd client contacts in the displayed results of the `find` command.
 
 ![deleteIndexSpaced](images/deleteIndexSpaced.png)
 
@@ -347,16 +352,6 @@ Examples:
 * `sort n/` returns contact by ascending names `Alex`, `Bernice`, `Charlotte`.
 * `sort p/` returns contact by ascending phone numbers `87438807`, `91031282`, `92492021`.
 
-<br>
-
-![[sortByPhone]](images/sortByPhone.png)
-<div style="text-align:center;">
-
-<span style="font-weight:bold;">Example:</span> Sorting a list of contacts by phone number using <code>sort p/</code>
-
-</div>
-
-<br>
 
 #### Pinning a client contact : `pin`
 
@@ -373,16 +368,6 @@ Examples:
 * `list` followed by `pin 2` pins the 2nd contact in the address book to the top.
 * `sort p/` followed by `pin 1` pins the 1st contact when sorted according to phone number.
 
-<br>
-
-![[pinFirstPerson]](images/pinFirstPerson.png)
-<div style="text-align:center;">
-
-<span style="font-weight:bold;">Example:</span> Pinning the first client contact (<code>Alex Yeoh</code>)
-using <code>pin 1</code>
-</div>
-
-<br>
 
 #### Unpinning a pinned client contact : `unpin`
 
@@ -398,26 +383,6 @@ Format: `unpin INDEX`
 Examples:
 * `list` followed by `unpin 1` unpins the 1st contact in the address book.
 * `sort p/` followed by `unpin 1` unpins the 1st contact when sorted according to phone number.
-
-<br>
-
-![[beforeUnpin]](images/beforeUnpin.png)
-<div style="text-align:center;">
-
-<span style="font-weight:bold;">Example:</span> Before unpinning a pinned client contact (<code>Alex Yeoh</code>)
-
-</div>
-
-<br>
-
-![[afterUnpin]](images/afterUnpin.png)
-<div style="text-align:center;">
-
-<span style="font-weight:bold;">Example:</span> After unpinning <code>Alex Yeoh</code> using
-<code>unpin 1</code>
-
-</div>
-
 
 #### Clearing all entries : `clear`
 
@@ -468,24 +433,6 @@ Examples:
 * `undo` undoes the last command.
 * `pin 4` followed by `undo` undoes the pin on the 4th client contact from the top in the address book.
 
-<br>
-
-![beforeUndo](images/beforeUndo.png)
-<div style="text-align:center;">
-
-<span style="font-weight:bold;">Example:</span> Before undoing the delete: <code>delete i/1-2</code>
-
-</div>
-
-<br>
-
-![afterUndo](images/afterUndo.png)
-<div style="text-align:center;">
-
-<span style="font-weight:bold;">Example:</span> After undoing the delete using <code>undo</code>
-
-</div>
-
 #### Redoing a command : `redo`
 
 Redoes an undone command.
@@ -499,15 +446,6 @@ Examples:
 * `redo` redoes the last undone command.
 * `pin 4` followed by `undo` followed by `redo` results in
   there being a pin on the 4th client contact from the top in the address book.
-
-![afterRedo](images/afterRedo.png)
-<div style="text-align:center;">
-
-<span style="font-weight:bold;">Example:</span> <code>redo</code> an <code>undo</code> of <code>delete i/1-2</code>
-
-</div>
-
-<br>
 
 #### Command history
 
