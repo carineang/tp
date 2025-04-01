@@ -7,10 +7,10 @@ import static org.junit.jupiter.api.Assertions.assertTrue;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
-import seedu.address.testutil.TypicalPersons;
-
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
+
+import seedu.address.testutil.TypicalPersons;
 
 public class FilteredPersonListTest {
 
