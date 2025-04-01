@@ -44,7 +44,8 @@ public class HelpWindow extends UiPart<Stage> {
             + "12. '" + UndoCommand.COMMAND_WORD + "': Undoes the last command\n"
             + "13. '" + RedoCommand.COMMAND_WORD + "': Redoes the effect of the last undo\n"
             + "Use `help <command>` for detailed information about a specific command.\n\n"
-            + "Use Ctrl + UP and Ctrl + DOWN to see previously entered commands.\n\n"
+            + "Use `Ctrl + Up` and `Ctrl + Down` arrow keys to cycle up and down the command history.\n"
+            + "MacOS users: Use `Ctrl + Opt + Up` and `Ctrl + Opt + Down` instead.\n\n"
             + "Refer to the full user guide: " + USERGUIDE_URL;
 
     private static final Logger logger = LogsCenter.getLogger(HelpWindow.class);

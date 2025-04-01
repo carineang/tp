@@ -52,6 +52,8 @@ public class MassOpsIndexParser {
             "(?<startIndex>\\d+)\\s*-\\s*(?<endIndex>\\d+)"
     );
 
+
+
     /**
      * Parses the given string argument according to the spaced and ranged parsing formats. <br/>
      * Space format e.g.: "1 2 3 4 5", Range format: "1-200". <br/>
@@ -80,6 +82,16 @@ public class MassOpsIndexParser {
         return parseRangedIndexes(rangedMatcher);
     }
 
+    private void validateRangedIndex(int oneBasedStartIndex, int oneBasedEndIndex) throws ParseException {
+        if (oneBasedStartIndex > oneBasedEndIndex) {
+            throw new ParseException(MESSAGE_INVALID_RANGE_ORDER);
+        }
+
+        if ((long) oneBasedEndIndex - (long) oneBasedStartIndex + 1 > MAX_OPERATIONS_SIZE) {
+            throw new ParseException(MESSAGE_RANGE_SIZE_EXCEEDED);
+        }
+    }
+
     private Set<Index> parseRangedIndexes(Matcher rangedMatcher) throws ParseException {
         requireNonNull(rangedMatcher);
         assert RANGE_INDEX_PATTERN.equals(rangedMatcher.pattern());
@@ -97,13 +109,7 @@ public class MassOpsIndexParser {
         final int oneBasedStartIndex = Integer.parseInt(startIndexString);
         final int oneBasedEndIndex = Integer.parseInt(endIndexString);
 
-        if (oneBasedStartIndex > oneBasedEndIndex) {
-            throw new ParseException(MESSAGE_INVALID_RANGE_ORDER);
-        }
-
-        if ((long) oneBasedEndIndex - (long) oneBasedStartIndex + 1 > MAX_OPERATIONS_SIZE) {
-            throw new ParseException(MESSAGE_RANGE_SIZE_EXCEEDED);
-        }
+        validateRangedIndex(oneBasedStartIndex, oneBasedEndIndex);
 
         Set<Index> indexes = new HashSet<>();
         for (int i = oneBasedStartIndex; i <= oneBasedEndIndex; i++) {
