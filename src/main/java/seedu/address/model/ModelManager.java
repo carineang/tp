@@ -30,6 +30,7 @@ public class ModelManager implements Model {
     private final SortedList<Person> sortedFilteredPersons;
     private Predicate<Person> currentPredicate;
     private final ArrayList<Predicate<Person>> predicateHistory;
+    private int currentPredicatePointer;
 
 
     /**
@@ -46,7 +47,11 @@ public class ModelManager implements Model {
         pastCommands = new InputHistory();
         this.personList = addressBook.getPersonList();
         sortedFilteredPersons = new SortedList<>(filteredPersons);
+
         predicateHistory = new ArrayList<>();
+        // by default
+        predicateHistory.add(PREDICATE_SHOW_ALL_PERSONS);
+        currentPredicatePointer = 0;
     }
 
     /**
@@ -178,7 +183,6 @@ public class ModelManager implements Model {
     @Override
     public void updateFilteredPersonList(Predicate<Person> predicate) {
         requireNonNull(predicate);
-        predicateHistory.add(currentPredicate);
         currentPredicate = predicate;
         filteredPersons.setPredicate(predicate);
     }
@@ -226,16 +230,43 @@ public class ModelManager implements Model {
     @Override
     public void commitAddressBook() {
         addressBook.commit();
+        // commit current predicate
+        predicateHistory.add(currentPredicate);
+        currentPredicatePointer += 1;
     }
 
     @Override
     public void undo() {
         addressBook.undo();
+
+        // must have a last state to be undoable
+        // this is the responsibility of the person using this function
+        // throw unchecked error if not ensured
+        if (currentPredicatePointer - 1 < 0) {
+            throw new IndexOutOfBoundsException();
+        }
+        currentPredicatePointer -= 1;
+
+        updateFilteredPersonList(predicateHistory.get(currentPredicatePointer));
+    }
+
+    private void removeAheadCurrent() {
+
     }
 
     @Override
     public void redo() {
         addressBook.redo();
+
+        // must have a undone state to be able to be redone
+        // this is the responsibility of the person using this function
+        // throw unchecked error if not ensured
+        if (currentPredicatePointer + 1 >= predicateHistory.size()) {
+            throw new IndexOutOfBoundsException();
+        }
+
+        currentPredicatePointer += 1;
+        updateFilteredPersonList(predicateHistory.get(currentPredicatePointer));
     }
 
     @Override

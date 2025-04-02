@@ -129,16 +129,21 @@ public interface Model {
     /**
      * Saves the state of the address book
      * It is up to the user of this method to decide when to commit the address book
+     *
      */
     void commitAddressBook();
 
     /**
      * Restores the state of the address book to the last saved state
+     *
+     * @throws IndexOutOfBoundsException if there is no last saved state
      */
     void undo();
 
     /**
      * Restores the state of the address book to the last saved undone state
+     *
+     * @throws IndexOutOfBoundsException if there is no last saved state
      */
     void redo();
 
