@@ -155,6 +155,16 @@ Classes used by multiple components are in the `seedu.address.commons` package.
 
 This section describes some noteworthy details on how certain features are implemented.
 
+
+
+
+### Delete feature
+
+The `delete` command allows the user to delete specified client contact(s) from Notarius.
+#### Details
+
+#### Usage Examples
+
 ### \[Proposed\] Undo/redo feature
 
 #### Proposed Implementation
@@ -290,7 +300,7 @@ Priorities: High (must have) - `* * *`, Medium (nice to have) - `* *`, Low (unli
 | `* *`    | forgetful lawyer                                                       | star/pin important clients                                                                                       | look up their information faster                                                           |
 | `* *`    | lawyer who can type fast                                               | re-access previously entered commands quickly                                                                    | save time by not typing them again                                                         |
 | `* *`    | lawyer                                                                 | set reminders to follow up with contacts                                                                         | make sure to not miss an important check-in                                                |
-| `* *`    | lawyer                                                                 | delete multiple contacts under a certain case                                                                    | clear clients of past cases faster and more conveniently                                   |
+| `* *`    | lawyer with many clients                                               | delete multiple client contacts at once                                                                          | clear clients of past cases faster and more conveniently                                   |
 | `* *`    | lawyer                                                                 | tag contacts (e.g., "Client," "Judge," "Opposing Counsel")                                                       | remember their roles easily                                                                |
 | `* *`    | lawyer                                                                 | tag multiple contacts at once                                                                                    | categorise them for my needs more efficiently and conveniently                             |
 | `* *`    | lawyer                                                                 | add multiple tags to a contact                                                                                   | organise my contacts neatly and not have to keep tagging the same contact multiple time    |
@@ -319,35 +329,42 @@ Priorities: High (must have) - `* * *`, Medium (nice to have) - `* *`, Low (unli
 
 **Actor**: `User`
 
-**Use Case**: `UC01 - Deleting a contact`
+**Use Case**: `UC01 - Deleting client contacts`
 
-**Guarantees**: `If MSS reaches step 4, the requested contact will be deleted`
+**Guarantees**: `If MSS reaches step 4, the requested client contact(s) will be deleted`
 
 **MSS**:
 1. User requests to list contacts.
 2. Notarius displays a list of contacts.
-3. User requests to delete a specific contact in the list.
-4. Notarius deletes the contact and confirms that the contact has been deleted.
+3. User requests to delete specific contacts in the list.
+4. Notarius deletes the contacts and confirms that the contacts has been deleted.
 
    Use case ends.
 
 **Extensions**:
-* 1a. Notarius is unable to find the specified contact.
+
+* 1a. Notarius detects an invalid list command from the user.
   * 1a1. Notarius alerts the user about the error.
   * 1a2. User retypes the command.
-  * Steps 1a-1a2 are repeated until the contact specified exists.
+  * Steps 1a-1a2 are repeated until the command format is valid.
+  * Use case resumes from step 2.
+
+* 3a. Notarius is unable to find some of the specified contact(s).
+  * 3a1. Notarius alerts the user about the error.
+  * 3a2. User retypes the command.
+  * Steps 3a-3a2 are repeated until the specified contact(s) exist.
   * Use case resumes from step 4.
 
-* 1b. Notarius uncovers an empty field description.
-  * 1b1. Notarius alerts the user about the issue.
-  * 1b2. User retypes the command with a non-empty value for the specified field.
-  * Steps 1b-1b2 are repeated until the field is no longer empty.
+* 3b. Notarius uncovers a prefix with an empty value.
+  * 3b1. Notarius alerts the user about the issue.
+  * 3b2. User retypes the command with a non-empty value for the specified prefix.
+  * Steps 3b-3b2 are repeated until the prefix is no longer empty.
   * Use case resumes from step 4.
 
-* 1c. Notarius uncovers an invalid contact identifier.
-  * 1c1. Notarius alerts the user about the issue.
-  * 1c2. User retypes the command with a valid contact identifier format.
-  * Steps 1c-1c2 are repeated until the contact identifier is valid.
+* 3c. Notarius uncovers some invalid contact identifiers.
+  * 3c1. Notarius alerts the user about the issue.
+  * 3c2. User retypes the command with a valid contact identifier format.
+  * Steps 3c-3c2 are repeated until the contact identifier is valid.
   * Use case resumes from step 4.
 
 
@@ -587,6 +604,38 @@ Priorities: High (must have) - `* * *`, Medium (nice to have) - `* *`, Low (unli
 
 * 2a. Notarius cannot find any notes related to the contact.
   * 2a1. Notarius alerts the user with a relevant message.
+
+**System**: `Notarius`
+
+**Actor**: `User`
+
+**Use Case**: `UC08 - Accessing an input from the command history.`
+
+**Preconditions**: `Command history is open`
+
+**MSS**:
+
+1. User selects a command input from the command history.
+2. Notarius prepares the selected command to be entered.
+3. User enters the command.
+4. Notarius executes the command and closes the command history.
+
+   Use case ends.
+
+**Extensions**:
+
+* 1a. Notarius is unable to find any command in the history.
+  * 1a1. Notarius alerts the user with a message.
+  * 1a2. User enters a new command.
+  * Use case resumes from step 4.
+
+* 3a. User requests to edit the command input with a new value.
+  * 3a1. Notarius updates the selected command input with the new value.
+  * Use case resumes from step 3.
+
+* *a. At any time, user requests to close the command history.
+  * *a1. Notarius closes the command history.
+  * Use case ends.
 
 ### Non-Functional Requirements
 
