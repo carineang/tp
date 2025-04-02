@@ -234,7 +234,7 @@ public class ModelManager implements Model {
     }
 
     @Override
-    public void redoAddressBook() {
+    public void redo() {
         addressBook.redo();
     }
 

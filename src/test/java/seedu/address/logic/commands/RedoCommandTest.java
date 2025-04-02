@@ -22,7 +22,7 @@ public class RedoCommandTest {
         expectedModel.addPerson(CARL);
         expectedModel.commitAddressBook();
         expectedModel.undo();
-        expectedModel.redoAddressBook();
+        expectedModel.redo();
 
         assertCommandSuccess(new RedoCommand(), model, RedoCommand.MESSAGE_SUCCESS, expectedModel);
     }

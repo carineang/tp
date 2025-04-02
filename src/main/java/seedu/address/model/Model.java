@@ -140,7 +140,7 @@ public interface Model {
     /**
      * Restores the state of the address book to the last saved undone state
      */
-    void redoAddressBook();
+    void redo();
 
     /**
      * Checks if the address book has a state to undo

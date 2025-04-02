@@ -133,44 +133,44 @@ public class ModelManagerTest {
     }
 
     @Test
-    public void redoAddressBook_addPerson_success() {
+    public void redo_addPerson_success() {
         AddressBook addressBook = new AddressBookBuilder().withPerson(ALICE).withPerson(BENSON).build();
         modelManager = new ModelManager(addressBook, new UserPrefs());
         modelManager.addPerson(CARL);
         modelManager.commitAddressBook();
         modelManager.undo();
-        modelManager.redoAddressBook();
+        modelManager.redo();
     }
 
     @Test
-    public void redoAddressBook_deletePerson_success() {
+    public void redo_deletePerson_success() {
         AddressBook addressBook = new AddressBookBuilder().withPerson(ALICE).build();
         modelManager = new ModelManager(addressBook, new UserPrefs());
         modelManager.deletePerson(ALICE);
         modelManager.commitAddressBook();
         modelManager.undo();
-        modelManager.redoAddressBook();
+        modelManager.redo();
     }
 
     @Test
-    public void redoAddressBook_setPerson_success() {
+    public void redo_setPerson_success() {
         AddressBook addressBook = new AddressBookBuilder().withPerson(ALICE).build();
         Person editedAPerson = new PersonBuilder(ALICE).withName("a l i c e").build();
         modelManager = new ModelManager(addressBook, new UserPrefs());
         modelManager.setPerson(ALICE, editedAPerson);
         modelManager.commitAddressBook();
         modelManager.undo();
-        modelManager.redoAddressBook();
+        modelManager.redo();
     }
 
     @Test
-    public void redoAddressBook_pinPerson_success() {
+    public void redo_pinPerson_success() {
         AddressBook addressBook = new AddressBookBuilder().withPerson(ALICE).build();
         modelManager = new ModelManager(addressBook, new UserPrefs());
         modelManager.pinPerson(ALICE);
         modelManager.commitAddressBook();
         modelManager.undo();
-        modelManager.redoAddressBook();
+        modelManager.redo();
     }
 
     @Test
@@ -216,25 +216,25 @@ public class ModelManagerTest {
     }
 
     @Test
-    public void redoAddressBook_noPreviousCommands_failure() {
+    public void redo_noPreviousCommands_failure() {
         AddressBook addressBook = new AddressBookBuilder().build();
         modelManager = new ModelManager(addressBook, new UserPrefs());
-        assertThrows(IndexOutOfBoundsException.class, () -> modelManager.redoAddressBook());
+        assertThrows(IndexOutOfBoundsException.class, () -> modelManager.redo());
     }
 
     @Test
-    public void redoAddressBook_onePreviousCommand_failure() {
+    public void redo_onePreviousCommand_failure() {
         AddressBook addressBook = new AddressBookBuilder().build();
         modelManager = new ModelManager(addressBook, new UserPrefs());
         modelManager.addPerson(CARL);
         modelManager.commitAddressBook();
         modelManager.undo();
-        modelManager.redoAddressBook();
-        assertThrows(IndexOutOfBoundsException.class, () -> modelManager.redoAddressBook());
+        modelManager.redo();
+        assertThrows(IndexOutOfBoundsException.class, () -> modelManager.redo());
     }
 
     @Test
-    public void redoAddressBook_manyPreviousCommands_failure() {
+    public void redo_manyPreviousCommands_failure() {
         AddressBook addressBook = new AddressBookBuilder().build();
         modelManager = new ModelManager(addressBook, new UserPrefs());
         modelManager.addPerson(CARL);
@@ -246,10 +246,10 @@ public class ModelManagerTest {
         modelManager.undo();
         modelManager.undo();
         modelManager.undo();
-        modelManager.redoAddressBook();
-        modelManager.redoAddressBook();
-        modelManager.redoAddressBook();
-        assertThrows(IndexOutOfBoundsException.class, () -> modelManager.redoAddressBook());
+        modelManager.redo();
+        modelManager.redo();
+        modelManager.redo();
+        assertThrows(IndexOutOfBoundsException.class, () -> modelManager.redo());
     }
 
     @Test
@@ -295,7 +295,7 @@ public class ModelManagerTest {
         assertFalse(modelManager.addressBookHasRedo());
 
         modelManager.undo();
-        modelManager.redoAddressBook();
+        modelManager.redo();
         assertFalse(modelManager.addressBookHasRedo());
 
         // test if removed ahead

@@ -23,7 +23,7 @@ public class RedoCommand extends Command {
             throw new CommandException(Messages.MESSAGE_INVALID_NO_REDO);
         }
 
-        model.redoAddressBook();
+        model.redo();
 
         return new CommandResult(MESSAGE_SUCCESS);
     }

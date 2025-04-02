@@ -199,7 +199,7 @@ public class AddCommandTest {
         }
 
         @Override
-        public void redoAddressBook() {
+        public void redo() {
             throw new AssertionError("This method should not be called.");
         }
 
