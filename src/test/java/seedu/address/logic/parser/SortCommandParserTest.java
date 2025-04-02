@@ -135,7 +135,7 @@ public class SortCommandParserTest {
 
     @Test
     public void parse_invalidTwoPrefix_throwsParseException() {
-        String input = "a/ b/";
+        String input = "n/ x/";
         ParseException exception = assertThrows(ParseException.class, () -> {
             parser.parse(input);
         });
