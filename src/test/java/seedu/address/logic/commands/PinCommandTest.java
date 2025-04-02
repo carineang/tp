@@ -26,7 +26,6 @@ public class PinCommandTest {
 
     @Test
     public void execute_validIndex_pinsPerson() throws Exception {
-        Person personToPin = model.getFilteredPersonList().get(INDEX_FIRST_PERSON.getZeroBased());
         PinCommand pinCommand = new PinCommand(INDEX_FIRST_PERSON);
 
         CommandResult result = pinCommand.execute(model);
@@ -45,6 +44,16 @@ public class PinCommandTest {
 
         assertThrows(CommandException.class, () -> pinCommand.execute(model),
                 Messages.MESSAGE_INVALID_PERSON_DISPLAYED_INDEX);
+    }
+
+    @Test
+    public void execute_validIndex_alreadyPinned_returnsAlreadyPinnedMessage() throws Exception {
+        PinCommand pinCommand = new PinCommand(INDEX_FIRST_PERSON);
+        pinCommand.execute(model);
+        PinCommand newPinCommand = new PinCommand(INDEX_FIRST_PERSON);
+        CommandResult newResult = newPinCommand.execute(model);
+        assertEquals(String.format(PinCommand.MESSAGE_PIN_PERSON_ALREADY_PINNED, INDEX_FIRST_PERSON.getOneBased()),
+                newResult.getFeedbackToUser());
     }
 
     /**
