@@ -1,6 +1,10 @@
 package seedu.address.logic.parser;
 
-import static seedu.address.logic.Messages.MESSAGE_INVALID_COMMAND_FORMAT;
+import static seedu.address.logic.parser.CliSyntax.PREFIX_ADDRESS;
+import static seedu.address.logic.parser.CliSyntax.PREFIX_EMAIL;
+import static seedu.address.logic.parser.CliSyntax.PREFIX_NAME;
+import static seedu.address.logic.parser.CliSyntax.PREFIX_PHONE;
+import static seedu.address.logic.parser.CliSyntax.PREFIX_TAG;
 
 import java.util.logging.Logger;
 
@@ -23,48 +27,30 @@ public class SortCommandParser implements Parser<SortCommand> {
      */
     public SortCommand parse(String args) throws ParseException {
         String trimmedArgs = args.trim();
-        if (trimmedArgs.isEmpty()) {
-            throw new ParseException(String.format(MESSAGE_INVALID_COMMAND_FORMAT, SortCommand.MESSAGE_USAGE));
-        }
-        String[] prefixes = trimmedArgs.split("\\s+");
-        if (prefixes.length == 1) {
-            if (isValidPrefix(prefixes[0])) {
-                return new SortCommand(prefixes);
-            } else {
-                throw new ParseException(String.format(MESSAGE_INVALID_COMMAND_FORMAT, SortCommand.MESSAGE_USAGE));
-            }
-        }
-        if (!prefixes[0].equals("t/")) {
-            throw new ParseException(String.format(MESSAGE_INVALID_COMMAND_FORMAT, SortCommand.MESSAGE_USAGE));
-        }
-        if (prefixes.length == 2) {
-            if (!isValidPrefix(prefixes[1])) {
-                throw new ParseException(String.format(MESSAGE_INVALID_COMMAND_FORMAT, SortCommand.MESSAGE_USAGE));
-            }
-        } else {
-            throw new ParseException("Invalid number of prefixes.");
-        }
-        for (String prefix : prefixes) {
-            if (!isValidPrefix(prefix)) {
-                throw new ParseException(String.format(MESSAGE_INVALID_COMMAND_FORMAT, SortCommand.MESSAGE_USAGE));
-            }
-        }
-        if (args.contains("  ")) {
-            throw new ParseException(String.format(MESSAGE_INVALID_COMMAND_FORMAT, SortCommand.MESSAGE_USAGE));
-        }
+        switch (trimmedArgs) {
+        case "n/":
+            logger.info("Sorting by name.");
+            return new SortCommand(PREFIX_NAME.getPrefix());
 
-        logger.info("Sorting by multiple attributes: " + String.join(", ", prefixes));
-        return new SortCommand(prefixes);
-    }
+        case "p/":
+            logger.info("Sorting by phone.");
+            return new SortCommand(PREFIX_PHONE.getPrefix());
 
-    /**
-     * Validates if a given prefix is a recognized sorting prefix.
-     *
-     * @param prefix The prefix string to validate.
-     * @return True if the prefix is valid, false otherwise.
-     */
-    private boolean isValidPrefix(String prefix) {
-        return prefix.equals("n/") || prefix.equals("p/") || prefix.equals("e/") || prefix.equals("a/")
-                || prefix.equals("t/");
+        case "e/":
+            logger.info("Sorting by email.");
+            return new SortCommand(PREFIX_EMAIL.getPrefix());
+
+        case "a/":
+            logger.info("Sorting by address.");
+            return new SortCommand(PREFIX_ADDRESS.getPrefix());
+
+        case "t/":
+            logger.info("Sorting by tag.");
+            return new SortCommand(PREFIX_TAG.getPrefix());
+
+        default:
+            logger.warning("Invalid sorting prefix provided: " + trimmedArgs);
+            throw new ParseException("Invalid prefix used.");
+        }
     }
 }

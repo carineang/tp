@@ -201,31 +201,10 @@ public class UniquePersonList implements Iterable<Person> {
     /**
      * Sorts the list of persons based on the specified prefix such as name, phone number, email address, address, tags.
      *
-     * @param prefixes The prefix indicates the sorting criteria.
+     * @param prefix The prefix indicates the sorting criteria.
      */
-    public void sortBy(String... prefixes) {
-        if (prefixes.length == 1) {
-            sortSinglePrefix(prefixes[0]);
-        } else if (prefixes.length == 2 && prefixes[0].equals("t/")) {
-            sortWithinTags(prefixes[1]);
-        } else if (prefixes.length > 2) {
-            throw new IllegalArgumentException("Invalid number of prefixes.");
-        } else {
-            throw new IllegalArgumentException("Invalid combination of prefixes.");
-        }
-    }
-
-    /**
-     * Sorts the list based on a single prefix.
-     *
-     * @param prefix The prefix indicating the sorting criteria.
-     * @throws IllegalArgumentException If the provided prefix is invalid or unrecognized.
-     */
-    private void sortSinglePrefix(String prefix) {
+    public void sortBy(String prefix) {
         switch (prefix) {
-        case "t/":
-            sortByTags();
-            break;
         case "n/":
             sortByName();
             break;
@@ -238,34 +217,11 @@ public class UniquePersonList implements Iterable<Person> {
         case "a/":
             sortByAddress();
             break;
-        default:
-            throw new IllegalArgumentException("Invalid sort prefix.");
-        }
-    }
-
-    /**
-     * Sorts the list by a specified attribute within the tag grouping. The first prefix is "t/" to indicate
-     * sorting by tags, and the second prefix indicates the attribute to sort within each tag group.
-     *
-     * @param secondPrefix The second prefix indicating the sorting criteria within the tags.
-     * @throws IllegalArgumentException If the combination of prefixes is invalid or unrecognized.
-     */
-    private void sortWithinTags(String secondPrefix) {
-        switch (secondPrefix) {
-        case "n/":
-            sortByNameWithinTags();
-            break;
-        case "p/":
-            sortByPhoneNumberWithinTags();
-            break;
-        case "e/":
-            sortByEmailAddressWithinTags();
-            break;
-        case "a/":
-            sortByAddressWithinTags();
+        case "t/":
+            sortByTags();
             break;
         default:
-            throw new IllegalArgumentException("Invalid combination of prefixes.");
+            break;
         }
     }
 
@@ -306,42 +262,6 @@ public class UniquePersonList implements Iterable<Person> {
      */
     private void sortByTags() {
         internalList.sort(Comparator.comparing(p -> p.getTags().toString()));
-        prioritisePins();
-    }
-
-    /**
-     * Sort the list first by tags, then by name within each tag group.
-     */
-    private void sortByNameWithinTags() {
-        internalList.sort(Comparator.comparing((Person p) -> p.getTags().toString())
-                .thenComparing(p -> p.getName().toString()));
-        prioritisePins();
-    }
-
-    /**
-     * Sort the list first by tags, then by phone number within each tag group.
-     */
-    private void sortByPhoneNumberWithinTags() {
-        internalList.sort(Comparator.comparing((Person p) -> p.getTags().toString())
-                .thenComparing(p -> new BigInteger(p.getPhone().toString())));
-        prioritisePins();
-    }
-
-    /**
-     * Sort the list first by tags, then by email address within each tag group.
-     */
-    private void sortByEmailAddressWithinTags() {
-        internalList.sort(Comparator.comparing((Person p) -> p.getTags().toString())
-                .thenComparing(p -> p.getEmail().toString()));
-        prioritisePins();
-    }
-
-    /**
-     * Sort the list first by tags, then by address within each tag group.
-     */
-    private void sortByAddressWithinTags() {
-        internalList.sort(Comparator.comparing((Person p) -> p.getTags().toString())
-                .thenComparing(p -> p.getAddress().toString()));
         prioritisePins();
     }
 }

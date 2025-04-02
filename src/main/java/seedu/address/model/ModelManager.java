@@ -12,7 +12,6 @@ import javafx.collections.transformation.FilteredList;
 import javafx.collections.transformation.SortedList;
 import seedu.address.commons.core.GuiSettings;
 import seedu.address.commons.core.LogsCenter;
-import seedu.address.model.person.FilteredPersonList;
 import seedu.address.model.person.Person;
 
 /**
@@ -27,7 +26,6 @@ public class ModelManager implements Model {
     private final InputHistory pastCommands;
     private final ObservableList<Person> personList;
     private final SortedList<Person> sortedFilteredPersons;
-    private Predicate<Person> currentPredicate;
 
 
     /**
@@ -46,9 +44,6 @@ public class ModelManager implements Model {
         sortedFilteredPersons = new SortedList<>(filteredPersons);
     }
 
-    /**
-     * Initializes a ModelManager with an empty address book and user preferences.
-     */
     public ModelManager() {
         this(new VersionedAddressBook(), new UserPrefs());
     }
@@ -100,45 +95,23 @@ public class ModelManager implements Model {
         return addressBook;
     }
 
-    /**
-     * Returns true if a person with the same identity as person exists in the address book.
-     *
-     * @param person The person to check for.
-     * @return True if the person exists, false otherwise.
-     */
     @Override
     public boolean hasPerson(Person person) {
         requireNonNull(person);
         return addressBook.hasPerson(person);
     }
 
-    /**
-     * Deletes the specified target person from the address book.
-     *
-     * @param target The person to delete.
-     */
     @Override
     public void deletePerson(Person target) {
         addressBook.removePerson(target);
     }
 
-    /**
-     * Adds the specified person to the address book.
-     *
-     * @param person The person to add.
-     */
     @Override
     public void addPerson(Person person) {
         addressBook.addPerson(person);
         updateFilteredPersonList(PREDICATE_SHOW_ALL_PERSONS);
     }
 
-    /**
-     * Replaces the target person with the edited person.
-     *
-     * @param target The person to be replaced.
-     * @param editedPerson The person to replace with.
-     */
     @Override
     public void setPerson(Person target, Person editedPerson) {
         requireAllNonNull(target, editedPerson);
@@ -164,18 +137,12 @@ public class ModelManager implements Model {
      */
     @Override
     public ObservableList<Person> getFilteredPersonList() {
-        return filteredPersons;
+        return sortedFilteredPersons;
     }
 
-    /**
-     * Updates the filtered person list based on the specified predicate.
-     *
-     * @param predicate The predicate to filter the persons.
-     */
     @Override
     public void updateFilteredPersonList(Predicate<Person> predicate) {
         requireNonNull(predicate);
-        this.currentPredicate = predicate;
         filteredPersons.setPredicate(predicate);
     }
 
@@ -192,31 +159,16 @@ public class ModelManager implements Model {
     //=========== Sorted Person List Accessors =============================================================
 
     /**
-     * Updates the sorted person list based on the given prefix.The prefix is used to
+     * Updates the sorted and filtered person list based on the given prefix.The prefix is used to
      * filter the list of persons in the address book and sort the resulting filtered list.
      *
      * @param prefix The string prefix used to filter and sort the person list.
      * @throws NullPointerException if prefix is null.
      */
     @Override
-    public void updateSortedPersonList(String... prefix) {
+    public void updateSortedFilteredPersonList(String prefix) {
         requireNonNull(prefix);
         addressBook.updateSortedList(prefix);
-    }
-
-    /**
-     * Updates the sorted person list based on the given prefix. The prefix is used to
-     * filter the list of persons in the address book and sort the resulting filtered list.
-     *
-     * @param prefix The string prefix used to filter and sort the person list.
-     * @throws NullPointerException if prefix is null.
-     */
-    @Override
-    public void updateSortedFilteredPersonList(String... prefix) {
-        requireNonNull(prefix);
-        filteredPersons.setPredicate(currentPredicate);
-        FilteredPersonList filteredPersonList = new FilteredPersonList(filteredPersons);
-        filteredPersonList.sortByFilteredList(prefix);
     }
 
     @Override

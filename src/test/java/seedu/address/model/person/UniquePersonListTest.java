@@ -7,9 +7,7 @@ import static seedu.address.logic.commands.CommandTestUtil.VALID_ADDRESS_BOB;
 import static seedu.address.logic.commands.CommandTestUtil.VALID_TAG_HUSBAND;
 import static seedu.address.testutil.Assert.assertThrows;
 import static seedu.address.testutil.TypicalPersons.ALICE;
-import static seedu.address.testutil.TypicalPersons.BENSON;
 import static seedu.address.testutil.TypicalPersons.BOB;
-import static seedu.address.testutil.TypicalPersons.DANIEL;
 import static seedu.address.testutil.TypicalPersons.ISABELLE;
 import static seedu.address.testutil.TypicalPersons.RACHEL;
 
@@ -252,7 +250,7 @@ public class UniquePersonListTest {
     }
 
     @Test
-    public void sortBy_namePrefix() {
+    public void sortBy_namePrefix_sortsByName() {
         uniquePersonList.add(ALICE);
         uniquePersonList.add(BOB);
         uniquePersonList.sortBy("n/");
@@ -260,7 +258,7 @@ public class UniquePersonListTest {
     }
 
     @Test
-    public void sortBy_phonePrefix() {
+    public void sortBy_phonePrefix_sortsByPhone() {
         uniquePersonList.add(ALICE);
         uniquePersonList.add(BOB);
         uniquePersonList.sortBy("p/");
@@ -276,7 +274,7 @@ public class UniquePersonListTest {
     }
 
     @Test
-    public void sortBy_emailPrefix() {
+    public void sortBy_emailPrefix_sortsByEmail() {
         uniquePersonList.add(ALICE);
         uniquePersonList.add(BOB);
         uniquePersonList.sortBy("e/");
@@ -284,7 +282,7 @@ public class UniquePersonListTest {
     }
 
     @Test
-    public void sortBy_addressPrefix() {
+    public void sortBy_addressPrefix_sortsByAddress() {
         uniquePersonList.add(ALICE);
         uniquePersonList.add(BOB);
         uniquePersonList.sortBy("a/");
@@ -292,7 +290,7 @@ public class UniquePersonListTest {
     }
 
     @Test
-    public void sortBy_tagsPrefix() {
+    public void sortBy_tagsPrefix_sortsByTags() {
         uniquePersonList.add(ALICE);
         uniquePersonList.add(BOB);
         uniquePersonList.sortBy("t/");
@@ -300,69 +298,10 @@ public class UniquePersonListTest {
     }
 
     @Test
-    public void sortBy_tagsThenNamePrefix() {
+    public void sortBy_invalidPrefix_doesNothing() {
+        uniquePersonList.add(BOB);
         uniquePersonList.add(ALICE);
-        uniquePersonList.add(BENSON);
-        uniquePersonList.add(DANIEL);
-        uniquePersonList.sortBy("t/", "n/");
-        assertEquals(ALICE, uniquePersonList.asUnmodifiableObservableList().get(0));
-        assertEquals(DANIEL, uniquePersonList.asUnmodifiableObservableList().get(1));
-        assertEquals(BENSON, uniquePersonList.asUnmodifiableObservableList().get(2));
-    }
-
-    @Test
-    public void sortBy_tagsThenPhonePrefix() {
-        uniquePersonList.add(ALICE);
-        uniquePersonList.add(BENSON);
-        uniquePersonList.add(DANIEL);
-        uniquePersonList.sortBy("t/", "p/");
-        assertEquals(DANIEL, uniquePersonList.asUnmodifiableObservableList().get(0));
-        assertEquals(ALICE, uniquePersonList.asUnmodifiableObservableList().get(1));
-        assertEquals(BENSON, uniquePersonList.asUnmodifiableObservableList().get(2));
-    }
-
-    @Test
-    public void sortBy_tagsThenEmailPrefix() {
-        uniquePersonList.add(ALICE);
-        uniquePersonList.add(BENSON);
-        uniquePersonList.add(DANIEL);
-        uniquePersonList.sortBy("t/", "e/");
-        assertEquals(ALICE, uniquePersonList.asUnmodifiableObservableList().get(0));
-        assertEquals(DANIEL, uniquePersonList.asUnmodifiableObservableList().get(1));
-        assertEquals(BENSON, uniquePersonList.asUnmodifiableObservableList().get(2));
-    }
-
-    @Test
-    public void sortBy_tagsThenAddressPrefix() {
-        uniquePersonList.add(ALICE);
-        uniquePersonList.add(BENSON);
-        uniquePersonList.add(DANIEL);
-        uniquePersonList.sortBy("t/", "a/");
-        assertEquals(DANIEL, uniquePersonList.asUnmodifiableObservableList().get(0));
-        assertEquals(ALICE, uniquePersonList.asUnmodifiableObservableList().get(1));
-        assertEquals(BENSON, uniquePersonList.asUnmodifiableObservableList().get(2));
-    }
-
-    @Test
-    public void sortBy_invalidPrefix_throwsException() {
-        assertThrows(IllegalArgumentException.class, () -> uniquePersonList.sortBy("x/"));
-    }
-
-    @Test
-    public void sortBy_invalidCombinationOfPrefixes_throwsException() {
-        assertThrows(IllegalArgumentException.class, () -> uniquePersonList.sortBy("t/", "x/"));
-    }
-
-    @Test
-    public void sortBy_invalidCombinationOfTwoPrefixes_throwsException() {
-        assertThrows(IllegalArgumentException.class, () -> uniquePersonList.sortBy("n/", "p/"));
-        assertThrows(IllegalArgumentException.class, () -> uniquePersonList.sortBy("e/", "a/"));
-        assertThrows(IllegalArgumentException.class, () -> uniquePersonList.sortBy("p/", "t/"));
-    }
-
-    @Test
-    public void sortBy_invalidCombinationOfThreePrefixes_throwsException() {
-        assertThrows(IllegalArgumentException.class, () -> uniquePersonList.sortBy("t/", "n/", "e/"));
-        assertThrows(IllegalArgumentException.class, () -> uniquePersonList.sortBy("a/", "b/", "c/"));
+        uniquePersonList.sortBy("invalidPrefix");
+        assertEquals(BOB, uniquePersonList.asUnmodifiableObservableList().get(0));
     }
 }

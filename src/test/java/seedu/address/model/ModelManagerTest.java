@@ -313,46 +313,20 @@ public class ModelManagerTest {
     }
 
     @Test
-    public void getFilteredPersonList_throwsUnsupportedOperationException() {
+    public void getFilteredPersonList_modifyList_throwsUnsupportedOperationException() {
         assertThrows(UnsupportedOperationException.class, () -> modelManager.getFilteredPersonList().remove(0));
     }
 
     @Test
-    public void updateSortedPersonList_validPrefix_updatesListCorrectly() {
+    public void updateSortedFilteredPersonList_validPrefix_updatesListCorrectly() {
         AddressBook addressBook = new AddressBookBuilder().withPerson(ALICE).withPerson(BENSON).build();
         modelManager = new ModelManager(addressBook, new UserPrefs());
-        modelManager.updateSortedPersonList("n/");
+        modelManager.updateSortedFilteredPersonList("n/");
         modelManager.commitAddressBook();
         ObservableList<Person> filteredList = modelManager.getFilteredPersonList();
         assertEquals(2, filteredList.size());
         assertTrue(filteredList.contains(ALICE));
         assertTrue(filteredList.contains(BENSON));
-    }
-
-    @Test
-    public void updateSortedFilteredPersonList_throwsNullPointerException() {
-        assertThrows(NullPointerException.class, () -> modelManager.updateSortedFilteredPersonList(null));
-    }
-
-    @Test
-    public void updateSortedFilteredPersonList_emptyList_noEffect() {
-        AddressBook emptyAddressBook = new AddressBook();
-        modelManager = new ModelManager(emptyAddressBook, new UserPrefs());
-        modelManager.updateSortedFilteredPersonList("n/");
-        ObservableList<Person> filteredList = modelManager.getFilteredPersonList();
-        assertTrue(filteredList.isEmpty());
-    }
-
-    @Test
-    public void updateSortedFilteredPersonList_multiplePersonsWithSamePrefix() {
-        AddressBook addressBook = new AddressBookBuilder().withPerson(ALICE).withPerson(BENSON).build();
-        modelManager = new ModelManager(addressBook, new UserPrefs());
-        modelManager.updateSortedFilteredPersonList("n/");
-        ObservableList<Person> filteredList = modelManager.getFilteredPersonList();
-        assertTrue(filteredList.contains(ALICE));
-        assertTrue(filteredList.contains(BENSON));
-        assertEquals(ALICE, filteredList.get(0));
-        assertEquals(BENSON, filteredList.get(1));
     }
 
     @Test

@@ -136,7 +136,7 @@ public class AddressBookTest {
         addressBook.addPerson(ALICE);
         addressBook.addPerson(CARL);
 
-        addressBook.updateSortedList(new String[]{"n/"});
+        addressBook.updateSortedList("n/");
 
         ObservableList<Person> personList = addressBook.getPersonList();
         assertEquals("Alice Pauline", personList.get(0).getName().toString());
