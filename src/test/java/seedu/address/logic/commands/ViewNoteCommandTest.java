@@ -101,13 +101,13 @@ public class ViewNoteCommandTest {
         ViewNoteCommand viewNoteCommand = new ViewNoteCommand(INDEX_FIRST_PERSON);
         // should only undo viewNoteCommand
         assertDoesNotThrow(() -> viewNoteCommand.execute(blankModel));
-        blankModel.undoAddressBook();
+        blankModel.undo();
         // make sure the added person is still there
         assertDoesNotThrow(() -> viewNoteCommand.execute(blankModel));
-        blankModel.undoAddressBook();
+        blankModel.undo();
 
         // remove the add command
-        assertDoesNotThrow(() -> blankModel.undoAddressBook());
+        assertDoesNotThrow(() -> blankModel.undo());
 
         // No contact at index 1 so no note can be viewed, error should be thrown
         assertThrows(CommandException.class, () -> viewNoteCommand.execute(blankModel));

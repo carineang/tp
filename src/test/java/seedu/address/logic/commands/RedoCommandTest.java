@@ -17,11 +17,11 @@ public class RedoCommandTest {
         Model model = new ModelManager();
         model.addPerson(CARL);
         model.commitAddressBook();
-        model.undoAddressBook();
+        model.undo();
         Model expectedModel = new ModelManager();
         expectedModel.addPerson(CARL);
         expectedModel.commitAddressBook();
-        expectedModel.undoAddressBook();
+        expectedModel.undo();
         expectedModel.redoAddressBook();
 
         assertCommandSuccess(new RedoCommand(), model, RedoCommand.MESSAGE_SUCCESS, expectedModel);

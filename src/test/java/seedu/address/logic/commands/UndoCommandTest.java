@@ -20,7 +20,7 @@ public class UndoCommandTest {
         Model expectedModel = new ModelManager();
         expectedModel.addPerson(CARL);
         expectedModel.commitAddressBook();
-        expectedModel.undoAddressBook();
+        expectedModel.undo();
 
         assertCommandSuccess(new UndoCommand(), model, UndoCommand.MESSAGE_SUCCESS, expectedModel);
     }

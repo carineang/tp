@@ -229,7 +229,7 @@ public class ModelManager implements Model {
     }
 
     @Override
-    public void undoAddressBook() {
+    public void undo() {
         addressBook.undo();
     }
 

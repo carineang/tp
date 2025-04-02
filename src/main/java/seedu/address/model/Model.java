@@ -135,7 +135,7 @@ public interface Model {
     /**
      * Restores the state of the address book to the last saved state
      */
-    void undoAddressBook();
+    void undo();
 
     /**
      * Restores the state of the address book to the last saved undone state

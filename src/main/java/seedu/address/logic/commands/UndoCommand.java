@@ -23,7 +23,7 @@ public class UndoCommand extends Command {
             throw new CommandException(Messages.MESSAGE_INVALID_NO_UNDO);
         }
 
-        model.undoAddressBook();
+        model.undo();
 
         return new CommandResult(MESSAGE_SUCCESS);
     }

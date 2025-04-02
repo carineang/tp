@@ -57,9 +57,9 @@ public class HelpCommandTest {
 
         // should only undo helpCommand
         assertDoesNotThrow(() -> helpCommand.execute(blankModel));
-        blankModel.undoAddressBook();
+        blankModel.undo();
 
         // Nothing to undo
-        assertThrows(IndexOutOfBoundsException.class, () -> blankModel.undoAddressBook());
+        assertThrows(IndexOutOfBoundsException.class, () -> blankModel.undo());
     }
 }
