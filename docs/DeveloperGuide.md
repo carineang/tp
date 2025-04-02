@@ -720,6 +720,20 @@ Prerequisites: The contacts list should contain some contacts for testing purpos
    1. Test case: `sort t/ a/`<br>
       Expected: Displays all contacts sorted by tags, followed by addresses in ascending order.
 
+### Listing all contacts
+
+1. List all contacts
+
+   1. Test case: `list`<br>
+      Expected: Displays the whole contacts list.
+
+### Clearing all contacts
+
+1. Clear all contacts
+
+  1. Test case: `clear`<br>
+     Expected: Clears the whole contacts list.
+
 ### Saving data
 
 1. Dealing with missing/corrupted data files
