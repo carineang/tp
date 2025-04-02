@@ -110,7 +110,7 @@ public class ViewNoteCommandTest {
         assertDoesNotThrow(() -> blankModel.undoAddressBook());
 
         // No contact at index 1 so no note can be viewed, error should be thrown
-        assertThrows(CommandException.class ,() -> viewNoteCommand.execute(blankModel));
+        assertThrows(CommandException.class, () -> viewNoteCommand.execute(blankModel));
     }
 
     @Test
