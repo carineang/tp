@@ -90,7 +90,7 @@ public class UnpinCommandTest {
     }
 
     @Test
-    public void execute_validIndex_unpinnedPerson_returnsNotPinnedMessage() throws Exception {
+    public void execute_validIndexUnpinnedPerson_returnsMessage() throws Exception {
         Person originalPerson = model.getFilteredPersonList().get(INDEX_FIRST_PERSON.getZeroBased());
         assertFalse(originalPerson.getPin().isPinned());
         UnpinCommand unpinCommand = new UnpinCommand(INDEX_FIRST_PERSON);

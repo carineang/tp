@@ -47,7 +47,7 @@ public class PinCommandTest {
     }
 
     @Test
-    public void execute_validIndex_alreadyPinnedPerson_returnsAlreadyPinnedMessage() throws Exception {
+    public void execute_validIndexAlreadyPinnedPerson_returnsMessage() throws Exception {
         PinCommand pinCommand = new PinCommand(INDEX_FIRST_PERSON);
         pinCommand.execute(model);
         PinCommand newPinCommand = new PinCommand(INDEX_FIRST_PERSON);
