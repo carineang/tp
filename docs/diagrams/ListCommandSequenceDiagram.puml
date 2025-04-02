@@ -13,9 +13,7 @@ end box
 [-> LogicManager : execute("list")
 activate LogicManager
 
-
-
-LogicManager -> ListCommand : execute(...)
+LogicManager -> ListCommand : execute(m)
 activate ListCommand
 
 
@@ -38,9 +36,9 @@ activate CommandResult
 CommandResult --> ListCommand : return CommandResult
 deactivate CommandResult
 
-ListCommand --> LogicManager : result
+ListCommand --> LogicManager : return CommandResult
 deactivate ListCommand
 
-[<--LogicManager
+[<--LogicManager : return CommandResult
 deactivate LogicManager
 @enduml

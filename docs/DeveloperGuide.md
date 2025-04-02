@@ -159,7 +159,9 @@ This section describes some noteworthy details on how certain features are imple
 
 The `list` command enables users to view all existing contacts from Notarius.
 
-![List Sequence Diagram](images/ListCommandSequenceDiagram.png)
+<p align="center">
+  <img src="images/ListCommandSequenceDiagram.png" alt="Ui" />
+</p>
 
 #### Implementation
 
