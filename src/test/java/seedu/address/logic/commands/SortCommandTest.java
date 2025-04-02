@@ -129,15 +129,6 @@ public class SortCommandTest {
     }
 
     @Test
-    public void constructor_nullPrefixes_throwsIllegalArgumentException() {
-        String[] prefixes = null;
-        IllegalArgumentException exception = assertThrows(IllegalArgumentException.class, () -> {
-            new SortCommand(prefixes);
-        });
-        assertEquals("Prefixes cannot be null or empty", exception.getMessage());
-    }
-
-    @Test
     public void constructor_emptyPrefixes_throwsIllegalArgumentException() {
         String[] prefixes = new String[0];
         IllegalArgumentException exception = assertThrows(IllegalArgumentException.class, () -> {

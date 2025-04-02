@@ -36,7 +36,7 @@ public class SortCommand extends Command {
      * @param prefixes The prefixes indicating the attribute to sort by.
      */
     public SortCommand(String... prefixes) {
-        if (prefixes == null || prefixes.length == 0) {
+        if (prefixes.length == 0) {
             throw new IllegalArgumentException("Prefixes cannot be null or empty");
         }
         this.prefixes = prefixes;

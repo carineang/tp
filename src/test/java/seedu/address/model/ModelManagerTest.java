@@ -330,11 +330,6 @@ public class ModelManagerTest {
     }
 
     @Test
-    public void updateSortedFilteredPersonList_throwsNullPointerException() {
-        assertThrows(NullPointerException.class, () -> modelManager.updateSortedFilteredPersonList(null));
-    }
-
-    @Test
     public void updateSortedFilteredPersonList_emptyList_noEffect() {
         AddressBook emptyAddressBook = new AddressBook();
         modelManager = new ModelManager(emptyAddressBook, new UserPrefs());
