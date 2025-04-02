@@ -9,6 +9,7 @@ box Ui UI_COLOR_T1
 participant "root:Region" as Region UI_COLOR_T3
 participant ":CommandHistoryMenu" as CommandHistoryMenu UI_COLOR
 participant ":CommandHistoryMenuController" as CommandHistoryMenuController UI_COLOR
+participant ":CommandBox" as CommandBox UI_COLOR
 participant ":ListView" as ListView UI_COLOR_T3
 participant ":MultipleSelectionModel" as MultipleSelectionModel UI_COLOR_T3
 end box
@@ -22,6 +23,8 @@ activate CommandHistoryMenu
 
 CommandHistoryMenu -> CommandHistoryMenuController : moveUp() selected index
 activate CommandHistoryMenuController
+
+CommandHistoryMenuController -> CommandBox : setCommandTextField(pastSelectedCommand)
 
 CommandHistoryMenuController --> CommandHistoryMenu
 deactivate CommandHistoryMenuController

@@ -67,7 +67,7 @@ activate DeleteCommand
 
 
 
-loop LOGIC_COLOR_T1 until all persons with index specified in indexes are deleted
+loop until all persons with index specified in indexes are deleted
 
 DeleteCommand -> Model : deletePerson(index)
 activate Model
