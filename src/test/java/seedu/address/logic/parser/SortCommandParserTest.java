@@ -133,4 +133,13 @@ public class SortCommandParserTest {
         assertEquals("Duplicate prefixes are not allowed.", exception.getMessage());
     }
 
+    @Test
+    public void parse_invalidTwoPrefix_throwsParseException() {
+        String input = "a/ b/";
+        ParseException exception = assertThrows(ParseException.class, () -> {
+            parser.parse(input);
+        });
+        assertEquals(String.format(MESSAGE_INVALID_COMMAND_FORMAT, SortCommand.MESSAGE_USAGE), exception.getMessage());
+    }
+
 }
