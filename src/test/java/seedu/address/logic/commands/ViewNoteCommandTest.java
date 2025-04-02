@@ -1,13 +1,16 @@
 package seedu.address.logic.commands;
 
+import static org.junit.jupiter.api.Assertions.assertDoesNotThrow;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertFalse;
+import static org.junit.jupiter.api.Assertions.assertThrows;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 import static seedu.address.logic.commands.CommandTestUtil.assertCommandFailure;
 import static seedu.address.logic.commands.CommandTestUtil.assertCommandSuccess;
 import static seedu.address.logic.commands.CommandTestUtil.showPersonAtIndex;
 import static seedu.address.testutil.TypicalIndexes.INDEX_FIRST_PERSON;
 import static seedu.address.testutil.TypicalIndexes.INDEX_SECOND_PERSON;
+import static seedu.address.testutil.TypicalPersons.BENSON;
 import static seedu.address.testutil.TypicalPersons.getTypicalAddressBook;
 
 import org.junit.jupiter.api.BeforeEach;
@@ -15,6 +18,7 @@ import org.junit.jupiter.api.Test;
 
 import seedu.address.commons.core.index.Index;
 import seedu.address.logic.Messages;
+import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.model.AddressBook;
 import seedu.address.model.Model;
 import seedu.address.model.ModelManager;
@@ -40,6 +44,7 @@ public class ViewNoteCommandTest {
         String expectedMessage = String.format(ViewNoteCommand.MESSAGE_VIEW_NOTE_PERSON_SUCCESS,
                 personToView.getNote().toString());
         Model expectedModel = new ModelManager(getTypicalAddressBook(), new UserPrefs());
+        expectedModel.commitAddressBook();
 
         assertCommandSuccess(viewNoteCommand, model, expectedMessage, expectedModel);
     }
@@ -55,6 +60,7 @@ public class ViewNoteCommandTest {
                 personToView.getNote().toString());
 
         Model expectedModel = new ModelManager(new AddressBook(model.getAddressBook()), new UserPrefs());
+        expectedModel.commitAddressBook();
         showPersonAtIndex(expectedModel, INDEX_FIRST_PERSON);
 
         assertCommandSuccess(viewNoteCommand, model, expectedMessage, expectedModel);
@@ -82,6 +88,29 @@ public class ViewNoteCommandTest {
         ViewNoteCommand viewNoteCommand = new ViewNoteCommand(outOfBoundIndex);
 
         assertCommandFailure(viewNoteCommand, model, Messages.MESSAGE_INVALID_PERSON_DISPLAYED_INDEX);
+    }
+
+    @Test
+    public void execute_undoCommand_success() {
+        Model blankModel = new ModelManager();
+
+        // simulate an add command
+        blankModel.addPerson(BENSON);
+        blankModel.commitAddressBook();
+
+        ViewNoteCommand viewNoteCommand = new ViewNoteCommand(INDEX_FIRST_PERSON);
+        // should only undo viewNoteCommand
+        assertDoesNotThrow(() -> viewNoteCommand.execute(blankModel));
+        blankModel.undoAddressBook();
+        // make sure the added person is still there
+        assertDoesNotThrow(() -> viewNoteCommand.execute(blankModel));
+        blankModel.undoAddressBook();
+
+        // remove the add command
+        assertDoesNotThrow(() -> blankModel.undoAddressBook());
+
+        // No contact at index 1 so no note can be viewed, error should be thrown
+        assertThrows(CommandException.class ,() -> viewNoteCommand.execute(blankModel));
     }
 
     @Test
