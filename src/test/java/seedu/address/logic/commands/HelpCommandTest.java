@@ -18,6 +18,7 @@ public class HelpCommandTest {
     @Test
     public void execute_helpNoCommand_success() {
         CommandResult expectedCommandResult = new CommandResult(SHOWING_HELP_MESSAGE, true, false);
+        expectedModel.commitAddressBook();
         assertCommandSuccess(new HelpCommand(), model, expectedCommandResult, expectedModel);
     }
 
