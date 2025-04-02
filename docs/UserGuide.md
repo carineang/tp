@@ -142,14 +142,21 @@ A GUI similar to the below should appear in a few seconds. Note how the app cont
 
 --------------------------------------------------------------------------------------------------------------------
 
-## Overview of UI
+## Navigating the GUI
 
+### Basic Orientation
 <p align="center">
   <img src="images/userinterface1.png" alt="Ui" />
 </p>
 
+### Contact Card
 <p align="center">
   <img src="images/userinterface2.png" alt="Ui" />
+</p>
+
+### Contact Details
+<p align="center">
+  <img src="images/userinterface3.png" alt="Ui" />
 </p>
 
 --------------------------------------------------------------------------------------------------------------------
@@ -355,6 +362,21 @@ Format: `sort PREFIX`
 Examples:
 * `sort n/` returns contact by ascending names `Alex`, `Bernice`, `Charlotte`.
 * `sort p/` returns contact by ascending phone numbers `87438807`, `91031282`, `92492021`.
+
+<div markdown="block" class="alert alert-info">
+
+**:information_source: Notes about sorting:**<br>
+
+* **Adding New Contacts:**<br>
+  After performing a sort, newly added contacts will **not** automatically be inserted in the 
+correct sorted order. To maintain the sorted order, you will need to run the `sort` command again after adding the new contact.
+
+* **Sorting Multiple Tags:**<br>
+  It sorts the **first tag** in **alphabetical order**.<br>
+  e.g. `t/colleagues t/friends` will sort by `colleagues` tag first and followed by `friends` tag.<br>
+  e.g. If `t/colleagues t/friends` and `t/lawyer t/colleagues` are sorted, `t/colleagues t/friends` will appear before
+  `t/lawyer t/colleagues`, because `colleagues` tag comes first in the sorting order.
+</div>
 
 
 #### Pinning a client contact : `pin`
