@@ -72,8 +72,8 @@ public class DeleteCommandTest {
                 Messages.format(personToDelete));
 
         Model expectedModel = new ModelManager(getTypicalAddressBook(), new UserPrefs());
+        showPersonAtIndex(expectedModel, INDEX_FIRST_PERSON);
         expectedModel.deletePerson(personToDelete);
-        showNoPerson(expectedModel);
 
         expectedModel.commit();
 

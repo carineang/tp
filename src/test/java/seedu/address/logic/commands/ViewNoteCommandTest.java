@@ -60,8 +60,8 @@ public class ViewNoteCommandTest {
                 personToView.getNote().toString());
 
         Model expectedModel = new ModelManager(new AddressBook(model.getAddressBook()), new UserPrefs());
-        expectedModel.commit();
         showPersonAtIndex(expectedModel, INDEX_FIRST_PERSON);
+        expectedModel.commit();
 
         assertCommandSuccess(viewNoteCommand, model, expectedMessage, expectedModel);
     }
