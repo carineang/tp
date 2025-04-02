@@ -209,7 +209,7 @@ public class AddCommandTest {
         }
 
         @Override
-        public boolean addressBookHasRedo() {
+        public boolean hasRedo() {
             return false;
         }
 

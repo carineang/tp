@@ -275,28 +275,28 @@ public class ModelManagerTest {
     }
 
     @Test
-    public void addressBookHasRedo_hasRedo_success() {
+    public void hasRedo_hasRedo_success() {
         AddressBook addressBook = new AddressBookBuilder().build();
         modelManager = new ModelManager(addressBook, new UserPrefs());
         modelManager.addPerson(CARL);
         modelManager.commitAddressBook();
         modelManager.undo();
-        assertTrue(modelManager.addressBookHasRedo());
+        assertTrue(modelManager.hasRedo());
     }
 
     @Test
-    public void addressBookHasRedo_hasNoRedo_success() {
+    public void hasRedo_hasNoRedo_success() {
         AddressBook addressBook = new AddressBookBuilder().build();
         modelManager = new ModelManager(addressBook, new UserPrefs());
-        assertFalse(modelManager.addressBookHasRedo());
+        assertFalse(modelManager.hasRedo());
 
         modelManager.addPerson(CARL);
         modelManager.commitAddressBook();
-        assertFalse(modelManager.addressBookHasRedo());
+        assertFalse(modelManager.hasRedo());
 
         modelManager.undo();
         modelManager.redo();
-        assertFalse(modelManager.addressBookHasRedo());
+        assertFalse(modelManager.hasRedo());
 
         // test if removed ahead
         modelManager.addPerson(ALICE);
@@ -307,7 +307,7 @@ public class ModelManagerTest {
         modelManager.undo();
         modelManager.addPerson(BENSON);
         modelManager.commitAddressBook();
-        assertFalse(modelManager.addressBookHasRedo());
+        assertFalse(modelManager.hasRedo());
 
 
     }

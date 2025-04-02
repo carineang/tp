@@ -155,5 +155,5 @@ public interface Model {
     /**
      * Checks if the address book has an undone state to redo
      */
-    boolean addressBookHasRedo();
+    boolean hasRedo();
 }

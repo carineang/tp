@@ -275,7 +275,7 @@ public class ModelManager implements Model {
     }
 
     @Override
-    public boolean addressBookHasRedo() {
+    public boolean hasRedo() {
         return addressBook.hasRedo();
     }
 
