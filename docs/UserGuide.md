@@ -338,15 +338,19 @@ Examples:
 
 #### Sorting of client contacts : `sort`
 
-Sort the address book by specified attribute in lexicographical order.
+Sort the address book by specified prefix in lexicographical order.
 
-Format: `sort [n/]`
+Format: `sort PREFIX`
 
 * `sort n/` sorts contacts by ascending names.
 * `sort p/` sorts contacts by ascending phone numbers.
 * `sort e/` sorts contacts by ascending emails.
 * `sort a/` sorts contacts by ascending addresses.
 * `sort t/` sorts contacts by ascending tags.
+* `sort t/ n/` sorts contacts by tags first, then names.
+* `sort t/ p/` sorts contacts by tags first, then phone numbers.
+* `sort t/ e/` sorts contacts by tags first, then emails.
+* `sort t/ a/` sorts contacts by tags first, the addresses.
 
 Examples:
 * `sort n/` returns contact by ascending names `Alex`, `Bernice`, `Charlotte`.
