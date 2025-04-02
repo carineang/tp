@@ -604,12 +604,21 @@ Priorities: High (must have) - `* * *`, Medium (nice to have) - `* *`, Low (unli
 
 ### Glossary
 
-* **Mainstream OS**: Windows, Linux, Unix, MacOS.
-* **Above-average typing speed**: >=60 words per minute.
-* **Crucial client information**: Important client information such as phone number, address, name, as well as notes stored that could contain legal information for cases.
-* **Local system**: The user's computer that they are using to run the application.
-* **Cases(in law)**: The legal disputes that lawyers work on that involve many parties.
-* **User Request**: The commands the user gives to Notarius via the command line interface.
+| **Terms**                  | **Meaning**                                                                                                                                            |
+|----------------------------|--------------------------------------------------------------------------------------------------------------------------------------------------------|
+| AB-3                       | AddressBook Level 3 application, which was used as the base framework for a student-customized CLI management system to be developed.                  |
+| Mainstream OS              | Windows, Linux, Unix, MacOS.                                                                                                                           |
+| Above-average typing speed | ≥ 60 words per minute.                                                                                                                                 |
+| Crucial client information | Important client information such as name, phone number, email, address, tags, as well as notes stored that could contain legal information for cases. |
+| Local system               | The user's computer that they are using to run the application.                                                                                        |
+| Cases (in law)             | The legal disputes that lawyers work on that involve many parties.                                                                                     |
+| User Request               | The commands the user gives to Notarius via the command line interface.                                                                                |
+| MSS                        | Main Success Scenario.                                                                                                                                 |
+| API                        | Application Programming Interface.                                                                                                                     |
+| GUI                        | Graphic User Interface.                                                                                                                                |
+| CLI                        | Command Line Interface.                                                                                                                                |
+| JAR                        | A packed file format used in Java that contains compiled Java code to enable easy distribution, portability, and execution.                            |
+| JSON                       | JavaScript Object Notation, a lightweight data format widely used for storing and exchanging structured data.                                          |
 
 --------------------------------------------------------------------------------------------------------------------
 
