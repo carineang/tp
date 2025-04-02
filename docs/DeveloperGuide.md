@@ -185,6 +185,22 @@ of its `Model` argument with a new `AddressBook` object which contains an empty 
 4. The `execute` method of the `ClearCommand` object returns a `CommandResult` object which stores the data regarding 
 the completion of the `clear` command.
 
+### Sort feature
+
+The `sort` command enables users to sort contacts in Notarius by prefix in lexicographical order.
+
+<p align="center">
+  <img src="images/SortCommandSequenceDiagram.png" alt="Ui" />
+</p>
+
+#### Implementation
+
+1. The user inputs the command to sort contacts with the specified prefix.
+2. A `SortCommandParser` object invokes its `parse` method which parses the user input.
+3. The `SortCommand` object is created with the parsed prefix.
+4. A `LogicManager` object invokes the `execute` method of the `SortCommand` object.
+5. The `execute` method of the `SortCommand` object invokes the `updateSortedPersonList`, `updateSortedFilteredPersonList` and `commitAddressBook` methods of its `Model` argument to update and sort all contacts by the target prefix.
+6. The `execute` method of the `SortCommand` object returns a `CommandResult` object which stores the data regarding the completion of the `sort` command.
 
 ### \[Proposed\] Undo/redo feature
 

@@ -1,0 +1,80 @@
+@startuml
+!include style.puml
+
+box Logic LOGIC_COLOR_T1
+participant ":LogicManager" as LogicManager LOGIC_COLOR
+participant ":AddressBookParser" as AddressBookParser LOGIC_COLOR
+participant ":SortCommandParser" as SortCommandParser LOGIC_COLOR
+participant "r:SortCommand" as SortCommand LOGIC_COLOR
+participant ":CommandResult" as CommandResult LOGIC_COLOR
+end box
+
+box Model MODEL_COLOR_T1
+participant ":Model" as Model MODEL_COLOR
+end box
+[-> LogicManager : execute("sort n/")
+activate LogicManager
+
+LogicManager -> AddressBookParser : parseCommand("sort n/")
+activate AddressBookParser
+
+create SortCommandParser
+AddressBookParser -> SortCommandParser : new SortCommandParser()
+activate SortCommandParser
+
+SortCommandParser --> AddressBookParser : return SortCommandParser
+deactivate SortCommandParser
+
+AddressBookParser -> SortCommandParser : parse("n/")
+activate SortCommandParser
+
+create SortCommand
+SortCommandParser -> SortCommand : new SortCommand("n/")
+activate SortCommand
+
+SortCommand --> SortCommandParser : return SortCommand
+deactivate SortCommand
+
+SortCommandParser --> AddressBookParser : return SortCommand
+deactivate SortCommandParser
+
+SortCommandParser -[hidden]-> AddressBookParser
+destroy SortCommandParser
+
+AddressBookParser --> LogicManager : return SortCommand
+deactivate AddressBookParser
+
+LogicManager -> SortCommand : execute(m)
+activate SortCommand
+
+SortCommand -> Model : updateSortedPersonList("n/")
+activate Model
+
+Model --> SortCommand
+deactivate Model
+
+SortCommand -> Model : updateSortedFilteredPersonList("n/")
+activate Model
+
+Model --> SortCommand
+deactivate Model
+
+SortCommand -> Model : commitAddressBook()
+activate Model
+
+Model --> SortCommand
+deactivate Model
+
+create CommandResult
+SortCommand -> CommandResult : new CommandResult("Sorted successfully.")
+activate CommandResult
+
+CommandResult --> SortCommand : return CommandResult
+deactivate CommandResult
+
+SortCommand --> LogicManager : return CommandResult
+deactivate SortCommand
+
+[<--LogicManager : return CommandResult
+deactivate LogicManager
+@enduml
