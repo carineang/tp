@@ -643,6 +643,75 @@ Priorities: High (must have) - `* * *`, Medium (nice to have) - `* *`, Low (unli
 * 2a. Notarius cannot find any notes related to the contact.
   * 2a1. Notarius alerts the user with a relevant message.
 
+**System**: `Notarius`
+
+**Actor**: `User`
+
+**Use Case**: `UC08 - Sorting the contacts list`
+
+**Guarantees**: `If MSS reaches step 3, the user has successfully sorted the contacts list by a specified prefix.`
+
+**MSS**:
+
+1. User requests to sort Notarius by a specified prefix.
+2. Notarius updates the contacts list in the sorted order.
+3. Notarius confirms that the contacts list has been successfully sorted.
+
+   Use case ends.
+
+**Extensions**:
+
+* 1a. Notarius detects a missing prefix in the entered input.
+  * 1a1. Notarius displays the error message.
+  * 1a2. User re-enters a new command with a specified prefix.
+  * Steps 1a1 - 1a2 are repeated until a valid prefix is input by the User.
+  * Use case resumes from step 2.
+
+* 1b. Notarius detects an invalid prefix in the entered input.
+  * 1b1. Notarius displays the error message.
+  * 1b2. User re-enters a new command with a specified prefix.
+  * Steps 1b1 - 1b2 are repeated until a valid field is input by the User.
+  * Use case resumes from step 2.
+
+* 1c. User enters extra spaces or invalid formatting in the entered input.
+  * 1c1. Notarius displays an error message.
+  * 1c2. User re-enters a new command with properly formatted command.
+  * Steps 1c1 - 1c2 are repeated until a valid command is input by the User.
+  * Use case resumes from step 2.
+
+**System**: `Notarius`
+
+**Actor**: `User`
+
+**Use Case**: `UC09 - Clearing the contacts list`
+
+**Guarantees**: `If MSS reaches step 3, the user has successfully cleared the contacts list.`
+
+**MSS**:
+
+1. User requests to clear the data in the contacts list.
+2. Notarius updates the data in the contacts list.
+3. Notarius confirms that the data in the contacts list has been cleared.
+
+   Use case ends.
+
+**System**: `Notarius`
+
+**Actor**: `User`
+
+**Use Case**: `UC10 - Listing all contacts`
+
+**Guarantees**: `If MSS reaches step 3, the user has successfully listed all the contacts.`
+
+**MSS**:
+
+1. User requests to list all contacts.
+2. Notarius displays all relevant contacts.
+3. Notarius confirms that all relevant contacts has been successfully listed.
+
+   Use case ends.
+
+
 ### Non-Functional Requirements
 
 1. Should work on any _mainstream OS_ as long as it has Java `17` or above installed.
