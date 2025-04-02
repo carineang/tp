@@ -81,6 +81,10 @@ public class HelpCommand extends Command {
             return new CommandResult(SHOWING_HELP_MESSAGE, true, false);
         } else {
             String helpMessage = COMMAND_HELP.get(commandName);
+
+            // position of the commit does not matter
+            model.commitAddressBook();
+
             if (helpMessage != null) {
                 return new CommandResult(helpMessage);
             } else {
