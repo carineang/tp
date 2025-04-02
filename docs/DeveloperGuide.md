@@ -170,6 +170,21 @@ The `list` command enables users to view all existing contacts from Notarius.
 4. The `execute` method of the `ListCommand` object returns a `CommandResult` object which stores the data regarding
 the completion of the `list` command.
 
+### Clear feature
+
+The `clear` command enables users to remove all existing contacts from Notarius.
+
+![Clear Sequence Diagram](images/ClearCommandSequenceDiagram.png)
+
+#### Implementation
+
+1. The user inputs the command to clear all contacts.
+2. A `LogicManager` object invokes the `execute` method of a `ClearCommand` object.
+3. The `execute` method of the `ClearCommand` object invokes the `setAddressBook` and `commitAddressBook` method 
+of its `Model` argument with a new `AddressBook` object which contains an empty `UniquePersonList` property.
+4. The `execute` method of the `ClearCommand` object returns a `CommandResult` object which stores the data regarding 
+the completion of the `clear` command.
+
 
 ### \[Proposed\] Undo/redo feature
 
