@@ -1,9 +1,9 @@
 package seedu.address.model;
 
-import seedu.address.model.person.Person;
-
 import java.util.Objects;
 import java.util.function.Predicate;
+
+import seedu.address.model.person.Person;
 
 public class ModelState {
     private final ReadOnlyAddressBook addressBookState;
