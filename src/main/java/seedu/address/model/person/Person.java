@@ -84,7 +84,9 @@ public class Person {
         return note;
     }
 
-    public Pin getPin() { return pin; }
+    public Pin getPin() {
+        return pin;
+    }
 
     /**
      * Returns an immutable tag set, which throws {@code UnsupportedOperationException}
