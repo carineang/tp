@@ -230,7 +230,9 @@ public class ModelManager implements Model {
     @Override
     public void commitAddressBook() {
         addressBook.commit();
+
         // commit current predicate
+        removeAheadCurrent();
         predicateHistory.add(currentPredicate);
         currentPredicatePointer += 1;
     }
@@ -250,8 +252,18 @@ public class ModelManager implements Model {
         updateFilteredPersonList(predicateHistory.get(currentPredicatePointer));
     }
 
+    /**
+     * Removes all states ahead of the current state
+     */
     private void removeAheadCurrent() {
+        int curSize = predicateHistory.size();
 
+        // remove AddressBooks ahead of the current book until none left
+        for (int i = currentPredicatePointer + 1; i < curSize; i++) {
+            predicateHistory.remove(currentPredicatePointer + 1);
+        }
+
+        assert currentPredicatePointer == predicateHistory.size() - 1;
     }
 
     @Override
@@ -271,12 +283,14 @@ public class ModelManager implements Model {
 
     @Override
     public boolean hasUndo() {
-        return addressBook.hasUndo();
+        return addressBook.hasUndo()
+                && currentPredicatePointer - 1 >= 0;
     }
 
     @Override
     public boolean hasRedo() {
-        return addressBook.hasRedo();
+        return addressBook.hasRedo()
+                && currentPredicatePointer + 1 < predicateHistory.size();
     }
 
     @Override
@@ -294,6 +308,9 @@ public class ModelManager implements Model {
         return addressBook.equals(otherModelManager.addressBook)
                 && userPrefs.equals(otherModelManager.userPrefs)
                 //&& filteredPersons.equals(otherModelManager.filteredPersons);
-                && sortedFilteredPersons.equals(otherModelManager.sortedFilteredPersons);
+                && sortedFilteredPersons.equals(otherModelManager.sortedFilteredPersons)
+                && currentPredicate.equals(otherModelManager.currentPredicate)
+                && currentPredicatePointer == otherModelManager.currentPredicatePointer
+                && predicateHistory.equals(otherModelManager.predicateHistory);
     }
 }
