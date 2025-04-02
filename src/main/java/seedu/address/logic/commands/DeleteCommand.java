@@ -91,8 +91,6 @@ public class DeleteCommand extends Command {
 
         Collections.reverse(deletedPersons);
 
-        model.commit();
-
         return new CommandResult(String.format(MESSAGE_DELETE_PERSON_SUCCESS, Messages.format(deletedPersons)));
     }
 

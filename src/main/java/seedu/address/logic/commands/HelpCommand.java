@@ -78,12 +78,6 @@ public class HelpCommand extends Command {
      */
     public CommandResult execute(Model model) {
 
-        // position of the commit does not matter since help
-        // command does not modify the address book
-        // so put the commit before all the statements
-        // if in the future it does modify then, can put the commit to after its modified
-        model.commit();
-
         if (commandName == null) {
             return new CommandResult(SHOWING_HELP_MESSAGE, true, false);
         } else {
