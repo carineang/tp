@@ -204,7 +204,7 @@ public class AddCommandTest {
         }
 
         @Override
-        public boolean addressBookHasUndo() {
+        public boolean hasUndo() {
             return false;
         }
 

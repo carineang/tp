@@ -270,7 +270,7 @@ public class ModelManager implements Model {
     }
 
     @Override
-    public boolean addressBookHasUndo() {
+    public boolean hasUndo() {
         return addressBook.hasUndo();
     }
 

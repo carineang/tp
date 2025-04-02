@@ -253,24 +253,24 @@ public class ModelManagerTest {
     }
 
     @Test
-    public void addressBookHasUndo_hasUndo_success() {
+    public void hasUndo_hasUndo_success() {
         AddressBook addressBook = new AddressBookBuilder().build();
         modelManager = new ModelManager(addressBook, new UserPrefs());
         modelManager.addPerson(CARL);
         modelManager.commitAddressBook();
-        assertTrue(modelManager.addressBookHasUndo());
+        assertTrue(modelManager.hasUndo());
     }
 
     @Test
-    public void addressBookHasUndo_hasNoUndo_success() {
+    public void hasUndo_hasNoUndo_success() {
         AddressBook addressBook = new AddressBookBuilder().build();
         modelManager = new ModelManager(addressBook, new UserPrefs());
-        assertFalse(modelManager.addressBookHasUndo());
+        assertFalse(modelManager.hasUndo());
 
         modelManager.addPerson(CARL);
         modelManager.commitAddressBook();
         modelManager.undo();
-        assertFalse(modelManager.addressBookHasUndo());
+        assertFalse(modelManager.hasUndo());
 
     }
 
