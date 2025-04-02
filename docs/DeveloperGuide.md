@@ -155,6 +155,22 @@ Classes used by multiple components are in the `seedu.address.commons` package.
 
 This section describes some noteworthy details on how certain features are implemented.
 
+### List feature
+
+The `list` command enables users to view all existing contacts from Notarius.
+
+![List Sequence Diagram](images/ListCommandSequenceDiagram.png)
+
+#### Implementation
+
+1. The user inputs the command to list all contacts.
+2. A `LogicManager` object invokes the `execute` method of a `ListCommand` object.
+3. The `execute` method of the `ListCommand` object invokes the `updateFilteredPersonList` and
+`commitAddressBook` method of its `Model` to update and show all contacts.
+4. The `execute` method of the `ListCommand` object returns a `CommandResult` object which stores the data regarding
+the completion of the `list` command.
+
+
 ### \[Proposed\] Undo/redo feature
 
 #### Proposed Implementation
