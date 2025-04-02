@@ -411,8 +411,7 @@ Priorities: High (must have) - `* * *`, Medium (nice to have) - `* *`, Low (unli
 1. User requests to list contacts.
 2. Notarius displays a list of contacts.
 3. User requests to delete specific contacts in the list.
-4. Notarius deletes the contacts and confirms that the contacts has been deleted.
-
+4. Notarius deletes the contacts and confirms that the contacts have been deleted.
    Use case ends.
 
 **Extensions**:
