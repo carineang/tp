@@ -5,6 +5,9 @@ import java.util.function.Predicate;
 
 import seedu.address.model.person.Person;
 
+import static java.util.Objects.requireNonNull;
+import static seedu.address.commons.util.CollectionUtil.requireAllNonNull;
+
 /**
  * State of the model that contains the state of the
  * address book and the predicate of the filtered list in the model
@@ -17,6 +20,8 @@ public class ModelState {
      * Creates a ModelState using an address book and a predicate
      */
     public ModelState(ReadOnlyAddressBook addressBook, Predicate<Person> predicate) {
+        requireAllNonNull(addressBook, predicate);
+
         addressBookState = addressBook;
         predicateState = predicate;
     }

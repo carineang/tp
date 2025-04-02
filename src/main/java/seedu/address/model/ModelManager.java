@@ -190,6 +190,7 @@ public class ModelManager implements Model {
     @Override
     public void updateFilteredPersonList(Predicate<Person> predicate) {
         requireNonNull(predicate);
+
         currentPredicate = predicate;
         filteredPersons.setPredicate(predicate);
     }
@@ -229,6 +230,7 @@ public class ModelManager implements Model {
     @Override
     public void updateSortedFilteredPersonList(String... prefix) {
         requireNonNull(prefix);
+
         filteredPersons.setPredicate(currentPredicate);
         FilteredPersonList filteredPersonList = new FilteredPersonList(filteredPersons);
         filteredPersonList.sortByFilteredList(prefix);
@@ -257,6 +259,7 @@ public class ModelManager implements Model {
 
         // get state
         ModelState pastState = stateHistory.get(currentStatePointer);
+        requireNonNull(pastState);
 
         // set state
         addressBook.resetData(pastState.getAddressBookState());
@@ -275,6 +278,7 @@ public class ModelManager implements Model {
 
         // get state
         ModelState nextState = stateHistory.get(currentStatePointer);
+        requireNonNull(nextState);
 
         // set state
         addressBook.resetData(nextState.getAddressBookState());
