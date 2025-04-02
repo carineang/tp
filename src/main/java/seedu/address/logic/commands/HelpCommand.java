@@ -77,13 +77,14 @@ public class HelpCommand extends Command {
      *         or an error message for an unknown command.
      */
     public CommandResult execute(Model model) {
+
+        // position of the commit does not matter
+        model.commitAddressBook();
+
         if (commandName == null) {
             return new CommandResult(SHOWING_HELP_MESSAGE, true, false);
         } else {
             String helpMessage = COMMAND_HELP.get(commandName);
-
-            // position of the commit does not matter
-            model.commitAddressBook();
 
             if (helpMessage != null) {
                 return new CommandResult(helpMessage);
