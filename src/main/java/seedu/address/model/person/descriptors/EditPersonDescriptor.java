@@ -110,9 +110,13 @@ public class EditPersonDescriptor {
         return Optional.ofNullable(note);
     }
 
-    public void setPin(Pin pin) { this.pin = pin; }
+    public void setPin(Pin pin) {
+        this.pin = pin;
+    }
 
-    public Optional<Pin> getPin() { return Optional.ofNullable(pin); }
+    public Optional<Pin> getPin() {
+        return Optional.ofNullable(pin);
+    }
 
     /**
      * Creates and returns a {@code Person} with the details of {@code personToEdit}
