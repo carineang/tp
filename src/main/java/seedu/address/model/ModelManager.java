@@ -4,6 +4,7 @@ import static java.util.Objects.requireNonNull;
 import static seedu.address.commons.util.CollectionUtil.requireAllNonNull;
 
 import java.nio.file.Path;
+import java.util.ArrayList;
 import java.util.function.Predicate;
 import java.util.logging.Logger;
 
@@ -28,6 +29,7 @@ public class ModelManager implements Model {
     private final ObservableList<Person> personList;
     private final SortedList<Person> sortedFilteredPersons;
     private Predicate<Person> currentPredicate;
+    private final ArrayList<Predicate<Person>> predicateHistory;
 
 
     /**
@@ -44,6 +46,7 @@ public class ModelManager implements Model {
         pastCommands = new InputHistory();
         this.personList = addressBook.getPersonList();
         sortedFilteredPersons = new SortedList<>(filteredPersons);
+        predicateHistory = new ArrayList<>();
     }
 
     /**
@@ -175,7 +178,8 @@ public class ModelManager implements Model {
     @Override
     public void updateFilteredPersonList(Predicate<Person> predicate) {
         requireNonNull(predicate);
-        this.currentPredicate = predicate;
+        predicateHistory.add(currentPredicate);
+        currentPredicate = predicate;
         filteredPersons.setPredicate(predicate);
     }
 
