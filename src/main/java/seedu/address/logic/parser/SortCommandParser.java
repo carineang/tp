@@ -118,11 +118,7 @@ public class SortCommandParser implements Parser<SortCommand> {
      * @throws ParseException If the length of prefixes is not 2 or if the second prefix is invalid.
      */
     private void checkForPrefixesLength(String[] prefixes) throws ParseException {
-        if (prefixes.length == 2) {
-            if (!isValidPrefix(prefixes[1])) {
-                throw new ParseException(String.format(MESSAGE_INVALID_COMMAND_FORMAT, SortCommand.MESSAGE_USAGE));
-            }
-        } else {
+        if (prefixes.length > 2) {
             throw new ParseException("Invalid number of prefixes.");
         }
     }

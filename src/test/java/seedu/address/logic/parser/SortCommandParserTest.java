@@ -135,11 +135,20 @@ public class SortCommandParserTest {
 
     @Test
     public void parse_invalidTwoPrefix_throwsParseException() {
-        String input = "n/ x/";
+        String input = "a/ b/";
         ParseException exception = assertThrows(ParseException.class, () -> {
             parser.parse(input);
         });
         assertEquals(String.format(MESSAGE_INVALID_COMMAND_FORMAT, SortCommand.MESSAGE_USAGE), exception.getMessage());
+    }
+
+    @Test
+    public void parse_duplicateThreeTagPrefixes_throwsParseException() {
+        String input = "t/ t/ t/";
+        ParseException exception = assertThrows(ParseException.class, () -> {
+            parser.parse(input);
+        });
+        assertEquals("Invalid number of prefixes.", exception.getMessage());
     }
 
 }
