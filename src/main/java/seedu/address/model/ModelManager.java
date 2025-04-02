@@ -24,7 +24,7 @@ public class ModelManager implements Model {
     private final VersionedAddressBook addressBook;
     private final UserPrefs userPrefs;
     private final FilteredList<Person> filteredPersons;
-    private final InputHistory pastCommands;
+    private final CommandHistory pastCommands;
     private final ObservableList<Person> personList;
     private final SortedList<Person> sortedFilteredPersons;
     private Predicate<Person> currentPredicate;
@@ -41,7 +41,7 @@ public class ModelManager implements Model {
         this.addressBook = new VersionedAddressBook(addressBook);
         this.userPrefs = new UserPrefs(userPrefs);
         filteredPersons = new FilteredList<>(this.addressBook.getPersonList());
-        pastCommands = new InputHistory();
+        pastCommands = new CommandHistory();
         this.personList = addressBook.getPersonList();
         sortedFilteredPersons = new SortedList<>(filteredPersons);
     }
@@ -185,7 +185,7 @@ public class ModelManager implements Model {
     }
 
     @Override
-    public ObservableList<String> getCommandInputHistoryList() {
+    public ObservableList<String> getCommandHistoryList() {
         return pastCommands.getPastCommands();
     }
 

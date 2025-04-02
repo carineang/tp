@@ -76,7 +76,7 @@ public class LogicManager implements Logic {
 
     @Override
     public ObservableList<String> getCommandHistoryList() {
-        return model.getCommandInputHistoryList();
+        return model.getCommandHistoryList();
     }
 
 
