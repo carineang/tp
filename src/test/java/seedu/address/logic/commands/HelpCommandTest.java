@@ -1,11 +1,16 @@
 package seedu.address.logic.commands;
 
+import static org.junit.jupiter.api.Assertions.assertDoesNotThrow;
+import static org.junit.jupiter.api.Assertions.assertThrows;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 import static seedu.address.logic.commands.CommandTestUtil.assertCommandSuccess;
 import static seedu.address.logic.commands.HelpCommand.SHOWING_HELP_MESSAGE;
+import static seedu.address.testutil.TypicalIndexes.INDEX_FIRST_PERSON;
+import static seedu.address.testutil.TypicalPersons.BENSON;
 
 import org.junit.jupiter.api.Test;
 
+import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.model.Model;
 import seedu.address.model.ModelManager;
 
@@ -44,5 +49,19 @@ public class HelpCommandTest {
 
         CommandResult result = helpCommand.execute(model);
         assertTrue(result.getFeedbackToUser().contains(expectedFeedback));
+    }
+
+    @Test
+    public void execute_undoCommand_success() {
+        Model blankModel = new ModelManager();
+
+        HelpCommand helpCommand = new HelpCommand();
+
+        // should only undo helpCommand
+        assertDoesNotThrow(() -> helpCommand.execute(blankModel));
+        blankModel.undoAddressBook();
+
+        // Nothing to undo
+        assertThrows(IndexOutOfBoundsException.class, () -> blankModel.undoAddressBook());
     }
 }
