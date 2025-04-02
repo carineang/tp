@@ -1,12 +1,12 @@
 package seedu.address.model;
 
+import static seedu.address.commons.util.CollectionUtil.requireAllNonNull;
+
 import java.util.Objects;
 import java.util.function.Predicate;
 
 import seedu.address.model.person.Person;
 
-import static java.util.Objects.requireNonNull;
-import static seedu.address.commons.util.CollectionUtil.requireAllNonNull;
 
 /**
  * State of the model that contains the state of the

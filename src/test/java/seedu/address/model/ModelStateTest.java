@@ -1,18 +1,12 @@
 package seedu.address.model;
 
-import org.junit.jupiter.api.Test;
-import seedu.address.model.person.NameContainsKeywordsPredicate;
-import seedu.address.model.person.Note;
-import seedu.address.testutil.AddressBookBuilder;
-
-import java.nio.file.Paths;
-import java.util.Arrays;
-
 import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 import static seedu.address.model.Model.PREDICATE_SHOW_ALL_PERSONS;
 import static seedu.address.testutil.Assert.assertThrows;
 import static seedu.address.testutil.TypicalPersons.getTypicalAddressBook;
+
+import org.junit.jupiter.api.Test;
 
 public class ModelStateTest {
 
