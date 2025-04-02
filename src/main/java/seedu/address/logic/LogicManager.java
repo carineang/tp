@@ -53,9 +53,6 @@ public class LogicManager implements Logic {
         Command command = addressBookParser.parseCommand(commandText);
         commandResult = command.execute(model);
 
-        // saves the state of the model for undoing/redoing
-        model.commit();
-
         try {
             storage.saveAddressBook(model.getAddressBook());
         } catch (AccessDeniedException e) {

@@ -57,7 +57,6 @@ public class HelpCommandTest {
 
         // should only undo helpCommand
         assertDoesNotThrow(() -> helpCommand.execute(blankModel));
-        blankModel.commit();
         blankModel.undo();
 
         // Nothing to undo

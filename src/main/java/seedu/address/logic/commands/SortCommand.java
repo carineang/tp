@@ -55,6 +55,8 @@ public class SortCommand extends Command {
         model.updateSortedPersonList(prefixes);
         model.updateSortedFilteredPersonList(prefixes);
 
+        model.commit();
+
         logger.info("SortCommand execution completed. List sorted by: " + prefixes);
 
         return new CommandResult(MESSAGE_SORT_SUCCESSFUL);
