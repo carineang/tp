@@ -162,21 +162,49 @@ This section describes some noteworthy details on how certain features are imple
 
 The `delete` command allows the user to delete specified client contact(s) from Notarius.
 
+The sequence diagram below models the different components of the application that are involved 
+when the user executes the `delete` command.
 ![DeleteSequenceDiagram](images/DeleteSequenceDiagram.png)
 
 #### Details
 
+1. The user executes a command to delete a contact by specifying the contact's index.
+2. The `LogicManager` receives the command and calls `AddressBookParser#parseCommand` to parse the command.
+3. The `AddressBookParser` creates a `DeleteCommandParser` object, which creates a `MassOpsIndexParser` object for parsing multiple indexes.
+4. The `AddressBookParser` then calls the `parse` method of the newly created `DeleteCommandParser` object.
+5. If the delete method specifies the `i/` prefix with the corresponding value being either a ranged format (`startIndex-endIndex`) or spaced format (`index1 index2 ... indexN`), the `parse` method of `MassOpsIndexParser` will be called to parse the indexes.
+6. A new `DeleteCommand` object is created with the returned set of unique indexes from the parser, and gets returned back to the `LogicManager`.
+7. The `LogicManager` calls the `execute` method of the `DeleteCommand` object.
+8. The `DeleteCommand` object calls the `Model#deletePerson` method for each of the set of unique indexes in decreasing order of the index's `zeroBasedIndex`.
+9. After all `indexes` specified have been deleted, `Model#commitAddressBook` is called on the `Model` argument to save the changes made to the list of persons in the addressbook.
+
 #### Usage Examples
+
+1. User starts Notarius
+2. User executes `delete i/1-3`
+3. The client contacts with indexes 1, 2 and 3 will be deleted from Notarius. This change should be reflected in the client contact list.
+
+**Aspect: How to implement the delete command**
+
+* **Alternative 1 (current choice):** Support deletion of multiple client contacts and intuitive delete formats
+  * Pros: Intuitive to use, and improved user-friendliness. Users do not have to repeatedly type the same command to delete clients one-by-one.
+  * Cons: More complicated to implement, due to the need of parsing multiple indexes, ignoring duplicates, and ensuring valid parsing according to the multiple specified formats.
+
+* **Alternative 2:** Support deletion of only one client contact at a time using a single format
+  * Pros: Simpler to implement, as the command will only need to parse one index.
+  * Cons: Less user-friendly, as users will have to spend more time and trouble to repeatedly type the same command to delete potentially many clients one-by-one.
+
 
 ### Command history
 
 The command history allows the user to re-access previously entered commands quickly.
 
-#### Saving command inputs
 
 The following sequence diagram models the interaction within the `Model` component called by `LogicManager#execute`
-when the user executes a command.
+when the user executes a command to **save command inputs**.
 ![AddCommandHistorySequenceDiagram](images/AddCommandHistorySequenceDiagram.png)
+
+#### Details
 
 1. When a user enters a non-empty command, the `ModelManager#addPastCommandInput` method will be called when the command text in `LogicManager` component is non-empty.
 2. The `ModelManager` calls `CommandHistory#addInput` and passes the non-empty command text as argument.
@@ -186,18 +214,21 @@ when the user executes a command.
 
 Note that `pastCommands` is an `ObservableList` sorted from most to least recent at the tail of the list.
 
+<br>
 
-#### Re-accessing previous commands
-
-The following sequence diagram models a user moving up the command history selection.
+The following sequence diagram models the main components involved when a user moves up the command history selection 
+using the `Ctrl + Up` key combinations on Windows (or `Ctrl + Opt + Up` on macOS), to **re-access previous commands**.
 ![CommandHistorySequenceDiagram](images/CommandHistorySequenceDiagram.png)
 
-1. The user presses `Ctrl + Up` on Windows (or `Ctrl + Opt + Up` on macOS)
-2. An event listener for this key press event calls `handleMovementUp` method of the `CommandHistoryMenu`
-3. The `CommandHistoryMenu` object calls `moveUp` of it's internal `CommandHistoryController` to handle the logic
+#### Details
+1. When the user presses `Ctrl + Up`, the subscribed for the `EventHandler<KeyEvent>` JavaFX listener will be called.
+2. The listener then calls `handleMovementUp` method of the `CommandHistoryMenu` in the Ui module.
+3. The `CommandHistoryMenu` object calls the `moveUp` method of an internal `CommandHistoryMenuController` object to handle the logic
 of decrementing the index.
-4. The `CommandHistoryMenu` object then gets a result of this selection update by calling `CommandHistoryController#getCommandSelectionIndex`
-5. If the index is present within this result, then the `CommandHistoryMenu` object gets the `SelectionModel` for rendering the given list cell and calls it's `select` method with the index passed as argument.
+4. In `moveUp` then sets the current input of the `CommandBox` object through a call to `CommandBox#setCommandTextField` with the selected previous command.
+5. The `CommandHistoryMenu` object then gets a result of this selection update by calling `CommandHistoryMenuController#getCommandSelectionIndex`
+6. If the index is present within this result, the `CommandHistoryMenu` object gets the `SelectionModel` for rendering the given list cell of `ListView`
+7. The `select` method of the `SelectionModel` object is then called with the index passed as argument.
 
 
 #### Usage Examples
@@ -731,22 +762,75 @@ testers are expected to do more *exploratory* testing.
 
 1. _{ more test cases …​ }_
 
-### Deleting a person
+### Deleting client contacts
 
-1. Deleting a person while all persons are being shown
+Each test case in this feature section (labelled "Test case") should be independent.
 
-   1. Prerequisites: List all persons using the `list` command. Multiple persons in the list.
+1. Deleting a single client contact while all persons are being shown
 
-   1. Test case: `delete 1`<br>
-      Expected: First contact is deleted from the list. Details of the deleted contact shown in the status message. Timestamp in the status bar is updated.
+   1. Prerequisites for each test case: List all persons using the `list` command. There should be **at least** 6 contacts in the list. Otherwise, use the `add` command to add more client contacts. Take note that duplicate names (ignoring letter casing) are not allowed in Notarius.
 
-   1. Test case: `delete 0`<br>
+   2. Test case: `delete 1`<br>
+      Expected: First client contact is deleted from the list. Details of the deleted contact shown in the status message. Timestamp in the status bar is updated.
+
+   3. Test case: `delete 0`<br>
       Expected: No person is deleted. Error details shown in the status message. Status bar remains the same.
 
-   1. Other incorrect delete commands to try: `delete`, `delete x`, `...` (where x is larger than the list size)<br>
+   4. Other incorrect delete commands to try: `delete`, `delete x`, `...` (where x is larger than the list size)<br>
       Expected: Similar to previous.
+   
+2. Deleting consecutive client contacts while all persons are being shown
 
-1. _{ more test cases …​ }_
+   1. Prerequisites for each test case: List all persons using the `list` command, ensuring that there are **exactly** 6 contacts in the list. Otherwise, use the `add` command to add more client contacts. Take note that duplicate names (ignoring letter casing) are not allowed in Notarius.
+
+   1. Test case: `delete i/1-3`<br>
+      Expected: First three client contacts are deleted from the list. Details of the deleted contacts shown in the status message. Timestamp in the status bar is updated.
+   
+   1. Test case: `delete  i/1-1`<br>
+      Expected: First client contact is deleted from the list. Details of the deleted contact shown in the status message. Timestamp in the status bar is updated.
+
+   1. Test case: `delete i/0-2`<br>
+      Expected: No person is deleted. Error details shown in the status message. Status bar remains the same.
+   
+   1. Test case: `delete i/1-9`<br>
+      Expected: No person is deleted. Error details shown in the status message. Status bar remains the same.
+
+   1. Test case: `delete i/6-1`<br>
+      Expected: No person is deleted. Error details shown in the status message. Status bar remains the same.
+
+3. Deleting the first and last client contact in the contact list while all client contacts are shown.
+
+   1. Prerequisites for each test case: List all persons using the `list` command, ensuring that there are **exactly** 6 contacts in the list. Otherwise, use the `add` command to add more client contacts. Take note that duplicate names (ignoring letter casing) are not allowed in Notarius.
+
+   1. Test case: `delete i/1 6`<br>
+      Expected: First and last client contacts are deleted from the list. Details of the deleted contacts shown in the status message. Timestamp in the status bar is updated.
+   
+   1. Test case: `delete i/1 1 6 6 6`<br>
+      Expected: First and last client contacts are deleted from the list. Details of the deleted contacts shown in the status message. Timestamp in the status bar is updated.
+   
+   1. Test case: `delete i/0 7`<br>
+      Expected: No person is deleted. Error details shown in the status message. Status bar remains the same.
+
+### Command history
+
+Each test case in this feature section (labelled "Test case") should be independent.<br>
+**Important**: For the key combinations specified, macOS users should use `Ctrl + Opt + Up`/`Ctrl + Opt + Down` respectively instead of `Ctrl + Up`/`Ctrl + Down`.
+
+1. Saving command history
+
+   1. Prerequisites for each test case: 
+        * No command should be entered into the command box yet (and thus the command history should be empty). Otherwise, relaunch the application.
+        * There should be **exactly** 6 contacts in the list. Otherwise, use the `add` command to add more client contacts. Take note that duplicate names (ignoring letter casing) are not allowed in Notarius.
+        * **None** of the contacts should have a name equal to "notarius", **ignoring** letter casing. Otherwise, delete that contact using `delete` and add a new contact that does not have a duplicate name.
+
+   1. Test case: `delete 1`<br>
+      Expected: The command history is updated with the command text "delete 1". The command history is displayed when the user presses `Ctrl + Up` or `Ctrl + Down`.
+
+   1. Test case: `delete 1` followed by `add n/notarius p/1231 e/test@email.com a/blk 123 abc`<br>
+      Expected: The command history is updated with the command texts `add n/notarius p/1231 e/test@email.com a/blk 123 abc` at the top of the command history list and `delete 1` below it. The command history is displayed when the user presses `Ctrl + Up` or `Ctrl + Down`, and selection changes when pressing `Ctrl + Up` or `Ctrl + Down` again. When the selection changes, the command text in the command box is updated to the selected command.
+
+   1. Test case: `list` followed by `list`<br>
+      Expected: The command history is updated with the command text "list", but only once with no **consecutive** duplicates. The command history is displayed when the user presses `Ctrl + Up` or `Ctrl + Down`.
 
 ### Saving data
 
