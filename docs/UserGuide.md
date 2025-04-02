@@ -227,16 +227,15 @@ Format: `list`
 
 #### Editing a client contact : `edit`
 
-Edits an existing contact in the address book.
+Updates an existing client contact in the address book.
 
 Format: `edit INDEX [n/NAME] [p/PHONE] [e/EMAIL] [a/ADDRESS] [t/TAG] [t/ADDITIONAL TAG]…​`
 
-* Edits the contact at the specified `INDEX`. The index refers to the index number shown in the displayed person list. The index **must be a positive integer** 1, 2, 3, …​
-* At least one of the optional fields must be provided.
-* Existing values will be updated to the input values.
-* When editing tags, the existing tags of the contact will be removed i.e adding of tags is not cumulative.
-* You can remove all the contact’s tags by typing `t/` without
-  specifying any tags after it.
+* Edits the client contact at the specified `INDEX`. The index refers to the index number shown in the displayed person list. The index **must be a positive integer** 1, 2, 3, …​
+* You must provide at least one of the optional details to update.
+* Any details you change will replace the old ones.
+* If you edit tags, the old tags are removed and replaced with the new ones.
+* To remove all tags, you can type t/ without adding any tag name after it.
 
 Examples:
 *  `edit 1 p/91234567 e/johndoe@example.com` Edits the phone number and email address of the 1st contact to be `91234567` and `johndoe@example.com` respectively.
