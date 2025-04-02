@@ -18,15 +18,15 @@ import seedu.address.model.Model;
  */
 public class SortCommand extends Command {
     public static final String COMMAND_WORD = "sort";
-    public static final String MESSAGE_USAGE = COMMAND_WORD + ": Sort all persons by the attribute specified "
-            + "and displays them as a list with index numbers.\n"
+    public static final String MESSAGE_USAGE = COMMAND_WORD + ": Sort all persons by specified prefix. "
             + "Acceptable prefixes: "
             + "[" + PREFIX_NAME + "] "
             + "[" + PREFIX_PHONE + "] "
             + "[" + PREFIX_EMAIL + "] "
             + "[" + PREFIX_ADDRESS + "] "
             + "[" + PREFIX_TAG + "] \n"
-            + "Example: " + COMMAND_WORD + " " + PREFIX_NAME;
+            + "Example: " + COMMAND_WORD + " " + PREFIX_NAME + " or " + COMMAND_WORD + " " + PREFIX_TAG
+            + " " + PREFIX_NAME;
     private static final Logger logger = Logger.getLogger(SortCommand.class.getName());
     private final String[] prefixes;
 
