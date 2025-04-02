@@ -211,6 +211,9 @@ public class MainWindow extends UiPart<Stage> {
                 handleExit();
             }
 
+            // clears the person details since the list may have changed
+            personDetailPlaceholder.getChildren().clear();
+
             return commandResult;
         } catch (CommandException | ParseException e) {
             logger.info("An error occurred while executing command: " + commandText);
