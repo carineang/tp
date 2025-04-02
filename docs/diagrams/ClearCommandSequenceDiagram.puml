@@ -15,7 +15,7 @@ activate LogicManager
 
 
 
-LogicManager -> ClearCommand : execute(...)
+LogicManager -> ClearCommand : execute(m)
 activate ClearCommand
 
 
@@ -38,9 +38,9 @@ activate CommandResult
 CommandResult --> ClearCommand : return CommandResult
 deactivate CommandResult
 
-ClearCommand --> LogicManager : result
+ClearCommand --> LogicManager : return CommandResult
 deactivate ClearCommand
 
-[<--LogicManager
+[<--LogicManager : return CommandResult
 deactivate LogicManager
 @enduml

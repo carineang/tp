@@ -176,7 +176,9 @@ the completion of the `list` command.
 
 The `clear` command enables users to remove all existing contacts from Notarius.
 
-![Clear Sequence Diagram](images/ClearCommandSequenceDiagram.png)
+<p align="center">
+  <img src="images/ClearCommandSequenceDiagram.png" alt="Ui" />
+</p>
 
 #### Implementation
 
