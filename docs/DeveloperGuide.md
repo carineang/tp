@@ -665,6 +665,61 @@ testers are expected to do more *exploratory* testing.
 
 1. _{ more test cases …​ }_
 
+### Sorting contacts list
+
+Prerequisites: The contacts list should contain some contacts for testing purposes. <br>
+  `add n/Alex Yeoh p/87438807 e/alexyeoh@example.com a/Blk 30 Geylang Street 29, #06-40 t/Client t/Friend`<br>
+  `add n/Bernice Yu p/99272758 e/berniceyu@example.com a/Blk 30 Lorong 3 Serangoon Gardens, #07-18 t/Client t/Friend`<br>
+  `add n/Charlotte Oliveiro p/93210283 e/charlotte@example.com a/Blk 11 Ang Mo Kio Street 74, #11-04 t/Lawyer`<br>
+  `add n/David Li p/91031282 e/lidavid@example.com a/Blk 436 Serangoon Gardens Street 26, #16-43 t/Lawyer` <br>
+  `add n/Irfan Ibrahim p/92492021 e/irfan@example.com a/Blk 47 Tampines Street 20, #17-35 t/Lawyer t/Colleagues` <br>
+  `add n/Roy Balakrishnan p/92624417 e/royb@example.com a/Blk 45 Aljunied Street 85, #11-31 t/Colleagues`
+
+1. Sorting contacts by names
+
+   1. Test case: `sort n/`<br>
+      Expected: Displays all contacts sorted by names in ascending order.
+
+2. Sorting contacts by phone numbers
+
+   1. Test case: `sort p/`<br>
+      Expected: Displays all contacts sorted by phone numbers in ascending order.   
+
+3. Sorting contacts by email addresses
+
+   1. Test case: `sort e/`<br>
+      Expected: Displays all contacts sorted by email addresses in ascending order.
+
+4. Sorting contacts by addresses
+
+   1. Test case: `sort a/`<br>
+      Expected: Displays all contacts sorted by addresses in ascending order.
+
+5. Sorting contacts by tags
+
+   1. Test case: `sort t/`<br>
+      Expected: Displays all contacts sorted by tags in ascending order.
+
+6. Sorting contacts by tags and names
+
+   1. Test case: `sort t/ n/`<br>
+      Expected: Displays all contacts sorted by tags, followed by names in ascending order.
+
+7. Sorting contacts by tags and phone numbers
+
+   1. Test case: `sort t/ p/`<br>
+      Expected: Displays all contacts sorted by tags, followed by phone numbers in ascending order.
+
+7. Sorting contacts by tags and email addresses
+
+   1. Test case: `sort t/ e/`<br>
+      Expected: Displays all contacts sorted by tags, followed by email addresses in ascending order.
+
+7. Sorting contacts by tags and addresses
+
+   1. Test case: `sort t/ a/`<br>
+      Expected: Displays all contacts sorted by tags, followed by addresses in ascending order.
+
 ### Saving data
 
 1. Dealing with missing/corrupted data files
