@@ -32,7 +32,6 @@ public class ModelManagerTest {
         assertEquals(new UserPrefs(), modelManager.getUserPrefs());
         assertEquals(new GuiSettings(), modelManager.getGuiSettings());
         assertEquals(new AddressBook(), new AddressBook(modelManager.getAddressBook()));
-        assertEquals(new AddressBook(), new AddressBook(modelManager.getAddressBook()));
     }
 
     @Test
@@ -377,6 +376,30 @@ public class ModelManagerTest {
 
         // different addressBook -> returns false
         assertFalse(modelManager.equals(new ModelManager(differentAddressBook, userPrefs)));
+
+        // different predicate -> returns false
+        ModelManager modelManagerCopy2 = new ModelManager(addressBook, userPrefs);
+        modelManagerCopy2.updateFilteredPersonList(p -> false);
+        assertFalse(modelManager.equals(modelManagerCopy2));
+
+        // different state pointer -> returns false
+        ModelManager modelManagerCopy3 = new ModelManager(addressBook, userPrefs);
+        ModelManager modelManagerCopy4 = new ModelManager(addressBook, userPrefs);
+        modelManagerCopy3.commit();
+        modelManagerCopy3.undo();
+        modelManagerCopy4.commit();
+        assertFalse(modelManagerCopy4.equals(modelManagerCopy3));
+
+        // different state history -> returns false
+        ModelManager modelManagerCopy5 = new ModelManager(addressBook, userPrefs);
+        ModelManager modelManagerCopy6 = new ModelManager(addressBook, userPrefs);
+        modelManagerCopy6.commit();
+        assertFalse(modelManagerCopy5.equals(modelManagerCopy6));
+        modelManagerCopy6.addPerson(DANIEL);
+        modelManagerCopy6.commit();
+        modelManagerCopy5.commit();
+        modelManagerCopy5.commit();
+        assertFalse(modelManagerCopy5.equals(modelManagerCopy6));
 
         // different filteredList -> returns false
         String[] keywords = ALICE.getName().fullName.split("\\s+");
