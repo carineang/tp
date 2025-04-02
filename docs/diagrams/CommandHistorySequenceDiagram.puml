@@ -4,15 +4,15 @@ skinparam ArrowFontStyle plain
 
 
 
-participant "root:Region" as Region UI_COLOR_T3
 
 box Ui UI_COLOR_T1
+participant "root:Region" as Region UI_COLOR_T3
 participant ":CommandHistoryMenu" as CommandHistoryMenu UI_COLOR
 participant ":CommandHistoryMenuController" as CommandHistoryMenuController UI_COLOR
-end box
-
 participant ":ListView" as ListView UI_COLOR_T3
 participant ":MultipleSelectionModel" as MultipleSelectionModel UI_COLOR_T3
+end box
+
 
 CommandHistoryMenu -> Region : setVisible(true)
 Region --> CommandHistoryMenu

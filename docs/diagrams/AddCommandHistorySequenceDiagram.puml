@@ -1,0 +1,47 @@
+@startuml
+!include style.puml
+skinparam ArrowFontStyle plain
+
+participant ":LogicManager" as LogicManager LOGIC_COLOR_T2
+[-> LogicManager : execute(...)
+activate LogicManager
+
+opt MODEL_COLOR_T1 command text is not blank
+
+box Model MODEL_COLOR_T1
+participant ":ModelManager" as ModelManager MODEL_COLOR_T2
+participant ":CommandHistory" as CommandHistory MODEL_COLOR_T2
+participant "pastCommands:ObservableList" as pastCommands MODEL_COLOR_T2
+
+LogicManager -> ModelManager : addPastCommandInput(commandText)
+activate ModelManager
+
+alt MODEL_COLOR_T1 pastCommands is empty
+
+else commandText equals previous saved entry
+
+else else
+
+ModelManager -> CommandHistory : addInput(commandText)
+activate CommandHistory
+
+CommandHistory -> pastCommands : size()
+opt MODEL_COLOR_T1 command history is full
+CommandHistory -> pastCommands : remove(last element)
+note right: remove earliest added command
+end
+
+CommandHistory -> pastCommands : add(0, commandText)
+CommandHistory --> ModelManager
+deactivate CommandHistory
+end
+
+LogicManager <-- ModelManager
+deactivate ModelManager
+end box
+
+end
+
+[<--LogicManager
+deactivate LogicManager
+@enduml

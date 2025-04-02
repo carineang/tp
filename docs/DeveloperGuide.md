@@ -161,9 +161,52 @@ This section describes some noteworthy details on how certain features are imple
 ### Delete feature
 
 The `delete` command allows the user to delete specified client contact(s) from Notarius.
+
+![DeleteSequenceDiagram](images/DeleteSequenceDiagram.png)
+
 #### Details
 
 #### Usage Examples
+
+### Command history
+
+The command history allows the user to re-access previously entered commands quickly.
+
+#### Saving command inputs
+
+The following sequence diagram models the interaction within the `Model` component called by `LogicManager#execute`
+when the user executes a command.
+![AddCommandHistorySequenceDiagram](images/AddCommandHistorySequenceDiagram.png)
+
+1. When a user enters a non-empty command, the `ModelManager#addPastCommandInput` method will be called when the command text in `LogicManager` component is non-empty.
+2. The `ModelManager` calls `CommandHistory#addInput` and passes the non-empty command text as argument.
+3. If the command history's most recently added command is `equal` to the command text argument, the command text is not re-added again.
+4. Otherwise, if the command history is currently full, with `MAX_HISTORY_SIZE` entries (set to 20), the earliest added command entry will be removed.
+5. The `CommandHistory` object will add the command to `pastCommands`.
+
+Note that `pastCommands` is an `ObservableList` sorted from most to least recent at the tail of the list.
+
+
+#### Re-accessing previous commands
+
+The following sequence diagram models a user moving up the command history selection.
+![CommandHistorySequenceDiagram](images/CommandHistorySequenceDiagram.png)
+
+1. The user presses `Ctrl + Up` on Windows (or `Ctrl + Opt + Up` on macOS)
+2. An event listener for this key press event calls `handleMovementUp` method of the `CommandHistoryMenu`
+3. The `CommandHistoryMenu` object calls `moveUp` of it's internal `CommandHistoryController` to handle the logic
+of decrementing the index.
+4. The `CommandHistoryMenu` object then gets a result of this selection update by calling `CommandHistoryController#getCommandSelectionIndex`
+5. If the index is present within this result, then the `CommandHistoryMenu` object gets the `SelectionModel` for rendering the given list cell and calls it's `select` method with the index passed as argument.
+
+
+#### Usage Examples
+1. User launches Notarius
+2. User enters a non-empty command.
+3. User re-accesses the previously entered command using the command history shortcuts:
+   * Windows/Linux: `Ctrl + Up`/`Ctrl + Down` to move up/down the selection.
+   * macOS: `Ctrl + Opt + Up`/ `Ctrl + Opt + Down` similarly.
+
 
 ### \[Proposed\] Undo/redo feature
 
