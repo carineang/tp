@@ -91,7 +91,7 @@ public class ModelManagerTest {
     @Test
     public void hasPerson_personInAddressBook_returnsTrue() {
         modelManager.addPerson(ALICE);
-        modelManager.commitAddressBook();
+        modelManager.commit();
         assertTrue(modelManager.hasPerson(ALICE));
     }
 
@@ -100,7 +100,7 @@ public class ModelManagerTest {
         AddressBook addressBook = new AddressBookBuilder().withPerson(ALICE).withPerson(BENSON).build();
         modelManager = new ModelManager(addressBook, new UserPrefs());
         modelManager.addPerson(CARL);
-        modelManager.commitAddressBook();
+        modelManager.commit();
         modelManager.undo();
     }
 
@@ -109,7 +109,7 @@ public class ModelManagerTest {
         AddressBook addressBook = new AddressBookBuilder().withPerson(ALICE).build();
         modelManager = new ModelManager(addressBook, new UserPrefs());
         modelManager.deletePerson(ALICE);
-        modelManager.commitAddressBook();
+        modelManager.commit();
         modelManager.undo();
     }
 
@@ -119,7 +119,7 @@ public class ModelManagerTest {
         Person editedAPerson = new PersonBuilder(ALICE).withName("a l i c e").build();
         modelManager = new ModelManager(addressBook, new UserPrefs());
         modelManager.setPerson(ALICE, editedAPerson);
-        modelManager.commitAddressBook();
+        modelManager.commit();
         modelManager.undo();
     }
 
@@ -128,7 +128,7 @@ public class ModelManagerTest {
         AddressBook addressBook = new AddressBookBuilder().withPerson(ALICE).build();
         modelManager = new ModelManager(addressBook, new UserPrefs());
         modelManager.pinPerson(ALICE);
-        modelManager.commitAddressBook();
+        modelManager.commit();
         modelManager.undo();
     }
 
@@ -137,7 +137,7 @@ public class ModelManagerTest {
         AddressBook addressBook = new AddressBookBuilder().withPerson(ALICE).withPerson(BENSON).build();
         modelManager = new ModelManager(addressBook, new UserPrefs());
         modelManager.addPerson(CARL);
-        modelManager.commitAddressBook();
+        modelManager.commit();
         modelManager.undo();
         modelManager.redo();
     }
@@ -147,7 +147,7 @@ public class ModelManagerTest {
         AddressBook addressBook = new AddressBookBuilder().withPerson(ALICE).build();
         modelManager = new ModelManager(addressBook, new UserPrefs());
         modelManager.deletePerson(ALICE);
-        modelManager.commitAddressBook();
+        modelManager.commit();
         modelManager.undo();
         modelManager.redo();
     }
@@ -158,7 +158,7 @@ public class ModelManagerTest {
         Person editedAPerson = new PersonBuilder(ALICE).withName("a l i c e").build();
         modelManager = new ModelManager(addressBook, new UserPrefs());
         modelManager.setPerson(ALICE, editedAPerson);
-        modelManager.commitAddressBook();
+        modelManager.commit();
         modelManager.undo();
         modelManager.redo();
     }
@@ -168,7 +168,7 @@ public class ModelManagerTest {
         AddressBook addressBook = new AddressBookBuilder().withPerson(ALICE).build();
         modelManager = new ModelManager(addressBook, new UserPrefs());
         modelManager.pinPerson(ALICE);
-        modelManager.commitAddressBook();
+        modelManager.commit();
         modelManager.undo();
         modelManager.redo();
     }
@@ -178,7 +178,7 @@ public class ModelManagerTest {
         AddressBook addressBook = new AddressBookBuilder().build();
         modelManager = new ModelManager(addressBook, new UserPrefs());
         modelManager.updateFilteredPersonList(PREDICATE_SHOW_ALL_PERSONS);
-        modelManager.commitAddressBook();
+        modelManager.commit();
         modelManager.undo();
     }
 
@@ -194,7 +194,7 @@ public class ModelManagerTest {
         AddressBook addressBook = new AddressBookBuilder().build();
         modelManager = new ModelManager(addressBook, new UserPrefs());
         modelManager.addPerson(CARL);
-        modelManager.commitAddressBook();
+        modelManager.commit();
         modelManager.undo();
         assertThrows(IndexOutOfBoundsException.class, () -> modelManager.undo());
     }
@@ -204,11 +204,11 @@ public class ModelManagerTest {
         AddressBook addressBook = new AddressBookBuilder().build();
         modelManager = new ModelManager(addressBook, new UserPrefs());
         modelManager.addPerson(CARL);
-        modelManager.commitAddressBook();
+        modelManager.commit();
         modelManager.deletePerson(CARL);
-        modelManager.commitAddressBook();
+        modelManager.commit();
         modelManager.addPerson(BENSON);
-        modelManager.commitAddressBook();
+        modelManager.commit();
         modelManager.undo();
         modelManager.undo();
         modelManager.undo();
@@ -227,7 +227,7 @@ public class ModelManagerTest {
         AddressBook addressBook = new AddressBookBuilder().build();
         modelManager = new ModelManager(addressBook, new UserPrefs());
         modelManager.addPerson(CARL);
-        modelManager.commitAddressBook();
+        modelManager.commit();
         modelManager.undo();
         modelManager.redo();
         assertThrows(IndexOutOfBoundsException.class, () -> modelManager.redo());
@@ -238,11 +238,11 @@ public class ModelManagerTest {
         AddressBook addressBook = new AddressBookBuilder().build();
         modelManager = new ModelManager(addressBook, new UserPrefs());
         modelManager.addPerson(CARL);
-        modelManager.commitAddressBook();
+        modelManager.commit();
         modelManager.deletePerson(CARL);
-        modelManager.commitAddressBook();
+        modelManager.commit();
         modelManager.addPerson(BENSON);
-        modelManager.commitAddressBook();
+        modelManager.commit();
         modelManager.undo();
         modelManager.undo();
         modelManager.undo();
@@ -257,7 +257,7 @@ public class ModelManagerTest {
         AddressBook addressBook = new AddressBookBuilder().build();
         modelManager = new ModelManager(addressBook, new UserPrefs());
         modelManager.addPerson(CARL);
-        modelManager.commitAddressBook();
+        modelManager.commit();
         assertTrue(modelManager.hasUndo());
     }
 
@@ -268,7 +268,7 @@ public class ModelManagerTest {
         assertFalse(modelManager.hasUndo());
 
         modelManager.addPerson(CARL);
-        modelManager.commitAddressBook();
+        modelManager.commit();
         modelManager.undo();
         assertFalse(modelManager.hasUndo());
 
@@ -279,7 +279,7 @@ public class ModelManagerTest {
         AddressBook addressBook = new AddressBookBuilder().build();
         modelManager = new ModelManager(addressBook, new UserPrefs());
         modelManager.addPerson(CARL);
-        modelManager.commitAddressBook();
+        modelManager.commit();
         modelManager.undo();
         assertTrue(modelManager.hasRedo());
     }
@@ -291,7 +291,7 @@ public class ModelManagerTest {
         assertFalse(modelManager.hasRedo());
 
         modelManager.addPerson(CARL);
-        modelManager.commitAddressBook();
+        modelManager.commit();
         assertFalse(modelManager.hasRedo());
 
         modelManager.undo();
@@ -300,13 +300,13 @@ public class ModelManagerTest {
 
         // test if removed ahead
         modelManager.addPerson(ALICE);
-        modelManager.commitAddressBook();
+        modelManager.commit();
         modelManager.addPerson(DANIEL);
-        modelManager.commitAddressBook();
+        modelManager.commit();
         modelManager.undo();
         modelManager.undo();
         modelManager.addPerson(BENSON);
-        modelManager.commitAddressBook();
+        modelManager.commit();
         assertFalse(modelManager.hasRedo());
 
 
@@ -322,7 +322,7 @@ public class ModelManagerTest {
         AddressBook addressBook = new AddressBookBuilder().withPerson(ALICE).withPerson(BENSON).build();
         modelManager = new ModelManager(addressBook, new UserPrefs());
         modelManager.updateSortedPersonList("n/");
-        modelManager.commitAddressBook();
+        modelManager.commit();
         ObservableList<Person> filteredList = modelManager.getFilteredPersonList();
         assertEquals(2, filteredList.size());
         assertTrue(filteredList.contains(ALICE));
@@ -381,12 +381,12 @@ public class ModelManagerTest {
         // different filteredList -> returns false
         String[] keywords = ALICE.getName().fullName.split("\\s+");
         modelManager.updateFilteredPersonList(new NameContainsKeywordsPredicate(Arrays.asList(keywords)));
-        modelManager.commitAddressBook();
+        modelManager.commit();
         assertFalse(modelManager.equals(new ModelManager(addressBook, userPrefs)));
 
         // resets modelManager to initial state for upcoming tests
         modelManager.updateFilteredPersonList(PREDICATE_SHOW_ALL_PERSONS);
-        modelManager.commitAddressBook();
+        modelManager.commit();
 
         // different userPrefs -> returns false
         UserPrefs differentUserPrefs = new UserPrefs();

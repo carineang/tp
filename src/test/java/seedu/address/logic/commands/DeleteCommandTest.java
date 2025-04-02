@@ -48,7 +48,7 @@ public class DeleteCommandTest {
 
         Model expectedModel = new ModelManager(getTypicalAddressBook(), new UserPrefs());
         expectedModel.deletePerson(personToDelete);
-        expectedModel.commitAddressBook();
+        expectedModel.commit();
 
         assertCommandSuccess(deleteCommand, model, expectedMessage, expectedModel);
     }
@@ -75,7 +75,7 @@ public class DeleteCommandTest {
         expectedModel.deletePerson(personToDelete);
         showNoPerson(expectedModel);
 
-        expectedModel.commitAddressBook();
+        expectedModel.commit();
 
         assertCommandSuccess(deleteCommand, model, expectedMessage, expectedModel);
     }
@@ -108,7 +108,7 @@ public class DeleteCommandTest {
         // its in reverse order so second person deletes first
         expectedModel.deletePerson(secondPersonToDelete);
         expectedModel.deletePerson(firstPersonToDelete);
-        expectedModel.commitAddressBook();
+        expectedModel.commit();
 
         assertCommandSuccess(deleteCommand, model, expectedMessage, expectedModel);
     }
@@ -132,7 +132,7 @@ public class DeleteCommandTest {
         for (Person person : persons) {
             expectedModel.deletePerson(person);
         }
-        expectedModel.commitAddressBook();
+        expectedModel.commit();
 
         return expectedModel;
     }

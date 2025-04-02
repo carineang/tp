@@ -189,7 +189,7 @@ public class AddCommandTest {
         }
 
         @Override
-        public void commitAddressBook() {
+        public void commit() {
             throw new AssertionError("This method should not be called.");
         }
 
@@ -252,7 +252,7 @@ public class AddCommandTest {
         }
 
         @Override
-        public void commitAddressBook() {
+        public void commit() {
         }
 
         @Override

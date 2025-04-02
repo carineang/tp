@@ -16,10 +16,10 @@ public class UndoCommandTest {
     public void execute_undosLeft_success() {
         Model model = new ModelManager();
         model.addPerson(CARL);
-        model.commitAddressBook();
+        model.commit();
         Model expectedModel = new ModelManager();
         expectedModel.addPerson(CARL);
-        expectedModel.commitAddressBook();
+        expectedModel.commit();
         expectedModel.undo();
 
         assertCommandSuccess(new UndoCommand(), model, UndoCommand.MESSAGE_SUCCESS, expectedModel);

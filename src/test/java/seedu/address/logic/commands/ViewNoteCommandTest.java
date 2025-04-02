@@ -44,7 +44,7 @@ public class ViewNoteCommandTest {
         String expectedMessage = String.format(ViewNoteCommand.MESSAGE_VIEW_NOTE_PERSON_SUCCESS,
                 personToView.getNote().toString());
         Model expectedModel = new ModelManager(getTypicalAddressBook(), new UserPrefs());
-        expectedModel.commitAddressBook();
+        expectedModel.commit();
 
         assertCommandSuccess(viewNoteCommand, model, expectedMessage, expectedModel);
     }
@@ -60,7 +60,7 @@ public class ViewNoteCommandTest {
                 personToView.getNote().toString());
 
         Model expectedModel = new ModelManager(new AddressBook(model.getAddressBook()), new UserPrefs());
-        expectedModel.commitAddressBook();
+        expectedModel.commit();
         showPersonAtIndex(expectedModel, INDEX_FIRST_PERSON);
 
         assertCommandSuccess(viewNoteCommand, model, expectedMessage, expectedModel);
@@ -96,7 +96,7 @@ public class ViewNoteCommandTest {
 
         // simulate an add command
         blankModel.addPerson(BENSON);
-        blankModel.commitAddressBook();
+        blankModel.commit();
 
         ViewNoteCommand viewNoteCommand = new ViewNoteCommand(INDEX_FIRST_PERSON);
         // should only undo viewNoteCommand

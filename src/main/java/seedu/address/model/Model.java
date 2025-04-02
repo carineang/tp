@@ -131,7 +131,7 @@ public interface Model {
      * It is up to the user of this method to decide when to commit the address book
      *
      */
-    void commitAddressBook();
+    void commit();
 
     /**
      * Restores the state of the address book to the last saved state

@@ -69,7 +69,7 @@ public class UnpinCommand extends Command {
         model.setPerson(personToUnpin, editedPerson);
         model.unpinPerson(editedPerson);
 
-        model.commitAddressBook();
+        model.commit();
 
         return new CommandResult(String.format(MESSAGE_UNPIN_PERSON_SUCCESS, index.getOneBased()));
     }

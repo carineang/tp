@@ -228,7 +228,7 @@ public class ModelManager implements Model {
     }
 
     @Override
-    public void commitAddressBook() {
+    public void commit() {
         addressBook.commit();
 
         // commit current predicate
