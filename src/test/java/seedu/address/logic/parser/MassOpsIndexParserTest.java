@@ -109,7 +109,7 @@ public class MassOpsIndexParserTest {
     }
 
     @Test
-    public void parseIndexes_rangedIgnoresMaxInteger_success() {
+    public void parseIndexes_maxIntegerRange_success() {
         try {
             Set<Index> indexes = massOpsIndexParser.parseIndexes("2147483647-2147483647");
             assertEquals(1, indexes.size());
