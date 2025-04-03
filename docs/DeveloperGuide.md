@@ -169,7 +169,7 @@ The `list` command enables users to view all existing contacts from Notarius.
 1. The user inputs the command to list all contacts.
 2. A `LogicManager` object invokes the `execute` method of a `ListCommand` object.
 3. The `execute` method of the `ListCommand` object invokes the `updateFilteredPersonList` and
-`commitAddressBook` method of its `Model` to update and show all contacts.
+`commit` method of its `Model` to update and show all contacts.
 4. The `execute` method of the `ListCommand` object returns a `CommandResult` object which stores the data regarding
 the completion of the `list` command.
 
@@ -185,7 +185,7 @@ The `clear` command enables users to remove all existing contacts from Notarius.
 
 1. The user inputs the command to clear all contacts.
 2. A `LogicManager` object invokes the `execute` method of a `ClearCommand` object.
-3. The `execute` method of the `ClearCommand` object invokes the `setAddressBook` and `commitAddressBook` method 
+3. The `execute` method of the `ClearCommand` object invokes the `setAddressBook` and `commit` method 
 of its `Model` argument with a new `AddressBook` object which contains an empty `UniquePersonList` property.
 4. The `execute` method of the `ClearCommand` object returns a `CommandResult` object which stores the data regarding 
 the completion of the `clear` command.
@@ -205,7 +205,7 @@ The `sort` command enables users to sort contacts in Notarius by prefix in lexic
 3. The `SortCommand` object is created with the parsed prefix.
 4. A `LogicManager` object invokes the `execute` method of the `SortCommand` object.
 5. The `execute` method of the `SortCommand` object invokes the `updateSortedPersonList`, 
-`updateSortedFilteredPersonList` and `commitAddressBook` methods of its `Model` argument to update and sort 
+`updateSortedFilteredPersonList` and `commit` methods of its `Model` argument to update and sort 
 all contacts by the target prefix.
 6. The `execute` method of the `SortCommand` object returns a `CommandResult` object which stores the data regarding 
 the completion of the `sort` command.

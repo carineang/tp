@@ -59,7 +59,7 @@ activate Model
 Model --> SortCommand
 deactivate Model
 
-SortCommand -> Model : commitAddressBook()
+SortCommand -> Model : commit()
 activate Model
 
 Model --> SortCommand
