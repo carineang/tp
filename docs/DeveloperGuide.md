@@ -173,6 +173,28 @@ The `list` command enables users to view all existing contacts from Notarius.
 4. The `execute` method of the `ListCommand` object returns a `CommandResult` object which stores the data regarding
 the completion of the `list` command.
 
+### Help feature
+
+The `help` command allows users to view general application usage instructions or specific details about a command.
+
+<p align="center">
+  <img src="images/HelpCommandSequenceDiagram.png" alt="Ui" />
+</p>
+
+#### Implementation Details
+
+1. The user inputs the command to request help, either as help for general help or help COMMAND_NAME for details on a specific command. 
+2. A `HelpCommandParser` object invokes its `parse` method, which parses the user input:
+   1. If no argument is provided, it returns a `HelpCommand` object for general help. 
+   2. If a valid command name is provided, it returns a `HelpCommand` object with that command name. 
+3. A `LogicManager` object invokes the `execute` method of the `HelpCommand` object. 
+4. The execute method of the HelpCommand object checks if a command name was specified:
+   1. If no command name is provided, it returns a `CommandResult` containing general help instructions. 
+   2. If a valid command name is provided, it retrieves the corresponding help message from a predefined command-help mapping (`COMMAND_HELP`). 
+   3. If an invalid command name is provided, it returns an error message stating that the command is unknown. 
+5. The `execute` method of the `HelpCommand` object returns a `CommandResult` object that stores the help message or error message. 
+6. The application displays the help message to the user, either in a popup window (for general help) or in the main interface (for specific commands).
+
 ### Clear feature
 
 The `clear` command enables users to remove all existing contacts from Notarius.
@@ -209,6 +231,29 @@ The `sort` command enables users to sort contacts in Notarius by prefix in lexic
 all contacts by the target prefix.
 6. The `execute` method of the `SortCommand` object returns a `CommandResult` object which stores the data regarding 
 the completion of the `sort` command.
+
+### Find feature
+
+The `find` command allows users to search for contacts in Notarius based on specified fields: 
+name, phone, email, address, and tags. The search is case-insensitive and supports multiple keywords. 
+Additionally, for name, email, and address fields, the search is tolerant of minor typos, allowing matches within a Levenshtein distance of 2.
+
+<p align="center">
+  <img src="images/FindCommandSequenceDiagram.png" alt="Ui" />
+</p>
+
+#### Implementation Details
+
+1. The user enters the `find` command with the desired search criteria. 
+2. The `LogicManager` invokes the parseCommand method of AddressBookParser to identify the command type. 
+3. If the command is recognized as `find`, the `FindCommandParser` is instantiated. 
+4. The `FindCommandParser` extracts the search parameters and keywords, ensuring correct parsing of multi-word inputs enclosed in double quotes (""). 
+5. A new `FindCommand` object is created using the parsed search fields and keywords. 
+6. The `LogicManager` executes the `FindCommand` object, which:
+   1. Calls `updateFilteredPersonList` and `commit` method in `Model` to filter contacts based on the search fields and keywords. 
+   2. Uses a case-insensitive check for all fields. 
+   3. Applies Levenshtein distance ≤ 2 matching for `name`, `email`, and `address`. 
+7. The `FindCommand` returns a `CommandResult`, displaying the filtered list of contacts matching the search criteria.
 
 
 ### Delete feature
@@ -832,6 +877,75 @@ Priorities: High (must have) - `* * *`, Medium (nice to have) - `* *`, Low (unli
    Use case ends.
 
 
+**System**: `Notarius`
+
+**Actor**: `User`
+
+**Use Case**: `UC12 - Displaying Help Information`
+
+**Guarantees**: `If MSS reaches step 3, the requested help information will be displayed.`
+
+**MSS**:
+
+1. User requests help by entering the help command. 
+2. Notarius displays a help window with general usage instructions.
+
+   Use case ends.
+
+**Extensions**:
+
+* 1a. User requests help for a specific command. 
+  * 1a1. Notarius displays detailed usage information for the specified command.<br>
+    Use case ends.
+
+* 1b.  User enters an invalid command name. 
+  * 1b1. Notarius alerts the user with an error message: "Unknown command! Use help to see available commands."
+  * 1b2. User retypes the command with a valid usgae.<br>
+    Steps 1b1-1b2 are repeated until a valid command is entered.<br>
+    Use case resumes from step 1a1.
+
+**System**: `Notarius`
+
+**Actor**: `User`
+
+**Use Case**: `UC13 - Finding a Contact`
+
+**Guarantees**: `If MSS reaches step 3, a list of matching contacts will be displayed.`
+
+**MSS**:
+
+1. User requests to find contacts by entering the find command with specified fields and keywords. 
+2. Address Book searches for contacts whose fields contain any of the given keywords, 
+allowing minor typos (up to a Levenshtein distance of 2) in the name, email, and address fields only. 
+3. Address Book displays a list of matching contacts with index numbers.
+
+   Use case ends.
+
+
+**Extensions**:
+
+* 1a. User enters an invalid search format. 
+  * 1a1. Address Book alerts the user with an error message about the incorrect format. 
+  * 1a2. User retypes the command following the correct format.<br>
+    Steps 1a1-1a2 are repeated until the command format is valid.<br>
+    Use case resumes from step 2.
+* 2a. No contacts match the search criteria. 
+  * 2a1. Address Book displays a message indicating that no matching contacts were found.<br>
+    Use case ends.
+* 2b. User enters multiple search fields. 
+  * 2b1. Address Book searches for contacts that match any of the 
+  specified fields (name, phone, email, address, or tags).<br>
+    Use case resumes from step 3.
+* 2c. User enters a keyword with minor typos in the phone or tag fields. 
+  * 2c1. Address Book does not apply typo correction for phone numbers or tags. 
+  * 2c2. If an exact match is not found, Address Book displays a message indicating no results were found.<br>
+    Use case ends.
+* 2d. User enters a keyword with minor typos in the name, email, or address fields. 
+  * 2d1. Address Book applies fuzzy matching (Levenshtein distance of up to 2) for name, email, and address fields.<br>
+    Use case resumes from step 3.
+
+
+
 ### Non-Functional Requirements
 
 1. Should work on any _mainstream OS_ as long as it has Java `17` or above installed.
@@ -959,6 +1073,36 @@ Each test case in this feature section (labelled "Test case") should be independ
 
    1. Test case: `list` followed by `list`<br>
       Expected: The command history is updated with the command text "list", but only once with no **consecutive** duplicates. The command history is displayed when the user presses `Ctrl + Up` or `Ctrl + Down`.
+
+### Finding a person
+
+1. Finding a person while all persons are being shown
+   1. Prerequisites: List all persons using `list` command. Multiple persons in the list.
+   2. Test case: `find n/"Alice"` <br>
+      Expected: Displays all contacts with names that match "Alice" (case-insensitive) or have a name with levenshtein distance <= 2 to "ALICE".
+   3. Test case: `find n/"Alice" "Bob"` <br>
+      Expected: Displays all contacts with names containing either "Alice" or "Bob".
+   4. Test case: `find n/"Alice" e/"alice@email.com" a/"Bedok Central"` <br>
+      Expected: Displays all contacts where any of the fields match or have a levenshtein distance <= 2 from each keyword.
+   5. Test case: `find t/"client" p/"12345678"` <br>
+      Expected: Displays contacts that exactly match either tag "client" or phone "12345678".
+   6. Test case: `find n/"NonExistentName"` <br>
+      Expected: "0 persons listed!" message is displayed.
+
+### Displaying help
+
+1. Showing help in Notarius
+   1. Prerequisites: Notarius is open and running
+   2. Test case: `help` <br>
+      Expected: A help window appears displaying instructions for using the application. The status message confirms that the help window has been opened.
+   3. Test case: `help find` <br>
+      Expected: The application displays detailed instructions for the find command, including expected parameters and format. 
+   4. Test case: `help delete` <br>
+      Expected: The application displays detailed instructions for the delete command, including expected parameters and format.
+   5. Test case: `help meeee` (invalid command) <br>
+      Expected: Error message: "Unknown command! Use 'help' to see available commands."
+
+
 
 ### Sorting contacts list
 
