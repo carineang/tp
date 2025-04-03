@@ -1,0 +1,74 @@
+@startuml
+!include style.puml
+
+box Logic LOGIC_COLOR_T1
+participant ":LogicManager" as LogicManager LOGIC_COLOR
+participant ":AddressBookParser" as AddressBookParser LOGIC_COLOR
+participant ":FindCommandParser" as FindCommandParser LOGIC_COLOR
+participant "r:FindCommand" as FindCommand LOGIC_COLOR
+participant ":CommandResult" as CommandResult LOGIC_COLOR
+end box
+
+box Model MODEL_COLOR_T1
+participant ":Model" as Model MODEL_COLOR
+end box
+
+[-> LogicManager : execute("find n/"Alice" p/"98765432"")
+activate LogicManager
+
+LogicManager -> AddressBookParser : parseCommand("find n/"Alice" p/"98765432"")
+activate AddressBookParser
+
+create FindCommandParser
+AddressBookParser -> FindCommandParser : new FindCommandParser()
+activate FindCommandParser
+
+FindCommandParser --> AddressBookParser : return FindCommandParser
+
+deactivate FindCommandParser
+AddressBookParser -> FindCommandParser : parse("n/"Alice" p/"98765432"")
+activate FindCommandParser
+
+create FindCommand
+FindCommandParser -> FindCommand : new FindCommand("n/"Alice" p/"98765432"")
+activate FindCommand
+
+FindCommand --> FindCommandParser : return FindCommand
+
+deactivate FindCommand
+FindCommandParser --> AddressBookParser : return FindCommand
+
+deactivate FindCommandParser
+FindCommandParser -[hidden]-> AddressBookParser
+destroy FindCommandParser
+
+AddressBookParser --> LogicManager : return FindCommand
+
+deactivate AddressBookParser
+
+LogicManager -> FindCommand : execute(m)
+activate FindCommand
+
+FindCommand -> Model : updateFilteredPersonList(criteria)
+activate Model
+
+Model --> FindCommand
+
+deactivate Model
+
+create CommandResult
+FindCommand -> CommandResult : new CommandResult("Found X matching contacts")
+activate CommandResult
+
+CommandResult --> FindCommand : return CommandResult
+
+deactivate CommandResult
+
+FindCommand --> LogicManager : return CommandResult
+
+deactivate FindCommand
+
+[<-- LogicManager : return CommandResult
+
+deactivate LogicManager
+@enduml

@@ -232,6 +232,29 @@ all contacts by the target prefix.
 6. The `execute` method of the `SortCommand` object returns a `CommandResult` object which stores the data regarding 
 the completion of the `sort` command.
 
+### Find feature
+
+The `find` command allows users to search for contacts in Notarius based on specified fields: 
+name, phone, email, address, and tags. The search is case-insensitive and supports multiple keywords. 
+Additionally, for name, email, and address fields, the search is tolerant of minor typos, allowing matches within a Levenshtein distance of 2.
+
+<p align="center">
+  <img src="images/FindCommandSequenceDiagram.png" alt="Ui" />
+</p>
+
+#### Implementation
+
+1. The user enters the `find` command with the desired search criteria. 
+2. The `LogicManager` invokes the parseCommand method of AddressBookParser to identify the command type. 
+3. If the command is recognized as `find`, the `FindCommandParser` is instantiated. 
+4. The `FindCommandParser` extracts the search parameters and keywords, ensuring correct parsing of multi-word inputs enclosed in double quotes (""). 
+5. A new `FindCommand` object is created using the parsed search fields and keywords. 
+6. The `LogicManager` executes the `FindCommand` object, which:
+   1. Calls `updateFilteredPersonList` in `Model` to filter contacts based on the search fields and keywords. 
+   2. Uses a case-insensitive check for all fields. 
+   3. Applies Levenshtein distance ≤ 2 matching for `name`, `email`, and `address`. 
+7. The `FindCommand` returns a `CommandResult`, displaying the filtered list of contacts matching the search criteria.
+
 ### \[Proposed\] Undo/redo feature
 
 #### Proposed Implementation
