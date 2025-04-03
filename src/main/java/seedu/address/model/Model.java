@@ -97,7 +97,7 @@ public interface Model {
      * Returns an unmodifiable ordered view of the list of past command inputs.
      * The most recently added input is at the front of the list.
      */
-    ObservableList<String> getCommandInputHistoryList();
+    ObservableList<String> getCommandHistoryList();
 
     /**
      * Pins a person in the address book to the top of the list.
@@ -129,20 +129,30 @@ public interface Model {
 
     /**
      * Saves the state of the model
+     *
      * It is up to the user of this method to decide when to commit the model
+     *
+     * The state of the address book and the current predicate used to filter the model
+     * are being saved
      *
      */
     void commit();
 
     /**
-     * Restores the state of the model to the last saved state
+     * Restores the state of the model to the last saved model state
+     *
+     * It is the responsibility of the user of the method to ensure that there is a last state to undo
+     * To check this, the user of the method can use the {@link #hasUndo()} method
      *
      * @throws IndexOutOfBoundsException if there is no last saved state
      */
     void undo();
 
     /**
-     * Restores the state of the model model to the last saved undone model state
+     * Restores the state of the model to the last saved undone model state
+     *
+     * It is the responsibility of the user of the method to ensure that there is a last state to redo
+     * To check this, the user of the method can use the {@link #hasRedo()} method
      *
      * @throws IndexOutOfBoundsException if there is no last saved state
      */

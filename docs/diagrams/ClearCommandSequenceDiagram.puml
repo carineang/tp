@@ -25,7 +25,7 @@ activate Model
 Model --> ClearCommand
 deactivate Model
 
-ClearCommand -> Model : commitAddressBook()
+ClearCommand -> Model : commit()
 activate Model
 
 Model --> ClearCommand

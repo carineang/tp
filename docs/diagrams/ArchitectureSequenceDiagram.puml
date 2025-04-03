@@ -1,4 +1,5 @@
 @startuml
+
 !include style.puml
 skinparam ArrowFontStyle plain
 
@@ -15,11 +16,19 @@ ui -[UI_COLOR]> logic : execute("delete 1")
 activate logic LOGIC_COLOR
 
 skinparam sequenceReferenceBackgroundColor #f7807c
-ref over logic, model
-    Save command input
-end ref
+
+logic -[LOGIC_COLOR]> model : addPastCommandInput(commandText)
+activate model MODEL_COLOR
+model --[MODEL_COLOR]> logic
+deactivate model
 
 logic -[LOGIC_COLOR]> model : deletePerson(p)
+activate model MODEL_COLOR
+
+model -[MODEL_COLOR]-> logic
+deactivate model
+
+logic -[LOGIC_COLOR]> model : commit()
 activate model MODEL_COLOR
 
 model -[MODEL_COLOR]-> logic
