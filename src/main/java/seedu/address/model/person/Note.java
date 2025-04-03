@@ -28,7 +28,7 @@ public class Note {
 
     /**
      * Returns true if the given note is blank,
-     * which means its string value only consists of white strings or is empty.
+     * which means its string value only consists of white spaces or is empty.
      */
     public boolean isBlank() {
         return value.isBlank();

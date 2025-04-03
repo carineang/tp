@@ -244,6 +244,8 @@ public class ModelManager implements Model {
         removeAheadCurrent();
         stateHistory.add(newState);
         currentStatePointer += 1;
+
+        logger.fine("Successfully committed the model state");
     }
 
     @Override
@@ -264,6 +266,8 @@ public class ModelManager implements Model {
         // set state
         addressBook.resetData(pastState.getAddressBookState());
         updateFilteredPersonList(pastState.getPredicate());
+
+        logger.fine("Successfully undone the model state");
     }
     @Override
     public void redo() {
@@ -283,10 +287,12 @@ public class ModelManager implements Model {
         // set state
         addressBook.resetData(nextState.getAddressBookState());
         updateFilteredPersonList(nextState.getPredicate());
+
+        logger.fine("Successfully redone the undone model state");
     }
 
     /**
-     * Removes all states ahead of the current state
+     * Removes all model states ahead of the current state
      */
     private void removeAheadCurrent() {
         int curSize = stateHistory.size();
