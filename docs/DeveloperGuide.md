@@ -337,43 +337,71 @@ using the `Ctrl + Up` key combinations on Windows (or `Ctrl + Opt + Up` on macOS
     * Windows/Linux: `Ctrl + Up`/`Ctrl + Down` to move up/down the selection.
     * macOS: `Ctrl + Opt + Up`/ `Ctrl + Opt + Down` similarly.
 
+### Note feature
+The note feature allows the user to change and view notes. \
+The user changes notes via the `note` command and the user views notes via the `viewnote` command.
 
+#### Implementation Details
 
-### \[Proposed\] Undo/redo feature
+This is how a user changes their note via the `note` command:
+1. The user inputs the command to change their note of a contact of a specific index.
+2. A `NoteCommandParser` object invokes its `parse` method which parses the user input.
+3. The `NoteCommand` object is created with the parsed prefix and specified index.
+4. A `LogicManager` object invokes the `execute` method of the `NoteCommand` object.
+5. The `execute` method of the `NoteCommand` object modifies the specified clientContact with a new note invokes the `setPerson`,
+and `commit` methods of its `Model` argument to change the note of the person.
+6. The `execute` method of the `NoteCommand` object returns a `CommandResult` object which stores the data regarding
+   the completion of the `note` command.
 
-#### Proposed Implementation
+This is how a user views their note via the `viewnote` command:
+1. The user inputs the command to view a note of a contact of a specific index.
+2. A `ViewNoteCommandParser` object invokes its `parse` method which parses the user input.
+3. The `ViewNoteCommand` object is created with the specified index.
+4. A `LogicManager` object invokes the `execute` method of the `ViewNoteCommand` object.
+5. The `execute` method of the `ViewNoteCommand` object invokes the getFilteredPersonList of the `Model` and gets the note of the clientContact as the specified index and
+   does the `commit` method of the `Model` as well.
+6. The `execute` method of the `ViewNoteCommand` object returns a `CommandResult` object which stores the data regarding
+   the completion of the `viewnote` command, if successful includes the note of the client contact at the specified index.
 
-The proposed undo/redo mechanism is facilitated by `VersionedAddressBook`. It extends `AddressBook` with an undo/redo history, stored internally as an `addressBookStateList` and `currentStatePointer`. Additionally, it implements the following operations:
+### Undo/redo feature
+The `undo` and `redo` commands undoes and redoes other commands respectively. 
 
-* `VersionedAddressBook#commit()` — Saves the current address book state in its history.
-* `VersionedAddressBook#undo()` — Restores the previous address book state from its history.
-* `VersionedAddressBook#redo()` — Restores a previously undone address book state from its history.
+#### Implementation Details
 
-These operations are exposed in the `Model` interface as `Model#commit()`, `Model#undo()` and `Model#redo()` respectively.
+* The proposed undo/redo mechanism is facilitated by `ModelState`. 
+* The `ModelState` is a save state of the `Model`.
+* The `ModelState` saves the `ReadOnlyAddressBook` and `Predicate<Person>` of the `Model`.
+* 'ModelState' objects are stored in the `Model` as `stateHistory` which is an `ArrayList<ModelState>`.
+* Undo/redo is facilitated by a `currentStatePointer` which points to the current `ModelState` in the `stateHistory`.
+
+Additionally, the `Model` implements and exposes the following operations to facilitate the undo/redo process:
+* `Model#commit()` — Saves the current `ModelState` in the `stateHistory`.
+* `Model#undo()` — Restores the previous `ModelState` from its `stateHistory`.
+* `Model#redo()` — Restores a previously undone `ModelState` from its `stateHistory`.
 
 Given below is an example usage scenario and how the undo/redo mechanism behaves at each step.
 
-Step 1. The user launches the application for the first time. The `VersionedAddressBook` will be initialized with the initial address book state, and the `currentStatePointer` pointing to that single address book state.
+Step 1. The user launches the application for the first time. The `stateHistory` will be initialised with the initial `ModelState` of the newly initialised `Model`, and the `currentStatePointer` pointing to that single `ModelState`.
 
 ![UndoRedoState0](images/UndoRedoState0.png)
 
-Step 2. The user executes `delete 5` command to delete the 5th person in the address book. The `delete` command calls `Model#commit()`, causing the modified state of the address book after the `delete 5` command executes to be saved in the `addressBookStateList`, and the `currentStatePointer` is shifted to the newly inserted address book state.
+Step 2. The user executes `delete 5` command to delete the 5th person in the address book of the `Model`. The `delete` command calls `Model#commit()`, causing the modified state of the address book after the `delete 5` command executes to be saved in the `stateHistory` as a `ModelState`, and the `currentStatePointer` is shifted to the newly inserted `ModelState`.
 
 ![UndoRedoState1](images/UndoRedoState1.png)
 
-Step 3. The user executes `add n/David …​` to add a new person. The `add` command also calls `Model#commit()`, causing another modified address book state to be saved into the `addressBookStateList`.
+Step 3. The user executes `add n/David …​` to add a new person. The `add` command also calls `Model#commit()`, causing another modified address book state in the newly created `ModelState` to be saved into the `stateHistory`.
 
 ![UndoRedoState2](images/UndoRedoState2.png)
 
-<div markdown="span" class="alert alert-info">:information_source: **Note:** If a command fails its execution, it will not call `Model#commit()`, so the address book state will not be saved into the `addressBookStateList`.
+<div markdown="span" class="alert alert-info">:information_source: **Note:** If a command fails its execution, it will not call `Model#commit()`, so the `ModelState` will not be saved into the `stateHistory`.
 
 </div>
 
-Step 4. The user now decides that adding the person was a mistake, and decides to undo that action by executing the `undo` command. The `undo` command will call `Model#undo()`, which will shift the `currentStatePointer` once to the left, pointing it to the previous address book state, and restores the address book to that state.
+Step 4. The user now decides that adding the person was a mistake, and decides to undo that action by executing the `undo` command. The `undo` command will call `Model#undo()`, which will shift the `currentStatePointer` once to the left, pointing it to the previous `ModelState`, and restores the `Model` to that state.
 
 ![UndoRedoState3](images/UndoRedoState3.png)
 
-<div markdown="span" class="alert alert-info">:information_source: **Note:** If the `currentStatePointer` is at index 0, pointing to the initial AddressBook state, then there are no previous AddressBook states to restore. The `undo` command uses `Model#canundo()` to check if this is the case. If so, it will return an error to the user rather
+<div markdown="span" class="alert alert-info">:information_source: **Note:** If the `currentStatePointer` is at index 0 pointing to the initial `ModelState`, then there are no previous `ModelState` states to restore. The `undo` command uses `Model#hasUndo()` to check if this is the case. If so, it will return an error to the user rather
 than attempting to perform the undo.
 
 </div>
@@ -386,47 +414,19 @@ The following sequence diagram shows how an undo operation goes through the `Log
 
 </div>
 
-Similarly, how an undo operation goes through the `Model` component is shown below:
+The `redo` command does the opposite — it calls `Model#redo()`, which shifts the `currentStatePointer` once to the right, pointing to the previously undone `ModelState`, and restores the `Model` to that state.
 
-![UndoSequenceDiagram](images/UndoSequenceDiagram-Model.png)
-
-The `redo` command does the opposite — it calls `Model#redo()`, which shifts the `currentStatePointer` once to the right, pointing to the previously undone state, and restores the address book to that state.
-
-<div markdown="span" class="alert alert-info">:information_source: **Note:** If the `currentStatePointer` is at index `addressBookStateList.size() - 1`, pointing to the latest address book state, then there are no undone AddressBook states to restore. The `redo` command uses `Model#canredo()` to check if this is the case. If so, it will return an error to the user rather than attempting to perform the redo.
+<div markdown="span" class="alert alert-info">:information_source: **Note:** If the `currentStatePointer` is at index `stateHistory.size() - 1`, pointing to the latest `ModelState` state, then there are no undone `ModelState` to restore. The `redo` command uses `Model#hasRedo()` to check if this is the case. If so, it will return an error to the user rather than attempting to perform the redo.
 
 </div>
 
-Step 5. The user then decides to execute the command `list`. Commands that do not modify the address book, such as `list`, will usually not call `Model#commit()`, `Model#undo()` or `Model#redo()`. Thus, the `addressBookStateList` remains unchanged.
+Step 5. The user executes `clear`, which calls `Model#commit()`. Since the `currentStatePointer` is not pointing at the end of the `stateHistory`, all `ModelState` states after the `currentStatePointer` will be purged. Reason: It no longer makes sense to redo the `add n/David …​` command. This is the behavior that most modern desktop applications follow.
 
 ![UndoRedoState4](images/UndoRedoState4.png)
-
-Step 6. The user executes `clear`, which calls `Model#commit()`. Since the `currentStatePointer` is not pointing at the end of the `addressBookStateList`, all address book states after the `currentStatePointer` will be purged. Reason: It no longer makes sense to redo the `add n/David …​` command. This is the behavior that most modern desktop applications follow.
-
-![UndoRedoState5](images/UndoRedoState5.png)
 
 The following activity diagram summarizes what happens when a user executes a new command:
 
 <img src="images/CommitActivityDiagram.png" width="250" />
-
-#### Design considerations:
-
-**Aspect: How undo & redo executes:**
-
-* **Alternative 1 (current choice):** Saves the entire address book.
-  * Pros: Easy to implement.
-  * Cons: May have performance issues in terms of memory usage.
-
-* **Alternative 2:** Individual command knows how to undo/redo by
-  itself.
-  * Pros: Will use less memory (e.g. for `delete`, just save the person being deleted).
-  * Cons: We must ensure that the implementation of each individual command are correct.
-
-_{more aspects and alternatives to be added}_
-
-### \[Proposed\] Data archiving
-
-_{Explain here how the data archiving feature will be implemented}_
-
 
 --------------------------------------------------------------------------------------------------------------------
 
