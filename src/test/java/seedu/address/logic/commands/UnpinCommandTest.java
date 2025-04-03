@@ -76,9 +76,9 @@ public class UnpinCommandTest {
 
         Person unpinnedPerson = model.getFilteredPersonList().get(INDEX_FIRST_PERSON.getZeroBased());
         assertTrue(!unpinnedPerson.getPin().isPinned());
-        String ExpectedMessage = String.format(UnpinCommand.MESSAGE_UNPIN_PERSON_SUCCESS,
+        String expectedMessage = String.format(UnpinCommand.MESSAGE_UNPIN_PERSON_SUCCESS,
                 INDEX_FIRST_PERSON.getOneBased());
-        assertEquals(ExpectedMessage, result.getFeedbackToUser());
+        assertEquals(expectedMessage, result.getFeedbackToUser());
     }
 
     @Test
@@ -99,9 +99,9 @@ public class UnpinCommandTest {
 
         Person unpinnedPerson = model.getFilteredPersonList().get(INDEX_FIRST_PERSON.getZeroBased());
         assertFalse(unpinnedPerson.getPin().isPinned());
-        String ExpectedMessage = String.format(UnpinCommand.MESSAGE_UNPIN_PERSON_NOT_PINNED,
+        String expectedMessage = String.format(UnpinCommand.MESSAGE_UNPIN_PERSON_NOT_PINNED,
                 INDEX_FIRST_PERSON.getOneBased());
-        assertEquals(ExpectedMessage, result.getFeedbackToUser());
+        assertEquals(expectedMessage, result.getFeedbackToUser());
     }
 
     @Test
