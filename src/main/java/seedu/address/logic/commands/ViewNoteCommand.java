@@ -50,6 +50,8 @@ public class ViewNoteCommand extends Command {
         Person personToView = lastShownList.get(targetIndex.getZeroBased());
         Note note = personToView.getNote();
 
+        model.commit();
+
         return new CommandResult(String.format(MESSAGE_VIEW_NOTE_PERSON_SUCCESS, note.toString()));
     }
 

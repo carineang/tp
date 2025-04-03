@@ -1,6 +1,7 @@
 package seedu.address.logic.commands;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertThrows;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 import static seedu.address.testutil.TypicalPersons.ALICE;
 import static seedu.address.testutil.TypicalPersons.BENSON;
@@ -57,7 +58,7 @@ public class SortCommandTest {
         model.addPerson(DANIEL);
         model.addPerson(CARL);
 
-        SortCommand sortCommand = new SortCommand("p/");
+        SortCommand sortCommand = new SortCommand(new String[]{"p/"});
         sortCommand.execute(model);
 
         // Check if the persons in AddressBook are sorted correctly by phone
@@ -76,7 +77,7 @@ public class SortCommandTest {
         model.addPerson(DANIEL);
         model.addPerson(CARL);
 
-        SortCommand sortCommand = new SortCommand("e/");
+        SortCommand sortCommand = new SortCommand(new String[]{"e/"});
         sortCommand.execute(model);
 
         // Check if the persons in AddressBook are sorted correctly by email
@@ -95,7 +96,7 @@ public class SortCommandTest {
         model.addPerson(DANIEL);
         model.addPerson(CARL);
 
-        SortCommand sortCommand = new SortCommand("a/");
+        SortCommand sortCommand = new SortCommand(new String[]{"a/"});
         sortCommand.execute(model);
 
         // Check if the persons in AddressBook are sorted correctly by address
@@ -115,7 +116,7 @@ public class SortCommandTest {
         model.addPerson(CARL);
 
         // Sort the persons by tags
-        SortCommand sortCommand = new SortCommand("t/");
+        SortCommand sortCommand = new SortCommand(new String[]{"t/"});
         sortCommand.execute(model);
 
         // Check if the persons are sorted correctly by tags (alphabetical order of tags)
@@ -125,5 +126,14 @@ public class SortCommandTest {
         assertTrue(model.getFilteredPersonList().get(2).getTags().toString().contains("owesMoney"));
         assertTrue(model.getFilteredPersonList().get(3).getTags().isEmpty());
         assertTrue(model.getFilteredPersonList().get(4).getTags().isEmpty());
+    }
+
+    @Test
+    public void constructor_emptyPrefixes_throwsIllegalArgumentException() {
+        String[] prefixes = new String[0];
+        IllegalArgumentException exception = assertThrows(IllegalArgumentException.class, () -> {
+            new SortCommand(prefixes);
+        });
+        assertEquals("Prefixes cannot be null or empty", exception.getMessage());
     }
 }

@@ -81,6 +81,7 @@ public interface Model {
 
     /**
      * Updates the filter of the filtered person list to filter by the given {@code predicate}.
+     *
      * @throws NullPointerException if {@code predicate} is null.
      */
     void updateFilteredPersonList(Predicate<Person> predicate);
@@ -117,31 +118,43 @@ public interface Model {
      *
      * @param prefix The prefix indicating the attribute to sort by.
      */
-    void updateSortedFilteredPersonList(String prefix);
+    void updateSortedPersonList(String... prefix);
 
     /**
-     * Saves the state of the address book
-     * It is up to the user of this method to decide when to commit the address book
+     * Updates the filtered and sorted list of persons based on the given prefix.
+     *
+     * @param prefix The prefix indicating the attribute to sort by.
      */
-    void commitAddressBook();
+    void updateSortedFilteredPersonList(String... prefix);
 
     /**
-     * Restores the state of the address book to the last saved state
+     * Saves the state of the model
+     * It is up to the user of this method to decide when to commit the model
+     *
      */
-    void undoAddressBook();
+    void commit();
 
     /**
-     * Restores the state of the address book to the last saved undone state
+     * Restores the state of the model to the last saved state
+     *
+     * @throws IndexOutOfBoundsException if there is no last saved state
      */
-    void redoAddressBook();
+    void undo();
 
     /**
-     * Checks if the address book has a state to undo
+     * Restores the state of the model model to the last saved undone model state
+     *
+     * @throws IndexOutOfBoundsException if there is no last saved state
      */
-    boolean addressBookHasUndo();
+    void redo();
 
     /**
-     * Checks if the address book has an undone state to redo
+     * Checks if the model has a state to undo
      */
-    boolean addressBookHasRedo();
+    boolean hasUndo();
+
+    /**
+     * Checks if the model has an undone state to redo
+     */
+    boolean hasRedo();
 }

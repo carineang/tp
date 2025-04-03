@@ -29,6 +29,8 @@ public class PinCommand extends Command {
 
     public static final String MESSAGE_PIN_PERSON_SUCCESS = "Pinned %1$d";
 
+    public static final String MESSAGE_PIN_PERSON_ALREADY_PINNED = "%1$d is already pinned";
+
     private final Index index;
 
     private final Pin pin;
@@ -61,6 +63,11 @@ public class PinCommand extends Command {
         }
 
         Person personToPin = lastShownList.get(index.getZeroBased());
+
+        if (personToPin.getPin().isPinned()) {
+            return new CommandResult(String.format(MESSAGE_PIN_PERSON_ALREADY_PINNED, index.getOneBased()));
+        }
+
         EditPersonDescriptor newDescriptor = new EditPersonDescriptor();
         Pin newPin = new Pin(pin.isPinned());
         newDescriptor.setPin(newPin);
@@ -68,7 +75,8 @@ public class PinCommand extends Command {
 
         model.setPerson(personToPin, editedPerson);
         model.pinPerson(editedPerson);
-        model.commitAddressBook();
+
+        model.commit();
 
         return new CommandResult(String.format(MESSAGE_PIN_PERSON_SUCCESS, index.getOneBased()));
     }

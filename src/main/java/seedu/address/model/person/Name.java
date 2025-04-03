@@ -38,6 +38,26 @@ public class Name {
         return test.matches(VALIDATION_REGEX);
     }
 
+    /**
+     * Checks if the name is the same to the address book.
+     * The address book does not distinguish between upper and lowercase letters.
+     * If you want to check if two {@code Name} objects are equal
+     * you should use the {@link #equals(Object other)} method instead
+     */
+    public boolean isSameName(Object other) {
+        if (other == this) {
+            return true;
+        }
+
+        // instanceof handles nulls
+        if (!(other instanceof Name)) {
+            return false;
+        }
+
+        Name otherName = (Name) other;
+        return fullName.toLowerCase().equals(otherName.fullName.toLowerCase());
+    }
+
 
     @Override
     public String toString() {

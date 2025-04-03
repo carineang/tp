@@ -154,7 +154,9 @@ public class AddCommandTest {
         }
 
         @Override
-        public void unpinPerson(Person person) { throw new AssertionError("This method should not be called."); }
+        public void unpinPerson(Person person) {
+            throw new AssertionError("This method should not be called.");
+        }
 
         @Override
         public ObservableList<Person> getFilteredPersonList() {
@@ -177,32 +179,37 @@ public class AddCommandTest {
         }
 
         @Override
-        public void updateSortedFilteredPersonList(String prefix) {
+        public void updateSortedPersonList(String... prefix) {
             throw new AssertionError("This method should not be called.");
         }
 
         @Override
-        public void commitAddressBook() {
+        public void updateSortedFilteredPersonList(String... prefix) {
             throw new AssertionError("This method should not be called.");
         }
 
         @Override
-        public void undoAddressBook() {
+        public void commit() {
             throw new AssertionError("This method should not be called.");
         }
 
         @Override
-        public void redoAddressBook() {
+        public void undo() {
             throw new AssertionError("This method should not be called.");
         }
 
         @Override
-        public boolean addressBookHasUndo() {
+        public void redo() {
+            throw new AssertionError("This method should not be called.");
+        }
+
+        @Override
+        public boolean hasUndo() {
             return false;
         }
 
         @Override
-        public boolean addressBookHasRedo() {
+        public boolean hasRedo() {
             return false;
         }
 
@@ -245,7 +252,7 @@ public class AddCommandTest {
         }
 
         @Override
-        public void commitAddressBook() {
+        public void commit() {
         }
 
         @Override

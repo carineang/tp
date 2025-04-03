@@ -30,7 +30,7 @@ public class ListCommandTest {
     @Test
     public void execute_listIsNotFiltered_showsSameList() {
         expectedModel.updateFilteredPersonList(PREDICATE_SHOW_ALL_PERSONS);
-        expectedModel.commitAddressBook();
+        expectedModel.commit();
         assertCommandSuccess(new ListCommand(), model, ListCommand.MESSAGE_SUCCESS, expectedModel);
     }
 
@@ -39,7 +39,7 @@ public class ListCommandTest {
         showPersonAtIndex(model, INDEX_FIRST_PERSON);
 
         expectedModel.updateFilteredPersonList(PREDICATE_SHOW_ALL_PERSONS);
-        expectedModel.commitAddressBook();
+        expectedModel.commit();
         assertCommandSuccess(new ListCommand(), model, ListCommand.MESSAGE_SUCCESS, expectedModel);
     }
 }

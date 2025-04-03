@@ -7,7 +7,6 @@ import static seedu.address.logic.parser.CliSyntax.PREFIX_EMAIL;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_NAME;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_PHONE;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_TAG;
-import static seedu.address.model.Model.PREDICATE_SHOW_ALL_PERSONS;
 
 import java.util.logging.Logger;
 
@@ -19,26 +18,28 @@ import seedu.address.model.Model;
  */
 public class SortCommand extends Command {
     public static final String COMMAND_WORD = "sort";
-    public static final String MESSAGE_USAGE = COMMAND_WORD + ": Sort all persons by the attribute specified "
-            + "and displays them as a list with index numbers.\n"
-            + "Parameters: "
+    public static final String MESSAGE_USAGE = COMMAND_WORD + ": Sort all persons by specified prefix. "
+            + "Acceptable prefixes: "
             + "[" + PREFIX_NAME + "] "
             + "[" + PREFIX_PHONE + "] "
             + "[" + PREFIX_EMAIL + "] "
             + "[" + PREFIX_ADDRESS + "] "
             + "[" + PREFIX_TAG + "] \n"
-            + "Example: " + COMMAND_WORD + " " + PREFIX_NAME;
+            + "Example: " + COMMAND_WORD + " " + PREFIX_NAME + " or " + COMMAND_WORD + " " + PREFIX_TAG
+            + " " + PREFIX_NAME;
     private static final Logger logger = Logger.getLogger(SortCommand.class.getName());
-    private final String prefix;
+    private final String[] prefixes;
 
     /**
      * Constructs a SortCommand to sort the address book based on specified prefix.
      *
-     * @param prefix The prefix indicating the attribute to sort by.
+     * @param prefixes The prefixes indicating the attribute to sort by.
      */
-    public SortCommand(String prefix) {
-        this.prefix = prefix;
-        requireNonNull(prefix);
+    public SortCommand(String... prefixes) {
+        if (prefixes.length == 0) {
+            throw new IllegalArgumentException("Prefixes cannot be null or empty");
+        }
+        this.prefixes = prefixes;
     }
 
     /**
@@ -51,16 +52,22 @@ public class SortCommand extends Command {
     @Override
     public CommandResult execute(Model model) {
         requireNonNull(model);
-        model.updateFilteredPersonList(PREDICATE_SHOW_ALL_PERSONS);
-        model.updateSortedFilteredPersonList(prefix);
-        model.commitAddressBook();
+        model.updateSortedPersonList(prefixes);
+        model.updateSortedFilteredPersonList(prefixes);
 
-        logger.info("SortCommand execution completed. List sorted by: " + prefix);
+        model.commit();
+
+        logger.info("SortCommand execution completed. List sorted by: " + prefixes);
 
         return new CommandResult(MESSAGE_SORT_SUCCESSFUL);
     }
 
-    public String getSortPrefix() {
-        return prefix;
+    /**
+     * Returns the prefixes that are used to sort the address book.
+     *
+     * @return The array of prefixes specifying the attributes which the address book is sorted.
+     */
+    public String[] getSortPrefix() {
+        return prefixes;
     }
 }

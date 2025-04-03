@@ -16,13 +16,13 @@ public class RedoCommandTest {
     public void execute_redosLeft_success() {
         Model model = new ModelManager();
         model.addPerson(CARL);
-        model.commitAddressBook();
-        model.undoAddressBook();
+        model.commit();
+        model.undo();
         Model expectedModel = new ModelManager();
         expectedModel.addPerson(CARL);
-        expectedModel.commitAddressBook();
-        expectedModel.undoAddressBook();
-        expectedModel.redoAddressBook();
+        expectedModel.commit();
+        expectedModel.undo();
+        expectedModel.redo();
 
         assertCommandSuccess(new RedoCommand(), model, RedoCommand.MESSAGE_SUCCESS, expectedModel);
     }

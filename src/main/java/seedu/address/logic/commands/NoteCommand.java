@@ -27,8 +27,8 @@ public class NoteCommand extends Command {
 
     public static final String MESSAGE_USAGE = COMMAND_WORD
             + ": Changes the note of the person identified by the index number used in the displayed person list.\n"
-            + "Parameters: INDEX (must be a positive integer)\n"
-            + "[" + PREFIX_NOTE + "Note] "
+            + "Parameters: INDEX (must be a positive integer) "
+            + "[" + PREFIX_NOTE + "Note]\n"
             + "Example: " + COMMAND_WORD + " 1 "
             + PREFIX_NOTE + "Does not like to be called";
 
@@ -65,7 +65,8 @@ public class NoteCommand extends Command {
 
         model.setPerson(personToNote, editedPerson);
         model.updateFilteredPersonList(PREDICATE_SHOW_ALL_PERSONS);
-        model.commitAddressBook();
+
+        model.commit();
 
         return new CommandResult(String.format(MESSAGE_NOTE_PERSON_SUCCESS, Messages.format(editedPerson)));
     }

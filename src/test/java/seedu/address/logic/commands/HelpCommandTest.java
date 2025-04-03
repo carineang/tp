@@ -1,5 +1,7 @@
 package seedu.address.logic.commands;
 
+import static org.junit.jupiter.api.Assertions.assertDoesNotThrow;
+import static org.junit.jupiter.api.Assertions.assertThrows;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 import static seedu.address.logic.commands.CommandTestUtil.assertCommandSuccess;
 import static seedu.address.logic.commands.HelpCommand.SHOWING_HELP_MESSAGE;
@@ -16,6 +18,7 @@ public class HelpCommandTest {
     @Test
     public void execute_helpNoCommand_success() {
         CommandResult expectedCommandResult = new CommandResult(SHOWING_HELP_MESSAGE, true, false);
+        expectedModel.commit();
         assertCommandSuccess(new HelpCommand(), model, expectedCommandResult, expectedModel);
     }
 
@@ -44,5 +47,19 @@ public class HelpCommandTest {
 
         CommandResult result = helpCommand.execute(model);
         assertTrue(result.getFeedbackToUser().contains(expectedFeedback));
+    }
+
+    @Test
+    public void execute_undoCommand_success() {
+        Model blankModel = new ModelManager();
+
+        HelpCommand helpCommand = new HelpCommand();
+
+        // should only undo helpCommand
+        assertDoesNotThrow(() -> helpCommand.execute(blankModel));
+        blankModel.undo();
+
+        // Nothing to undo
+        assertThrows(IndexOutOfBoundsException.class, () -> blankModel.undo());
     }
 }

@@ -7,9 +7,11 @@ import java.util.Arrays;
 import java.util.Collection;
 import java.util.HashSet;
 import java.util.Set;
+import java.util.logging.Logger;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
+import seedu.address.commons.core.LogsCenter;
 import seedu.address.commons.core.index.Index;
 import seedu.address.logic.parser.exceptions.ParseException;
 
@@ -36,6 +38,8 @@ public class MassOpsIndexParser {
             + System.lineSeparator()
             + "3. " + MESSAGE_RANGE_CONSTRAINT;
 
+    private static final Logger logger = LogsCenter.getLogger(MassOpsIndexParser.class);
+
     public static final String MESSAGE_RANGE_SIZE_EXCEEDED = "Number of specified indexes exceeded limit."
             + System.lineSeparator() + MESSAGE_MASS_OPS_CONSTRAINTS;
 
@@ -51,6 +55,8 @@ public class MassOpsIndexParser {
     private static final Pattern RANGE_INDEX_PATTERN = Pattern.compile(
             "(?<startIndex>\\d+)\\s*-\\s*(?<endIndex>\\d+)"
     );
+
+
 
     /**
      * Parses the given string argument according to the spaced and ranged parsing formats. <br/>
@@ -80,6 +86,17 @@ public class MassOpsIndexParser {
         return parseRangedIndexes(rangedMatcher);
     }
 
+    private void validateRangedIndex(int oneBasedStartIndex, int oneBasedEndIndex) throws ParseException {
+        if (oneBasedStartIndex > oneBasedEndIndex) {
+            throw new ParseException(MESSAGE_INVALID_RANGE_ORDER);
+        }
+        long numOperations = (long) oneBasedEndIndex - (long) oneBasedStartIndex + 1;
+        logger.info("Number of operations: " + numOperations);
+        if (numOperations > MAX_OPERATIONS_SIZE) {
+            throw new ParseException(MESSAGE_RANGE_SIZE_EXCEEDED);
+        }
+    }
+
     private Set<Index> parseRangedIndexes(Matcher rangedMatcher) throws ParseException {
         requireNonNull(rangedMatcher);
         assert RANGE_INDEX_PATTERN.equals(rangedMatcher.pattern());
@@ -96,18 +113,20 @@ public class MassOpsIndexParser {
 
         final int oneBasedStartIndex = Integer.parseInt(startIndexString);
         final int oneBasedEndIndex = Integer.parseInt(endIndexString);
+        logger.info("oneBasedStartIndex: " + oneBasedStartIndex + ", oneBasedEndIndex: " + oneBasedEndIndex);
 
-        if (oneBasedStartIndex > oneBasedEndIndex) {
-            throw new ParseException(MESSAGE_INVALID_RANGE_ORDER);
-        }
-
-        if ((long) oneBasedEndIndex - (long) oneBasedStartIndex + 1 > MAX_OPERATIONS_SIZE) {
-            throw new ParseException(MESSAGE_RANGE_SIZE_EXCEEDED);
-        }
+        validateRangedIndex(oneBasedStartIndex, oneBasedEndIndex);
 
         Set<Index> indexes = new HashSet<>();
+
         for (int i = oneBasedStartIndex; i <= oneBasedEndIndex; i++) {
+            logger.info("zero based: " + (i - 1));
             indexes.add(Index.fromOneBased(i));
+
+            if (i == Integer.MAX_VALUE) {
+                // Prevents overflow when i is incremented
+                break;
+            }
         }
 
         return indexes;

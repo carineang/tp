@@ -1,11 +1,13 @@
 package seedu.address.logic.parser;
 
 import static seedu.address.logic.Messages.MESSAGE_INVALID_COMMAND_FORMAT;
+import static seedu.address.logic.Messages.getErrorMessageForDuplicatePrefixes;
 import static seedu.address.logic.commands.CommandTestUtil.NOTE_DESC_AMY;
 import static seedu.address.logic.commands.CommandTestUtil.NOTE_DESC_BOB;
 import static seedu.address.logic.commands.CommandTestUtil.VALID_NAME_AMY;
 import static seedu.address.logic.commands.CommandTestUtil.VALID_NOTE_AMY;
 import static seedu.address.logic.commands.CommandTestUtil.VALID_NOTE_BOB;
+import static seedu.address.logic.parser.CliSyntax.PREFIX_NOTE;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_TAG;
 import static seedu.address.logic.parser.CommandParserTestUtil.assertParseFailure;
 import static seedu.address.logic.parser.CommandParserTestUtil.assertParseSuccess;
@@ -65,4 +67,13 @@ public class NoteCommandParserTest {
         assertParseSuccess(parser, userInput, expectedCommand);
     }
 
+    @Test
+    public void parse_duplicateNotePrefixes_failure() {
+        String invalidCommandInput = "0"
+                + NOTE_DESC_AMY
+                + NOTE_DESC_BOB;
+
+        assertParseFailure(parser, invalidCommandInput,
+                getErrorMessageForDuplicatePrefixes(PREFIX_NOTE));
+    }
 }

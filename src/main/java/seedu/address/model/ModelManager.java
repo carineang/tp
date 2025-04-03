@@ -4,6 +4,7 @@ import static java.util.Objects.requireNonNull;
 import static seedu.address.commons.util.CollectionUtil.requireAllNonNull;
 
 import java.nio.file.Path;
+import java.util.ArrayList;
 import java.util.function.Predicate;
 import java.util.logging.Logger;
 
@@ -12,6 +13,7 @@ import javafx.collections.transformation.FilteredList;
 import javafx.collections.transformation.SortedList;
 import seedu.address.commons.core.GuiSettings;
 import seedu.address.commons.core.LogsCenter;
+import seedu.address.model.person.FilteredPersonList;
 import seedu.address.model.person.Person;
 
 /**
@@ -20,12 +22,15 @@ import seedu.address.model.person.Person;
 public class ModelManager implements Model {
     private static final Logger logger = LogsCenter.getLogger(ModelManager.class);
 
-    private final VersionedAddressBook addressBook;
+    private final AddressBook addressBook;
     private final UserPrefs userPrefs;
     private final FilteredList<Person> filteredPersons;
     private final InputHistory pastCommands;
     private final ObservableList<Person> personList;
     private final SortedList<Person> sortedFilteredPersons;
+    private Predicate<Person> currentPredicate;
+    private final ArrayList<ModelState> stateHistory;
+    private int currentStatePointer;
 
 
     /**
@@ -36,16 +41,31 @@ public class ModelManager implements Model {
 
         logger.fine("Initializing with address book: " + addressBook + " and user prefs " + userPrefs);
 
-        this.addressBook = new VersionedAddressBook(addressBook);
+        this.addressBook = new AddressBook(addressBook);
         this.userPrefs = new UserPrefs(userPrefs);
         filteredPersons = new FilteredList<>(this.addressBook.getPersonList());
         pastCommands = new InputHistory();
         this.personList = addressBook.getPersonList();
         sortedFilteredPersons = new SortedList<>(filteredPersons);
+
+        stateHistory = new ArrayList<>();
+
+        // initialise the current predicate by default
+        currentPredicate = PREDICATE_SHOW_ALL_PERSONS;
+
+        // create default model state
+        ModelState initState = new ModelState(addressBook, currentPredicate);
+
+        stateHistory.add(initState);
+
+        currentStatePointer = 0;
     }
 
+    /**
+     * Initializes a ModelManager with an empty address book and user preferences.
+     */
     public ModelManager() {
-        this(new VersionedAddressBook(), new UserPrefs());
+        this(new AddressBook(), new UserPrefs());
     }
 
     //=========== UserPrefs ==================================================================================
@@ -95,23 +115,45 @@ public class ModelManager implements Model {
         return addressBook;
     }
 
+    /**
+     * Returns true if a person with the same identity as person exists in the address book.
+     *
+     * @param person The person to check for.
+     * @return True if the person exists, false otherwise.
+     */
     @Override
     public boolean hasPerson(Person person) {
         requireNonNull(person);
         return addressBook.hasPerson(person);
     }
 
+    /**
+     * Deletes the specified target person from the address book.
+     *
+     * @param target The person to delete.
+     */
     @Override
     public void deletePerson(Person target) {
         addressBook.removePerson(target);
     }
 
+    /**
+     * Adds the specified person to the address book.
+     *
+     * @param person The person to add.
+     */
     @Override
     public void addPerson(Person person) {
         addressBook.addPerson(person);
         updateFilteredPersonList(PREDICATE_SHOW_ALL_PERSONS);
     }
 
+    /**
+     * Replaces the target person with the edited person.
+     *
+     * @param target The person to be replaced.
+     * @param editedPerson The person to replace with.
+     */
     @Override
     public void setPerson(Person target, Person editedPerson) {
         requireAllNonNull(target, editedPerson);
@@ -137,12 +179,19 @@ public class ModelManager implements Model {
      */
     @Override
     public ObservableList<Person> getFilteredPersonList() {
-        return sortedFilteredPersons;
+        return filteredPersons;
     }
 
+    /**
+     * Updates the filtered person list based on the specified predicate.
+     *
+     * @param predicate The predicate to filter the persons.
+     */
     @Override
     public void updateFilteredPersonList(Predicate<Person> predicate) {
         requireNonNull(predicate);
+
+        currentPredicate = predicate;
         filteredPersons.setPredicate(predicate);
     }
 
@@ -159,41 +208,105 @@ public class ModelManager implements Model {
     //=========== Sorted Person List Accessors =============================================================
 
     /**
-     * Updates the sorted and filtered person list based on the given prefix.The prefix is used to
+     * Updates the sorted person list based on the given prefix.The prefix is used to
      * filter the list of persons in the address book and sort the resulting filtered list.
      *
      * @param prefix The string prefix used to filter and sort the person list.
      * @throws NullPointerException if prefix is null.
      */
     @Override
-    public void updateSortedFilteredPersonList(String prefix) {
+    public void updateSortedPersonList(String... prefix) {
         requireNonNull(prefix);
         addressBook.updateSortedList(prefix);
     }
 
+    /**
+     * Updates the sorted person list based on the given prefix. The prefix is used to
+     * filter the list of persons in the address book and sort the resulting filtered list.
+     *
+     * @param prefix The string prefix used to filter and sort the person list.
+     * @throws NullPointerException if prefix is null.
+     */
     @Override
-    public void commitAddressBook() {
-        addressBook.commit();
+    public void updateSortedFilteredPersonList(String... prefix) {
+        requireNonNull(prefix);
+
+        filteredPersons.setPredicate(currentPredicate);
+        FilteredPersonList filteredPersonList = new FilteredPersonList(filteredPersons);
+        filteredPersonList.sortByFilteredList(prefix);
     }
 
     @Override
-    public void undoAddressBook() {
-        addressBook.undo();
+    public void commit() {
+        ModelState newState = new ModelState(new AddressBook(addressBook), currentPredicate);
+
+        // commit current predicate
+        removeAheadCurrent();
+        stateHistory.add(newState);
+        currentStatePointer += 1;
     }
 
     @Override
-    public void redoAddressBook() {
-        addressBook.redo();
+    public void undo() {
+
+        // must have a last state to be undoable
+        // this is the responsibility of the person using this function
+        // throw unchecked error if not ensured
+        if (currentStatePointer - 1 < 0) {
+            throw new IndexOutOfBoundsException();
+        }
+        currentStatePointer -= 1;
+
+        // get state
+        ModelState pastState = stateHistory.get(currentStatePointer);
+        requireNonNull(pastState);
+
+        // set state
+        addressBook.resetData(pastState.getAddressBookState());
+        updateFilteredPersonList(pastState.getPredicate());
+    }
+    @Override
+    public void redo() {
+        // must have a undone state to be able to be redone
+        // this is the responsibility of the person using this function
+        // throw unchecked error if not ensured
+        if (currentStatePointer + 1 >= stateHistory.size()) {
+            throw new IndexOutOfBoundsException();
+        }
+
+        currentStatePointer += 1;
+
+        // get state
+        ModelState nextState = stateHistory.get(currentStatePointer);
+        requireNonNull(nextState);
+
+        // set state
+        addressBook.resetData(nextState.getAddressBookState());
+        updateFilteredPersonList(nextState.getPredicate());
+    }
+
+    /**
+     * Removes all states ahead of the current state
+     */
+    private void removeAheadCurrent() {
+        int curSize = stateHistory.size();
+
+        // remove AddressBooks ahead of the current book until none left
+        for (int i = currentStatePointer + 1; i < curSize; i++) {
+            stateHistory.remove(currentStatePointer + 1);
+        }
+
+        assert currentStatePointer == stateHistory.size() - 1;
     }
 
     @Override
-    public boolean addressBookHasUndo() {
-        return addressBook.hasUndo();
+    public boolean hasUndo() {
+        return currentStatePointer - 1 >= 0;
     }
 
     @Override
-    public boolean addressBookHasRedo() {
-        return addressBook.hasRedo();
+    public boolean hasRedo() {
+        return currentStatePointer + 1 < stateHistory.size();
     }
 
     @Override
@@ -211,6 +324,9 @@ public class ModelManager implements Model {
         return addressBook.equals(otherModelManager.addressBook)
                 && userPrefs.equals(otherModelManager.userPrefs)
                 //&& filteredPersons.equals(otherModelManager.filteredPersons);
-                && sortedFilteredPersons.equals(otherModelManager.sortedFilteredPersons);
+                && sortedFilteredPersons.equals(otherModelManager.sortedFilteredPersons)
+                && currentPredicate.equals(otherModelManager.currentPredicate)
+                && currentStatePointer == otherModelManager.currentStatePointer
+                && stateHistory.equals(otherModelManager.stateHistory);
     }
 }

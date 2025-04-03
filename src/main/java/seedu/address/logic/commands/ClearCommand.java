@@ -18,7 +18,9 @@ public class ClearCommand extends Command {
     public CommandResult execute(Model model) {
         requireNonNull(model);
         model.setAddressBook(new AddressBook());
-        model.commitAddressBook();
+
+        model.commit();
+
         return new CommandResult(MESSAGE_SUCCESS);
     }
 }
