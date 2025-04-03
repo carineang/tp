@@ -6,10 +6,10 @@ import javafx.collections.ObservableList;
 /**
  * Represents the data model for the collection of previously entered user inputs.
  * Only the {@link #MAX_HISTORY_SIZE} most recently entered inputs are considered.
- * {@code InputHistory} objects with the same number and ordering of the last {@link #MAX_HISTORY_SIZE}
+ * {@code CommandHistory} objects with the same number and ordering of the last {@link #MAX_HISTORY_SIZE}
  * inputs are considered equal.
  */
-public class InputHistory {
+public class CommandHistory {
 
     /** Max number of input histories stored. Must be > 0. */
     static final int MAX_HISTORY_SIZE = 20;
@@ -17,9 +17,9 @@ public class InputHistory {
     private final ObservableList<String> pastCommands;
 
     /**
-     * Constructs an empty {@code InputHistory} object.
+     * Constructs an empty {@code CommandHistory} object.
      */
-    public InputHistory() {
+    public CommandHistory() {
         // Initialise an empty command history on load
         pastCommands = FXCollections.observableArrayList();
     }
@@ -61,7 +61,7 @@ public class InputHistory {
         }
 
         // instanceof handles nulls
-        if (!(other instanceof InputHistory otherHistory)) {
+        if (!(other instanceof CommandHistory otherHistory)) {
             return false;
         }
 

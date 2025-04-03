@@ -174,7 +174,7 @@ public class AddCommandTest {
         }
 
         @Override
-        public ObservableList<String> getCommandInputHistoryList() {
+        public ObservableList<String> getCommandHistoryList() {
             throw new AssertionError("This method should not be called.");
         }
 

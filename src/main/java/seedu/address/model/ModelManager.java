@@ -25,7 +25,7 @@ public class ModelManager implements Model {
     private final AddressBook addressBook;
     private final UserPrefs userPrefs;
     private final FilteredList<Person> filteredPersons;
-    private final InputHistory pastCommands;
+    private final CommandHistory commandHistory;
     private final ObservableList<Person> personList;
     private final SortedList<Person> sortedFilteredPersons;
     private Predicate<Person> currentPredicate;
@@ -44,7 +44,7 @@ public class ModelManager implements Model {
         this.addressBook = new AddressBook(addressBook);
         this.userPrefs = new UserPrefs(userPrefs);
         filteredPersons = new FilteredList<>(this.addressBook.getPersonList());
-        pastCommands = new InputHistory();
+        commandHistory = new CommandHistory();
         this.personList = addressBook.getPersonList();
         sortedFilteredPersons = new SortedList<>(filteredPersons);
 
@@ -197,12 +197,12 @@ public class ModelManager implements Model {
 
     @Override
     public void addPastCommandInput(String rawCommandInput) {
-        pastCommands.addInput(rawCommandInput);
+        commandHistory.addInput(rawCommandInput);
     }
 
     @Override
-    public ObservableList<String> getCommandInputHistoryList() {
-        return pastCommands.getPastCommands();
+    public ObservableList<String> getCommandHistoryList() {
+        return commandHistory.getPastCommands();
     }
 
     //=========== Sorted Person List Accessors =============================================================
@@ -244,6 +244,8 @@ public class ModelManager implements Model {
         removeAheadCurrent();
         stateHistory.add(newState);
         currentStatePointer += 1;
+
+        logger.fine("Successfully committed the model state");
     }
 
     @Override
@@ -264,6 +266,8 @@ public class ModelManager implements Model {
         // set state
         addressBook.resetData(pastState.getAddressBookState());
         updateFilteredPersonList(pastState.getPredicate());
+
+        logger.fine("Successfully undone the model state");
     }
     @Override
     public void redo() {
@@ -283,10 +287,12 @@ public class ModelManager implements Model {
         // set state
         addressBook.resetData(nextState.getAddressBookState());
         updateFilteredPersonList(nextState.getPredicate());
+
+        logger.fine("Successfully redone the undone model state");
     }
 
     /**
-     * Removes all states ahead of the current state
+     * Removes all model states ahead of the current state
      */
     private void removeAheadCurrent() {
         int curSize = stateHistory.size();
