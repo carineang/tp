@@ -81,6 +81,7 @@ public interface Model {
 
     /**
      * Updates the filter of the filtered person list to filter by the given {@code predicate}.
+     *
      * @throws NullPointerException if {@code predicate} is null.
      */
     void updateFilteredPersonList(Predicate<Person> predicate);
@@ -127,28 +128,33 @@ public interface Model {
     void updateSortedFilteredPersonList(String... prefix);
 
     /**
-     * Saves the state of the address book
-     * It is up to the user of this method to decide when to commit the address book
+     * Saves the state of the model
+     * It is up to the user of this method to decide when to commit the model
+     *
      */
-    void commitAddressBook();
+    void commit();
 
     /**
-     * Restores the state of the address book to the last saved state
+     * Restores the state of the model to the last saved state
+     *
+     * @throws IndexOutOfBoundsException if there is no last saved state
      */
-    void undoAddressBook();
+    void undo();
 
     /**
-     * Restores the state of the address book to the last saved undone state
+     * Restores the state of the model model to the last saved undone model state
+     *
+     * @throws IndexOutOfBoundsException if there is no last saved state
      */
-    void redoAddressBook();
+    void redo();
 
     /**
-     * Checks if the address book has a state to undo
+     * Checks if the model has a state to undo
      */
-    boolean addressBookHasUndo();
+    boolean hasUndo();
 
     /**
-     * Checks if the address book has an undone state to redo
+     * Checks if the model has an undone state to redo
      */
-    boolean addressBookHasRedo();
+    boolean hasRedo();
 }

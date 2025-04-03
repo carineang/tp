@@ -17,6 +17,7 @@ Class StatusBarFooter
 Class CommandBox
 Class PersonDetailPanel
 Class PersonDetailCard
+Class CommandHistoryMenu
 }
 
 package Model <<Rectangle>> {
@@ -33,6 +34,7 @@ HiddenOutside ..> Ui
 UiManager .left.|> Ui
 UiManager -down-> "1" MainWindow
 MainWindow *-down->  "1" CommandBox
+MainWindow *-down->  "1" CommandHistoryMenu
 MainWindow *-down-> "1" ResultDisplay
 MainWindow *-down-> "1" PersonListPanel
 MainWindow *-down-> "1" StatusBarFooter
@@ -46,6 +48,7 @@ MainWindow -left-|> UiPart
 
 ResultDisplay --|> UiPart
 CommandBox --|> UiPart
+CommandHistoryMenu --|> UiPart
 PersonListPanel --|> UiPart
 PersonCard --|> UiPart
 PersonDetailPanel --|> UiPart
@@ -66,6 +69,7 @@ HelpWindow -[hidden]left- CommandBox
 CommandBox -[hidden]left- ResultDisplay
 ResultDisplay -[hidden]left- StatusBarFooter
 PersonDetailPanel -[hidden]left- PersonListPanel
+StatusBarFooter -[hidden]left- CommandHistoryMenu
 
 MainWindow -[hidden]-|> UiPart
 @enduml

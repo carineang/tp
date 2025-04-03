@@ -19,11 +19,11 @@ public class RedoCommand extends Command {
     public CommandResult execute(Model model) throws CommandException {
         requireNonNull(model);
 
-        if (!model.addressBookHasRedo()) {
+        if (!model.hasRedo()) {
             throw new CommandException(Messages.MESSAGE_INVALID_NO_REDO);
         }
 
-        model.redoAddressBook();
+        model.redo();
 
         return new CommandResult(MESSAGE_SUCCESS);
     }

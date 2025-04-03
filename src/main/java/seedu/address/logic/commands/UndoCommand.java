@@ -19,11 +19,11 @@ public class UndoCommand extends Command {
     public CommandResult execute(Model model) throws CommandException {
         requireNonNull(model);
 
-        if (!model.addressBookHasUndo()) {
+        if (!model.hasUndo()) {
             throw new CommandException(Messages.MESSAGE_INVALID_NO_UNDO);
         }
 
-        model.undoAddressBook();
+        model.undo();
 
         return new CommandResult(MESSAGE_SUCCESS);
     }

@@ -9,7 +9,7 @@ title: Developer Guide
 
 ## **Acknowledgements**
 
-* {list here sources of all reused/adapted ideas, code, documentation, and third-party libraries -- include links to the original source as well}
+* Notarius is based on the AddressBook-Level3 project created by the [SE-EDU initiative](https://se-education.org/).
 
 --------------------------------------------------------------------------------------------------------------------
 
@@ -72,7 +72,8 @@ The **API** of this component is specified in [`Ui.java`](https://github.com/se-
 
 ![Structure of the UI Component](images/UiClassDiagram.png)
 
-The UI consists of a `MainWindow` that is made up of parts e.g.`CommandBox`, `ResultDisplay`, `PersonListPanel`, `StatusBarFooter` etc. All these, including the `MainWindow`, inherit from the abstract `UiPart` class which captures the commonalities between classes that represent parts of the visible GUI.
+The UI consists of a `MainWindow` that is made up of parts such as `CommandBox`, `ResultDisplay`, `PersonListPanel`, 
+`PersonDetailPanel`, `StatusBarFooter` and `HelpWindow`. All these, including the `MainWindow`, inherit from the abstract `UiPart` class which captures the commonalities between classes that represent parts of the visible GUI.
 
 The `UI` component uses the JavaFx UI framework. The layout of these UI parts are defined in matching `.fxml` files that are in the `src/main/resources/view` folder. For example, the layout of the [`MainWindow`](https://github.com/se-edu/addressbook-level3/tree/master/src/main/java/seedu/address/ui/MainWindow.java) is specified in [`MainWindow.fxml`](https://github.com/se-edu/addressbook-level3/tree/master/src/main/resources/view/MainWindow.fxml)
 
@@ -155,18 +156,70 @@ Classes used by multiple components are in the `seedu.address.commons` package.
 
 This section describes some noteworthy details on how certain features are implemented.
 
+### List feature
 
+The `list` command enables users to view all existing contacts from Notarius.
+
+<p align="center">
+  <img src="images/ListCommandSequenceDiagram.png" alt="Ui" />
+</p>
+
+#### Implementation Details
+
+1. The user inputs the command to list all contacts.
+2. A `LogicManager` object invokes the `execute` method of a `ListCommand` object.
+3. The `execute` method of the `ListCommand` object invokes the `updateFilteredPersonList` and
+`commitAddressBook` method of its `Model` to update and show all contacts.
+4. The `execute` method of the `ListCommand` object returns a `CommandResult` object which stores the data regarding
+the completion of the `list` command.
+
+### Clear feature
+
+The `clear` command enables users to remove all existing contacts from Notarius.
+
+<p align="center">
+  <img src="images/ClearCommandSequenceDiagram.png" alt="Ui" />
+</p>
+
+#### Implementation Details
+
+1. The user inputs the command to clear all contacts.
+2. A `LogicManager` object invokes the `execute` method of a `ClearCommand` object.
+3. The `execute` method of the `ClearCommand` object invokes the `setAddressBook` and `commitAddressBook` method 
+of its `Model` argument with a new `AddressBook` object which contains an empty `UniquePersonList` property.
+4. The `execute` method of the `ClearCommand` object returns a `CommandResult` object which stores the data regarding 
+the completion of the `clear` command.
+
+### Sort feature
+
+The `sort` command enables users to sort contacts in Notarius by prefix in lexicographical order.
+
+<p align="center">
+  <img src="images/SortCommandSequenceDiagram.png" alt="Ui" />
+</p>
+
+#### Implementation Details
+
+1. The user inputs the command to sort contacts with the specified prefix.
+2. A `SortCommandParser` object invokes its `parse` method which parses the user input.
+3. The `SortCommand` object is created with the parsed prefix.
+4. A `LogicManager` object invokes the `execute` method of the `SortCommand` object.
+5. The `execute` method of the `SortCommand` object invokes the `updateSortedPersonList`, 
+`updateSortedFilteredPersonList` and `commitAddressBook` methods of its `Model` argument to update and sort 
+all contacts by the target prefix.
+6. The `execute` method of the `SortCommand` object returns a `CommandResult` object which stores the data regarding 
+the completion of the `sort` command.
 
 
 ### Delete feature
 
 The `delete` command allows the user to delete specified client contact(s) from Notarius.
 
-The sequence diagram below models the different components of the application that are involved 
+The sequence diagram below models the different components of the application that are involved
 when the user executes the `delete` command.
 ![DeleteSequenceDiagram](images/DeleteSequenceDiagram.png)
 
-#### Details
+#### Implementation Details
 
 1. The user executes a command to delete a contact by specifying the contact's index.
 2. The `LogicManager` receives the command and calls `AddressBookParser#parseCommand` to parse the command.
@@ -187,12 +240,12 @@ when the user executes the `delete` command.
 **Aspect: How to implement the delete command**
 
 * **Alternative 1 (current choice):** Support deletion of multiple client contacts and intuitive delete formats
-  * Pros: Intuitive to use, and improved user-friendliness. Users do not have to repeatedly type the same command to delete clients one-by-one.
-  * Cons: More complicated to implement, due to the need of parsing multiple indexes, ignoring duplicates, and ensuring valid parsing according to the multiple specified formats.
+    * Pros: Intuitive to use, and improved user-friendliness. Users do not have to repeatedly type the same command to delete clients one-by-one.
+    * Cons: More complicated to implement, due to the need of parsing multiple indexes, ignoring duplicates, and ensuring valid parsing according to the multiple specified formats.
 
 * **Alternative 2:** Support deletion of only one client contact at a time using a single format
-  * Pros: Simpler to implement, as the command will only need to parse one index.
-  * Cons: Less user-friendly, as users will have to spend more time and trouble to repeatedly type the same command to delete potentially many clients one-by-one.
+    * Pros: Simpler to implement, as the command will only need to parse one index.
+    * Cons: Less user-friendly, as users will have to spend more time and trouble to repeatedly type the same command to delete potentially many clients one-by-one.
 
 
 ### Command history
@@ -204,7 +257,7 @@ The following sequence diagram models the interaction within the `Model` compone
 when the user executes a command to **save command inputs**.
 ![AddCommandHistorySequenceDiagram](images/AddCommandHistorySequenceDiagram.png)
 
-#### Details
+#### Implementation Details: Saving commands to command history
 
 1. When a user enters a non-empty command, the `ModelManager#addPastCommandInput` method will be called when the command text in `LogicManager` component is non-empty.
 2. The `ModelManager` calls `CommandHistory#addInput` and passes the non-empty command text as argument.
@@ -216,15 +269,16 @@ Note that `pastCommands` is an `ObservableList` sorted from most to least recent
 
 <br>
 
-The following sequence diagram models the main components involved when a user moves up the command history selection 
+The following sequence diagram models the main components involved when a user moves up the command history selection
 using the `Ctrl + Up` key combinations on Windows (or `Ctrl + Opt + Up` on macOS), to **re-access previous commands**.
 ![CommandHistorySequenceDiagram](images/CommandHistorySequenceDiagram.png)
 
-#### Details
+#### Implementation Details: Re-accessing command history
+
 1. When the user presses `Ctrl + Up`, the subscribed for the `EventHandler<KeyEvent>` JavaFX listener will be called.
 2. The listener then calls `handleMovementUp` method of the `CommandHistoryMenu` in the Ui module.
 3. The `CommandHistoryMenu` object calls the `moveUp` method of an internal `CommandHistoryMenuController` object to handle the logic
-of decrementing the index.
+   of decrementing the index.
 4. In `moveUp` then sets the current input of the `CommandBox` object through a call to `CommandBox#setCommandTextField` with the selected previous command.
 5. The `CommandHistoryMenu` object then gets a result of this selection update by calling `CommandHistoryMenuController#getCommandSelectionIndex`
 6. If the index is present within this result, the `CommandHistoryMenu` object gets the `SelectionModel` for rendering the given list cell of `ListView`
@@ -235,8 +289,9 @@ of decrementing the index.
 1. User launches Notarius
 2. User enters a non-empty command.
 3. User re-accesses the previously entered command using the command history shortcuts:
-   * Windows/Linux: `Ctrl + Up`/`Ctrl + Down` to move up/down the selection.
-   * macOS: `Ctrl + Opt + Up`/ `Ctrl + Opt + Down` similarly.
+    * Windows/Linux: `Ctrl + Up`/`Ctrl + Down` to move up/down the selection.
+    * macOS: `Ctrl + Opt + Up`/ `Ctrl + Opt + Down` similarly.
+
 
 
 ### \[Proposed\] Undo/redo feature
@@ -249,7 +304,7 @@ The proposed undo/redo mechanism is facilitated by `VersionedAddressBook`. It ex
 * `VersionedAddressBook#undo()` — Restores the previous address book state from its history.
 * `VersionedAddressBook#redo()` — Restores a previously undone address book state from its history.
 
-These operations are exposed in the `Model` interface as `Model#commitAddressBook()`, `Model#undoAddressBook()` and `Model#redoAddressBook()` respectively.
+These operations are exposed in the `Model` interface as `Model#commit()`, `Model#undo()` and `Model#redo()` respectively.
 
 Given below is an example usage scenario and how the undo/redo mechanism behaves at each step.
 
@@ -257,23 +312,23 @@ Step 1. The user launches the application for the first time. The `VersionedAddr
 
 ![UndoRedoState0](images/UndoRedoState0.png)
 
-Step 2. The user executes `delete 5` command to delete the 5th person in the address book. The `delete` command calls `Model#commitAddressBook()`, causing the modified state of the address book after the `delete 5` command executes to be saved in the `addressBookStateList`, and the `currentStatePointer` is shifted to the newly inserted address book state.
+Step 2. The user executes `delete 5` command to delete the 5th person in the address book. The `delete` command calls `Model#commit()`, causing the modified state of the address book after the `delete 5` command executes to be saved in the `addressBookStateList`, and the `currentStatePointer` is shifted to the newly inserted address book state.
 
 ![UndoRedoState1](images/UndoRedoState1.png)
 
-Step 3. The user executes `add n/David …​` to add a new person. The `add` command also calls `Model#commitAddressBook()`, causing another modified address book state to be saved into the `addressBookStateList`.
+Step 3. The user executes `add n/David …​` to add a new person. The `add` command also calls `Model#commit()`, causing another modified address book state to be saved into the `addressBookStateList`.
 
 ![UndoRedoState2](images/UndoRedoState2.png)
 
-<div markdown="span" class="alert alert-info">:information_source: **Note:** If a command fails its execution, it will not call `Model#commitAddressBook()`, so the address book state will not be saved into the `addressBookStateList`.
+<div markdown="span" class="alert alert-info">:information_source: **Note:** If a command fails its execution, it will not call `Model#commit()`, so the address book state will not be saved into the `addressBookStateList`.
 
 </div>
 
-Step 4. The user now decides that adding the person was a mistake, and decides to undo that action by executing the `undo` command. The `undo` command will call `Model#undoAddressBook()`, which will shift the `currentStatePointer` once to the left, pointing it to the previous address book state, and restores the address book to that state.
+Step 4. The user now decides that adding the person was a mistake, and decides to undo that action by executing the `undo` command. The `undo` command will call `Model#undo()`, which will shift the `currentStatePointer` once to the left, pointing it to the previous address book state, and restores the address book to that state.
 
 ![UndoRedoState3](images/UndoRedoState3.png)
 
-<div markdown="span" class="alert alert-info">:information_source: **Note:** If the `currentStatePointer` is at index 0, pointing to the initial AddressBook state, then there are no previous AddressBook states to restore. The `undo` command uses `Model#canUndoAddressBook()` to check if this is the case. If so, it will return an error to the user rather
+<div markdown="span" class="alert alert-info">:information_source: **Note:** If the `currentStatePointer` is at index 0, pointing to the initial AddressBook state, then there are no previous AddressBook states to restore. The `undo` command uses `Model#canundo()` to check if this is the case. If so, it will return an error to the user rather
 than attempting to perform the undo.
 
 </div>
@@ -290,17 +345,17 @@ Similarly, how an undo operation goes through the `Model` component is shown bel
 
 ![UndoSequenceDiagram](images/UndoSequenceDiagram-Model.png)
 
-The `redo` command does the opposite — it calls `Model#redoAddressBook()`, which shifts the `currentStatePointer` once to the right, pointing to the previously undone state, and restores the address book to that state.
+The `redo` command does the opposite — it calls `Model#redo()`, which shifts the `currentStatePointer` once to the right, pointing to the previously undone state, and restores the address book to that state.
 
-<div markdown="span" class="alert alert-info">:information_source: **Note:** If the `currentStatePointer` is at index `addressBookStateList.size() - 1`, pointing to the latest address book state, then there are no undone AddressBook states to restore. The `redo` command uses `Model#canRedoAddressBook()` to check if this is the case. If so, it will return an error to the user rather than attempting to perform the redo.
+<div markdown="span" class="alert alert-info">:information_source: **Note:** If the `currentStatePointer` is at index `addressBookStateList.size() - 1`, pointing to the latest address book state, then there are no undone AddressBook states to restore. The `redo` command uses `Model#canredo()` to check if this is the case. If so, it will return an error to the user rather than attempting to perform the redo.
 
 </div>
 
-Step 5. The user then decides to execute the command `list`. Commands that do not modify the address book, such as `list`, will usually not call `Model#commitAddressBook()`, `Model#undoAddressBook()` or `Model#redoAddressBook()`. Thus, the `addressBookStateList` remains unchanged.
+Step 5. The user then decides to execute the command `list`. Commands that do not modify the address book, such as `list`, will usually not call `Model#commit()`, `Model#undo()` or `Model#redo()`. Thus, the `addressBookStateList` remains unchanged.
 
 ![UndoRedoState4](images/UndoRedoState4.png)
 
-Step 6. The user executes `clear`, which calls `Model#commitAddressBook()`. Since the `currentStatePointer` is not pointing at the end of the `addressBookStateList`, all address book states after the `currentStatePointer` will be purged. Reason: It no longer makes sense to redo the `add n/David …​` command. This is the behavior that most modern desktop applications follow.
+Step 6. The user executes `clear`, which calls `Model#commit()`. Since the `currentStatePointer` is not pointing at the end of the `addressBookStateList`, all address book states after the `currentStatePointer` will be purged. Reason: It no longer makes sense to redo the `add n/David …​` command. This is the behavior that most modern desktop applications follow.
 
 ![UndoRedoState5](images/UndoRedoState5.png)
 
@@ -677,15 +732,16 @@ Priorities: High (must have) - `* * *`, Medium (nice to have) - `* *`, Low (unli
   * Use case resumes from step 2.
 
 * 2a. Notarius cannot find any notes related to the contact.
-  * 2a1. Notarius alerts the user with a relevant message.
+  * 2a1. Notarius displays a blank note.
+  * Use case ends.
 
 **System**: `Notarius`
 
 **Actor**: `User`
 
-**Use Case**: `UC08 - Accessing an input from the command history.`
+**Use Case**: `UC08 - Accessing an input from the command history`
 
-**Preconditions**: `Command history is open`
+**Preconditions**: `Command history is open.`
 
 **MSS**:
 
@@ -696,20 +752,85 @@ Priorities: High (must have) - `* * *`, Medium (nice to have) - `* *`, Low (unli
 
    Use case ends.
 
-**Extensions**:
+**extensions**
 
 * 1a. Notarius is unable to find any command in the history.
-  * 1a1. Notarius alerts the user with a message.
-  * 1a2. User enters a new command.
-  * Use case resumes from step 4.
+    * 1a1. Notarius alerts the user with a message.
+    * 1a2. User enters a new command.
+    * Use case resumes from step 4.
 
 * 3a. User requests to edit the command input with a new value.
-  * 3a1. Notarius updates the selected command input with the new value.
-  * Use case resumes from step 3.
+    * 3a1. Notarius updates the selected command input with the new value.
+    * Use case resumes from step 3.
 
 * *a. At any time, user requests to close the command history.
-  * *a1. Notarius closes the command history.
-  * Use case ends.
+    * *a1. Notarius closes the command history.
+    * Use case ends.
+
+**Use Case**: `UC09 - Sorting the contacts list`
+
+**Guarantees**: `If MSS reaches step 3, the user has successfully sorted the contacts list by a specified prefix.`
+
+**MSS**:
+
+1. User requests to sort Notarius by a specified prefix.
+2. Notarius updates the contacts list in the sorted order.
+3. Notarius confirms that the contacts list has been successfully sorted.
+
+   Use case ends.
+
+**Extensions**:
+
+* 1a. Notarius detects a missing prefix in the entered input.
+  * 1a1. Notarius displays the error message.
+  * 1a2. User re-enters a new command with a specified prefix.
+  * Steps 1a1 - 1a2 are repeated until a valid prefix is input by the User.
+  * Use case resumes from step 2.
+
+* 1b. Notarius detects an invalid prefix in the entered input.
+  * 1b1. Notarius displays the error message.
+  * 1b2. User re-enters a new command with a specified prefix.
+  * Steps 1b1 - 1b2 are repeated until a valid field is input by the User.
+  * Use case resumes from step 2.
+
+* 1c. User enters extra spaces or invalid formatting in the entered input.
+  * 1c1. Notarius displays an error message.
+  * 1c2. User re-enters a new command with properly formatted command.
+  * Steps 1c1 - 1c2 are repeated until a valid command is input by the User.
+  * Use case resumes from step 2.
+
+**System**: `Notarius`
+
+**Actor**: `User`
+
+**Use Case**: `UC10 - Clearing the contacts list`
+
+**Guarantees**: `If MSS reaches step 3, the user has successfully cleared the contacts list.`
+
+**MSS**:
+
+1. User requests to clear the data in the contacts list.
+2. Notarius updates the data in the contacts list.
+3. Notarius confirms that the data in the contacts list has been cleared.
+
+   Use case ends.
+
+**System**: `Notarius`
+
+**Actor**: `User`
+
+**Use Case**: `UC11 - Listing all contacts`
+
+**Guarantees**: `If MSS reaches step 3, the user has successfully listed all the contacts.`
+
+**MSS**:
+
+1. User requests to list all contacts.
+2. Notarius displays all relevant contacts.
+3. Notarius confirms that all relevant contacts has been successfully listed.
+
+   Use case ends.
+
 
 ### Non-Functional Requirements
 
@@ -727,12 +848,21 @@ Priorities: High (must have) - `* * *`, Medium (nice to have) - `* *`, Low (unli
 
 ### Glossary
 
-* **Mainstream OS**: Windows, Linux, Unix, MacOS.
-* **Above-average typing speed**: >=60 words per minute.
-* **Crucial client information**: Important client information such as phone number, address, name, as well as notes stored that could contain legal information for cases.
-* **Local system**: The user's computer that they are using to run the application.
-* **Cases(in law)**: The legal disputes that lawyers work on that involve many parties.
-* **User Request**: The commands the user gives to Notarius via the command line interface.
+| **Terms**                  | **Meaning**                                                                                                                                            |
+|----------------------------|--------------------------------------------------------------------------------------------------------------------------------------------------------|
+| AB-3                       | AddressBook Level 3 application, which was used as the base framework for a student-customized CLI management system to be developed.                  |
+| Mainstream OS              | Windows, Linux, Unix, MacOS.                                                                                                                           |
+| Above-average typing speed | ≥ 60 words per minute.                                                                                                                                 |
+| Crucial client information | Important client information such as name, phone number, email, address, tags, as well as notes stored that could contain legal information for cases. |
+| Local system               | The user's computer that they are using to run the application.                                                                                        |
+| Cases (in law)             | The legal disputes that lawyers work on that involve many parties.                                                                                     |
+| User Request               | The commands the user gives to Notarius via the command line interface.                                                                                |
+| MSS                        | Main Success Scenario.                                                                                                                                 |
+| API                        | Application Programming Interface.                                                                                                                     |
+| GUI                        | Graphic User Interface.                                                                                                                                |
+| CLI                        | Command Line Interface.                                                                                                                                |
+| JAR                        | A packed file format used in Java that contains compiled Java code to enable easy distribution, portability, and execution.                            |
+| JSON                       | JavaScript Object Notation, a lightweight data format widely used for storing and exchanging structured data.                                          |
 
 --------------------------------------------------------------------------------------------------------------------
 
@@ -759,8 +889,6 @@ testers are expected to do more *exploratory* testing.
 
    1. Re-launch the app by double-clicking the jar file.<br>
        Expected: The most recent window size and location is retained.
-
-1. _{ more test cases …​ }_
 
 ### Deleting client contacts
 
@@ -831,6 +959,75 @@ Each test case in this feature section (labelled "Test case") should be independ
 
    1. Test case: `list` followed by `list`<br>
       Expected: The command history is updated with the command text "list", but only once with no **consecutive** duplicates. The command history is displayed when the user presses `Ctrl + Up` or `Ctrl + Down`.
+
+### Sorting contacts list
+
+Prerequisites: The contacts list should contain some contacts for testing purposes. <br>
+  `add n/Alex Yeoh p/87438807 e/alexyeoh@example.com a/Blk 30 Geylang Street 29, #06-40 t/Client t/Friend`<br>
+  `add n/Bernice Yu p/99272758 e/berniceyu@example.com a/Blk 30 Lorong 3 Serangoon Gardens, #07-18 t/Client t/Friend`<br>
+  `add n/Charlotte Oliveiro p/93210283 e/charlotte@example.com a/Blk 11 Ang Mo Kio Street 74, #11-04 t/Lawyer`<br>
+  `add n/David Li p/91031282 e/lidavid@example.com a/Blk 436 Serangoon Gardens Street 26, #16-43 t/Lawyer` <br>
+  `add n/Irfan Ibrahim p/92492021 e/irfan@example.com a/Blk 47 Tampines Street 20, #17-35 t/Lawyer t/Colleagues` <br>
+  `add n/Roy Balakrishnan p/92624417 e/royb@example.com a/Blk 45 Aljunied Street 85, #11-31 t/Colleagues`
+
+1. Sorting contacts by names
+
+   1. Test case: `sort n/`<br>
+      Expected: Displays all contacts sorted by names in ascending order.
+
+2. Sorting contacts by phone numbers
+
+   1. Test case: `sort p/`<br>
+      Expected: Displays all contacts sorted by phone numbers in ascending order.   
+
+3. Sorting contacts by email addresses
+
+   1. Test case: `sort e/`<br>
+      Expected: Displays all contacts sorted by email addresses in ascending order.
+
+4. Sorting contacts by addresses
+
+   1. Test case: `sort a/`<br>
+      Expected: Displays all contacts sorted by addresses in ascending order.
+
+5. Sorting contacts by tags
+
+   1. Test case: `sort t/`<br>
+      Expected: Displays all contacts sorted by tags in ascending order.
+
+6. Sorting contacts by tags and names
+
+   1. Test case: `sort t/ n/`<br>
+      Expected: Displays all contacts sorted by tags, followed by names in ascending order.
+
+7. Sorting contacts by tags and phone numbers
+
+   1. Test case: `sort t/ p/`<br>
+      Expected: Displays all contacts sorted by tags, followed by phone numbers in ascending order.
+
+7. Sorting contacts by tags and email addresses
+
+   1. Test case: `sort t/ e/`<br>
+      Expected: Displays all contacts sorted by tags, followed by email addresses in ascending order.
+
+7. Sorting contacts by tags and addresses
+
+   1. Test case: `sort t/ a/`<br>
+      Expected: Displays all contacts sorted by tags, followed by addresses in ascending order.
+
+### Listing all contacts
+
+1. List all contacts
+
+   1. Test case: `list`<br>
+      Expected: Displays the whole contacts list.
+
+### Clearing all contacts
+
+1. Clear all contacts
+
+  1. Test case: `clear`<br>
+     Expected: Clears the whole contacts list.
 
 ### Saving data
 

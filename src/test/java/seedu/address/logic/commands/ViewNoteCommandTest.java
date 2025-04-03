@@ -44,7 +44,7 @@ public class ViewNoteCommandTest {
         String expectedMessage = String.format(ViewNoteCommand.MESSAGE_VIEW_NOTE_PERSON_SUCCESS,
                 personToView.getNote().toString());
         Model expectedModel = new ModelManager(getTypicalAddressBook(), new UserPrefs());
-        expectedModel.commitAddressBook();
+        expectedModel.commit();
 
         assertCommandSuccess(viewNoteCommand, model, expectedMessage, expectedModel);
     }
@@ -60,8 +60,8 @@ public class ViewNoteCommandTest {
                 personToView.getNote().toString());
 
         Model expectedModel = new ModelManager(new AddressBook(model.getAddressBook()), new UserPrefs());
-        expectedModel.commitAddressBook();
         showPersonAtIndex(expectedModel, INDEX_FIRST_PERSON);
+        expectedModel.commit();
 
         assertCommandSuccess(viewNoteCommand, model, expectedMessage, expectedModel);
     }
@@ -96,18 +96,18 @@ public class ViewNoteCommandTest {
 
         // simulate an add command
         blankModel.addPerson(BENSON);
-        blankModel.commitAddressBook();
+        blankModel.commit();
 
         ViewNoteCommand viewNoteCommand = new ViewNoteCommand(INDEX_FIRST_PERSON);
         // should only undo viewNoteCommand
         assertDoesNotThrow(() -> viewNoteCommand.execute(blankModel));
-        blankModel.undoAddressBook();
+        blankModel.undo();
         // make sure the added person is still there
         assertDoesNotThrow(() -> viewNoteCommand.execute(blankModel));
-        blankModel.undoAddressBook();
+        blankModel.undo();
 
         // remove the add command
-        assertDoesNotThrow(() -> blankModel.undoAddressBook());
+        assertDoesNotThrow(() -> blankModel.undo());
 
         // No contact at index 1 so no note can be viewed, error should be thrown
         assertThrows(CommandException.class, () -> viewNoteCommand.execute(blankModel));

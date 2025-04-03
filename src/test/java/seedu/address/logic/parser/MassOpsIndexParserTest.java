@@ -4,6 +4,7 @@ package seedu.address.logic.parser;
 import static org.junit.jupiter.api.Assertions.assertDoesNotThrow;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertThrows;
+import static org.junit.jupiter.api.Assertions.assertTrue;
 import static org.junit.jupiter.api.Assertions.fail;
 import static seedu.address.testutil.TypicalIndexes.INDEX_FIRST_PERSON;
 import static seedu.address.testutil.TypicalIndexes.INDEX_SECOND_PERSON;
@@ -105,6 +106,18 @@ public class MassOpsIndexParserTest {
         } catch (ParseException pe) {
             fail();
         }
+    }
+
+    @Test
+    public void parseIndexes_maxIntegerRange_success() {
+        try {
+            Set<Index> indexes = massOpsIndexParser.parseIndexes("2147483647-2147483647");
+            assertEquals(1, indexes.size());
+            assertTrue(indexes.contains(Index.fromOneBased(Integer.MAX_VALUE)));
+        } catch (ParseException e) {
+            fail();
+        }
+
     }
 
 

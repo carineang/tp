@@ -29,6 +29,8 @@ public class UnpinCommand extends Command {
 
     public static final String MESSAGE_UNPIN_PERSON_SUCCESS = "Unpinned %1$d";
 
+    public static final String MESSAGE_UNPIN_PERSON_NOT_PINNED = "%1$d is not pinned";
+
     private final Index index;
 
     private final Boolean isPinned;
@@ -61,6 +63,11 @@ public class UnpinCommand extends Command {
         }
 
         Person personToUnpin = lastShownList.get(index.getZeroBased());
+
+        if (!personToUnpin.getPin().isPinned()) {
+            return new CommandResult(String.format(MESSAGE_UNPIN_PERSON_NOT_PINNED, index.getOneBased()));
+        }
+
         EditPersonDescriptor newDescriptor = new EditPersonDescriptor();
         Pin unPin = new Pin(isPinned);
         newDescriptor.setPin(unPin);
@@ -69,7 +76,7 @@ public class UnpinCommand extends Command {
         model.setPerson(personToUnpin, editedPerson);
         model.unpinPerson(editedPerson);
 
-        model.commitAddressBook();
+        model.commit();
 
         return new CommandResult(String.format(MESSAGE_UNPIN_PERSON_SUCCESS, index.getOneBased()));
     }
