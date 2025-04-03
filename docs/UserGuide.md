@@ -212,7 +212,10 @@ Adds a client contact to the address book.
 Format: `add n/NAME p/PHONE_NUMBER e/EMAIL a/ADDRESS [t/TAG] [t/ADDITIONAL TAG]…​`
 
 <div markdown="span" class="alert alert-primary">:bulb: **Tip:**
-A contact can have any number of tags (including 0)
+A client contact can have any number of tags (including 0).
+
+A client contact is considered a duplicate if another client contact has the same name(case-insensitive)
+and this duplicate name will be rejected.
 </div>
 
 Examples:
@@ -231,11 +234,14 @@ Updates an existing client contact in the address book.
 
 Format: `edit INDEX [n/NAME] [p/PHONE] [e/EMAIL] [a/ADDRESS] [t/TAG] [t/ADDITIONAL TAG]…​`
 
-* Edits the client contact at the specified `INDEX`. The index refers to the index number shown in the displayed person list. The index **must be a positive integer** 1, 2, 3, …​
+<<<<<<< HEAD
+* Edits the client contact at the specified `INDEX`. The index refers to the index number shown in the displayed client contact list. The index **must be a positive integer** 1, 2, 3, …​
 * You must provide at least one of the optional details to update.
 * Any details you change will replace the old ones.
 * If you edit tags, the old tags are removed and replaced with the new ones.
 * To remove all tags, you can type t/ without adding any tag name after it.
+* A client contact is considered a duplicate if another client contact has the same name(case-insensitive)
+    and this duplicate name will be rejected.
 
 Examples:
 *  `edit 1 p/91234567 e/johndoe@example.com` Edits the phone number and email address of the 1st contact to be `91234567` and `johndoe@example.com` respectively.
@@ -411,7 +417,7 @@ Examples:
 
 #### Clearing all entries : `clear`
 
-Clears all entries from the address book.
+Clears all client contacts in the address book.
 
 Format: `clear`
 
@@ -428,7 +434,7 @@ Format: `note INDEX [nt/NOTE]`
 Example:
 * `note 3 nt/Away for a long time` changes the note of the 3rd client contact from the top
   in the address book into "Away for a long time".
-* `sort /n` followed by `note 2` changes the note of the
+* `sort n/` followed by `note 2` changes the note of the
   2nd client contact from the top listed in the sorted address book.
 * `note 1` changes the note of the 1st client contact from the top into a blank note.
 
@@ -557,7 +563,7 @@ Format: `exit`
 
 ### Saving the data
 
-AddressBook data are saved in the hard disk automatically after any command that changes the data. There is no need to save manually.
+Data from Notarius is saved in the hard disk automatically after any command that changes the data. There is no need to save manually.
 
 ### Editing the data file
 

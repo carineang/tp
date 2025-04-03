@@ -90,6 +90,19 @@ public class UnpinCommandTest {
     }
 
     @Test
+    public void execute_validIndexUnpinnedPerson_returnsMessage() throws Exception {
+        Person originalPerson = model.getFilteredPersonList().get(INDEX_FIRST_PERSON.getZeroBased());
+        assertFalse(originalPerson.getPin().isPinned());
+        UnpinCommand unpinCommand = new UnpinCommand(INDEX_FIRST_PERSON);
+        CommandResult result = unpinCommand.execute(model);
+
+        Person unpinnedPerson = model.getFilteredPersonList().get(INDEX_FIRST_PERSON.getZeroBased());
+        assertFalse(unpinnedPerson.getPin().isPinned());
+        assertEquals(String.format(UnpinCommand.MESSAGE_UNPIN_PERSON_NOT_PINNED, INDEX_FIRST_PERSON.getOneBased()),
+                result.getFeedbackToUser());
+    }
+
+    @Test
     public void unpinPerson_delegatesToAddressBook() {
         Model model = new ModelManager();
         Person person = new PersonBuilder().withPin(true).build();
