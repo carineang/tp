@@ -716,7 +716,7 @@ Priorities: High (must have) - `* * *`, Medium (nice to have) - `* *`, Low (unli
 
 **Actor**: `User`
 
-**Use Case**: `UC08 - Displaying Help Information`
+**Use Case**: `UC11 - Displaying Help Information`
 
 **Guarantees**: `If MSS reaches step 3, the requested help information will be displayed.`
 
@@ -743,7 +743,7 @@ Priorities: High (must have) - `* * *`, Medium (nice to have) - `* *`, Low (unli
 
 **Actor**: `User`
 
-**Use Case**: `UC09 - Finding a Contact`
+**Use Case**: `UC12 - Finding a Contact`
 
 **Guarantees**: `If MSS reaches step 3, a list of matching contacts will be displayed.`
 
