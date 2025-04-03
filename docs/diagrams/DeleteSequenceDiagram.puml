@@ -57,6 +57,8 @@ deactivate DeleteCommand
 
 DeleteCommandParser --> AddressBookParser : return DeleteCommand
 deactivate DeleteCommandParser
+
+DeleteCommandParser -[hidden]-> AddressBookParser
 destroy MassOpsParser
 destroy DeleteCommandParser
 
