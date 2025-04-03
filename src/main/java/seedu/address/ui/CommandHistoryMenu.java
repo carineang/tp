@@ -1,5 +1,7 @@
 package seedu.address.ui;
 
+import java.util.Optional;
+
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
 import javafx.scene.control.Label;
@@ -57,16 +59,20 @@ public class CommandHistoryMenu extends UiPart<Region> implements CommandHistory
     public void handleMovementUp() {
         this.getRoot().setVisible(true);
         controller.moveUp();
-        controller.getCommandSelectionIndex()
-                .ifPresent(index -> commandHistoryList.getSelectionModel().select(index));
+        Optional<Integer> index = controller.getCommandSelectionIndex();
+        if (index.isPresent()) {
+            commandHistoryList.getSelectionModel().select(index.get());
+        }
     }
 
     @Override
     public void handleMovementDown() {
         this.getRoot().setVisible(true);
         controller.moveDown();
-        controller.getCommandSelectionIndex()
-                .ifPresent(index -> commandHistoryList.getSelectionModel().select(index));
+        Optional<Integer> index = controller.getCommandSelectionIndex();
+        if (index.isPresent()) {
+            commandHistoryList.getSelectionModel().select(index.get());
+        }
     }
 
     @Override

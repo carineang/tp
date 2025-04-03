@@ -6,6 +6,7 @@ box Logic LOGIC_COLOR_T1
 participant ":LogicManager" as LogicManager LOGIC_COLOR
 participant ":AddressBookParser" as AddressBookParser LOGIC_COLOR
 participant ":DeleteCommandParser" as DeleteCommandParser LOGIC_COLOR
+participant ":MassOpsIndexParser" as MassOpsParser LOGIC_COLOR
 participant "d:DeleteCommand" as DeleteCommand LOGIC_COLOR
 participant "r:CommandResult" as CommandResult LOGIC_COLOR
 end box
@@ -24,14 +25,31 @@ create DeleteCommandParser
 AddressBookParser -> DeleteCommandParser : new DeleteCommandParser()
 activate DeleteCommandParser
 
+create MassOpsParser
+DeleteCommandParser -> MassOpsParser : new MassOpsParser()
+activate MassOpsParser
+
+MassOpsParser --> DeleteCommandParser
+deactivate MassOpsParser
+
 DeleteCommandParser --> AddressBookParser : return DeleteCommandParser
 deactivate DeleteCommandParser
 
-AddressBookParser -> DeleteCommandParser : parse("1")
+AddressBookParser -> DeleteCommandParser : parse(indexes)
 activate DeleteCommandParser
 
+opt Multiple indexes specified
+
+DeleteCommandParser -> MassOpsParser : parse(indexes)
+activate MassOpsParser
+
+MassOpsParser --> DeleteCommandParser : return indexes
+deactivate MassOpsParser
+
+end
+
 create DeleteCommand
-DeleteCommandParser -> DeleteCommand : new DeleteCommand(1)
+DeleteCommandParser -> DeleteCommand : new DeleteCommand(indexes)
 activate DeleteCommand
 
 DeleteCommand --> DeleteCommandParser : return DeleteCommand
@@ -39,7 +57,11 @@ deactivate DeleteCommand
 
 DeleteCommandParser --> AddressBookParser : return DeleteCommand
 deactivate DeleteCommandParser
+
+DeleteCommandParser -[hidden]-> AddressBookParser
+destroy MassOpsParser
 destroy DeleteCommandParser
+
 
 AddressBookParser --> LogicManager : return DeleteCommand
 deactivate AddressBookParser
@@ -47,14 +69,26 @@ deactivate AddressBookParser
 LogicManager -> DeleteCommand : execute(m)
 activate DeleteCommand
 
-DeleteCommand -> Model : deletePerson(1)
+
+
+loop until all persons with index specified in indexes are deleted
+
+DeleteCommand -> Model : deletePerson(index)
 activate Model
+
+Model -> Model : deletePerson(index)
+activate Model
+deactivate Model
 
 Model --> DeleteCommand : person deleted
 deactivate Model
 
+end
+
+DeleteCommand -> Model : commit()
+
 create CommandResult
-DeleteCommand -> CommandResult : new CommandResult("Person deleted")
+DeleteCommand -> CommandResult : new CommandResult("Deleted persons...")
 activate CommandResult
 
 CommandResult --> DeleteCommand : return CommandResult

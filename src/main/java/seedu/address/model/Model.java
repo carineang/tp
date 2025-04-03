@@ -97,7 +97,7 @@ public interface Model {
      * Returns an unmodifiable ordered view of the list of past command inputs.
      * The most recently added input is at the front of the list.
      */
-    ObservableList<String> getCommandInputHistoryList();
+    ObservableList<String> getCommandHistoryList();
 
     /**
      * Pins a person in the address book to the top of the list.
