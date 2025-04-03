@@ -84,7 +84,7 @@ public class SortCommandParser implements Parser<SortCommand> {
     }
 
     /**
-     * Checks if the input string contains multiple consecutive spaces.
+     * Checks if the prefixes contains consecutive spaces.
      * Throws a ParseException if multiple spaces are found.
      *
      * @param args The input string to check for multiple spaces.
