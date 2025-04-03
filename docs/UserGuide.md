@@ -18,20 +18,19 @@ for a **clear and organised** view of your client contacts.
 
 ## Features Overview
 
-While this application may seem *as-if* it were a *typical* address-book application, allowing you to
-list, add, edit and delete client contacts, **Notarius** is packed with convenient and essential features that drive your productivity at work,
-helping to provide you with a seamless experience. You can re-access previously typed commands, undo/redo them, search for client contacts, and even sort them.
+This application comes with the expected features of allowing you to
+add, list, edit and delete client contacts.
 
-Additionally, we offer **cool** *quality-of-life* features too. You can note-take crucial details of your clients, and even pin important client contacts!
+**Notarius** also comes with **additional features** and **quality of life** to drive your **productivity** at work:
 
-| Feature         | Purpose                                                                                     |
-|-----------------|---------------------------------------------------------------------------------------------|
-| Note            | Change and view notes of client contacts to keep track of important information about them. |
-| Pin/Unpin       | Pin and unpin client contacts to easily track important client information.                 |
-| Sort            | Sort clients by key attributes to easily find certain clients.                              |
-| Find            | Filters clients by various fields along with how similar they are to the query commands.    |
-| Undo/Redo       | Undo and redo commands to easily correct mistaken commands.                                 |
-| Command History | View and reaccess previously typed commands to easily edit typos.                           |
+| Feature         | Overview                                                                                                                                     |
+|-----------------|----------------------------------------------------------------------------------------------------------------------------------------------|
+| Note            | Change and view notes of your client contacts to keep track of specific information about your clients especially when reaching out to them. |
+| Pin/Unpin       | Pin and unpin client contacts to track important client contacts easier.                                                                     |
+| Sort            | Sort clients contacts using different criteria for greater organisation and quicker lookups.                                                 |
+| Find            | Find specific client contacts.                                                                                                               |
+| Undo/Redo       | Undo your mistakes and use redo in case you did not want to undo.                                                                            |
+| Command History | View and reaccess what you previously typed.                                                                                                 |
 
 ## Glossary of terms
 
