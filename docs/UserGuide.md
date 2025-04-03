@@ -212,7 +212,10 @@ Adds a client contact to the address book.
 Format: `add n/NAME p/PHONE_NUMBER e/EMAIL a/ADDRESS [t/TAG] [t/ADDITIONAL TAG]…​`
 
 <div markdown="span" class="alert alert-primary">:bulb: **Tip:**
-A contact can have any number of tags (including 0)
+A client contact can have any number of tags (including 0).
+
+A client contact is considered a duplicate if another client contact has the same name(case-insensitive)
+and this duplicate name will be rejected.
 </div>
 
 Examples:
@@ -237,6 +240,8 @@ Format: `edit INDEX [n/NAME] [p/PHONE] [e/EMAIL] [a/ADDRESS] [t/TAG] [t/ADDITION
 * When editing tags, the existing tags of the contact will be removed i.e adding of tags is not cumulative.
 * You can remove all the contact’s tags by typing `t/` without
   specifying any tags after it.
+* A client contact is considered a duplicate if another client contact has the same name(case-insensitive)
+and this duplicate name will be rejected.
 
 Examples:
 *  `edit 1 p/91234567 e/johndoe@example.com` Edits the phone number and email address of the 1st contact to be `91234567` and `johndoe@example.com` respectively.
