@@ -11,11 +11,10 @@ title: User Guide
 
 ## Introducing Notarius
 
-*Ever a **fast-typing lawyer** with **too many** clients to manually keep track of in your slow and cumbersome contact app? We offer a **far better** alternative.*
-
-**Notarius** is a **desktop addressbook** application on ***steroids***, meticulously refined for **lawyers** to track and manage their
-clients' contact information. The app speeds up client contact management processes by providing fast-typing lawyers with a **Command Line Interface** (CLI) based input,
-while also providing a seamless and intuitive **Graphical User Interface** (GUI) for visual cues to those who prefer it.
+Managing client contacts should not slow you down. **Notarius** is a desktop address book application
+designed for **fast typing lawyers**
+who need a **fast and efficient** way to manage client contacts. It comes with a **simple and intuitive** graphical interface
+for a **clear and organised** view of your client contacts.
 
 ## Features Overview
 
