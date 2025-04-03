@@ -211,10 +211,33 @@ all contacts by the target prefix.
 the completion of the `sort` command.
 
 ### Note feature
+The note feature allows the user to change and view notes. \
+The user changes notes via the `note` command and the user views notes via the `viewnote` command.
 
 #### Implementation
 
+This is how a user changes their note via the `note` command:
+1. The user inputs the command to change their note of a contact of a specific index.
+2. A `NoteCommandParser` object invokes its `parse` method which parses the user input.
+3. The `NoteCommand` object is created with the parsed prefix and specified index.
+4. A `LogicManager` object invokes the `execute` method of the `NoteCommand` object.
+5. The `execute` method of the `NoteCommand` object modifies the specified clientContact with a new note invokes the `setPerson`,
+and `commit` methods of its `Model` argument to change the note of the person.
+6. The `execute` method of the `NoteCommand` object returns a `CommandResult` object which stores the data regarding
+   the completion of the `note` command.
+
+This is how a user views their note via the `viewnote` command:
+1. The user inputs the command to view a note of a contact of a specific index.
+2. A `ViewNoteCommandParser` object invokes its `parse` method which parses the user input.
+3. The `ViewNoteCommand` object is created with the specified index.
+4. A `LogicManager` object invokes the `execute` method of the `ViewNoteCommand` object.
+5. The `execute` method of the `ViewNoteCommand` object invokes the getFilteredPersonList of the `Model` and gets the note of the clientContact as the specified index and
+   does the `commit` method of the `Model` as well.
+6. The `execute` method of the `ViewNoteCommand` object returns a `CommandResult` object which stores the data regarding
+   the completion of the `viewnote` command, if successful includes the note of the client contact at the specified index.
+
 ### Undo/redo feature
+The `undo` and `redo` commands undoes and redoes other commands respectively. 
 
 #### Implementation
 
