@@ -727,6 +727,34 @@ testers are expected to do more *exploratory* testing.
 
 ### Finding a person
 
+1. Finding a person while all persons are being shown
+   1. Prerequisites: List all persons using `list` command. Multiple persons in the list.
+   2. Test case: `find n/"Alice"` <br>
+      Expected: Displays all contacts with names that match "Alice" (case-insensitive) or have a name with levenshtein distance <= 2 to "ALICE".
+   3. Test case: `find n/"Alice" "Bob"` <br>
+      Expected: Displays all contacts with names containing either "Alice" or "Bob".
+   4. Test case: `find n/"Alice" e/"alice@email.com" a/"Bedok Central"` <br>
+      Expected: Displays all contacts where any of the fields match or have a levenshtein distance <= 2 from each keyword.
+   5. Test case: `find t/"client" p/"12345678"` <br>
+      Expected: Displays contacts that exactly match either tag "client" or phone "12345678".
+   6. Test case: `find n/"NonExistentName"` <br>
+      Expected: "0 persons listed!" message is displayed.
+
+### Displaying help
+
+1. Showing help in Notarius
+   1. Prerequisites: Notarius is open and running
+   2. Test case: `help` <br>
+      Expected: A help window appears displaying instructions for using the application. The status message confirms that the help window has been opened.
+   3. Test case: `help find` <br>
+      Expected: The application displays detailed instructions for the find command, including expected parameters and format. 
+   4. Test case: `help delete` <br>
+      Expected: The application displays detailed instructions for the delete command, including expected parameters and format.
+   5. Test case: `help meeee` (invalid command) <br>
+      Expected: Error message: "Unknown command! Use 'help' to see available commands."
+
+
+
 ### Saving data
 
 1. Dealing with missing/corrupted data files
