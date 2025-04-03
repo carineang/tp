@@ -23,7 +23,7 @@ activate Model
 Model --> ListCommand
 deactivate Model
 
-ListCommand -> Model : commitAddressBook()
+ListCommand -> Model : commit()
 activate Model
 
 Model --> ListCommand
