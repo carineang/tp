@@ -173,6 +173,28 @@ The `list` command enables users to view all existing contacts from Notarius.
 4. The `execute` method of the `ListCommand` object returns a `CommandResult` object which stores the data regarding
 the completion of the `list` command.
 
+### Help feature
+
+The `help` command allows users to view general application usage instructions or specific details about a command.
+
+<p align="center">
+  <img src="images/HelpCommandSequenceDiagram.png" alt="Ui" />
+</p>
+
+#### Implementation
+
+1. The user inputs the command to request help, either as help for general help or help COMMAND_NAME for details on a specific command. 
+2. A `HelpCommandParser` object invokes its `parse` method, which parses the user input:
+   1. If no argument is provided, it returns a `HelpCommand` object for general help. 
+   2. If a valid command name is provided, it returns a `HelpCommand` object with that command name. 
+3. A `LogicManager` object invokes the `execute` method of the `HelpCommand` object. 
+4. The execute method of the HelpCommand object checks if a command name was specified:
+   1. If no command name is provided, it returns a `CommandResult` containing general help instructions. 
+   2. If a valid command name is provided, it retrieves the corresponding help message from a predefined command-help mapping (`COMMAND_HELP`). 
+   3. If an invalid command name is provided, it returns an error message stating that the command is unknown. 
+5. The `execute` method of the `HelpCommand` object returns a `CommandResult` object that stores the help message or error message. 
+6. The application displays the help message to the user, either in a popup window (for general help) or in the main interface (for specific commands).
+
 ### Clear feature
 
 The `clear` command enables users to remove all existing contacts from Notarius.
