@@ -38,7 +38,7 @@ deactivate DeleteCommandParser
 AddressBookParser -> DeleteCommandParser : parse(indexes)
 activate DeleteCommandParser
 
-opt LOGIC_COLOR_T1 Multiple indexes specified
+opt Multiple indexes specified
 
 DeleteCommandParser -> MassOpsParser : parse(indexes)
 activate MassOpsParser
@@ -81,7 +81,7 @@ deactivate Model
 
 end
 
-DeleteCommand -> Model : commitAddressBook()
+DeleteCommand -> Model : commit()
 
 create CommandResult
 DeleteCommand -> CommandResult : new CommandResult("Deleted persons...")

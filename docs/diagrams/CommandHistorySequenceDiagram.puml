@@ -35,20 +35,18 @@ activate CommandHistoryMenuController
 CommandHistoryMenuController --> CommandHistoryMenu : Optional index
 deactivate CommandHistoryMenuController
 
-opt UI_COLOR_T1 Index is present
-  CommandHistoryMenu -> ListView : getSelectionModel()
-  activate ListView
+CommandHistoryMenu -> ListView : getSelectionModel()
+activate ListView
 
-  ListView --> CommandHistoryMenu : return MultipleSelectionModel
-  deactivate ListView
+ListView --> CommandHistoryMenu : return MultipleSelectionModel
+deactivate ListView
 
-  CommandHistoryMenu -> MultipleSelectionModel : select(index)
-  note right
-  Highlights the element
-  at the selected index
-  of the ListView
-  end note
-end
+CommandHistoryMenu -> MultipleSelectionModel : select(index)
+note right
+Highlights the element
+at the selected index
+of this ListView object
+end note
 
 [<-- CommandHistoryMenu
 deactivate CommandHistoryMenu
