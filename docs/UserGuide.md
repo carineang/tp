@@ -429,7 +429,7 @@ Format: `note INDEX [nt/NOTE]`
 Example:
 * `note 3 nt/Away for a long time` changes the note of the 3rd client contact from the top
   in the address book into "Away for a long time".
-* `sort /n` followed by `note 2` changes the note of the
+* `sort n/` followed by `note 2` changes the note of the
   2nd client contact from the top listed in the sorted address book.
 * `note 1` changes the note of the 1st client contact from the top into a blank note.
 
