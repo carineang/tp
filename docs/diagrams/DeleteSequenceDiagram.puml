@@ -57,7 +57,9 @@ deactivate DeleteCommand
 
 DeleteCommandParser --> AddressBookParser : return DeleteCommand
 deactivate DeleteCommandParser
+destroy MassOpsParser
 destroy DeleteCommandParser
+
 
 AddressBookParser --> LogicManager : return DeleteCommand
 deactivate AddressBookParser
