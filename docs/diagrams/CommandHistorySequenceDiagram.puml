@@ -2,11 +2,18 @@
 !include style.puml
 skinparam ArrowFontStyle plain
 
+
+
+
 box Ui UI_COLOR_T1
+participant "root:Region" as Region UI_COLOR_T3
 participant ":CommandHistoryMenu" as CommandHistoryMenu UI_COLOR
 participant ":CommandHistoryMenuController" as CommandHistoryMenuController UI_COLOR
+participant ":CommandBox" as CommandBox UI_COLOR
+participant ":ListView" as ListView UI_COLOR_T3
+participant ":MultipleSelectionModel" as MultipleSelectionModel UI_COLOR_T3
 end box
-participant "root:Region" as Region UI_COLOR_T4
+
 
 CommandHistoryMenu -> Region : setVisible(true)
 Region --> CommandHistoryMenu
@@ -17,20 +24,29 @@ activate CommandHistoryMenu
 CommandHistoryMenu -> CommandHistoryMenuController : moveUp() selected index
 activate CommandHistoryMenuController
 
+CommandHistoryMenuController -> CommandBox : setCommandTextField(pastSelectedCommand)
+
 CommandHistoryMenuController --> CommandHistoryMenu
 deactivate CommandHistoryMenuController
 
 CommandHistoryMenu -> CommandHistoryMenuController : getCommandSelectionIndex()
 activate CommandHistoryMenuController
 
-CommandHistoryMenuController --> CommandHistoryMenu : Optional(integer index)
+CommandHistoryMenuController --> CommandHistoryMenu : Optional index
 deactivate CommandHistoryMenuController
 
-note over CommandHistoryMenu #FFAAAA
-    If the returned index is not empty,
-    Update the javafx ListView to highlight
-    the list element for that index.
-    end note
+CommandHistoryMenu -> ListView : getSelectionModel()
+activate ListView
+
+ListView --> CommandHistoryMenu : return MultipleSelectionModel
+deactivate ListView
+
+CommandHistoryMenu -> MultipleSelectionModel : select(index)
+note right
+Highlights the element
+at the selected index
+of this ListView object
+end note
 
 [<-- CommandHistoryMenu
 deactivate CommandHistoryMenu

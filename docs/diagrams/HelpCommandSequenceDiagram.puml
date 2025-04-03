@@ -1,0 +1,66 @@
+@startuml
+!include style.puml
+
+box Logic LOGIC_COLOR_T1
+participant ":LogicManager" as LogicManager LOGIC_COLOR
+participant ":AddressBookParser" as AddressBookParser LOGIC_COLOR
+participant ":HelpCommandParser" as HelpCommandParser LOGIC_COLOR
+participant "r:HelpCommand" as HelpCommand LOGIC_COLOR
+participant ":CommandResult" as CommandResult LOGIC_COLOR
+end box
+
+box Model MODEL_COLOR_T1
+participant ":Model" as Model MODEL_COLOR
+end box
+
+[-> LogicManager : execute("help find")
+activate LogicManager
+
+LogicManager -> AddressBookParser : parseCommand("help find")
+activate AddressBookParser
+
+create HelpCommandParser
+AddressBookParser -> HelpCommandParser : new HelpCommandParser()
+activate HelpCommandParser
+
+HelpCommandParser --> AddressBookParser : return HelpCommandParser
+deactivate HelpCommandParser
+
+AddressBookParser -> HelpCommandParser : parse("find")
+activate HelpCommandParser
+
+create HelpCommand
+HelpCommandParser -> HelpCommand : new HelpCommand("find")
+activate HelpCommand
+
+HelpCommand --> HelpCommandParser : return HelpCommand
+deactivate HelpCommand
+
+HelpCommandParser --> AddressBookParser : return HelpCommand
+deactivate HelpCommandParser
+destroy HelpCommandParser
+
+AddressBookParser --> LogicManager : return HelpCommand
+deactivate AddressBookParser
+
+LogicManager -> HelpCommand : execute(model)
+activate HelpCommand
+
+HelpCommand -> Model : Retrieve help message for "find"
+activate Model
+Model --> HelpCommand : return "find" command help message
+deactivate Model
+
+create CommandResult
+HelpCommand -> CommandResult : new CommandResult("Find command help message")
+activate CommandResult
+
+CommandResult --> HelpCommand : return CommandResult
+deactivate CommandResult
+
+HelpCommand --> LogicManager : return CommandResult
+deactivate HelpCommand
+
+[<--LogicManager : return CommandResult
+deactivate LogicManager
+@enduml

@@ -165,7 +165,7 @@ The `list` command enables users to view all existing contacts from Notarius.
   <img src="images/ListCommandSequenceDiagram.png" alt="Ui" />
 </p>
 
-#### Implementation
+#### Implementation Details
 
 1. The user inputs the command to list all contacts.
 2. A `LogicManager` object invokes the `execute` method of a `ListCommand` object.
@@ -173,6 +173,28 @@ The `list` command enables users to view all existing contacts from Notarius.
 `commit` method of its `Model` to update and show all contacts.
 4. The `execute` method of the `ListCommand` object returns a `CommandResult` object which stores the data regarding
 the completion of the `list` command.
+
+### Help feature
+
+The `help` command allows users to view general application usage instructions or specific details about a command.
+
+<p align="center">
+  <img src="images/HelpCommandSequenceDiagram.png" alt="Ui" />
+</p>
+
+#### Implementation Details
+
+1. The user inputs the command to request help, either as help for general help or help COMMAND_NAME for details on a specific command. 
+2. A `HelpCommandParser` object invokes its `parse` method, which parses the user input:
+   1. If no argument is provided, it returns a `HelpCommand` object for general help. 
+   2. If a valid command name is provided, it returns a `HelpCommand` object with that command name. 
+3. A `LogicManager` object invokes the `execute` method of the `HelpCommand` object. 
+4. The execute method of the HelpCommand object checks if a command name was specified:
+   1. If no command name is provided, it returns a `CommandResult` containing general help instructions. 
+   2. If a valid command name is provided, it retrieves the corresponding help message from a predefined command-help mapping (`COMMAND_HELP`). 
+   3. If an invalid command name is provided, it returns an error message stating that the command is unknown. 
+5. The `execute` method of the `HelpCommand` object returns a `CommandResult` object that stores the help message or error message. 
+6. The application displays the help message to the user, either in a popup window (for general help) or in the main interface (for specific commands).
 
 ### Clear feature
 
@@ -182,7 +204,7 @@ The `clear` command enables users to remove all existing contacts from Notarius.
   <img src="images/ClearCommandSequenceDiagram.png" alt="Ui" />
 </p>
 
-#### Implementation
+#### Implementation Details
 
 1. The user inputs the command to clear all contacts.
 2. A `LogicManager` object invokes the `execute` method of a `ClearCommand` object.
@@ -199,7 +221,7 @@ The `sort` command enables users to sort contacts in Notarius by prefix in lexic
   <img src="images/SortCommandSequenceDiagram.png" alt="Ui" />
 </p>
 
-#### Implementation
+#### Implementation Details
 
 1. The user inputs the command to sort contacts with the specified prefix.
 2. A `SortCommandParser` object invokes its `parse` method which parses the user input.
@@ -211,7 +233,118 @@ all contacts by the target prefix.
 6. The `execute` method of the `SortCommand` object returns a `CommandResult` object which stores the data regarding 
 the completion of the `sort` command.
 
+<<<<<<< HEAD
 ### Undo/redo feature
+=======
+### Find feature
+
+The `find` command allows users to search for contacts in Notarius based on specified fields: 
+name, phone, email, address, and tags. The search is case-insensitive and supports multiple keywords. 
+Additionally, for name, email, and address fields, the search is tolerant of minor typos, allowing matches within a Levenshtein distance of 2.
+
+<p align="center">
+  <img src="images/FindCommandSequenceDiagram.png" alt="Ui" />
+</p>
+
+#### Implementation Details
+
+1. The user enters the `find` command with the desired search criteria. 
+2. The `LogicManager` invokes the parseCommand method of AddressBookParser to identify the command type. 
+3. If the command is recognized as `find`, the `FindCommandParser` is instantiated. 
+4. The `FindCommandParser` extracts the search parameters and keywords, ensuring correct parsing of multi-word inputs enclosed in double quotes (""). 
+5. A new `FindCommand` object is created using the parsed search fields and keywords. 
+6. The `LogicManager` executes the `FindCommand` object, which:
+   1. Calls `updateFilteredPersonList` and `commit` method in `Model` to filter contacts based on the search fields and keywords. 
+   2. Uses a case-insensitive check for all fields. 
+   3. Applies Levenshtein distance ≤ 2 matching for `name`, `email`, and `address`. 
+7. The `FindCommand` returns a `CommandResult`, displaying the filtered list of contacts matching the search criteria.
+
+
+### Delete feature
+
+The `delete` command allows the user to delete specified client contact(s) from Notarius.
+
+The sequence diagram below models the different components of the application that are involved
+when the user executes the `delete` command.
+![DeleteSequenceDiagram](images/DeleteSequenceDiagram.png)
+
+#### Implementation Details
+
+1. The user executes a command to delete a contact by specifying the contact's index.
+2. The `LogicManager` receives the command and calls `AddressBookParser#parseCommand` to parse the command.
+3. The `AddressBookParser` creates a `DeleteCommandParser` object, which creates a `MassOpsIndexParser` object for parsing multiple indexes.
+4. The `AddressBookParser` then calls the `parse` method of the newly created `DeleteCommandParser` object.
+5. If the delete method specifies the `i/` prefix with the corresponding value being either a ranged format (`startIndex-endIndex`) or spaced format (`index1 index2 ... indexN`), the `parse` method of `MassOpsIndexParser` will be called to parse the indexes.
+6. A new `DeleteCommand` object is created with the returned set of unique indexes from the parser, and gets returned back to the `LogicManager`.
+7. The `LogicManager` calls the `execute` method of the `DeleteCommand` object.
+8. The `DeleteCommand` object calls the `Model#deletePerson` method for each of the set of unique indexes in decreasing order of the index's `zeroBasedIndex`.
+9. After all `indexes` specified have been deleted, `Model#commitAddressBook` is called on the `Model` argument to save the changes made to the list of persons in the addressbook.
+
+#### Usage Examples
+
+1. User starts Notarius
+2. User executes `delete i/1-3`
+3. The client contacts with indexes 1, 2 and 3 will be deleted from Notarius. This change should be reflected in the client contact list.
+
+**Aspect: How to implement the delete command**
+
+* **Alternative 1 (current choice):** Support deletion of multiple client contacts with intuitive delete formats
+    * Pros: Intuitive to use, and improved user-friendliness. Users do not have to repeatedly type the same command to delete clients one-by-one.
+    * Cons: More complicated to implement, due to the need of parsing multiple indexes, ignoring duplicates, and ensuring valid parsing according to the multiple specified formats.
+
+* **Alternative 2:** Support deletion of only one client contact at a time using a single format
+    * Pros: Simpler to implement, as the command will only need to parse one index.
+    * Cons: Less user-friendly, as users will have to spend more time and trouble to repeatedly type the same command to delete potentially many clients one-by-one.
+
+
+### Command history
+
+The command history allows the user to re-access previously entered commands quickly.
+
+
+The following sequence diagram models the interaction within the `Model` component called by `LogicManager#execute`
+when the user executes a command to **save command inputs**.
+![AddCommandHistorySequenceDiagram](images/AddCommandHistorySequenceDiagram.png)
+
+#### Implementation Details: Saving commands to command history
+
+1. When a user enters a non-empty command, the `ModelManager#addPastCommandInput` method will be called when the command text in `LogicManager` component is non-empty.
+2. The `ModelManager` calls `CommandHistory#addInput` and passes the non-empty command text as argument.
+3. If the command history's most recently added command is `equal` to the command text argument, the command text is not re-added again.
+4. Otherwise, if the command history is currently full, with `MAX_HISTORY_SIZE` entries (set to 20), the earliest added command entry will be removed.
+5. The `CommandHistory` object will add the command to `pastCommands`.
+
+Note that `pastCommands` is an `ObservableList` sorted from most to least recent at the tail of the list.
+
+<br>
+
+The following sequence diagram models the main components involved when a user moves up the command history selection
+using the `Ctrl + Up` key combinations on Windows (or `Ctrl + Opt + Up` on macOS), to **re-access previous commands**.
+![CommandHistorySequenceDiagram](images/CommandHistorySequenceDiagram.png)
+
+#### Implementation Details: Re-accessing command history
+
+1. When the user presses `Ctrl + Up`, the subscribed for the `EventHandler<KeyEvent>` JavaFX listener will be called.
+2. The listener then calls `handleMovementUp` method of the `CommandHistoryMenu` in the Ui module.
+3. The `CommandHistoryMenu` object calls the `moveUp` method of an internal `CommandHistoryMenuController` object to handle the logic
+   of decrementing the index.
+4. In `moveUp` then sets the current input of the `CommandBox` object through a call to `CommandBox#setCommandTextField` with the selected previous command.
+5. The `CommandHistoryMenu` object then gets a result of this selection update by calling `CommandHistoryMenuController#getCommandSelectionIndex`
+6. If the index is present within this result, the `CommandHistoryMenu` object gets the `SelectionModel` for rendering the given list cell of `ListView`
+7. The `select` method of the `SelectionModel` object is then called with the index passed as argument.
+
+
+#### Usage Examples
+1. User launches Notarius
+2. User enters a non-empty command.
+3. User re-accesses the previously entered command using the command history shortcuts:
+    * Windows/Linux: `Ctrl + Up`/`Ctrl + Down` to move up/down the selection.
+    * macOS: `Ctrl + Opt + Up`/ `Ctrl + Opt + Down` similarly.
+
+
+
+### \[Proposed\] Undo/redo feature
+>>>>>>> master
 
 #### Implementation
 
@@ -346,7 +479,7 @@ Priorities: High (must have) - `* * *`, Medium (nice to have) - `* *`, Low (unli
 | `* *`    | forgetful lawyer                                                       | star/pin important clients                                                                                       | look up their information faster                                                           |
 | `* *`    | lawyer who can type fast                                               | re-access previously entered commands quickly                                                                    | save time by not typing them again                                                         |
 | `* *`    | lawyer                                                                 | set reminders to follow up with contacts                                                                         | make sure to not miss an important check-in                                                |
-| `* *`    | lawyer                                                                 | delete multiple contacts under a certain case                                                                    | clear clients of past cases faster and more conveniently                                   |
+| `* *`    | lawyer with many clients                                               | delete multiple client contacts at once                                                                          | clear clients of past cases faster and more conveniently                                   |
 | `* *`    | lawyer                                                                 | tag contacts (e.g., "Client," "Judge," "Opposing Counsel")                                                       | remember their roles easily                                                                |
 | `* *`    | lawyer                                                                 | tag multiple contacts at once                                                                                    | categorise them for my needs more efficiently and conveniently                             |
 | `* *`    | lawyer                                                                 | add multiple tags to a contact                                                                                   | organise my contacts neatly and not have to keep tagging the same contact multiple time    |
@@ -375,35 +508,42 @@ Priorities: High (must have) - `* * *`, Medium (nice to have) - `* *`, Low (unli
 
 **Actor**: `User`
 
-**Use Case**: `UC01 - Deleting a contact`
+**Use Case**: `UC01 - Deleting client contacts`
 
-**Guarantees**: `If MSS reaches step 4, the requested contact will be deleted`
+**Guarantees**: `If MSS reaches step 4, the requested client contact(s) will be deleted`
 
 **MSS**:
 1. User requests to list contacts.
 2. Notarius displays a list of contacts.
-3. User requests to delete a specific contact in the list.
-4. Notarius deletes the contact and confirms that the contact has been deleted.
+3. User requests to delete specific contacts in the list.
+4. Notarius deletes the contacts and confirms that the contacts have been deleted.
 
    Use case ends.
 
 **Extensions**:
-* 1a. Notarius is unable to find the specified contact.
+
+* 1a. Notarius detects an invalid list command from the user.
   * 1a1. Notarius alerts the user about the error.
   * 1a2. User retypes the command.
-  * Steps 1a-1a2 are repeated until the contact specified exists.
+  * Steps 1a-1a2 are repeated until the command format is valid.
+  * Use case resumes from step 2.
+
+* 3a. Notarius is unable to find some of the specified contact(s).
+  * 3a1. Notarius alerts the user about the error.
+  * 3a2. User retypes the command.
+  * Steps 3a-3a2 are repeated until the specified contact(s) exist.
   * Use case resumes from step 4.
 
-* 1b. Notarius uncovers an empty field description.
-  * 1b1. Notarius alerts the user about the issue.
-  * 1b2. User retypes the command with a non-empty value for the specified field.
-  * Steps 1b-1b2 are repeated until the field is no longer empty.
+* 3b. Notarius uncovers a prefix with an empty value.
+  * 3b1. Notarius alerts the user about the issue.
+  * 3b2. User retypes the command with a non-empty value for the specified prefix.
+  * Steps 3b-3b2 are repeated until the prefix is no longer empty.
   * Use case resumes from step 4.
 
-* 1c. Notarius uncovers an invalid contact identifier.
-  * 1c1. Notarius alerts the user about the issue.
-  * 1c2. User retypes the command with a valid contact identifier format.
-  * Steps 1c-1c2 are repeated until the contact identifier is valid.
+* 3c. Notarius uncovers some invalid contact identifiers.
+  * 3c1. Notarius alerts the user about the issue.
+  * 3c2. User retypes the command with a valid contact identifier format.
+  * Steps 3c-3c2 are repeated until the contact identifier is valid.
   * Use case resumes from step 4.
 
 
@@ -642,13 +782,42 @@ Priorities: High (must have) - `* * *`, Medium (nice to have) - `* *`, Low (unli
   * Use case resumes from step 2.
 
 * 2a. Notarius cannot find any notes related to the contact.
-  * 2a1. Notarius alerts the user with a relevant message.
+  * 2a1. Notarius displays a blank note.
+  * Use case ends.
 
 **System**: `Notarius`
 
 **Actor**: `User`
 
-**Use Case**: `UC08 - Sorting the contacts list`
+**Use Case**: `UC08 - Accessing an input from the command history`
+
+**Preconditions**: `Command history is open.`
+
+**MSS**:
+
+1. User selects a command input from the command history.
+2. Notarius prepares the selected command to be entered.
+3. User enters the command.
+4. Notarius executes the command and closes the command history.
+
+   Use case ends.
+
+**extensions**
+
+* 1a. Notarius is unable to find any command in the history.
+    * 1a1. Notarius alerts the user with a message.
+    * 1a2. User enters a new command.
+    * Use case resumes from step 4.
+
+* 3a. User requests to edit the command input with a new value.
+    * 3a1. Notarius updates the selected command input with the new value.
+    * Use case resumes from step 3.
+
+* *a. At any time, user requests to close the command history.
+    * *a1. Notarius closes the command history.
+    * Use case ends.
+
+**Use Case**: `UC09 - Sorting the contacts list`
 
 **Guarantees**: `If MSS reaches step 3, the user has successfully sorted the contacts list by a specified prefix.`
 
@@ -684,7 +853,7 @@ Priorities: High (must have) - `* * *`, Medium (nice to have) - `* *`, Low (unli
 
 **Actor**: `User`
 
-**Use Case**: `UC09 - Clearing the contacts list`
+**Use Case**: `UC10 - Clearing the contacts list`
 
 **Guarantees**: `If MSS reaches step 3, the user has successfully cleared the contacts list.`
 
@@ -700,7 +869,7 @@ Priorities: High (must have) - `* * *`, Medium (nice to have) - `* *`, Low (unli
 
 **Actor**: `User`
 
-**Use Case**: `UC10 - Listing all contacts`
+**Use Case**: `UC11 - Listing all contacts`
 
 **Guarantees**: `If MSS reaches step 3, the user has successfully listed all the contacts.`
 
@@ -711,6 +880,75 @@ Priorities: High (must have) - `* * *`, Medium (nice to have) - `* *`, Low (unli
 3. Notarius confirms that all relevant contacts has been successfully listed.
 
    Use case ends.
+
+
+**System**: `Notarius`
+
+**Actor**: `User`
+
+**Use Case**: `UC12 - Displaying Help Information`
+
+**Guarantees**: `If MSS reaches step 3, the requested help information will be displayed.`
+
+**MSS**:
+
+1. User requests help by entering the help command. 
+2. Notarius displays a help window with general usage instructions.
+
+   Use case ends.
+
+**Extensions**:
+
+* 1a. User requests help for a specific command. 
+  * 1a1. Notarius displays detailed usage information for the specified command.<br>
+    Use case ends.
+
+* 1b.  User enters an invalid command name. 
+  * 1b1. Notarius alerts the user with an error message: "Unknown command! Use help to see available commands."
+  * 1b2. User retypes the command with a valid usgae.<br>
+    Steps 1b1-1b2 are repeated until a valid command is entered.<br>
+    Use case resumes from step 1a1.
+
+**System**: `Notarius`
+
+**Actor**: `User`
+
+**Use Case**: `UC13 - Finding a Contact`
+
+**Guarantees**: `If MSS reaches step 3, a list of matching contacts will be displayed.`
+
+**MSS**:
+
+1. User requests to find contacts by entering the find command with specified fields and keywords. 
+2. Address Book searches for contacts whose fields contain any of the given keywords, 
+allowing minor typos (up to a Levenshtein distance of 2) in the name, email, and address fields only. 
+3. Address Book displays a list of matching contacts with index numbers.
+
+   Use case ends.
+
+
+**Extensions**:
+
+* 1a. User enters an invalid search format. 
+  * 1a1. Address Book alerts the user with an error message about the incorrect format. 
+  * 1a2. User retypes the command following the correct format.<br>
+    Steps 1a1-1a2 are repeated until the command format is valid.<br>
+    Use case resumes from step 2.
+* 2a. No contacts match the search criteria. 
+  * 2a1. Address Book displays a message indicating that no matching contacts were found.<br>
+    Use case ends.
+* 2b. User enters multiple search fields. 
+  * 2b1. Address Book searches for contacts that match any of the 
+  specified fields (name, phone, email, address, or tags).<br>
+    Use case resumes from step 3.
+* 2c. User enters a keyword with minor typos in the phone or tag fields. 
+  * 2c1. Address Book does not apply typo correction for phone numbers or tags. 
+  * 2c2. If an exact match is not found, Address Book displays a message indicating no results were found.<br>
+    Use case ends.
+* 2d. User enters a keyword with minor typos in the name, email, or address fields. 
+  * 2d1. Address Book applies fuzzy matching (Levenshtein distance of up to 2) for name, email, and address fields.<br>
+    Use case resumes from step 3.
+
 
 
 ### Non-Functional Requirements
@@ -771,24 +1009,105 @@ testers are expected to do more *exploratory* testing.
    1. Re-launch the app by double-clicking the jar file.<br>
        Expected: The most recent window size and location is retained.
 
-1. _{ more test cases …​ }_
+### Deleting client contacts
 
-### Deleting a person
+Each test case in this feature section (labelled "Test case") should be independent.
 
-1. Deleting a person while all persons are being shown
+1. Deleting a single client contact while all persons are being shown
 
-   1. Prerequisites: List all persons using the `list` command. Multiple persons in the list.
+   1. Prerequisites for each test case: List all persons using the `list` command. There should be **at least** 6 contacts in the list. Otherwise, use the `add` command to add more client contacts. Take note that duplicate names (ignoring letter casing) are not allowed in Notarius.
 
-   1. Test case: `delete 1`<br>
-      Expected: First contact is deleted from the list. Details of the deleted contact shown in the status message. Timestamp in the status bar is updated.
+   2. Test case: `delete 1`<br>
+      Expected: First client contact is deleted from the list. Details of the deleted contact shown in the status message. Timestamp in the status bar is updated.
 
-   1. Test case: `delete 0`<br>
+   3. Test case: `delete 0`<br>
       Expected: No person is deleted. Error details shown in the status message. Status bar remains the same.
 
-   1. Other incorrect delete commands to try: `delete`, `delete x`, `...` (where x is larger than the list size)<br>
+   4. Other incorrect delete commands to try: `delete`, `delete x`, `...` (where x is larger than the list size)<br>
       Expected: Similar to previous.
+   
+2. Deleting consecutive client contacts while all persons are being shown
 
-1. _{ more test cases …​ }_
+   1. Prerequisites for each test case: List all persons using the `list` command, ensuring that there are **exactly** 6 contacts in the list. Otherwise, use the `add` command to add more client contacts. Take note that duplicate names (ignoring letter casing) are not allowed in Notarius.
+
+   1. Test case: `delete i/1-3`<br>
+      Expected: First three client contacts are deleted from the list. Details of the deleted contacts shown in the status message. Timestamp in the status bar is updated.
+   
+   1. Test case: `delete  i/1-1`<br>
+      Expected: First client contact is deleted from the list. Details of the deleted contact shown in the status message. Timestamp in the status bar is updated.
+
+   1. Test case: `delete i/0-2`<br>
+      Expected: No person is deleted. Error details shown in the status message. Status bar remains the same.
+   
+   1. Test case: `delete i/1-9`<br>
+      Expected: No person is deleted. Error details shown in the status message. Status bar remains the same.
+
+   1. Test case: `delete i/6-1`<br>
+      Expected: No person is deleted. Error details shown in the status message. Status bar remains the same.
+
+3. Deleting the first and last client contact in the contact list while all client contacts are shown.
+
+   1. Prerequisites for each test case: List all persons using the `list` command, ensuring that there are **exactly** 6 contacts in the list. Otherwise, use the `add` command to add more client contacts. Take note that duplicate names (ignoring letter casing) are not allowed in Notarius.
+
+   1. Test case: `delete i/1 6`<br>
+      Expected: First and last client contacts are deleted from the list. Details of the deleted contacts shown in the status message. Timestamp in the status bar is updated.
+   
+   1. Test case: `delete i/1 1 6 6 6`<br>
+      Expected: First and last client contacts are deleted from the list. Details of the deleted contacts shown in the status message. Timestamp in the status bar is updated.
+   
+   1. Test case: `delete i/0 7`<br>
+      Expected: No person is deleted. Error details shown in the status message. Status bar remains the same.
+
+### Command history
+
+Each test case in this feature section (labelled "Test case") should be independent.<br>
+**Important**: For the key combinations specified, macOS users should use `Ctrl + Opt + Up`/`Ctrl + Opt + Down` respectively instead of `Ctrl + Up`/`Ctrl + Down`.
+
+1. Saving command history
+
+   1. Prerequisites for each test case: 
+        * No command should be entered into the command box yet (and thus the command history should be empty). Otherwise, relaunch the application.
+        * There should be **exactly** 6 contacts in the list. Otherwise, use the `add` command to add more client contacts. Take note that duplicate names (ignoring letter casing) are not allowed in Notarius.
+        * **None** of the contacts should have a name equal to "notarius", **ignoring** letter casing. Otherwise, delete that contact using `delete` and add a new contact that does not have a duplicate name.
+
+   1. Test case: `delete 1`<br>
+      Expected: The command history is updated with the command text "delete 1". The command history is displayed when the user presses `Ctrl + Up` or `Ctrl + Down`.
+
+   1. Test case: `delete 1` followed by `add n/notarius p/1231 e/test@email.com a/blk 123 abc`<br>
+      Expected: The command history is updated with the command texts `add n/notarius p/1231 e/test@email.com a/blk 123 abc` at the top of the command history list and `delete 1` below it. The command history is displayed when the user presses `Ctrl + Up` or `Ctrl + Down`, and selection changes when pressing `Ctrl + Up` or `Ctrl + Down` again. When the selection changes, the command text in the command box is updated to the selected command.
+
+   1. Test case: `list` followed by `list`<br>
+      Expected: The command history is updated with the command text "list", but only once with no **consecutive** duplicates. The command history is displayed when the user presses `Ctrl + Up` or `Ctrl + Down`.
+
+### Finding a person
+
+1. Finding a person while all persons are being shown
+   1. Prerequisites: List all persons using `list` command. Multiple persons in the list.
+   2. Test case: `find n/"Alice"` <br>
+      Expected: Displays all contacts with names that match "Alice" (case-insensitive) or have a name with levenshtein distance <= 2 to "ALICE".
+   3. Test case: `find n/"Alice" "Bob"` <br>
+      Expected: Displays all contacts with names containing either "Alice" or "Bob".
+   4. Test case: `find n/"Alice" e/"alice@email.com" a/"Bedok Central"` <br>
+      Expected: Displays all contacts where any of the fields match or have a levenshtein distance <= 2 from each keyword.
+   5. Test case: `find t/"client" p/"12345678"` <br>
+      Expected: Displays contacts that exactly match either tag "client" or phone "12345678".
+   6. Test case: `find n/"NonExistentName"` <br>
+      Expected: "0 persons listed!" message is displayed.
+
+### Displaying help
+
+1. Showing help in Notarius
+   1. Prerequisites: Notarius is open and running
+   2. Test case: `help` <br>
+      Expected: A help window appears displaying instructions for using the application. The status message confirms that the help window has been opened.
+   3. Test case: `help find` <br>
+      Expected: The application displays detailed instructions for the find command, including expected parameters and format. 
+   4. Test case: `help delete` <br>
+      Expected: The application displays detailed instructions for the delete command, including expected parameters and format.
+   5. Test case: `help meeee` (invalid command) <br>
+      Expected: Error message: "Unknown command! Use 'help' to see available commands."
+
+
 
 ### Sorting contacts list
 
