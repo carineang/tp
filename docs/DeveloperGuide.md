@@ -9,7 +9,7 @@ title: Developer Guide
 
 ## **Acknowledgements**
 
-* {list here sources of all reused/adapted ideas, code, documentation, and third-party libraries -- include links to the original source as well}
+* Notarius is based on the AddressBook-Level3 project created by the [SE-EDU initiative](https://se-education.org/).
 
 --------------------------------------------------------------------------------------------------------------------
 
@@ -72,7 +72,8 @@ The **API** of this component is specified in [`Ui.java`](https://github.com/se-
 
 ![Structure of the UI Component](images/UiClassDiagram.png)
 
-The UI consists of a `MainWindow` that is made up of parts e.g.`CommandBox`, `ResultDisplay`, `PersonListPanel`, `StatusBarFooter` etc. All these, including the `MainWindow`, inherit from the abstract `UiPart` class which captures the commonalities between classes that represent parts of the visible GUI.
+The UI consists of a `MainWindow` that is made up of parts such as `CommandBox`, `ResultDisplay`, `PersonListPanel`, 
+`PersonDetailPanel`, `StatusBarFooter` and `HelpWindow`. All these, including the `MainWindow`, inherit from the abstract `UiPart` class which captures the commonalities between classes that represent parts of the visible GUI.
 
 The `UI` component uses the JavaFx UI framework. The layout of these UI parts are defined in matching `.fxml` files that are in the `src/main/resources/view` folder. For example, the layout of the [`MainWindow`](https://github.com/se-edu/addressbook-level3/tree/master/src/main/java/seedu/address/ui/MainWindow.java) is specified in [`MainWindow.fxml`](https://github.com/se-edu/addressbook-level3/tree/master/src/main/resources/view/MainWindow.fxml)
 
@@ -154,6 +155,60 @@ Classes used by multiple components are in the `seedu.address.commons` package.
 ## **Implementation**
 
 This section describes some noteworthy details on how certain features are implemented.
+
+### List feature
+
+The `list` command enables users to view all existing contacts from Notarius.
+
+<p align="center">
+  <img src="images/ListCommandSequenceDiagram.png" alt="Ui" />
+</p>
+
+#### Implementation
+
+1. The user inputs the command to list all contacts.
+2. A `LogicManager` object invokes the `execute` method of a `ListCommand` object.
+3. The `execute` method of the `ListCommand` object invokes the `updateFilteredPersonList` and
+`commitAddressBook` method of its `Model` to update and show all contacts.
+4. The `execute` method of the `ListCommand` object returns a `CommandResult` object which stores the data regarding
+the completion of the `list` command.
+
+### Clear feature
+
+The `clear` command enables users to remove all existing contacts from Notarius.
+
+<p align="center">
+  <img src="images/ClearCommandSequenceDiagram.png" alt="Ui" />
+</p>
+
+#### Implementation
+
+1. The user inputs the command to clear all contacts.
+2. A `LogicManager` object invokes the `execute` method of a `ClearCommand` object.
+3. The `execute` method of the `ClearCommand` object invokes the `setAddressBook` and `commitAddressBook` method 
+of its `Model` argument with a new `AddressBook` object which contains an empty `UniquePersonList` property.
+4. The `execute` method of the `ClearCommand` object returns a `CommandResult` object which stores the data regarding 
+the completion of the `clear` command.
+
+### Sort feature
+
+The `sort` command enables users to sort contacts in Notarius by prefix in lexicographical order.
+
+<p align="center">
+  <img src="images/SortCommandSequenceDiagram.png" alt="Ui" />
+</p>
+
+#### Implementation
+
+1. The user inputs the command to sort contacts with the specified prefix.
+2. A `SortCommandParser` object invokes its `parse` method which parses the user input.
+3. The `SortCommand` object is created with the parsed prefix.
+4. A `LogicManager` object invokes the `execute` method of the `SortCommand` object.
+5. The `execute` method of the `SortCommand` object invokes the `updateSortedPersonList`, 
+`updateSortedFilteredPersonList` and `commitAddressBook` methods of its `Model` argument to update and sort 
+all contacts by the target prefix.
+6. The `execute` method of the `SortCommand` object returns a `CommandResult` object which stores the data regarding 
+the completion of the `sort` command.
 
 ### \[Proposed\] Undo/redo feature
 
@@ -587,6 +642,75 @@ Priorities: High (must have) - `* * *`, Medium (nice to have) - `* *`, Low (unli
 
 * 2a. Notarius cannot find any notes related to the contact.
   * 2a1. Notarius alerts the user with a relevant message.
+
+**System**: `Notarius`
+
+**Actor**: `User`
+
+**Use Case**: `UC08 - Sorting the contacts list`
+
+**Guarantees**: `If MSS reaches step 3, the user has successfully sorted the contacts list by a specified prefix.`
+
+**MSS**:
+
+1. User requests to sort Notarius by a specified prefix.
+2. Notarius updates the contacts list in the sorted order.
+3. Notarius confirms that the contacts list has been successfully sorted.
+
+   Use case ends.
+
+**Extensions**:
+
+* 1a. Notarius detects a missing prefix in the entered input.
+  * 1a1. Notarius displays the error message.
+  * 1a2. User re-enters a new command with a specified prefix.
+  * Steps 1a1 - 1a2 are repeated until a valid prefix is input by the User.
+  * Use case resumes from step 2.
+
+* 1b. Notarius detects an invalid prefix in the entered input.
+  * 1b1. Notarius displays the error message.
+  * 1b2. User re-enters a new command with a specified prefix.
+  * Steps 1b1 - 1b2 are repeated until a valid field is input by the User.
+  * Use case resumes from step 2.
+
+* 1c. User enters extra spaces or invalid formatting in the entered input.
+  * 1c1. Notarius displays an error message.
+  * 1c2. User re-enters a new command with properly formatted command.
+  * Steps 1c1 - 1c2 are repeated until a valid command is input by the User.
+  * Use case resumes from step 2.
+
+**System**: `Notarius`
+
+**Actor**: `User`
+
+**Use Case**: `UC09 - Clearing the contacts list`
+
+**Guarantees**: `If MSS reaches step 3, the user has successfully cleared the contacts list.`
+
+**MSS**:
+
+1. User requests to clear the data in the contacts list.
+2. Notarius updates the data in the contacts list.
+3. Notarius confirms that the data in the contacts list has been cleared.
+
+   Use case ends.
+
+**System**: `Notarius`
+
+**Actor**: `User`
+
+**Use Case**: `UC10 - Listing all contacts`
+
+**Guarantees**: `If MSS reaches step 3, the user has successfully listed all the contacts.`
+
+**MSS**:
+
+1. User requests to list all contacts.
+2. Notarius displays all relevant contacts.
+3. Notarius confirms that all relevant contacts has been successfully listed.
+
+   Use case ends.
+
 
 ### Non-Functional Requirements
 
