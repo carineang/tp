@@ -210,9 +210,13 @@ all contacts by the target prefix.
 6. The `execute` method of the `SortCommand` object returns a `CommandResult` object which stores the data regarding 
 the completion of the `sort` command.
 
-### \[Proposed\] Undo/redo feature
+### Note feature
 
-#### Proposed Implementation
+#### Implementation
+
+### Undo/redo feature
+
+#### Implementation
 
 The proposed undo/redo mechanism is facilitated by `VersionedAddressBook`. It extends `AddressBook` with an undo/redo history, stored internally as an `addressBookStateList` and `currentStatePointer`. Additionally, it implements the following operations:
 
