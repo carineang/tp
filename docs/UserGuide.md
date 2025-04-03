@@ -25,14 +25,14 @@ helping to provide you with a seamless experience. You can re-access previously 
 
 Additionally, we offer **cool** *quality-of-life* features too. You can note-take crucial details of your clients, and even pin important client contacts!
 
-| Feature         | Purpose                                                                                  |
-|-----------------|------------------------------------------------------------------------------------------|
-| Note            | Add and view notes of client contacts to keep track of important information about them. |
-| Pin/Unpin       | Pin and unpin client contacts to easily track important client information.              |
-| Sort            | Sort clients by key attributes to easily find certain clients.                           |
-| Find            | Filters clients by various fields along with how similar they are to the query commands. |
-| Undo/Redo       | Undo and redo commands to easily correct mistaken commands.                              |
-| Command History | View and reaccess previously typed commands to easily edit typos.                        |
+| Feature         | Purpose                                                                                     |
+|-----------------|---------------------------------------------------------------------------------------------|
+| Note            | Change and view notes of client contacts to keep track of important information about them. |
+| Pin/Unpin       | Pin and unpin client contacts to easily track important client information.                 |
+| Sort            | Sort clients by key attributes to easily find certain clients.                              |
+| Find            | Filters clients by various fields along with how similar they are to the query commands.    |
+| Undo/Redo       | Undo and redo commands to easily correct mistaken commands.                                 |
+| Command History | View and reaccess previously typed commands to easily edit typos.                           |
 
 ## Glossary of terms
 
