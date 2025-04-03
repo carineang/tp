@@ -1,0 +1,80 @@
+@startuml
+!include style.puml
+skinparam ArrowFontStyle plain
+
+box Logic LOGIC_COLOR_T1
+participant ":LogicManager" as LogicManager LOGIC_COLOR
+participant ":AddressBookParser" as AddressBookParser LOGIC_COLOR
+participant ":PinCommandParser" as PinCommandParser LOGIC_COLOR
+participant "p:PinCommand" as PinCommand LOGIC_COLOR
+participant "r:CommandResult" as CommandResult LOGIC_COLOR
+end box
+
+box Model MODEL_COLOR_T1
+participant "m:Model" as Model MODEL_COLOR
+end box
+
+[-> LogicManager : execute("pin 1")
+activate LogicManager
+
+LogicManager -> AddressBookParser : parseCommand("pin 1")
+activate AddressBookParser
+
+create PinCommandParser
+AddressBookParser -> PinCommandParser : new PinCommandParser()
+activate PinCommandParser
+PinCommandParser --> AddressBookParser : return PinCommandParser
+deactivate PinCommandParser
+
+AddressBookParser -> PinCommandParser : parse("1")
+activate PinCommandParser
+
+create PinCommand
+PinCommandParser -> PinCommand : new PinCommand(index)
+activate PinCommand
+PinCommand --> PinCommandParser : return PinCommand
+deactivate PinCommand
+
+PinCommandParser --> AddressBookParser : return PinCommand
+deactivate PinCommandParser
+destroy PinCommandParser
+
+AddressBookParser --> LogicManager : return PinCommand
+deactivate AddressBookParser
+
+LogicManager -> PinCommand : execute(model)
+activate PinCommand
+
+PinCommand -> Model : getFilteredPersonList()
+activate Model
+Model --> PinCommand : List<Person>
+deactivate Model
+
+PinCommand -> Pin : new Pin(true)
+PinCommand -> EditPersonDescriptor : new EditPersonDescriptor()
+PinCommand -> EditPersonDescriptor : setPin(newPin)
+PinCommand -> EditPersonDescriptor : createEditedPerson(personToPin, descriptor)
+activate EditPersonDescriptor
+EditPersonDescriptor --> PinCommand : editedPerson
+deactivate EditPersonDescriptor
+
+PinCommand -> Model : setPerson(personToPin, editedPerson)
+activate Model
+Model --> PinCommand : person updated
+deactivate Model
+
+PinCommand -> Model : pinPerson(editedPerson)
+PinCommand -> Model : commit()
+
+create CommandResult
+PinCommand -> CommandResult : new CommandResult("Pinned 1")
+activate CommandResult
+CommandResult --> PinCommand : return CommandResult
+deactivate CommandResult
+
+PinCommand --> LogicManager : return CommandResult
+deactivate PinCommand
+
+[<-- LogicManager : return CommandResult
+deactivate LogicManager
+@enduml
