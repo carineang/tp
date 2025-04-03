@@ -588,6 +588,75 @@ Priorities: High (must have) - `* * *`, Medium (nice to have) - `* *`, Low (unli
 * 2a. Notarius cannot find any notes related to the contact.
   * 2a1. Notarius alerts the user with a relevant message.
 
+**System**: `Notarius`
+
+**Actor**: `User`
+
+**Use Case**: `UC08 - Displaying Help Information`
+
+**Guarantees**: `If MSS reaches step 3, the requested help information will be displayed.`
+
+**MSS**:
+
+1. User requests help by entering the help command. 
+2. Notarius displays a help window with general usage instructions.
+
+   Use case ends.
+
+**Extensions**:
+
+* 1a. User requests help for a specific command. 
+  * 1a1. Notarius displays detailed usage information for the specified command.<br>
+    Use case ends.
+
+* 1b.  User enters an invalid command name. 
+  * 1b1. Notarius alerts the user with an error message: "Unknown command! Use help to see available commands."
+  * 1b2. User retypes the command with a valid usgae.<br>
+    Steps 1b1-1b2 are repeated until a valid command is entered.<br>
+    Use case resumes from step 1a1.
+
+**System**: `Notarius`
+
+**Actor**: `User`
+
+**Use Case**: `UC09 - Finding a Contact`
+
+**Guarantees**: `If MSS reaches step 3, a list of matching contacts will be displayed.`
+
+**MSS**:
+
+1. User requests to find contacts by entering the find command with specified fields and keywords. 
+2. Address Book searches for contacts whose fields contain any of the given keywords, 
+allowing minor typos (up to a Levenshtein distance of 2) in the name, email, and address fields only. 
+3. Address Book displays a list of matching contacts with index numbers.
+
+   Use case ends.
+
+
+**Extensions**:
+
+* 1a. User enters an invalid search format. 
+  * 1a1. Address Book alerts the user with an error message about the incorrect format. 
+  * 1a2. User retypes the command following the correct format.<br>
+    Steps 1a1-1a2 are repeated until the command format is valid.<br>
+    Use case resumes from step 2.
+* 2a. No contacts match the search criteria. 
+  * 2a1. Address Book displays a message indicating that no matching contacts were found.<br>
+    Use case ends.
+* 2b. User enters multiple search fields. 
+  * 2b1. Address Book searches for contacts that match any of the 
+  specified fields (name, phone, email, address, or tags).<br>
+    Use case resumes from step 3.
+* 2c. User enters a keyword with minor typos in the phone or tag fields. 
+  * 2c1. Address Book does not apply typo correction for phone numbers or tags. 
+  * 2c2. If an exact match is not found, Address Book displays a message indicating no results were found.<br>
+    Use case ends.
+* 2d. User enters a keyword with minor typos in the name, email, or address fields. 
+  * 2d1. Address Book applies fuzzy matching (Levenshtein distance of up to 2) for name, email, and address fields.<br>
+    Use case resumes from step 3.
+
+
+
 ### Non-Functional Requirements
 
 1. Should work on any _mainstream OS_ as long as it has Java `17` or above installed.
@@ -655,6 +724,8 @@ testers are expected to do more *exploratory* testing.
       Expected: Similar to previous.
 
 1. _{ more test cases …​ }_
+
+### Finding a person
 
 ### Saving data
 
