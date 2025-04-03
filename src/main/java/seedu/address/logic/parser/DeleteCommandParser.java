@@ -33,7 +33,10 @@ public class DeleteCommandParser implements Parser<DeleteCommand> {
                 Index index = ParserUtil.parseIndex(args);
                 return new DeleteCommand(index);
             }
-
+            String preamble = argMultimap.getPreamble();
+            if (!preamble.isBlank()) {
+                throw new ParseException(MESSAGE_INVALID_COMMAND_FORMAT);
+            }
             return new DeleteCommand(massOpsParser.parseIndexes(maybeMassOps.get()));
         } catch (ParseException pe) {
             throw new ParseException(

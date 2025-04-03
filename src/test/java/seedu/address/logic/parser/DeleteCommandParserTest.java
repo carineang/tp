@@ -40,9 +40,13 @@ public class DeleteCommandParserTest {
         DeleteCommand expectedCommand = new DeleteCommand(
                 Set.of(INDEX_FIRST_PERSON, INDEX_SECOND_PERSON, INDEX_THIRD_PERSON));
 
+        // EP: valid spaced format
         assertParseSuccess(parser, " i/1 2 3", expectedCommand);
+        // EP: valid spaced format with trailing
         assertParseSuccess(parser, " i/ 1 2 3  ", expectedCommand);
+        // EP: valid range format
         assertParseSuccess(parser, " i/1-3 ", expectedCommand);
+        // EP: valid spaced format single index
         assertParseSuccess(parser, " i/3 ", new DeleteCommand(INDEX_THIRD_PERSON));
     }
 
@@ -59,6 +63,32 @@ public class DeleteCommandParserTest {
 
         // out-of-range index
         assertParseFailure(parser, " i/1243474758943-234875783495789345",
+                String.format(MESSAGE_INVALID_COMMAND_FORMAT, DeleteCommand.MESSAGE_USAGE));
+    }
+
+    @Test
+    public void parse_extraPrefixesMassOpsArgs_throwsException() {
+        // EP: extra prefix after i/
+        assertParseFailure(parser, " i/1 2 3 t/4",
+                String.format(MESSAGE_INVALID_COMMAND_FORMAT, DeleteCommand.MESSAGE_USAGE));
+
+        // EP: extra prefix before i/
+        assertParseFailure(parser, " asdkjp/4 i/1 2 3",
+                String.format(MESSAGE_INVALID_COMMAND_FORMAT, DeleteCommand.MESSAGE_USAGE));
+
+        // EP: multiple extra prefixes before i/
+        assertParseFailure(parser, " a/asdjkasd asdkjp/4 i/1-2",
+                String.format(MESSAGE_INVALID_COMMAND_FORMAT, DeleteCommand.MESSAGE_USAGE));
+    }
+
+    @Test
+    public void parse_extraPrefixesSingleDelete_throwsException() {
+        // EP: extra prefix after INDEX
+        assertParseFailure(parser, " p/askdsakdj 1",
+                String.format(MESSAGE_INVALID_COMMAND_FORMAT, DeleteCommand.MESSAGE_USAGE));
+
+        // EP: extra prefix before INDEX
+        assertParseFailure(parser, " 1 p/asjdk",
                 String.format(MESSAGE_INVALID_COMMAND_FORMAT, DeleteCommand.MESSAGE_USAGE));
     }
 }
