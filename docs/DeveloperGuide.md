@@ -341,7 +341,7 @@ using the `Ctrl + Up` key combinations on Windows (or `Ctrl + Opt + Up` on macOS
 The note feature allows the user to change and view notes. \
 The user changes notes via the `note` command and the user views notes via the `viewnote` command.
 
-#### Implementation
+#### Implementation Details
 
 This is how a user changes their note via the `note` command:
 1. The user inputs the command to change their note of a contact of a specific index.
@@ -366,7 +366,7 @@ This is how a user views their note via the `viewnote` command:
 ### Undo/redo feature
 The `undo` and `redo` commands undoes and redoes other commands respectively. 
 
-#### Implementation
+#### Implementation Details
 
 * The proposed undo/redo mechanism is facilitated by `ModelState`. 
 * The `ModelState` is a save state of the `Model`.
