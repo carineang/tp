@@ -54,7 +54,7 @@ activate Model
 Model --> FindCommand
 deactivate Model
 
-FindCommand -> Model : commitAddressBook()
+FindCommand -> Model : commit()
 activate Model
 
 Model --> FindCommand
