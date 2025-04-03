@@ -233,9 +233,6 @@ all contacts by the target prefix.
 6. The `execute` method of the `SortCommand` object returns a `CommandResult` object which stores the data regarding 
 the completion of the `sort` command.
 
-<<<<<<< HEAD
-### Undo/redo feature
-=======
 ### Find feature
 
 The `find` command allows users to search for contacts in Notarius based on specified fields: 
@@ -341,12 +338,9 @@ using the `Ctrl + Up` key combinations on Windows (or `Ctrl + Opt + Up` on macOS
     * Windows/Linux: `Ctrl + Up`/`Ctrl + Down` to move up/down the selection.
     * macOS: `Ctrl + Opt + Up`/ `Ctrl + Opt + Down` similarly.
 
+### [Proposed] Undo/redo feature
 
-
-### \[Proposed\] Undo/redo feature
->>>>>>> master
-
-#### Implementation
+#### Proposed Implementation
 
 The proposed undo/redo mechanism is facilitated by `VersionedAddressBook`. It extends `AddressBook` with an undo/redo history, stored internally as an `addressBookStateList` and `currentStatePointer`. Additionally, it implements the following operations:
 
