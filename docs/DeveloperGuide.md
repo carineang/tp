@@ -250,7 +250,7 @@ Additionally, for name, email, and address fields, the search is tolerant of min
 4. The `FindCommandParser` extracts the search parameters and keywords, ensuring correct parsing of multi-word inputs enclosed in double quotes (""). 
 5. A new `FindCommand` object is created using the parsed search fields and keywords. 
 6. The `LogicManager` executes the `FindCommand` object, which:
-   1. Calls `updateFilteredPersonList` in `Model` to filter contacts based on the search fields and keywords. 
+   1. Calls `updateFilteredPersonList` and `commit` method in `Model` to filter contacts based on the search fields and keywords. 
    2. Uses a case-insensitive check for all fields. 
    3. Applies Levenshtein distance ≤ 2 matching for `name`, `email`, and `address`. 
 7. The `FindCommand` returns a `CommandResult`, displaying the filtered list of contacts matching the search criteria.
