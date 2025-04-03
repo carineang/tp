@@ -239,7 +239,7 @@ when the user executes the `delete` command.
 
 **Aspect: How to implement the delete command**
 
-* **Alternative 1 (current choice):** Support deletion of multiple client contacts and intuitive delete formats
+* **Alternative 1 (current choice):** Support deletion of multiple client contacts with intuitive delete formats
     * Pros: Intuitive to use, and improved user-friendliness. Users do not have to repeatedly type the same command to delete clients one-by-one.
     * Cons: More complicated to implement, due to the need of parsing multiple indexes, ignoring duplicates, and ensuring valid parsing according to the multiple specified formats.
 
