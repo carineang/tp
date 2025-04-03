@@ -17,24 +17,25 @@ end box
 [-> LogicManager : execute("edit 1 p/98765432 e/email@example.com")
 activate LogicManager
 
-LogicManager -> AddressBookParser : parseCommand("edit 1 p/... ")
+LogicManager -> AddressBookParser : parseCommand("edit 1 p/...")
 activate AddressBookParser
 
 create EditCommandParser
 AddressBookParser -> EditCommandParser : new EditCommandParser()
 activate EditCommandParser
-
 EditCommandParser --> AddressBookParser : return EditCommandParser
 deactivate EditCommandParser
 
-AddressBookParser -> EditCommandParser : parse("1 p/... ")
+AddressBookParser -> EditCommandParser : parse("1 p/...")
 activate EditCommandParser
 
 create EditCommand
 EditCommandParser -> EditCommand : new EditCommand(index, descriptor)
 activate EditCommand
-
 EditCommand --> EditCommandParser : return EditCommand
+deactivate EditCommand
+
+EditCommandParser --> AddressBookParser : return EditCommand
 deactivate EditCommandParser
 destroy EditCommandParser
 
@@ -60,7 +61,6 @@ EditCommand -> Model : commitAddressBook()
 create CommandResult
 EditCommand -> CommandResult : new CommandResult("Edited Person: ...")
 activate CommandResult
-
 CommandResult --> EditCommand : return CommandResult
 deactivate CommandResult
 
