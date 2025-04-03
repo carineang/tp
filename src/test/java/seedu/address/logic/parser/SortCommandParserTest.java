@@ -52,9 +52,15 @@ public class SortCommandParserTest {
     }
 
     @Test
-    public void parse_validMultiplePrefixes_success() throws ParseException {
+    public void parse_validMultiplePrefixesTagName_success() throws ParseException {
         SortCommand command = parser.parse("t/ n/");
         assertTrue(Arrays.equals(new String[] {"t/", "n/"}, command.getSortPrefix()));
+    }
+
+    @Test
+    public void parse_validMultiplePrefixesTagPhone_success() throws ParseException {
+        SortCommand command = parser.parse("t/ p/");
+        assertTrue(Arrays.equals(new String[] {"t/", "p/"}, command.getSortPrefix()));
     }
 
     @Test
@@ -108,4 +114,41 @@ public class SortCommandParserTest {
         });
         assertEquals(String.format(MESSAGE_INVALID_COMMAND_FORMAT, SortCommand.MESSAGE_USAGE), exception.getMessage());
     }
+
+    @Test
+    public void parse_duplicateNamePrefixes_throwsParseException() {
+        String input = "n/ n/";
+        ParseException exception = assertThrows(ParseException.class, () -> {
+            parser.parse(input);
+        });
+        assertEquals("Duplicate prefixes are not allowed.", exception.getMessage());
+    }
+
+    @Test
+    public void parse_duplicateTagPrefixes_throwsParseException() {
+        String input = "t/ t/";
+        ParseException exception = assertThrows(ParseException.class, () -> {
+            parser.parse(input);
+        });
+        assertEquals("Duplicate prefixes are not allowed.", exception.getMessage());
+    }
+
+    @Test
+    public void parse_invalidTwoPrefix_throwsParseException() {
+        String input = "a/ b/";
+        ParseException exception = assertThrows(ParseException.class, () -> {
+            parser.parse(input);
+        });
+        assertEquals(String.format(MESSAGE_INVALID_COMMAND_FORMAT, SortCommand.MESSAGE_USAGE), exception.getMessage());
+    }
+
+    @Test
+    public void parse_duplicateThreeTagPrefixes_throwsParseException() {
+        String input = "t/ t/ t/";
+        ParseException exception = assertThrows(ParseException.class, () -> {
+            parser.parse(input);
+        });
+        assertEquals("Invalid number of prefixes.", exception.getMessage());
+    }
+
 }
