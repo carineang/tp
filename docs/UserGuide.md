@@ -412,7 +412,7 @@ Examples:
 
 #### Clearing all entries : `clear`
 
-Clears all entries from the address book.
+Clears all client contacts in the address book.
 
 Format: `clear`
 
