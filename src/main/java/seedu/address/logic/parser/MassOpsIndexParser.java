@@ -56,8 +56,6 @@ public class MassOpsIndexParser {
             "(?<startIndex>\\d+)\\s*-\\s*(?<endIndex>\\d+)"
     );
 
-
-
     /**
      * Parses the given string argument according to the spaced and ranged parsing formats. <br/>
      * Space format e.g.: "1 2 3 4 5", Range format: "1-200". <br/>
@@ -97,6 +95,19 @@ public class MassOpsIndexParser {
         }
     }
 
+    private Set<Index> prepareConsecutiveIndexes(int oneBasedStartIndex, int oneBasedEndIndex) {
+        Set<Index> indexes = new HashSet<>();
+        for (int i = oneBasedStartIndex; i <= oneBasedEndIndex; i++) {
+            logger.info("zero based: " + (i - 1));
+            indexes.add(Index.fromOneBased(i));
+            if (i == Integer.MAX_VALUE) {
+                // Prevents overflow from incrementing i another time.
+                break;
+            }
+        }
+        return indexes;
+    }
+
     private Set<Index> parseRangedIndexes(Matcher rangedMatcher) throws ParseException {
         requireNonNull(rangedMatcher);
         assert RANGE_INDEX_PATTERN.equals(rangedMatcher.pattern());
@@ -117,19 +128,7 @@ public class MassOpsIndexParser {
 
         validateRangedIndex(oneBasedStartIndex, oneBasedEndIndex);
 
-        Set<Index> indexes = new HashSet<>();
-
-        for (int i = oneBasedStartIndex; i <= oneBasedEndIndex; i++) {
-            logger.info("zero based: " + (i - 1));
-            indexes.add(Index.fromOneBased(i));
-
-            if (i == Integer.MAX_VALUE) {
-                // Prevents overflow when i is incremented
-                break;
-            }
-        }
-
-        return indexes;
+        return prepareConsecutiveIndexes(oneBasedStartIndex, oneBasedEndIndex);
     }
 
     private Set<Index> parseSpacedIndexes(Matcher spacedMatcher) throws ParseException {
