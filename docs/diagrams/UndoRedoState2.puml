@@ -7,9 +7,9 @@ skinparam ClassBackgroundColor #FFFFAA
 title After command "add n/David"
 
 package States <<rectangle>> {
-    class State1 as "<u>ab0:AddressBook</u>"
-    class State2 as "<u>ab1:AddressBook</u>"
-    class State3 as "<u>ab2:AddressBook</u>"
+    class State1 as "<u>ms0:ModelState</u>"
+    class State2 as "<u>ms1:ModelState</u>"
+    class State3 as "<u>ms2:ModelState</u>"
 }
 
 State1 -[hidden]right-> State2

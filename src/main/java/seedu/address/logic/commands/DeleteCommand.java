@@ -29,8 +29,8 @@ public class DeleteCommand extends Command {
             + System.lineSeparator()
             + "For deleting multiple persons at once:"
             + System.lineSeparator()
-            + "1. (Spaced format) Parameters: i/INDEX1 INDEX2 INDEX3 ... INDEXN (Each INDEX must be a positive "
-            + "integer.)"
+            + "1. (Spaced format) Parameters: i/INDEX1 INDEX2 INDEX3 ... INDEXN (Each INDEX must be positive "
+            + "integers.)"
             + System.lineSeparator()
             + " Example: " + COMMAND_WORD + " i/1 2 3 4 5"
             + System.lineSeparator()
