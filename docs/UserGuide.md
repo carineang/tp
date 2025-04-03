@@ -234,7 +234,6 @@ Updates an existing client contact in the address book.
 
 Format: `edit INDEX [n/NAME] [p/PHONE] [e/EMAIL] [a/ADDRESS] [t/TAG] [t/ADDITIONAL TAG]…​`
 
-<<<<<<< HEAD
 * Edits the client contact at the specified `INDEX`. The index refers to the index number shown in the displayed client contact list. The index **must be a positive integer** 1, 2, 3, …​
 * You must provide at least one of the optional details to update.
 * Any details you change will replace the old ones.
