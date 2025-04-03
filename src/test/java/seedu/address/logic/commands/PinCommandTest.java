@@ -52,7 +52,8 @@ public class PinCommandTest {
         pinCommand.execute(model);
         PinCommand newPinCommand = new PinCommand(INDEX_FIRST_PERSON);
         CommandResult newResult = newPinCommand.execute(model);
-        String ExpectedMessage = String.format(PinCommand.MESSAGE_PIN_PERSON_ALREADY_PINNED, INDEX_FIRST_PERSON.getOneBased());
+        String ExpectedMessage = String.format(PinCommand.MESSAGE_PIN_PERSON_ALREADY_PINNED,
+                INDEX_FIRST_PERSON.getOneBased());
         assertEquals(ExpectedMessage, newResult.getFeedbackToUser());
     }
 
