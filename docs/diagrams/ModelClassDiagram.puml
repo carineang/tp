@@ -43,7 +43,7 @@ ModelState -right-> "1" Predicate
 ModelManager -right-> "1" UserPrefs
 ModelManager -left-> "~* filtered" Person
 ModelManager -right-> "~* sorted" Person
-ModelManager -right-> CommandHistory
+ModelManager -right-> "1" CommandHistory
 UserPrefs ..|> ReadOnlyUserPrefs
 
 AddressBook *--> "1" UniquePersonList
