@@ -64,7 +64,6 @@ public class NoteCommand extends Command {
         Person editedPerson = createEditedPerson(personToNote, newDescriptor);
 
         model.setPerson(personToNote, editedPerson);
-        model.updateFilteredPersonList(PREDICATE_SHOW_ALL_PERSONS);
 
         model.commit();
 
