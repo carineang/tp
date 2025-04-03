@@ -33,8 +33,8 @@ public class PinCommandTest {
         // Ensure person is now at the top of the list and pinned
         Person pinnedPerson = model.getFilteredPersonList().get(0);
         assertTrue(pinnedPerson.getPin().isPinned());
-        assertEquals(String.format(PinCommand.MESSAGE_PIN_PERSON_SUCCESS, INDEX_FIRST_PERSON.getOneBased()),
-                result.getFeedbackToUser());
+        String ExpectedMessage = String.format(PinCommand.MESSAGE_PIN_PERSON_SUCCESS, INDEX_FIRST_PERSON.getOneBased());
+        assertEquals(ExpectedMessage, result.getFeedbackToUser());
     }
 
     @Test
@@ -52,8 +52,8 @@ public class PinCommandTest {
         pinCommand.execute(model);
         PinCommand newPinCommand = new PinCommand(INDEX_FIRST_PERSON);
         CommandResult newResult = newPinCommand.execute(model);
-        assertEquals(String.format(PinCommand.MESSAGE_PIN_PERSON_ALREADY_PINNED, INDEX_FIRST_PERSON.getOneBased()),
-                newResult.getFeedbackToUser());
+        String ExpectedMessage = String.format(PinCommand.MESSAGE_PIN_PERSON_ALREADY_PINNED, INDEX_FIRST_PERSON.getOneBased());
+        assertEquals(ExpectedMessage, newResult.getFeedbackToUser());
     }
 
     /**
