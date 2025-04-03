@@ -189,27 +189,27 @@ public class AddCommandTest {
         }
 
         @Override
-        public void commitAddressBook() {
+        public void commit() {
             throw new AssertionError("This method should not be called.");
         }
 
         @Override
-        public void undoAddressBook() {
+        public void undo() {
             throw new AssertionError("This method should not be called.");
         }
 
         @Override
-        public void redoAddressBook() {
+        public void redo() {
             throw new AssertionError("This method should not be called.");
         }
 
         @Override
-        public boolean addressBookHasUndo() {
+        public boolean hasUndo() {
             return false;
         }
 
         @Override
-        public boolean addressBookHasRedo() {
+        public boolean hasRedo() {
             return false;
         }
 
@@ -252,7 +252,7 @@ public class AddCommandTest {
         }
 
         @Override
-        public void commitAddressBook() {
+        public void commit() {
         }
 
         @Override

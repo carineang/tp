@@ -67,7 +67,7 @@ public class FindCommandTest {
                 false, false, false);
         FindCommand command = new FindCommand(predicate);
         expectedModel.updateFilteredPersonList(predicate);
-        expectedModel.commitAddressBook();
+        expectedModel.commit();
         assertCommandSuccess(command, model, expectedMessage, expectedModel);
         assertEquals(Arrays.asList(ALICE), model.getFilteredPersonList());
     }
@@ -81,7 +81,7 @@ public class FindCommandTest {
                 false, false, false);
         FindCommand command = new FindCommand(predicate);
         expectedModel.updateFilteredPersonList(predicate);
-        expectedModel.commitAddressBook();
+        expectedModel.commit();
         assertCommandSuccess(command, model, expectedMessage, expectedModel);
         assertEquals(Arrays.asList(ALICE), model.getFilteredPersonList());
     }
@@ -95,7 +95,7 @@ public class FindCommandTest {
                 true, false, false);
         FindCommand command = new FindCommand(predicate);
         expectedModel.updateFilteredPersonList(predicate);
-        expectedModel.commitAddressBook();
+        expectedModel.commit();
         assertCommandSuccess(command, model, expectedMessage, expectedModel);
         assertEquals(Arrays.asList(ALICE), model.getFilteredPersonList());
     }
@@ -109,7 +109,7 @@ public class FindCommandTest {
                 false, false, false);
         FindCommand command = new FindCommand(predicate);
         expectedModel.updateFilteredPersonList(predicate);
-        expectedModel.commitAddressBook();
+        expectedModel.commit();
         assertCommandSuccess(command, model, expectedMessage, expectedModel);
         assertEquals(Arrays.asList(ALICE, CARL), model.getFilteredPersonList());
 
@@ -124,7 +124,7 @@ public class FindCommandTest {
                 false, true, false);
         FindCommand command = new FindCommand(predicate);
         expectedModel.updateFilteredPersonList(predicate);
-        expectedModel.commitAddressBook();
+        expectedModel.commit();
         assertCommandSuccess(command, model, expectedMessage, expectedModel);
         assertEquals(Arrays.asList(ALICE), model.getFilteredPersonList());
     }
@@ -138,7 +138,7 @@ public class FindCommandTest {
                 false, false, true);
         FindCommand command = new FindCommand(predicate);
         expectedModel.updateFilteredPersonList(predicate);
-        expectedModel.commitAddressBook();
+        expectedModel.commit();
         assertCommandSuccess(command, model, expectedMessage, expectedModel);
         assertEquals(Arrays.asList(BENSON), model.getFilteredPersonList());
     }
@@ -152,7 +152,7 @@ public class FindCommandTest {
                 true, true, true);
         FindCommand command = new FindCommand(predicate);
         expectedModel.updateFilteredPersonList(predicate);
-        expectedModel.commitAddressBook();
+        expectedModel.commit();
         assertCommandSuccess(command, model, expectedMessage, expectedModel);
         assertEquals(Collections.emptyList(), model.getFilteredPersonList());
     }
@@ -165,7 +165,7 @@ public class FindCommandTest {
                 false, false, false);
         FindCommand command = new FindCommand(predicate);
         expectedModel.updateFilteredPersonList(predicate);
-        expectedModel.commitAddressBook();
+        expectedModel.commit();
         assertCommandSuccess(command, model, expectedMessage, expectedModel);
     }
 
@@ -178,7 +178,7 @@ public class FindCommandTest {
                 false, false, false);
         FindCommand command = new FindCommand(predicate);
         expectedModel.updateFilteredPersonList(predicate);
-        expectedModel.commitAddressBook();
+        expectedModel.commit();
         assertCommandSuccess(command, model, expectedMessage, expectedModel);
     }
 }
