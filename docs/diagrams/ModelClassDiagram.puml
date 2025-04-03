@@ -21,7 +21,8 @@ Class Phone
 Class Tag
 Class Note
 Class Pin
-Class VersionedAddressBook
+Class ModelState
+Class Predicate
 
 Class I #FFFFFF
 }
@@ -35,20 +36,22 @@ ModelManager .up.|> Model
 Model ..> ReadOnlyUserPrefs
 Model .left.> ReadOnlyAddressBook
 ModelManager --> "1" AddressBook
+ModelManager -> "~*" ModelState
+ModelState -left-> "1" AddressBook
+ModelState -right-> "1" Predicate
 ModelManager -right-> "1" UserPrefs
 ModelManager -left-> "~* filtered" Person
 ModelManager -right-> "~* sorted" Person
 UserPrefs ..|> ReadOnlyUserPrefs
 
-AddressBook <|-- VersionedAddressBook
 AddressBook *--> "1" UniquePersonList
 UniquePersonList --right-> "~* all" Person
-Person *--down-> Name
-Person *--down-> Phone
-Person *--down-> Email
-Person *--down-> Address
-Person *--down-> Note
-Person *--down-> Pin
+Person *--down-> "1" Name
+Person *--down-> "1" Phone
+Person *--down-> "1" Email
+Person *--down-> "1" Address
+Person *--down-> "1" Note
+Person *--down-> "1" Pin
 Person *--down-> "*" Tag
 
 Person -[hidden]--> I
@@ -58,5 +61,4 @@ Name -[hidden]right-> Phone
 Phone -[hidden]right-> Address
 Address -[hidden]right-> Email
 
-VersionedAddressBook --> "*" ReadOnlyAddressBook
 @enduml
