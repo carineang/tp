@@ -11,7 +11,7 @@ title: User Guide
 
 ## Introducing Notarius
 
-__*Managing client contacts should not slow you down.*__
+> __*Managing client contacts should not slow you down.*__
 
 **Notarius** is a desktop address book application
 designed for **fast typing lawyers**
