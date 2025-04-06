@@ -350,19 +350,32 @@ Examples:
 
 #### Sorting of client contacts : `sort`
 
-Sort the address book by specified prefix in lexicographical order.
+Sort the contacts in Notarius by specified prefixes in lexicographical order.
 
 Format: `sort PREFIX`
 
+For **sorting by one prefix**, the following commands are allowed:
 * `sort n/` sorts contacts by ascending names.
 * `sort p/` sorts contacts by ascending phone numbers.
 * `sort e/` sorts contacts by ascending emails.
 * `sort a/` sorts contacts by ascending addresses.
 * `sort t/` sorts contacts by ascending tags.
-* `sort t/ n/` sorts contacts by tags first, then names.
-* `sort t/ p/` sorts contacts by tags first, then phone numbers.
-* `sort t/ e/` sorts contacts by tags first, then emails.
-* `sort t/ a/` sorts contacts by tags first, the addresses.
+
+For **sorting by two attributes**, the following commands are allowed:
+* `sort t/ n/` sorts contacts by tags first, followed by names.
+* `sort t/ p/` sorts contacts by tags first, followed by phone numbers.
+* `sort t/ e/` sorts contacts by tags first, followed by emails.
+* `sort t/ a/` sorts contacts by tags first, followed by addresses.
+
+<div markdown="block" class="alert alert-warning">
+
+**:exclamation: Sorting constraints:**<br>
+
+* You are only allowed to use up to **two prefixes**.
+
+* All other sorting combinations, other than those listed above, are **not allowed**.
+
+</div>
 
 Examples:
 * `sort n/` returns contact by ascending names `Alex`, `Bernice`, `Charlotte`.
@@ -378,8 +391,8 @@ correct sorted order. To maintain the sorted order, you will need to run the `so
 
 * **Sorting Multiple Tags:**<br>
   It sorts the **first tag** in **alphabetical order**.<br>
-  e.g. `t/colleagues t/friends` will sort by `colleagues` tag first and followed by `friends` tag.<br>
-  e.g. If `t/colleagues t/friends` and `t/lawyer t/colleagues` are sorted, `t/colleagues t/friends` will appear before
+  * e.g. `t/colleagues t/friends` will sort by `colleagues` tag first and followed by `friends` tag.<br>
+  * e.g. If `t/colleagues t/friends` and `t/lawyer t/colleagues` are sorted, `t/colleagues t/friends` will appear before
   `t/lawyer t/colleagues`, because `colleagues` tag comes first in the sorting order.
 </div>
 
