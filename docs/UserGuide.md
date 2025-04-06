@@ -165,26 +165,56 @@ A GUI similar to the below should appear in a few seconds. Note how the app cont
 
 ## Features
 
-<div markdown="block" class="alert alert-info">
+### Understanding Command Formats
 
-**:information_source: Notes about the command format:**<br>
+#### Parameters
+Parameters are written in `UPPER_CASE`. These are placeholders you replace with your own info.
+<br>
+<br>
+Example: In `add n/NAME`, `NAME` is a parameter which can be used as `add n/John Doe`.
 
-* Words in `UPPER_CASE` are the parameters to be supplied by the user.<br>
-  e.g. in `add n/NAME`, `NAME` is a parameter which can be used as `add n/John Doe`.
+<div markdown="span" class="alert alert-primary">:information_source: **Notes about parameters:**
+<br>
+Parameters can be in any order.<br>
+<br>
+Example: If the command specifies `n/NAME p/PHONE_NUMBER`,
+`p/PHONE_NUMBER n/NAME` is also acceptable.
+</div>
 
-* Items in square brackets are optional.<br>
-  e.g `n/NAME [t/TAG]` can be used as `n/John Doe t/friend` or as `n/John Doe`.
+#### Optional Parameters
+Items in square brackets are optional. It means you do not have to include this piece of information
+if you do not want to.
+<br>
+<br>
+Examples: `n/NAME [t/TAG]` can be used as `n/John Doe t/friend` or as `n/John Doe`.
 
-* Items with `…`​ after them can be used multiple times including zero times.<br>
-  e.g. `[t/TAG]…​` can be used as ` ` (i.e. 0 times), `t/friend`, `t/friend t/family` etc.
+#### ... Parameters
+Items with `…`​ after them. You can use it once, multiple, or not at all.
+<br>
+<br>
+Examples: 
+`n/NAME [t/TAG]…​` can be used as
+<br>
+No Tag:
+`n/NAME`
+<br>
+One Tag:
+`t/case44`
+<br>
+Many Tags:
+`t/case44 t/personal injury`
+`t/case44 t/personal injury t/referred`
 
-* Parameters can be in any order.<br>
-  e.g. if the command specifies `n/NAME p/PHONE_NUMBER`, `p/PHONE_NUMBER n/NAME` is also acceptable.
 
-* Extraneous parameters for commands that do not take in parameters (such as `list`, `exit` and `clear`) will be ignored.<br>
-  e.g. if the command specifies `list 123`, it will be interpreted as `list`.
+<div markdown="span" class="alert alert-primary">:information_source: **Notes about parameters:**
+<br>
+Extraneous parameters for commands that do not take in parameters (such as `list`, `exit`, `undo` and `clear`) will be ignored.<br>
+<br>
+Example: if the command specifies `list 123`, it will be interpreted as `list`.
+</div>
 
-* If you are using a PDF version of this document, be careful when copying and pasting commands that span multiple lines as space characters surrounding line-breaks may be omitted when copied over to the application.
+<div markdown="span" class="alert alert-warning">:exclamation: **Caution:**
+If you are using a PDF version of this document, be careful when copying and pasting commands that span multiple lines as space characters surrounding line-breaks may be omitted when copied over to the application.
 </div>
 
 ### Basic Features
