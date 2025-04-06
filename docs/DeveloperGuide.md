@@ -1210,8 +1210,10 @@ in phone input fields.
 ### 3. Bulk tag deletion capability
 
 #### Current:
-Only one tag of a client contact can be deleted at a time. If a singular client contact has many tags and the 
-user wants to delete a few tags from them, this would be decently cumbersome.
+Via the edit command, all tags can be deleted or tags can be replaced with new ones. 
+However, If a singular client contact has many tags and the 
+user wants to delete a few tags from them, this would be decently cumbersome as the user has to retype in the tags
+they do not want to replace.
 
 #### Planned:
 Add a command to delete multiple tags from a client contact.
