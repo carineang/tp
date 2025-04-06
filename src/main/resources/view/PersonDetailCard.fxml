@@ -2,6 +2,7 @@
 
 <?import javafx.geometry.Insets?>
 <?import javafx.scene.control.Label?>
+<?import javafx.scene.control.ScrollPane?>
 <?import javafx.scene.layout.ColumnConstraints?>
 <?import javafx.scene.layout.FlowPane?>
 <?import javafx.scene.layout.GridPane?>
@@ -11,6 +12,8 @@
 <?import javafx.scene.text.Text?>
 <?import javafx.scene.layout.VBox?>
 
+<ScrollPane fx:id="scrollPane" xmlns:fx="http://javafx.com/fxml/1" xmlns="http://javafx.com/javafx/17" fitToWidth="true" vbarPolicy="AS_NEEDED" hbarPolicy="AS_NEEDED" VBox.vgrow="ALWAYS" HBox.hgrow="ALWAYS" prefWidth="100"
+            prefHeight="100">
 <HBox xmlns:fx="http://javafx.com/fxml/1" id="cardPane" fx:id="cardPane"
       xmlns="http://javafx.com/javafx/17" VBox.vgrow="ALWAYS">
     <GridPane HBox.hgrow="ALWAYS" VBox.vgrow="ALWAYS">
@@ -69,3 +72,4 @@
         </rowConstraints>
     </GridPane>
 </HBox>
+</ScrollPane>
