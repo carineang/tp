@@ -23,19 +23,20 @@ public class DeleteCommand extends Command {
 
     public static final String MESSAGE_USAGE = COMMAND_WORD
             + ": Deletes the person(s) identified by the index number(s) used in the displayed person list.\n"
-            + "Parameters: INDEX (must be a positive integer)"
+            + "Parameters: INDEX (must be a positive integer between 1 and 2147483647 inclusive.)"
             + System.lineSeparator()
             + "Example: " + COMMAND_WORD + " 1"
             + System.lineSeparator()
-            + "For deleting multiple persons at once:"
+            + "For deleting up to 100 persons at once:"
             + System.lineSeparator()
             + "1. (Spaced format) Parameters: i/INDEX1 INDEX2 INDEX3 ... INDEXN (Each INDEX must be positive "
-            + "integers.)"
+            + "integers between 1 and 2147483647 inclusive, \nat most 100 distinct indexes are allowed.)"
             + System.lineSeparator()
             + " Example: " + COMMAND_WORD + " i/1 2 3 4 5"
             + System.lineSeparator()
             + "2. (Ranged format) Parameters: i/START_INDEX-END_INDEX (START_INDEX and END_INDEX "
-            + "must be a positive integer.)"
+            + "must be positive integers between 1 and 2147483647 inclusive \n"
+            + "that differ by at most 100, and START_INDEX is at most END_INDEX.)"
             + System.lineSeparator()
             + " Example: " + COMMAND_WORD + " i/9-99";
 

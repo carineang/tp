@@ -24,7 +24,7 @@ public class PinCommand extends Command {
 
     public static final String MESSAGE_USAGE = COMMAND_WORD
             + ": Pins the person identified by the index number used in the last person listing.\n"
-            + "Parameters: INDEX (must be a positive integer)\n"
+            + "Parameters: INDEX (must be a positive integer between 1 and 2147483647 inclusive.)\n"
             + "Example: " + COMMAND_WORD + " 1";
 
     public static final String MESSAGE_PIN_PERSON_SUCCESS = "Pinned %1$d";

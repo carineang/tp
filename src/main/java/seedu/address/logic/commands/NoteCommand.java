@@ -26,7 +26,7 @@ public class NoteCommand extends Command {
 
     public static final String MESSAGE_USAGE = COMMAND_WORD
             + ": Changes the note of the person identified by the index number used in the displayed person list.\n"
-            + "Parameters: INDEX (must be a positive integer) "
+            + "Parameters: INDEX (must be a positive integer between 1 and 2147483647 inclusive.) "
             + "[" + PREFIX_NOTE + "Note]\n"
             + "Example: " + COMMAND_WORD + " 1 "
             + PREFIX_NOTE + "Does not like to be called";
