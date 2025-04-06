@@ -281,39 +281,40 @@ Examples:
 
 Deletes specified **client** contact(s) from your list of contacts in Notarius.
 
-For deleting a **single** client contact:
+To speed up clearing out your client contacts, **Notarius** allows deleting multiple client contacts quickly,
+depending on your needs: 
 
-**Single-delete Format:**
-* `delete INDEX`
-    * Deletes the client contact at the specified `INDEX`.
+| Formats                                               | Purpose                                                                                                   |
+|-------------------------------------------------------|-----------------------------------------------------------------------------------------------------------|
+| Single-delete: `delete INDEX`                         | Deletes a **single** client contact at the specified INDEX                                                |
+| Ranged-delete: `delete i/START_INDEX-END_INDEX`       | Deletes **consecutive** client contacts whose indexes are between `START_INDEX` to `END_INDEX` inclusive. |
+| Spaced-delete: `delete i/FIRST_INDEX [MORE_INDEXES]…` | Deletes multiple client contacts from **different** parts of the client contact list by their indexes     |
 
-Examples:
-* `list` followed by `delete 2`
-    * Deletes the 2nd client contact displayed in the address book from the top.
-* `find n/"Betsy"` followed by `delete 1`
-    * Deletes the 1st client contact in the displayed results of the `find` command.
+<div markdown="block" class="alert alert-primary">:bulb: **Tips:**
 
-For deleting up to **multiple** client contacts:
+* When deleting contacts with same tags, consider using the **find command** followed by **ranged-delete** to speed things up.
 
-**Ranged-delete Format:**
-* `delete i/START_INDEX-END_INDEX`
-    * Deletes the client contacts whose indexes are between `START_INDEX` to `END_INDEX` inclusive.
+</div>
 
 Examples:
-* `list` followed by `delete i/1-2`
-    * Deletes the 1st and 2nd client contacts in the address book from the top.
-* `find n/"Alex"` followed by `delete i/1-2`
-    * Deletes the 1st and 2nd client contacts in the displayed results of the `find` command.
 
-**Spaced-delete Format:**
-* `delete i/FIRST_INDEX [MORE_INDEXES]…`
-    * Deletes the client contact(s) specified by `FIRST_INDEX` and the indexes in `[MORE_INDEXES]`
-    * Simply allows you to specify 1 or more indexes after the prefix `i/`.
-    * Indexes specified this way must be separated by spaces.
+* **Single-delete Format:**
+    * `list` followed by `delete 2`
+        * Deletes the 2nd client contact displayed in the list of client contacts from the top.
+    * `find n/"Betsy"` followed by `delete 1`
+        * Deletes the 1st client contact in the displayed results of the `find` command.
 
-Examples:
-* `list` followed by `delete i/2 3`
-    * Deletes the 2nd and 3rd client contacts in the address book from the top.
+* **Ranged-delete Format:**
+    * `list` followed by `delete i/1-2`
+        * Deletes the 1st and 2nd client contacts in the list of client contacts from the top.
+    * `find n/"Alex"` followed by `delete i/1-2`
+        * Deletes the 1st and 2nd client contacts in the displayed results of the `find` command.
+
+* **Spaced-delete Format:**
+    * `list` followed by `delete i/1 2 3`
+        * Deletes the 1st, 2nd and 3rd client contacts in the list of client contacts from the top.
+
+
 
 ![deleteIndexSpaced](images/deleteIndexSpaced.png)
 
@@ -330,7 +331,7 @@ Examples:
 
 * The indexes must refer to the index numbers shown in the displayed client contacts list.
 
-* The indexes **must be a positive integer** 1, 2, 3, …
+* The indexes **must be a positive integer** from 1, 2, 3, … , up to 2147483647 inclusive.
 
 * All specified indexes must correspond to some index number shown in the displayed client contacts list, otherwise the command fails.
 
