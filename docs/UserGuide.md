@@ -11,21 +11,23 @@ title: User Guide
 
 ## Introducing Notarius
 
-Managing client contacts should not slow you down. **Notarius** is a desktop address book application
+__*Managing client contacts should not slow you down.*__
+
+**Notarius** is a desktop address book application
 designed for **fast typing lawyers**
-who need a **fast and efficient** way to manage client contacts. It comes with a **simple and intuitive** graphical interface
+who need a **quick and efficient** way to manage client contacts. It comes with a **simple and intuitive** graphical interface
 for a **clear and organised** view of your client contacts.
 
 ## Features Overview
 
-This application comes with the expected features of allowing you to
+**Notarius** comes with the expected features of an address book application in allowing you to
 add, list, edit and delete client contacts.
 
-**Notarius** also comes with **additional features** and **quality of life** to drive your **productivity** at work:
+Furthermore, **Notarius** also comes with **additional features** and **quality of life** to drive your **productivity** at work:
 
 | Feature         | Overview                                                                                                                                     |
 |-----------------|----------------------------------------------------------------------------------------------------------------------------------------------|
-| Note            | Change and view notes of your client contacts to keep track of specific information about your clients especially when reaching out to them. |
+| Notes           | Change and view notes of your client contacts to keep track of specific information about your clients especially when reaching out to them. |
 | Pin/Unpin       | Pin and unpin client contacts to track important client contacts easier.                                                                     |
 | Sort            | Sort clients contacts using different criteria for greater organisation and quicker lookups.                                                 |
 | Find            | Find specific client contacts.                                                                                                               |
