@@ -331,7 +331,7 @@ Examples:
 
 * The indexes must refer to the index numbers shown in the displayed client contacts list.
 
-* The indexes **must be a positive integer** from 1, 2, 3, …
+* The indexes **must be a positive integer** from 1, 2, 3, … , 2147483647 inclusive.
 
 * All specified indexes must correspond to some index number shown in the displayed client contacts list, otherwise the command fails.
 
