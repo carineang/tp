@@ -125,7 +125,7 @@ A GUI similar to the below should appear in a few seconds. Note how the app cont
 
 ![Ui](images/Ui.png)
 
-1. Type the command in the command box and press Enter to execute it. e.g. typing **`help`** and pressing Enter will open the help window.<br>
+1. Type the command in the input box and press Enter to execute it. e.g. typing **`help`** and pressing Enter will open the help window.<br>
    Some example commands you can try:
 
     * `list` : Lists all contacts.
@@ -144,19 +144,29 @@ A GUI similar to the below should appear in a few seconds. Note how the app cont
 
 ## Navigating the GUI
 
-### Basic Orientation
+1. At the main window, you can type the commands in the input box. The results of your commands will show up in the command output.
+2. In the contacts list, it will show all the contacts stored in Notarius.
+
 <p align="center">
   <img src="images/userinterface1.png" alt="Ui" />
 </p>
 
-### Contact Card
+2. When a contact is selected, you can view more details at the contact information card.
+
 <p align="center">
   <img src="images/userinterface2.png" alt="Ui" />
 </p>
 
-### Contact Details
+3. At the contact list, you can view the name, phone number, address, email and tags of the person. When a person is pinned, the pin icon will show up.
+
 <p align="center">
   <img src="images/userinterface3.png" alt="Ui" />
+</p>
+
+4. In addition, at the contact information card, you can view the person's note.
+
+<p align="center">
+  <img src="images/userinterface4.png" alt="Ui" />
 </p>
 
 --------------------------------------------------------------------------------------------------------------------
