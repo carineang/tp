@@ -509,6 +509,8 @@ You can open and navigate through this history by using various shortcuts below,
 
 * You can **close** the command history by either pressing `Enter` to submit the command input, or the `Escape` key.
 
+* Don't worry if you typed an invalid command input, simply use the command history to re-access it again. **Notarius** saves them too.
+
 </div>
 
 <br>
@@ -532,13 +534,9 @@ to a **more recent/newer** or **less recent/older** command input respectively.
 
 :exclamation: **Constraints:**<br>
 
-* Invalid/Unknown commands **will** be considered and saved into the command history, since it may have been a typo.
-
 * Blank inputs (including empty inputs) are not useful command inputs and won't be added.
 
-* The command history will not be saved when the application is closed.
-
-* Restarting the application will clear the command history.
+* Restarting or closing the application will clear the command history.
 
 * Inputs that are duplicates of the previously saved command history input will not be added another time.
 
