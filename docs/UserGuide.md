@@ -62,10 +62,8 @@ Here is a list of commonly used terminology to provide better clarity.
 1. Follow the steps for your device:
 
 
-    <details>
-        <summary> Windows</summary>
-        <pre>
-
+<div markdown="block" class="alert alert-primary">Windows
+    
     1. Copy the path of the folder
         - Right-click the folder and select "Copy as Path".
 
@@ -77,13 +75,13 @@ Here is a list of commonly used terminology to provide better clarity.
 
     4. Run the application
         - Type "java -jar Notarius.jar" and press Enter.
-   
-           </pre>
-       </details>
 
-    <details>
-      <summary>MacOS</summary>
-      <pre>
+
+</div>
+
+
+<div markdown="block" class="alert alert-info">MacOS
+    
     1. Copy the path of the folder
         - Right-click the folder, hold Opt, then click "Copy (folder name) as Pathname".
 
@@ -95,13 +93,11 @@ Here is a list of commonly used terminology to provide better clarity.
 
     4. Run the application
         - Type "java -jar Notarius.jar" and press Enter.
-      </pre>
-    </details>
 
+</div>
 
-    <details>
-      <summary>Linux</summary>
-      <pre>
+<div markdown="block" class="alert alert-success">Linux
+    
 
     1. Copy the path of the folder
         - Click the address bar of the folder (this might require pressing Ctrl + L).
@@ -116,9 +112,8 @@ Here is a list of commonly used terminology to provide better clarity.
     4. Run the application
         - Type "java -jar Notarius.jar" and press Enter.
 
+</div>
 
-      </pre>
-    </details>
 
 
 <br>
@@ -214,10 +209,8 @@ Adds a client contact to the address book.
 Format: `add n/NAME p/PHONE_NUMBER e/EMAIL a/ADDRESS [t/TAG] [t/ADDITIONAL TAG]…​`
 
 <div markdown="span" class="alert alert-primary">:bulb: **Tip:**
-A client contact can have any number of tags (including 0).
-
-A client contact is considered a duplicate if another client contact has the same name(case-insensitive)
-and this duplicate name will be rejected.
+A client contact is considered a duplicate if another client contact has the same email (case-insensitive)
+and this duplicate email will be rejected.
 </div>
 
 Examples:
@@ -246,7 +239,7 @@ Format: `edit INDEX [n/NAME] [p/PHONE] [e/EMAIL] [a/ADDRESS] [t/TAG] [t/ADDITION
 
 Examples:
 *  `edit 1 p/91234567 e/johndoe@example.com` Edits the phone number and email address of the 1st contact to be `91234567` and `johndoe@example.com` respectively.
-*  `edit 3 t/Custody t/Case45` Overwrite the currents tag(s) of the 3rd contact with `Witness` and `Case44`.
+*  `edit 3 t/Custody t/Case45` Overwrite the currents tag(s) of the 3rd contact with `Custody` and `Case45`.
 *  `edit 2 n/Betsy Crower t/` Edits the name of the 2nd contact to be `Betsy Crower` and clears all existing tags.
 
 
@@ -608,3 +601,4 @@ A: Please refer to the [Command Summary](#command-summary) for the list of avail
 | **Undo**            | Format: `undo` <br> <br> Example: `undo`                                                                                                                                                                                                                                          |
 | **Redo**            | Format: `redo` <br> <br> Example: `redo`                                                                                                                                                                                                                                          |
 | **Help**            | Format: `help [COMMAND]` <br> <br> Example: `help add`                                                                                                                                                                                                                            |
+| **Exit**            | Format: `exit` <br> <br> Example: `exit`                                                                                                                                                                                                                                          |
