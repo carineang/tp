@@ -407,8 +407,6 @@ Does nothing if they were already pinned.
 Format: `pin INDEX`
 
 * Pins the contact at the specified `INDEX` to the top of the list.
-* The index refers to the index number shown in the displayed list.
-* The index **must be a positive integer** 1, 2,3, …​
 
 Examples:
 * `list` followed by `pin 2` pins the 2nd contact in the address book to the top.
@@ -423,8 +421,6 @@ Does nothing if they were not pinned.
 Format: `unpin INDEX`
 
 * Unpins the contact at the specified `INDEX` from the top of the list if they were previously pinned.
-* The index refers to the index number shown in the displayed list.
-* The index **must be a positive integer** 1, 2,3, …​
 
 Examples:
 * `list` followed by `unpin 1` unpins the 1st contact in the address book.
@@ -443,8 +439,7 @@ Changes a note of a client contact in the address book.
 Format: `note INDEX [nt/NOTE]`
 
 * Changes the note of the client contact at the specified `INDEX`.
-* The index refers to the index number shown in the displayed client contact list.
-* The index **must be a positive integer** 1, 2, 3, …​
+
 
 Example:
 * `note 3 nt/Away for a long time` changes the note of the 3rd client contact from the top
@@ -460,8 +455,6 @@ Displays the contents of a note of a particular client contact in the address bo
 Format: `viewnote INDEX`
 
 * Displays the note of the client contact at the specified `INDEX`.
-* The index refers to the index number shown in the displayed client contact list.
-* The index **must be a positive integer** 1, 2, 3, …​
 
 Example:
 * `viewnote 3` displays the note of the 3rd client contact from the top.
