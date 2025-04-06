@@ -47,6 +47,7 @@ Here is a list of commonly used terminology to provide better clarity.
 | Operating System/OS   | The type of computer software that you are using, commonly referred to as OS. Examples include **Windows**, **macOS**, and **Linux**. Click <a href="https://en.wikipedia.org/wiki/Operating_system">here</a> to learn more.                                                                                                      |
 | Whitespace Character  | Usually refer to characters entered by a user's keyboard that are not visible. Examples include spaces (by pressing space-bar), tabs (by pressing the tab key), and new lines (from pressing enter).                                                                                                                              |
 | Blank Inputs          | Inputs entered by users that are either empty or only contain whitespace characters                                                                                                                                                                                                                                               |
+| GUI                   | Stands for Graphical User Interface. It is a visual way of interacting with a computer via menus, lists, buttons, etc.                                                                                                                                                                                                            |
 
 ## Quick start
 
