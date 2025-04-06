@@ -181,6 +181,9 @@ The `help` command allows users to view general application usage instructions o
 <p align="center">
   <img src="images/HelpCommandSequenceDiagram.png" alt="Ui" />
 </p>
+<div markdown="span" class="alert alert-info">:information_source: **Note:** The lifeline for `HelpCommand` should end at the destroy marker (X) but due to a limitation of PlantUML, the lifeline reaches the end of diagram.
+
+</div>
 
 #### Implementation Details
 
@@ -220,6 +223,9 @@ The `sort` command enables users to sort contacts in Notarius by prefix in lexic
 <p align="center">
   <img src="images/SortCommandSequenceDiagram.png" alt="Ui" />
 </p>
+<div markdown="span" class="alert alert-info">:information_source: **Note:** The lifeline for `SortCommand` should end at the destroy marker (X) but due to a limitation of PlantUML, the lifeline reaches the end of diagram.
+
+</div>
 
 #### Implementation Details
 
@@ -242,6 +248,9 @@ Additionally, for name, email, and address fields, the search is tolerant of min
 <p align="center">
   <img src="images/FindCommandSequenceDiagram.png" alt="Ui" />
 </p>
+<div markdown="span" class="alert alert-info">:information_source: **Note:** The lifeline for `FindCommand` should end at the destroy marker (X) but due to a limitation of PlantUML, the lifeline reaches the end of diagram.
+
+</div>
 
 #### Implementation Details
 
@@ -264,6 +273,9 @@ The `delete` command allows the user to delete specified client contact(s) from 
 The sequence diagram below models the different components of the application that are involved
 when the user executes the `delete` command.
 ![DeleteSequenceDiagram](images/DeleteSequenceDiagram.png)
+<div markdown="span" class="alert alert-info">:information_source: **Note:** The lifeline for `DeleteCommand` should end at the destroy marker (X) but due to a limitation of PlantUML, the lifeline reaches the end of diagram.
+
+</div>
 
 #### Implementation Details
 
@@ -410,7 +422,6 @@ than attempting to perform the undo.
 The following sequence diagram shows how an undo operation goes through the `Logic` component:
 
 ![UndoSequenceDiagram](images/UndoSequenceDiagram-Logic.png)
-
 <div markdown="span" class="alert alert-info">:information_source: **Note:** The lifeline for `UndoCommand` should end at the destroy marker (X) but due to a limitation of PlantUML, the lifeline reaches the end of diagram.
 
 </div>
