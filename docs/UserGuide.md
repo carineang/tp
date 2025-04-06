@@ -479,7 +479,7 @@ Examples:
 
 #### Command history
 
-We know it can be **very annoying** to re-type commands consisting of long client details, especially due to a small typo.
+We know it can be **very annoying** to re-type commands consisting of long client details, especially due to typos.
 
 As such, **Notarius** keeps a history of the command inputs you have entered. When the command history is open,
 the inputs shown are **ordered** from the **most recently** entered input at the **top** to the **least recently**
@@ -498,7 +498,7 @@ You can open and navigate through this history by using various shortcuts below,
 
 **Windows/Linux users:** Use `Ctrl + Up` key combination to scroll up the command history, and `Ctrl + Down` arrow key combinations to scroll down.
 
-**macOS users:** Use `Ctrl + Opt + Up` and `Ctrl + Opt + Down` arrow key combinations to respectively cycle up and down instead.
+**macOS users:** Use `Ctrl + Opt + Up` and `Ctrl + Opt + Down` arrow key combinations to respectively scroll up and down instead.
 
 
 
@@ -524,12 +524,6 @@ to a **more recent/newer** or **less recent/older** command input respectively.
 * Similarly, when the **currently selected input** is at the bottom of the command history, scrolling down another time brings it back to the **newest** input at the top of the command history.
 
 </div>
-
-<br>
-
-Examples:
-* Entering `list`, then `edit 1 p/987654321` followed by `list` and using `Ctrl + Down` on **Windows** (`Ctrl + Opt + Down` on **macOS**) to re-access the edit command via the command history:
-![[commandHistory]](images/commandHistory.png)
 
 <br>
 
