@@ -814,6 +814,10 @@ Priorities: High (must have) - `* * *`, Medium (nice to have) - `* *`, Low (unli
     * *a1. Notarius closes the command history.
     * Use case ends.
 
+**System**: `Notarius`
+
+**Actor**: `User`
+
 **Use Case**: `UC09 - Sorting the contacts list`
 
 **Guarantees**: `If MSS reaches step 3, the user has successfully sorted the contacts list by a specified prefix.`
@@ -840,11 +844,19 @@ Priorities: High (must have) - `* * *`, Medium (nice to have) - `* *`, Low (unli
   * Steps 1b1 - 1b2 are repeated until a valid field is input by the User.
   * Use case resumes from step 2.
 
-* 1c. User enters extra spaces or invalid formatting in the entered input.
+* 1c. User enters extra spaces or invalid format in the entered input.
   * 1c1. Notarius displays an error message.
   * 1c2. User re-enters a new command with properly formatted command.
   * Steps 1c1 - 1c2 are repeated until a valid command is input by the User.
   * Use case resumes from step 2.
+
+* 1d. User enters duplicate prefixes in the entered input.
+  * 1d1. Notarius displays an error message.
+  * 1d2. User re-enters a new command with no duplicate prefixes.
+  * Steps 1d1 - 1d2 are repeated until a valid command with no duplicate prefixes is input by the User.
+  * Use case resumes from step 2.
+
+
 
 **System**: `Notarius`
 
