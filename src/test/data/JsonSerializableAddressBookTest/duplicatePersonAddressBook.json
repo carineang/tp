@@ -1,8 +1,8 @@
 {
   "persons": [ {
-    "name": "Alice Pauline",
+    "name": "Elise Pauline",
     "phone": "94351253",
-    "email": "alice@example.com",
+    "email": "pauline@example.com",
     "address": "123, Jurong West Ave 6, #08-111",
     "tags": [ "friends" ],
     "note": "opposite timezones",

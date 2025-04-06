@@ -106,7 +106,7 @@ public class Person {
         }
 
         return otherPerson != null
-                && otherPerson.getName().isSameName(getName());
+                && otherPerson.getEmail().equals(getEmail());
     }
 
     /**

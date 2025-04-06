@@ -193,7 +193,8 @@ The `help` command provides guidance on how to use the application, including av
 
 Format: `help [COMMAND]`
 
-![help_message](images/helpMessage.png)
+![help_Message.png](images/helpMessage.png)
+
 
 * Display general help message when used without arguments.
 * Provides specific command help with format and example of usage

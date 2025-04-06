@@ -10,6 +10,7 @@ import javafx.scene.input.ClipboardContent;
 import javafx.stage.Stage;
 import seedu.address.commons.core.LogsCenter;
 import seedu.address.logic.commands.AddCommand;
+import seedu.address.logic.commands.ClearCommand;
 import seedu.address.logic.commands.DeleteCommand;
 import seedu.address.logic.commands.EditCommand;
 import seedu.address.logic.commands.ExitCommand;
@@ -43,6 +44,7 @@ public class HelpWindow extends UiPart<Stage> {
             + "11. '" + ViewNoteCommand.COMMAND_WORD + "': view note of a person\n"
             + "12. '" + UndoCommand.COMMAND_WORD + "': Undoes the last command\n"
             + "13. '" + RedoCommand.COMMAND_WORD + "': Redoes the effect of the last undo\n"
+            + "14. '" + ClearCommand.COMMAND_WORD + "': Clears all client contacts in the address book.\n"
             + "Use `help <command>` for detailed information about a specific command.\n\n"
             + "Use `Ctrl + Up` and `Ctrl + Down` arrow keys to cycle up and down the command history.\n"
             + "MacOS users: Use `Ctrl + Opt + Up` and `Ctrl + Opt + Down` instead.\n\n"

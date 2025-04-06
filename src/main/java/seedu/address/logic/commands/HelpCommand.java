@@ -43,6 +43,8 @@ public class HelpCommand extends Command {
                 + "Undoes the last command\n");
         COMMAND_HELP.put(RedoCommand.COMMAND_WORD, "Usage: redo\n"
                 + "Redoes the effect of last undo\n");
+        COMMAND_HELP.put(ClearCommand.COMMAND_WORD, "Usage: clear\n"
+                + "Clears all contacts in the address book.\n");
     }
 
     private final String commandName;
