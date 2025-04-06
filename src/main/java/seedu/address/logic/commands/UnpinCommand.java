@@ -24,7 +24,7 @@ public class UnpinCommand extends Command {
 
     public static final String MESSAGE_USAGE = COMMAND_WORD
             + ": Unpins the person identified by the index number used in the last person listing if they were pinned\n"
-            + "Parameters: INDEX (must be a positive integer)\n"
+            + "Parameters: INDEX (must be a positive integer between 1 and 2147483647 inclusive.)\n"
             + "Example: " + COMMAND_WORD + " 1";
 
     public static final String MESSAGE_UNPIN_PERSON_SUCCESS = "Unpinned %1$d";
