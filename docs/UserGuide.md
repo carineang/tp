@@ -336,7 +336,7 @@ Examples:
 
 * For ranged and spaced delete formats, duplicate indexes specified will be treated *as-if* that index was specified only once.
 
-* Up to 100 indexes can be specified (either via spaced or ranged delete formats); beyond which the command will fail.
+* Up to 100 **unique** indexes (duplicates are not part of this count!) can be specified (either via spaced or ranged delete formats); beyond which the command will fail.
 
 * At least 1 index should be specified when using ranged or spaced delete formats.
 
