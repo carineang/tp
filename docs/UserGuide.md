@@ -167,6 +167,20 @@ A GUI similar to the below should appear in a few seconds. Note how the app cont
 
 ### Understanding Command Formats
 
+#### Command
+A command tells Notarius what action you want to perform, like adding a client contact or listing all client contacts.
+<br>
+Each command starts with a command word, such as `add`, `list`, `exit`, etc
+
+<div markdown="span" class="alert alert-primary">:information_source: **Notes about commands:**
+<br>
+Commands words are case sensitive. 
+<br>
+Always type command words exactly as shown.<br>
+<br>
+Example:  `add` command word is different from `Add` or `ADD`.
+</div>
+
 #### Parameters
 Parameters are written in `UPPER_CASE`. These are placeholders you replace with your own info.
 <br>
