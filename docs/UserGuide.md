@@ -11,28 +11,28 @@ title: User Guide
 
 ## Introducing Notarius
 
-*Ever a **fast-typing lawyer** with **too many** clients to manually keep track of in your slow and cumbersome contact app? We offer a **far better** alternative.*
+> __*Managing client contacts should not slow you down.*__
 
-**Notarius** is a **desktop addressbook** application on ***steroids***, meticulously refined for **lawyers** to track and manage their
-clients' contact information. The app speeds up client contact management processes by providing fast-typing lawyers with a **Command Line Interface** (CLI) based input,
-while also providing a seamless and intuitive **Graphical User Interface** (GUI) for visual cues to those who prefer it.
+**Notarius** is a desktop address book application
+designed for **fast typing lawyers**
+who need a **quick and efficient** way to manage client contacts. It comes with a **simple and intuitive** graphical interface
+for a **clear and organised** view of your client contacts.
 
 ## Features Overview
 
-While this application may seem *as-if* it were a *typical* address-book application, allowing you to
-list, add, edit and delete client contacts, **Notarius** is packed with convenient and essential features that drive your productivity at work,
-helping to provide you with a seamless experience. You can re-access previously typed commands, undo/redo them, search for client contacts, and even sort them.
+**Notarius** comes with the expected features of an address book application in allowing you to
+add, list, edit and delete client contacts.
 
-Additionally, we offer **cool** *quality-of-life* features too. You can note-take crucial details of your clients, and even pin important client contacts!
+Furthermore, **Notarius** also comes with **additional features** and **quality of life** to drive your **productivity** at work:
 
-| Feature         | Purpose                                                                                     |
-|-----------------|---------------------------------------------------------------------------------------------|
-| Note            | Change and view notes of client contacts to keep track of important information about them. |
-| Pin/Unpin       | Pin and unpin client contacts to easily track important client information.                 |
-| Sort            | Sort clients by key attributes to easily find certain clients.                              |
-| Find            | Filters clients by various fields along with how similar they are to the query commands.    |
-| Undo/Redo       | Undo and redo commands to easily correct mistaken commands.                                 |
-| Command History | View and reaccess previously typed commands to easily edit typos.                           |
+| Feature         | Overview                                                                                                                                                       |
+|-----------------|----------------------------------------------------------------------------------------------------------------------------------------------------------------|
+| Notes           | Change and view notes of your client contacts to keep track of short snippets of specific information about your clients especially when reaching out to them. |
+| Pin/Unpin       | Pin and unpin client contacts to track important client contacts easier.                                                                                       |
+| Sort            | Sort clients contacts using different criteria for greater organisation and quicker lookups.                                                                   |
+| Find            | Find specific client contacts.                                                                                                                                 |
+| Undo/Redo       | Undo your mistakes and use redo in case you did not want to undo.                                                                                              |
+| Command History | View and reaccess what you previously typed.                                                                                                                   |
 
 ## Glossary of terms
 
@@ -572,11 +572,6 @@ Notarius data are saved automatically as a JSON file `[JAR file location]/data/a
 If your changes to the data file makes its format invalid, AddressBook will discard all data and start with an empty data file at the next run. Hence, it is recommended to take a backup of the file before editing it.<br>
 Furthermore, certain edits can cause the AddressBook to behave in unexpected ways (e.g., if a value entered is outside of the acceptable range). Therefore, edit the data file only if you are confident that you can update it correctly.
 </div>
-
-### Archiving data files `[coming in v2.0]`
-
-_Details coming soon ..._
-
 --------------------------------------------------------------------------------------------------------------------
 
 ## FAQ
