@@ -1181,3 +1181,52 @@ Prerequisites: The contacts list should contain some contacts for testing purpos
    1. _{explain how to simulate a missing/corrupted file, and the expected behavior}_
 
 1. _{ more test cases …​ }_
+
+## **Appendix: Planned Enhancements**:
+
+### 1. Allow for special characters in names
+#### Current:
+Special characters are not allowed to be entered as part of a person's name such as via the add or edit command. <br>
+
+Valid names with special characters like: <br>
+Sinéad O'Connor, Nagaratnam s/o Suppiah, Tan Cheng Bok @ Adrian Tan, Anne-Marie, Beyoncé, J.R. Smith 
+<br>
+are not accepted.
+
+#### Planned:
+Allow for special characters in names. 
+
+### 2. ALlow for international phone number format to be entered
+
+#### Current:
+In phone input fields, user only can enter a number. This restricts the user from being able to enter country codes.
+This would reduce the application's usefulness as a address book application due to its limitation of storing
+international client contacts. 
+
+#### Planned:
+To enhance usability and global compatability. We should allow the user to enter the country code along with the phone number 
+in phone input fields.
+
+### 3. Bulk tag deletion capability
+
+#### Current:
+Only one tag of a client contact can be deleted at a time. If a singular client contact has many tags and the 
+user wants to delete a few tags from them, this would be decently cumbersome.
+
+#### Planned:
+Add a command to delete multiple tags from a client contact.
+
+### 4. Support for longer notes.
+
+#### Current:
+Notes are entered through a command line and are designed to write short and simple notes. However, users may 
+want to write longer notes with more formatting options. Longer notes may be cumbersome experience to view in the
+command output.
+
+#### Planned:
+If we want to stick fully to a CLI, we can add longer multi-line notes by using a prompt-based input technique where 
+the user can enter line after line by using the `note` command. When the user wants to stop entering lines of the note
+they can type the command `donenote`. This can be enhanced by allowing formatting options such as bolding. Long notes
+can also be displayed better by making the command output collapsable.
+
+
