@@ -42,7 +42,7 @@ MainWindow --> "0..1" HelpWindow
 MainWindow *-down-> "1" PersonDetailPanel
 
 PersonListPanel -down-> "*" PersonCard
-PersonDetailPanel -down-> "*" PersonDetailCard
+PersonDetailPanel -down-> "0..1" PersonDetailCard
 
 MainWindow -left-|> UiPart
 
