@@ -496,7 +496,7 @@ The <span style="font-weight:bold;">currently selected input</span> is "more rec
 
 You can open and navigate through this history by using various shortcuts below, depending on your operating system:
 
-**Windows/Linux users:** Use `Ctrl + Up` key combination to cycle up the command history, and `Ctrl + Down` arrow key combinations to cycle down.
+**Windows/Linux users:** Use `Ctrl + Up` key combination to scroll up the command history, and `Ctrl + Down` arrow key combinations to scroll down.
 
 **macOS users:** Use `Ctrl + Opt + Up` and `Ctrl + Opt + Down` arrow key combinations to respectively cycle up and down instead.
 
@@ -512,25 +512,22 @@ You can open and navigate through this history by using various shortcuts below,
 
 <br>
 
-**Cycling up** or **down** the command history simply refers to moving the **currently selected input** of the command history 
+**Scrolling up** or **down** the command history simply refers to moving the **currently selected input** of the command history 
 to a **more recent/newer** or **less recent/older** command input respectively.
 
 <div markdown="block" class="alert alert-info">
 
 :information_source: **Important Notes:**<br>
 
-* When the **currently selected input** is at the top of the command history, cycling up another time will bring it down to the **oldest** input at the bottom of the command history.
+* When the **currently selected input** is at the top of the command history, scrolling up another time will bring it down to the **oldest** input at the bottom of the command history.
 
-* Similarly, when the **currently selected input** is at the bottom of the command history, cycling down another time brings it back to the **newest** input at the top of the command history.
+* Similarly, when the **currently selected input** is at the bottom of the command history, scrolling down another time brings it back to the **newest** input at the top of the command history.
 
 </div>
 
 <br>
 
 Examples:
-* Opening an empty command history using `Ctrl + Up` on **Windows** or `Ctrl + Opt + Up` on **macOS**:
-![[emptyCommandHistory]](images/emptyCommandHistory.png)
-
 * Entering `list`, then `edit 1 p/987654321` followed by `list` and using `Ctrl + Down` on **Windows** (`Ctrl + Opt + Down` on **macOS**) to re-access the edit command via the command history:
 ![[commandHistory]](images/commandHistory.png)
 
@@ -540,7 +537,7 @@ Examples:
 
 :exclamation: **Constraints:**<br>
 
-* Invalid/Unknown commands will be considered and saved into the command history, since it may have been a typo.
+* Invalid/Unknown commands **will** be considered and saved into the command history, since it may have been a typo.
 
 * Blank inputs (including empty inputs) are not useful command inputs and won't be added.
 
