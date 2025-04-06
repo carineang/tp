@@ -1196,7 +1196,7 @@ are not accepted.
 #### Planned:
 Allow for special characters in names. 
 
-### 2. ALlow for international phone number format to be entered
+### 2. Allow for international phone number format to be entered
 
 #### Current:
 In phone input fields, user only can enter a number. This restricts the user from being able to enter country codes.
@@ -1227,6 +1227,6 @@ command output.
 If we want to stick fully to a CLI, we can add longer multi-line notes by using a prompt-based input technique where 
 the user can enter line after line by using the `note` command. When the user wants to stop entering lines of the note
 they can type the command `donenote`. This can be enhanced by allowing formatting options such as bolding. Long notes
-can also be displayed better by making the command output collapsable.
+can also be displayed better by making the command output collapsible.
 
 
