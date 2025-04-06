@@ -194,16 +194,29 @@ The `help` command provides guidance on how to use the application, including av
 
 Format: `help [COMMAND]`
 
-![help_Message.png](images/helpMessage.png)
+`COMMAND` is the command word of the command you are trying to get help for.
+
+There are two ways to use the help command:
+
+| Formats                               | Purpose                          |
+|---------------------------------------|----------------------------------|
+| `help`          | Displays usage for all commands. |
+| `help COMMAND` | Displays specific command usage. |
 
 
-* Display general help message when used without arguments.
-* Provides specific command help with format and example of usage
-  when a valid command name is specified.
-* Case-insensitive command lookup (e.g.`help FiNd` works for `find`).
-* Handles unknown commands gracefully, informing the user if the command does not exist.
+<div markdown="span" class="alert alert-warning">:exclamation: **Constraint:**
+<br>
+The `COMMAND` must be a valid command word.
+</div>
+
+
+<div markdown="span" class="alert alert-primary">:bulb: **Tip:**
+Case-insensitive command lookup (e.g.`help FiNd` works for `find`).
+</div>
+
 
 Examples:
+* `help` displays the usage of all commands.
 * `help add` displays the correct format and usage of the `add` command.
 * `help me` returns: `"Unknown command! Use 'help' to see available commands.`
 
