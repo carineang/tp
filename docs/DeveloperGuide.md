@@ -965,7 +965,6 @@ allowing minor typos (up to a Levenshtein distance of 2) in the name, email, and
 
 | **Terms**                  | **Meaning**                                                                                                                                            |
 |----------------------------|--------------------------------------------------------------------------------------------------------------------------------------------------------|
-| AB-3                       | AddressBook Level 3 application, which was used as the base framework for a student-customized CLI management system to be developed.                  |
 | Mainstream OS              | Windows, Linux, Unix, MacOS.                                                                                                                           |
 | Above-average typing speed | ≥ 60 words per minute.                                                                                                                                 |
 | Crucial client information | Important client information such as name, phone number, email, address, tags, as well as notes stored that could contain legal information for cases. |
