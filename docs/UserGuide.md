@@ -283,39 +283,40 @@ Examples:
 
 Deletes specified **client** contact(s) from your list of contacts in Notarius.
 
-For deleting a **single** client contact:
+To speed up clearing out your client contacts, **Notarius** allows deleting multiple client contacts quickly,
+depending on your needs: 
 
-**Single-delete Format:**
-* `delete INDEX`
-    * Deletes the client contact at the specified `INDEX`.
+| Formats                                               | Purpose                                                                                                   |
+|-------------------------------------------------------|-----------------------------------------------------------------------------------------------------------|
+| Single-delete: `delete INDEX`                         | Deletes a **single** client contact at the specified INDEX                                                |
+| Ranged-delete: `delete i/START_INDEX-END_INDEX`       | Deletes **consecutive** client contacts whose indexes are between `START_INDEX` to `END_INDEX` inclusive. |
+| Spaced-delete: `delete i/FIRST_INDEX [MORE_INDEXES]…` | Deletes multiple client contacts from **different** parts of the client contact list by their indexes     |
 
-Examples:
-* `list` followed by `delete 2`
-    * Deletes the 2nd client contact displayed in the address book from the top.
-* `find n/"Betsy"` followed by `delete 1`
-    * Deletes the 1st client contact in the displayed results of the `find` command.
+<div markdown="block" class="alert alert-primary">:bulb: **Tips:**
 
-For deleting up to **multiple** client contacts:
+* When deleting contacts with same tags, consider using the **find command** followed by **ranged-delete** to speed things up.
 
-**Ranged-delete Format:**
-* `delete i/START_INDEX-END_INDEX`
-    * Deletes the client contacts whose indexes are between `START_INDEX` to `END_INDEX` inclusive.
+</div>
 
 Examples:
-* `list` followed by `delete i/1-2`
-    * Deletes the 1st and 2nd client contacts in the address book from the top.
-* `find n/"Alex"` followed by `delete i/1-2`
-    * Deletes the 1st and 2nd client contacts in the displayed results of the `find` command.
 
-**Spaced-delete Format:**
-* `delete i/FIRST_INDEX [MORE_INDEXES]…`
-    * Deletes the client contact(s) specified by `FIRST_INDEX` and the indexes in `[MORE_INDEXES]`
-    * Simply allows you to specify 1 or more indexes after the prefix `i/`.
-    * Indexes specified this way must be separated by spaces.
+* **Single-delete Format:**
+    * `list` followed by `delete 2`
+        * Deletes the 2nd client contact displayed in the list of client contacts from the top.
+    * `find n/"Betsy"` followed by `delete 1`
+        * Deletes the 1st client contact in the displayed results of the `find` command.
 
-Examples:
-* `list` followed by `delete i/2 3`
-    * Deletes the 2nd and 3rd client contacts in the address book from the top.
+* **Ranged-delete Format:**
+    * `list` followed by `delete i/1-2`
+        * Deletes the 1st and 2nd client contacts in the list of client contacts from the top.
+    * `find n/"Alex"` followed by `delete i/1-2`
+        * Deletes the 1st and 2nd client contacts in the displayed results of the `find` command.
+
+* **Spaced-delete Format:**
+    * `list` followed by `delete i/1 2 3`
+        * Deletes the 1st, 2nd and 3rd client contacts in the list of client contacts from the top.
+
+
 
 ![deleteIndexSpaced](images/deleteIndexSpaced.png)
 
@@ -332,13 +333,13 @@ Examples:
 
 * The indexes must refer to the index numbers shown in the displayed client contacts list.
 
-* The indexes **must be a positive integer** 1, 2, 3, …
+* The indexes **must be a positive integer** from 1, 2, 3, …
 
 * All specified indexes must correspond to some index number shown in the displayed client contacts list, otherwise the command fails.
 
 * For ranged and spaced delete formats, duplicate indexes specified will be treated *as-if* that index was specified only once.
 
-* Up to 100 indexes can be specified (either via spaced or ranged delete formats); beyond which the command will fail.
+* Up to 100 **unique** indexes (duplicates are not part of this count!) can be specified (either via spaced or ranged delete formats); beyond which the command will fail.
 
 * At least 1 index should be specified when using ranged or spaced delete formats.
 
@@ -481,7 +482,7 @@ Examples:
 
 #### Command history
 
-We know it can be **very annoying** to re-type commands consisting of long client details, especially due to a small typo.
+We know it can be **very annoying** to re-type commands consisting of long client details, especially due to typos.
 
 As such, **Notarius** keeps a history of the command inputs you have entered. When the command history is open,
 the inputs shown are **ordered** from the **most recently** entered input at the **top** to the **least recently**
@@ -498,9 +499,9 @@ The <span style="font-weight:bold;">currently selected input</span> is "more rec
 
 You can open and navigate through this history by using various shortcuts below, depending on your operating system:
 
-**Windows/Linux users:** Use `Ctrl + Up` key combination to cycle up the command history, and `Ctrl + Down` arrow key combinations to cycle down.
+**Windows/Linux users:** Use `Ctrl + Up` key combination to scroll up the command history, and `Ctrl + Down` arrow key combinations to scroll down.
 
-**macOS users:** Use `Ctrl + Opt + Up` and `Ctrl + Opt + Down` arrow key combinations to respectively cycle up and down instead.
+**macOS users:** Use `Ctrl + Opt + Up` and `Ctrl + Opt + Down` arrow key combinations to respectively scroll up and down instead.
 
 
 
@@ -510,31 +511,24 @@ You can open and navigate through this history by using various shortcuts below,
 
 * You can **close** the command history by either pressing `Enter` to submit the command input, or the `Escape` key.
 
+* Don't worry if you typed an invalid command input, simply use the command history to re-access it again. **Notarius** saves them too.
+
 </div>
 
 <br>
 
-**Cycling up** or **down** the command history simply refers to moving the **currently selected input** of the command history 
+**Scrolling up** or **down** the command history simply refers to moving the **currently selected input** of the command history 
 to a **more recent/newer** or **less recent/older** command input respectively.
 
 <div markdown="block" class="alert alert-info">
 
 :information_source: **Important Notes:**<br>
 
-* When the **currently selected input** is at the top of the command history, cycling up another time will bring it down to the **oldest** input at the bottom of the command history.
+* When the **currently selected input** is at the top of the command history, scrolling up another time will bring it down to the **oldest** input at the bottom of the command history.
 
-* Similarly, when the **currently selected input** is at the bottom of the command history, cycling down another time brings it back to the **newest** input at the top of the command history.
+* Similarly, when the **currently selected input** is at the bottom of the command history, scrolling down another time brings it back to the **newest** input at the top of the command history.
 
 </div>
-
-<br>
-
-Examples:
-* Opening an empty command history using `Ctrl + Up` on **Windows** or `Ctrl + Opt + Up` on **macOS**:
-![[emptyCommandHistory]](images/emptyCommandHistory.png)
-
-* Entering `list`, then `edit 1 p/987654321` followed by `list` and using `Ctrl + Down` on **Windows** (`Ctrl + Opt + Down` on **macOS**) to re-access the edit command via the command history:
-![[commandHistory]](images/commandHistory.png)
 
 <br>
 
@@ -542,13 +536,9 @@ Examples:
 
 :exclamation: **Constraints:**<br>
 
-* Invalid/Unknown commands will be considered and saved into the command history, since it may have been a typo.
-
 * Blank inputs (including empty inputs) are not useful command inputs and won't be added.
 
-* The command history will not be saved when the application is closed.
-
-* Restarting the application will clear the command history.
+* Restarting or closing the application will clear the command history.
 
 * Inputs that are duplicates of the previously saved command history input will not be added another time.
 
