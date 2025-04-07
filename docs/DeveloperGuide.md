@@ -1007,7 +1007,52 @@ allowing minor typos (up to a Levenshtein distance of 2) in the name, email, and
   * 2d1. Address Book applies fuzzy matching (Levenshtein distance of up to 2) for name, email, and address fields.<br>
     Use case resumes from step 3.
 
+**System**: `Notarius`
 
+**Actor**: `User`
+
+**Use Case**: `UC14 - Undoing a Command`
+
+**Guarantees**: `If MSS reaches step 3, contacts list would have been returned to the state
+before the previous command was executed`
+
+**MSS**:
+
+1. User requests to undo the last command.
+2. Notarius restores the contacts list to the state before the last command was executed.
+
+   Use case ends.
+
+
+**Extensions**:
+
+* 1a. Notarius sees that there is no previous state of the contacts list to undo to
+  * 1a1. Notarius alerts the user with an error message.
+
+  Use case ends.
+
+**System**: `Notarius`
+
+**Actor**: `User`
+
+**Use Case**: `UC15 - Redoing a Command`
+
+**Guarantees**: `If MSS reaches step 3, contacts list would have been returned to the state
+before the previous undo was executed`
+
+**MSS**:
+
+1. User requests to redo last undone command.
+2. Notarius restores the contacts list to the state before the last undone command was executed.
+
+   Use case ends.
+
+**Extensions**:
+
+* 1a. Notarius sees that there is no last undone state of the contacts list to redo to
+  * 1a1. Notarius alerts the user with an error message.
+
+  Use case ends.
 
 ### Non-Functional Requirements
 
