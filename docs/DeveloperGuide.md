@@ -1365,12 +1365,15 @@ is already a known issue.
 The additional reasons include exceeding the maximum number of unique indexes that can be deleted of 100, or when `START_INDEX` > `END_INDEX` for the range-format.
 
 #### Planned:
+The application should provide more informative and specific error messages that contain the reason for failing to delete contact(s),
+such as when the number of unique indexes to be deleted exceeds 100 (e.g., "Maximum number of contacts exceeded").
 
-The application should be able to provide more informative error messages such as "Maximum number of contacts exceeded" when
-the maximum number of unique indexes specified for deletion exceeds 100, or for range-formats, when the start index and end index do not conform to the constraints
-specified in the user guide.
+It should also display relevant error messages when the indexes specified in the format do not comply with the constraints
+specified in the user guide for their respective formats. For example, displaying that the start and end index of a ranged-delete
+is out-of-order when `START_INDEX` is greater than `END_INDEX`, or displaying which specified index was invalid if multiple indexes are provided.
 
-### 6. Selecting a client contact in contact list
+
+### 5. Selecting a client contact in contact list
 
 #### Current:
 When a new command is called, the selected contact in the contact list will be unselected by the application.
@@ -1378,10 +1381,4 @@ When a new command is called, the selected contact in the contact list will be u
 #### Planned:
 The client contact will still be selected even though a new command is called. In addition, users can have the option to select or unselect the client contact.
 
-The application should provide more informative and specific error messages that contain the reason for failing to delete contact(s),
-such as when the number of unique indexes to be deleted exceeds 100 (e.g., "Maximum number of contacts exceeded").
-
-It should also display relevant error messages when the indexes specified in the format do not comply with the constraints
-specified in the user guide for their respective formats. For example, displaying that the start and end index of a ranged-delete 
-is out-of-order when `START_INDEX` is greater than `END_INDEX`, or displaying which specified index was invalid if multiple indexes are provided.
 
