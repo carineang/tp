@@ -82,19 +82,19 @@ public class NameTest {
 
     @Test
     public void constructor_validNameWithExtraSpaces_normalizesName() {
-        // Name with leading and trailing spaces
+        // leading and trailing spaces
         Name nameWithExtraSpaces = new Name("   John Doe   ");
         assertTrue(nameWithExtraSpaces.toString().equals("John Doe"));
 
-        // Name with multiple spaces between words
+        // multiple spaces between words
         nameWithExtraSpaces = new Name("John   Doe");
         assertTrue(nameWithExtraSpaces.toString().equals("John Doe"));
 
-        // Name with multiple spaces between words and leading/trailing spaces
+        // multiple spaces between words and leading/trailing spaces
         nameWithExtraSpaces = new Name("   John   Doe   ");
         assertTrue(nameWithExtraSpaces.toString().equals("John Doe"));
 
-        // Name with multiple consecutive spaces
+        // multiple consecutive spaces
         nameWithExtraSpaces = new Name("John           Doe");
         assertTrue(nameWithExtraSpaces.toString().equals("John Doe"));
     }

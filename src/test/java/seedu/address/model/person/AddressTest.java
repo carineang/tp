@@ -56,19 +56,19 @@ public class AddressTest {
 
     @Test
     public void constructor_validAddressWithExtraSpaces_normalizesAddress() {
-        // Address with leading and trailing spaces
+        // leading and trailing spaces
         Address addressWithExtraSpaces = new Address("   Blk 456, Den Road, #01-355   ");
         assertTrue(addressWithExtraSpaces.toString().equals("Blk 456, Den Road, #01-355"));
 
-        // Address with multiple spaces between words
+        // multiple spaces between words
         addressWithExtraSpaces = new Address("Blk 456,   Den Road, #01-355");
         assertTrue(addressWithExtraSpaces.toString().equals("Blk 456, Den Road, #01-355"));
 
-        // Address with multiple spaces between words and leading/trailing spaces
+        // multiple spaces between words and leading/trailing spaces
         addressWithExtraSpaces = new Address("   Blk 456,   Den Road, #01-355   ");
         assertTrue(addressWithExtraSpaces.toString().equals("Blk 456, Den Road, #01-355"));
 
-        // Address with multiple consecutive spaces
+        // multiple consecutive spaces
         addressWithExtraSpaces = new Address("Blk  456,  Den   Road,  #01-355");
         assertTrue(addressWithExtraSpaces.toString().equals("Blk 456, Den Road, #01-355"));
     }

@@ -35,19 +35,19 @@ public class TagTest {
 
     @Test
     public void constructor_validTagNameWithExtraSpaces_normalizesTagName() {
-        // Tag name with leading and trailing spaces
+        // leading and trailing spaces
         Tag tagWithExtraSpaces = new Tag("   urgent task   ");
         assertTrue(tagWithExtraSpaces.toString().equals("[urgent task]"));
 
-        // Tag name with multiple spaces between words
+        // multiple spaces between words
         tagWithExtraSpaces = new Tag("urgent    task");
         assertTrue(tagWithExtraSpaces.toString().equals("[urgent task]"));
 
-        // Tag name with multiple spaces between words and leading/trailing spaces
+        // multiple spaces between words and leading/trailing spaces
         tagWithExtraSpaces = new Tag("   urgent    task   ");
         assertTrue(tagWithExtraSpaces.toString().equals("[urgent task]"));
 
-        // Tag name with multiple consecutive spaces
+        // multiple consecutive spaces
         tagWithExtraSpaces = new Tag("urgent  task  123");
         assertTrue(tagWithExtraSpaces.toString().equals("[urgent task 123]"));
     }
