@@ -915,7 +915,7 @@ Priorities: High (must have) - `* * *`, Medium (nice to have) - `* *`, Low (unli
 
 **Use Case**: `UC12 - Displaying Help Information`
 
-**Guarantees**: `If MSS reaches step 3, the requested help information will be displayed.`
+**Guarantees**: `If MSS reaches step 2, the requested help information will be displayed.`
 
 **MSS**:
 
@@ -947,9 +947,9 @@ Priorities: High (must have) - `* * *`, Medium (nice to have) - `* *`, Low (unli
 **MSS**:
 
 1. User requests to find contacts by entering the find command with specified fields and keywords. 
-2. Address Book searches for contacts whose fields contain any of the given keywords, 
+2. Notarius searches for contacts whose fields contain any of the given keywords, 
 allowing minor typos (up to a Levenshtein distance of 2) in the name, email, and address fields only. 
-3. Address Book displays a list of matching contacts with index numbers.
+3. Notarius displays a list of matching contacts with index numbers.
 
    Use case ends.
 
