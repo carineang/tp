@@ -1333,3 +1333,11 @@ useful information on why the command failed.
 The application should be able to provide more informative error messages such as "Maximum number of contacts exceeded" when
 the maximum number of unique indexes specified for deletion exceeds 100, or for range-formats, when the start index and end index do not conform to the constraints
 specified in the user guide.
+
+### 6. Selecting a client contact in contact list
+
+#### Current:
+When a new command is called, the selected contact in the contact list will be unselected by the application.
+
+#### Planned:
+The client contact will still be selected even though a new command is called. In addition, users can have the option to select or unselect the client contact.
