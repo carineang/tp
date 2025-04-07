@@ -278,13 +278,39 @@ Additionally, for name, email, and address fields, the search is tolerant of min
 
 #### Design Considerations
 
-* Lenient Matching Using Levenshtein Distance
-    * The `find` command supports typo-tolerant search using Levenshtein distance, 
-but only for fields where user errors are likely—such as `name`, `email`, and `address`. <br>
-    * This was a deliberate design choice to improve usability, allowing users to find contacts even with small typing mistakes.
-* Default Field Matching Behavior
-  * If no prefix is provided (e.g. `find Al`), the system assumes the user is searching by `name`.
-  * This decision was made to streamline common use cases, since most searches tend to be name-based.
+**Aspect: Lenient Matching Using Levenshtein Distance**
+* **Alternative 1 (Current choice):** Apply typo-tolerant search (Levenshtein distance) to selected fields (`name`, `email`, `address`)<br>
+  * Pros: 
+    * Enhances usability by allowing users to find contacts even with small typing mistakes. 
+    * Applied only to fields where user errors are common, maintaining accuracy for fields like `phone`.
+  * Cons:
+    * May return unexpected matches (e.g. searching `find 10` returning `David Li`).
+    * Slightly increases computational complexity of the search.<br>
+ 
+* **Alternative 2:** Enforce strict, exact-match search for all fields<br>
+  * Pros: 
+    * Predictable and unambiguous results.
+    * Simpler and faster to implement.
+  * Cons:
+    * Less forgiving for users who make typos.
+    * May frustrate users if exact spelling is unknown.<br><br>
+
+
+**Aspect: Default Field Matching When No Prefix is Provided**
+* **Alternative 1 (Current choice):** Assume `name` search when no prefix is specified<br>
+  * Pros: 
+    * Streamlines the common use case, since most users search by `name`. 
+    * Reduces typing effort and improves convenience.
+  * Cons: 
+    * May confuse users who expect exact prefix-based behavior.<br>
+    
+* **Alternative 2:** Require prefix for all searches (e.g. `find n/"Al"`)
+  * Pros: 
+    * Unambiguous behavior, clear field targeting. 
+    * Reduces risk of misinterpreted input.
+  * Cons:
+    * Increases command verbosity. 
+    * Less convenient for users performing quick name searches.
 
 
 ### Delete feature
@@ -998,23 +1024,20 @@ allowing minor typos (up to a Levenshtein distance of 2) in the name, email, and
 **Extensions**:
 
 * 1a. User enters an invalid search format. 
-  * 1a1. Address Book alerts the user with an error message about the incorrect format. 
+  * 1a1. Notarius alerts the user with an error message about the incorrect format. 
   * 1a2. User retypes the command following the correct format.<br>
     Steps 1a1-1a2 are repeated until the command format is valid.<br>
     Use case resumes from step 2.
-* 2a. No contacts match the search criteria. 
-  * 2a1. Address Book displays a message indicating that no matching contacts were found.<br>
-    Use case ends.
-* 2b. User enters multiple search fields. 
-  * 2b1. Address Book searches for contacts that match any of the 
+* 1b. User enters multiple search fields. 
+  * 1b1. Notarius searches for contacts that match any of the 
   specified fields (name, phone, email, address, or tags).<br>
     Use case resumes from step 3.
-* 2c. User enters a keyword with minor typos in the phone or tag fields. 
-  * 2c1. Address Book does not apply typo correction for phone numbers or tags. 
-  * 2c2. If an exact match is not found, Address Book displays a message indicating no results were found.<br>
+* 1c. User enters a keyword with minor typos in the phone or tag fields. 
+  * 1c1. Notarius does not apply typo correction for phone numbers or tags. 
+  * 1c2. If an exact match is not found, Notarius displays a message indicating no results were found.<br>
     Use case ends.
-* 2d. User enters a keyword with minor typos in the name, email, or address fields. 
-  * 2d1. Address Book applies fuzzy matching (Levenshtein distance of up to 2) for name, email, and address fields.<br>
+* 1d. User enters a keyword with minor typos in the name, email, or address fields. 
+  * 1d1. Notarius applies fuzzy matching (Levenshtein distance of up to 2) for name, email, and address fields.<br>
     Use case resumes from step 3.
 
 **System**: `Notarius`
