@@ -224,15 +224,14 @@ Examples:
 
 Adds a client contact to the address book.
 
-Format: `add n/NAME p/PHONE_NUMBER e/EMAIL a/ADDRESS [t/TAG] [t/ADDITIONAL TAG]…​`
+Format: `add n/NAME p/PHONE_NUMBER e/EMAIL a/ADDRESS [t/TAG]…​`
 
-<div markdown="span" class="alert alert-primary">:bulb: **Tip:**
-A client contact can have any number of tags (including 0).
-
-A client contact is considered a duplicate if another client contact has the same name(case-insensitive)
-and this duplicate name will be rejected.
+<div markdown="block" class="alert alert-warning">
+:exclamation: **Constraints:**<br>
+* A client contact is considered a duplicate if another client contact has the same email(case-insensitive)
+and this duplicate email will be rejected.<br><br>
+* Phone number must a number with 3 to 15 digits.
 </div>
-
 Examples:
 * `add n/John Doe p/98765432 e/johnd@example.com a/John street, block 123, #01-01`
 * `add n/Betsy Crowe t/DUI e/betsycrowe@example.com a/Newgate Prison p/1234567 t/case44`
