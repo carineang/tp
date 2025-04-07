@@ -732,9 +732,9 @@ Priorities: High (must have) - `* * *`, Medium (nice to have) - `* *`, Low (unli
 **Extensions**:
 
 * 1a. Notarius is unable to find the specified client contact.
-  * 1b1. Notarius alerts the user about the error.
-  * 1b2. User retypes the command.
-  * Steps 1b-1b2 are repeated until the client contact specified exists.
+  * 1a1. Notarius alerts the user about the error.
+  * 1a2. User retypes the command.
+  * Steps 1a-1a2 are repeated until the client contact specified exists.
   * Use case resumes from step 2.
 
 * 1b. Notarius uncovers an invalid contact identifier.
@@ -761,9 +761,9 @@ Priorities: High (must have) - `* * *`, Medium (nice to have) - `* *`, Low (unli
 **Extensions**:
 
 * 1a. Notarius is unable to find the specified client contact.
-  * 1b1. Notarius alerts the user about the error.
-  * 1b2. User retypes the command.
-  * Steps 1b-1b2 are repeated until the client contact specified exists.
+  * 1a1. Notarius alerts the user about the error.
+  * 1a2. User retypes the command.
+  * Steps 1a-1a2 are repeated until the client contact specified exists.
   * Use case resumes from step 2.
 
 * 1b. Notarius uncovers an invalid contact identifier.
