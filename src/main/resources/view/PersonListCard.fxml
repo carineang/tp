@@ -2,6 +2,7 @@
 
 <?import javafx.geometry.Insets?>
 <?import javafx.scene.control.Label?>
+<?import javafx.scene.image.ImageView?>
 <?import javafx.scene.layout.ColumnConstraints?>
 <?import javafx.scene.layout.FlowPane?>
 <?import javafx.scene.layout.GridPane?>
@@ -34,6 +35,9 @@
     </VBox>
   </GridPane>
   <VBox alignment="TOP_RIGHT">
-    <Label fx:id="pin" text="" styleClass="pin-icon" />
+    <padding>
+      <Insets top="10" right="10"/>
+    </padding>
+    <ImageView fx:id="pin" fitWidth="20" fitHeight="20" preserveRatio="true" />
   </VBox>
 </HBox>
