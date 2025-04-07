@@ -421,7 +421,7 @@ This is how a user changes their note via the `note` command:
 2. A `NoteCommandParser` object invokes its `parse` method which parses the user input.
 3. The `NoteCommand` object is created with the parsed prefix and specified index.
 4. A `LogicManager` object invokes the `execute` method of the `NoteCommand` object.
-5. The `execute` method of the `NoteCommand` object invokes the getFilteredPersonlist of the `model`
+5. The `execute` method of the `NoteCommand` object invokes the getFilteredPersonList of the `model`
 and gets the person with the specified index. It then modifies the specified client contact with 
 a new note invokes the `setPerson`,
 and `commit` methods of its `Model` argument to change the note of the person.
