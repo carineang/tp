@@ -342,6 +342,9 @@ when the user executes the `delete` command.
 2. User executes `delete i/1-3`
 3. The client contacts with indexes 1, 2 and 3 will be deleted from Notarius. This change should be reflected in the client contact list.
 
+
+#### Design Considerations
+
 **Aspect: How to implement the delete command**
 
 * **Alternative 1 (current choice):** Support deletion of multiple client contacts with intuitive delete formats
@@ -398,9 +401,11 @@ using the `Ctrl + Up` key combinations on Windows (or `Ctrl + Opt + Up` on macOS
     * macOS: `Ctrl + Opt + Up`/ `Ctrl + Opt + Down` similarly.
 
 
-**Aspect: Command history design considerations**
+#### Design Considerations
 
-* **Alternative 1 (current choice):** Support addition of some invalid commands, with duplicate handling for consecutively entered inputs
+**Aspect: Types of input to save in the command history**
+
+* **Alternative 1 (current choice):** Support addition of both invalid and valid commands, with duplicate handling for consecutively entered inputs
     * Pros: More user-friendliness, allows users to re-access and quickly re-edit past commands, if they have typed them wrong by accident, without having to retype the entire command.
     * Cons: May slightly clutter the command history with invalid commands if the user spams **different** invalid commands intentionally, which is not the intended behaviour.
 
@@ -1170,7 +1175,7 @@ Each test case in this feature section (labelled "Test case") should be independ
 
 1. Deleting a single client contact while all persons are being shown
 
-   1. Prerequisites for each test case: List all persons using the `list` command. There should be **at least** 6 contacts in the list. Otherwise, use the `add` command to add more client contacts. Take note that duplicate names (ignoring letter casing) are not allowed in Notarius.
+   1. Prerequisites for each test case: List all persons using the `list` command. There should be **at least** 6 contacts in the list. Otherwise, use the `add` command to add more client contacts. Take note that duplicate emails (ignoring letter casing) are not allowed in Notarius.
 
    2. Test case: `delete 1`<br>
       Expected: First client contact is deleted from the list. Details of the deleted contact shown in the status message. Timestamp in the status bar is updated.
@@ -1183,7 +1188,7 @@ Each test case in this feature section (labelled "Test case") should be independ
    
 2. Deleting consecutive client contacts while all persons are being shown
 
-   1. Prerequisites for each test case: List all persons using the `list` command, ensuring that there are **exactly** 6 contacts in the list. Otherwise, use the `add` command to add more client contacts. Take note that duplicate names (ignoring letter casing) are not allowed in Notarius.
+   1. Prerequisites for each test case: List all persons using the `list` command, ensuring that there are **exactly** 6 contacts in the list. Otherwise, use the `add` command to add more client contacts. Take note that duplicate emails (ignoring letter casing) are not allowed in Notarius.
 
    1. Test case: `delete i/1-3`<br>
       Expected: First three client contacts are deleted from the list. Details of the deleted contacts shown in the status message. Timestamp in the status bar is updated.
@@ -1202,7 +1207,7 @@ Each test case in this feature section (labelled "Test case") should be independ
 
 3. Deleting the first and last client contact in the contact list while all client contacts are shown.
 
-   1. Prerequisites for each test case: List all persons using the `list` command, ensuring that there are **exactly** 6 contacts in the list. Otherwise, use the `add` command to add more client contacts. Take note that duplicate names (ignoring letter casing) are not allowed in Notarius.
+   1. Prerequisites for each test case: List all persons using the `list` command, ensuring that there are **exactly** 6 contacts in the list. Otherwise, use the `add` command to add more client contacts. Take note that duplicate emails (ignoring letter casing) are not allowed in Notarius.
 
    1. Test case: `delete i/1 6`<br>
       Expected: First and last client contacts are deleted from the list. Details of the deleted contacts shown in the status message. Timestamp in the status bar is updated.
@@ -1215,24 +1220,27 @@ Each test case in this feature section (labelled "Test case") should be independ
 
 ### Command history
 
-Each test case in this feature section (labelled "Test case") should be independent.<br>
+Each test case in this feature section (labelled "Test case") should be independent of each other.<br>
 **Important**: For the key combinations specified, macOS users should use `Ctrl + Opt + Up`/`Ctrl + Opt + Down` respectively instead of `Ctrl + Up`/`Ctrl + Down`.
 
 1. Saving command history
 
    1. Prerequisites for each test case: 
         * No command should be entered into the command box yet (and thus the command history should be empty). Otherwise, relaunch the application.
-        * There should be **exactly** 6 contacts in the list. Otherwise, use the `add` command to add more client contacts. Take note that duplicate names (ignoring letter casing) are not allowed in Notarius.
-        * **None** of the contacts should have a name equal to "notarius", **ignoring** letter casing. Otherwise, delete that contact using `delete` and add a new contact that does not have a duplicate name.
+        * There should be **exactly** 6 contacts in the list. Otherwise, use the `add` command to add more client contacts. Take note that duplicate emails (ignoring letter casing) are not allowed in Notarius.
+        * **None** of the contacts should have an email equal to `test@email.com`, **ignoring** letter casing. Otherwise, delete that contact using `delete` and add a new contact that does not have a duplicate email.
 
    1. Test case: `delete 1`<br>
       Expected: The command history is updated with the command text "delete 1". The command history is displayed when the user presses `Ctrl + Up` or `Ctrl + Down`.
 
-   1. Test case: `delete 1` followed by `add n/notarius p/1231 e/test@email.com a/blk 123 abc`<br>
-      Expected: The command history is updated with the command texts `add n/notarius p/1231 e/test@email.com a/blk 123 abc` at the top of the command history list and `delete 1` below it. The command history is displayed when the user presses `Ctrl + Up` or `Ctrl + Down`, and selection changes when pressing `Ctrl + Up` or `Ctrl + Down` again. When the selection changes, the command text in the command box is updated to the selected command.
+   1. Test case: `delete 1` followed by `add n/notarius p/1231 e/test@email.com a/blk 123 abc` <br>
+      Expected: The command history is updated with the command texts `add n/notarius p/1231 e/test@email.com a/blk 123 abc` at the top of the command history list and `delete 1` below it.
 
-   1. Test case: `list` followed by `list`<br>
-      Expected: The command history is updated with the command text "list", but only once with no **consecutive** duplicates. The command history is displayed when the user presses `Ctrl + Up` or `Ctrl + Down`.
+   1. Test case: `list` followed by `list` <br>
+      Expected: The command history is updated with the command text "list", but it will be shown with no **consecutive** duplicates when open.
+    
+   1. Test case: `delete 1` followed by: `adddd n/typo p/123 e/test@email.com a/test blk` <br>
+      Expected: The command history is updated with the invalid command: `adddd n/typo p/123 e/test@email.com a/test blk` at the top of the command history and the valid command: `delete 1` below it.
 
 ### Finding a person
 
@@ -1356,14 +1364,21 @@ the user can enter line after line by using the `note` command. When the user wa
 they can type the command `donenote`. This can be enhanced by allowing formatting options such as bolding. Long notes
 can also be displayed better by making the command output collapsible.
 
-### 5. More specific error messages for `delete` command.
+### 4. More specific error messages for `delete` command.
 
 #### Current:
-When the delete command fails to delete specified contact(s), 
+When the delete command fails to delete specified contact(s) due to an error in the command parsing phase,
 the error message shows "Invalid command format!" followed by the delete command usage, instead of providing
-useful information on why the command failed.
+useful information on why the command failed, which may be problematic since the command could fail for multiple reasons
+besides having invalid index(s) (i.e. `INDEX` specified is not a positive integer between 1 and 2147483647 inclusive), which
+is already a known issue.
+
+The additional reasons include exceeding the maximum number of unique indexes that can be deleted of 100, or when `START_INDEX` > `END_INDEX` for the range-format.
 
 #### Planned:
-The application should be able to provide more informative error messages such as "Maximum number of contacts exceeded" when
-the maximum number of unique indexes specified for deletion exceeds 100, or for range-formats, when the start index and end index do not conform to the constraints
-specified in the user guide.
+The application should provide more informative and specific error messages that contain the reason for failing to delete contact(s),
+such as when the number of unique indexes to be deleted exceeds 100 (e.g., "Maximum number of contacts exceeded").
+
+It should also display relevant error messages when the indexes specified in the format do not comply with the constraints
+specified in the user guide for their respective formats. For example, displaying that the start and end index of a ranged-delete 
+is out-of-order when `START_INDEX` is greater than `END_INDEX`, or displaying which specified index was invalid if multiple indexes are provided.
