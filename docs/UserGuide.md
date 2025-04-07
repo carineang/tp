@@ -276,14 +276,16 @@ Adds a client contact to the address book.
 
 Format: `add n/NAME p/PHONE_NUMBER e/EMAIL a/ADDRESS [t/TAG]…​`
 
-<div markdown="span" class="alert alert-primary">:bulb: **Tip:**
+<div markdown="block" class="alert alert-primary">:bulb: **Tips:**
 
 * A client contact is considered a duplicate if another client contact has the same email (case-insensitive)
-and this duplicate email will be rejected.
+  and this duplicate email will be rejected.
 
 * Any additional white spaces detected in name, address, tags will be trimmed.
 
 </div>
+
+<br>
 
 <div markdown="block" class="alert alert-warning">:exclamation: **Constraints:**<br>
 
