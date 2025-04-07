@@ -1061,6 +1061,7 @@ Each test case in this feature section (labelled "Test case") should be independ
 ### Finding a person
 
 1. Finding a person while all persons are being shown
+
    1. Prerequisites: List all persons using `list` command. Multiple persons in the list.
    2. Test case: `find n/"Alice"` <br>
       Expected: Displays all contacts with names that match "Alice" (case-insensitive) or have a name with levenshtein distance <= 2 to "ALICE".
@@ -1076,6 +1077,7 @@ Each test case in this feature section (labelled "Test case") should be independ
 ### Displaying help
 
 1. Showing help in Notarius
+
    1. Prerequisites: Notarius is open and running
    2. Test case: `help` <br>
       Expected: A help window appears displaying instructions for using the application. The status message confirms that the help window has been opened.
@@ -1134,6 +1136,42 @@ Each test case in this feature section (labelled "Test case") should be independ
 
   1. Test case: `clear`<br>
      Expected: Clears the whole contacts list.
+
+### Changing a note
+
+1. Changing a note in Notarius
+
+    1. Prerequisite for test case: There should be at least 1 client contact in the contacts list. Otherwise, use
+    the `add` command to add more client contacts.
+    2. Test case: `note 1 nt/overseas for a while` <br>
+    Expected: The 1st client contact from the top of the contacts list has the note "overseas for a while".
+    This can be checked using the `viewnote` command. Specifically the command `viewnote 1`.
+
+### Viewing notes
+1. Viewing a note in Notarius
+
+    1. Prerequisite for test case: There should be at least 1 client contact in the contacts list. Otherwise, use
+       the `add` command to add more client contacts. <br>
+Change note of the 1st client contact from the top of the list to "overseas for a while" using the `note` command. <br>
+The full command for this is `note 1 nt/overseas for a while`.
+    2. Test case: `viewnote 1`<br>
+       Expected: The note of the 1st client contact from the top of the list which is "overseas for a while" is displayed.
+
+### Undoing a command
+1. Undoing a command in Notarius
+
+    1. Prerequisite for test case: There should have been a previous command that was executed that is not `exit`.
+    2. Test case: `undo`<br>
+       Expected: Returns the state of the contacts list to before the previous command was executed.
+
+### Redoing an undone command
+1. Redoing an undone command in Notarius
+
+    1. Prerequisite for test case: There should have been a previous `undo` command that was
+executed with no other command executed after that `undo` command.
+    2. Test case: `redo`<br>
+       Expected: Returns the state of the contacts list to before the `undo` command was executed.
+
 
 ### Saving data
 
