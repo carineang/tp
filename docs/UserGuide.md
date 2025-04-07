@@ -202,6 +202,16 @@ Example: If the command specifies `n/NAME p/PHONE_NUMBER`,
 `p/PHONE_NUMBER n/NAME` is also acceptable.
 </div>
 
+#### Index
+The index is a special parameter and refers to the index numbers shown in the displayed client contacts list.
+
+
+<div markdown="block" class="alert alert-warning">:exclamation: **Constraints:**<br>
+* The indexes **must be a positive integer** from 1, 2, 3, … <br><br>
+* All specified indexes in commands must correspond to some index number shown in the displayed client contacts list
+</div>
+
+
 #### Optional Parameters
 Items in square brackets are optional. It means you do not have to include this piece of information
 if you do not want to.
@@ -234,10 +244,10 @@ Extraneous parameters for commands that do not take in parameters (such as `list
 Example: if the command specifies `list 123`, it will be interpreted as `list`.
 </div>
 
+
 <div markdown="span" class="alert alert-warning">:exclamation: **Caution:**
 If you are using a PDF version of this document, be careful when copying and pasting commands that span multiple lines as space characters surrounding line-breaks may be omitted when copied over to the application.
 </div>
-
 ### Basic Features
 
 #### Viewing help : `help`
@@ -418,17 +428,9 @@ Examples:
 </div>
 
 <br>
-
 <div markdown="block" class="alert alert-warning">
 
 **:exclamation: Index constraints:**<br>
-
-* The indexes must refer to the index numbers shown in the displayed client contacts list.
-
-* The indexes **must be a positive integer** from 1, 2, 3, …
-
-* All specified indexes must correspond to some index number shown in the displayed client contacts list, otherwise the command fails.
-
 * For ranged and spaced delete formats, duplicate indexes specified will be treated *as-if* that index was specified only once.
 
 * Up to 100 **unique** indexes (duplicates are not part of this count!) can be specified (either via spaced or ranged delete formats); beyond which the command will fail.
@@ -436,10 +438,7 @@ Examples:
 * At least 1 index should be specified when using ranged or spaced delete formats.
 
 * For ranged-delete format, `START_INDEX` must be at most equal to `END_INDEX` (For e.g. `delete i/3-2` is invalid).
-
 </div>
-
-
 ### Special Features
 
 #### Sorting of client contacts : `sort`
