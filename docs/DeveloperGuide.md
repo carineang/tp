@@ -414,6 +414,16 @@ This is how a user views their note via the `viewnote` command:
 6. The `execute` method of the `ViewNoteCommand` object returns a `CommandResult` object which stores the data regarding
    the completion of the `viewnote` command, if successful includes the note of the client contact at the specified index.
 
+#### Design Considerations
+
+**Aspect: How notes are shown to the user:**
+- **Alternative 1 (current choice):** The user changes notes via the command line and views notes via the command output.
+    - Pros: Easy to implement. User may prefer this if they prefer solely typing in a command line without using external keyboard shortcuts.
+    - Cons: Feature may be less useful due to limited command box size and command input box size if the user types a long note.
+- **Alternative 2:** View/change notes via a separate window that the user can open by entering a command. The user can done use shortcuts when they are done viewing/editing the note to close the window.
+    - Pros: Better support for longer notes and better formatting.
+    - Cons: Users that prefer solely typing on a command line may not like using external keyboard shortcuts. 
+
 ### Undo/redo feature
 The `undo` and `redo` commands undoes and redoes other commands respectively. 
 
@@ -477,6 +487,16 @@ Step 5. The user executes `clear`, which calls `Model#commit()`. Since the `curr
 The following activity diagram summarizes what happens when a user executes a new command:
 
 <img src="images/CommitActivityDiagram.png" width="250" />
+
+#### Design Considerations
+
+**Aspect: How undo & redo executes:**
+- **Alternative 1 (current choice):** Saves the state of the model.
+    - Pros: Easy to implement. 
+    - Cons: May have performance issues in terms of memory usage.
+- **Alternative 2:** Individual command knows how to undo/redo by itself.
+    - Pros: Will use less memory (e.g. for `delete`, just save the person(s) being deleted).
+    - Cons: We must ensure that the implementation of each individual command is correct.
 
 --------------------------------------------------------------------------------------------------------------------
 
