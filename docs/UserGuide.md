@@ -347,7 +347,6 @@ Examples:
 * `find Alex` returns `Alex Yeoh`
 * `find p/"87438807" "91031282"` returns `Alex Yeoh` and `David Li`
 * `find n/"Alxe" "Davdi"` returns `Alex Yeoh`, `David Li`<br>
-  ![result for 'find alex david'](images/findAlexDavidResult.png)
 
 
 #### Deleting client contact(s) : `delete`
