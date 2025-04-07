@@ -277,13 +277,39 @@ Additionally, for name, email, and address fields, the search is tolerant of min
 
 #### Design Considerations
 
-* Lenient Matching Using Levenshtein Distance
-    * The `find` command supports typo-tolerant search using Levenshtein distance, 
-but only for fields where user errors are likely—such as `name`, `email`, and `address`. <br>
-    * This was a deliberate design choice to improve usability, allowing users to find contacts even with small typing mistakes.
-* Default Field Matching Behavior
-  * If no prefix is provided (e.g. `find Al`), the system assumes the user is searching by `name`.
-  * This decision was made to streamline common use cases, since most searches tend to be name-based.
+**Aspect: Lenient Matching Using Levenshtein Distance**
+* **Alternative 1 (Current choice):** Apply typo-tolerant search (Levenshtein distance) to selected fields (`name`, `email`, `address`)<br>
+  * Pros: 
+    * Enhances usability by allowing users to find contacts even with small typing mistakes. 
+    * Applied only to fields where user errors are common, maintaining accuracy for fields like `phone`.
+  * Cons:
+    * May return unexpected matches (e.g. searching `find 10` returning `David Li`).
+    * Slightly increases computational complexity of the search.<br>
+ 
+* **Alternative 2:** Enforce strict, exact-match search for all fields<br>
+  * Pros: 
+    * Predictable and unambiguous results.
+    * Simpler and faster to implement.
+  * Cons:
+    * Less forgiving for users who make typos.
+    * May frustrate users if exact spelling is unknown.<br><br>
+
+
+**Aspect: Default Field Matching When No Prefix is Provided**
+* **Alternative 1 (Current choice):** Assume `name` search when no prefix is specified<br>
+  * Pros: 
+    * Streamlines the common use case, since most users search by `name`. 
+    * Reduces typing effort and improves convenience.
+  * Cons: 
+    * May confuse users who expect exact prefix-based behavior.<br>
+    
+* **Alternative 2:** Require prefix for all searches (e.g. `find n/"Al"`)
+  * Pros: 
+    * Unambiguous behavior, clear field targeting. 
+    * Reduces risk of misinterpreted input.
+  * Cons:
+    * Increases command verbosity. 
+    * Less convenient for users performing quick name searches.
 
 
 ### Delete feature
@@ -314,6 +340,9 @@ when the user executes the `delete` command.
 1. User starts Notarius
 2. User executes `delete i/1-3`
 3. The client contacts with indexes 1, 2 and 3 will be deleted from Notarius. This change should be reflected in the client contact list.
+
+
+#### Design Considerations
 
 **Aspect: How to implement the delete command**
 
@@ -371,9 +400,11 @@ using the `Ctrl + Up` key combinations on Windows (or `Ctrl + Opt + Up` on macOS
     * macOS: `Ctrl + Opt + Up`/ `Ctrl + Opt + Down` similarly.
 
 
-**Aspect: Command history design considerations**
+#### Design Considerations
 
-* **Alternative 1 (current choice):** Support addition of some invalid commands, with duplicate handling for consecutively entered inputs
+**Aspect: Types of input to save in the command history**
+
+* **Alternative 1 (current choice):** Support addition of both invalid and valid commands, with duplicate handling for consecutively entered inputs
     * Pros: More user-friendliness, allows users to re-access and quickly re-edit past commands, if they have typed them wrong by accident, without having to retype the entire command.
     * Cons: May slightly clutter the command history with invalid commands if the user spams **different** invalid commands intentionally, which is not the intended behaviour.
 
@@ -997,23 +1028,20 @@ allowing minor typos (up to a Levenshtein distance of 2) in the name, email, and
 **Extensions**:
 
 * 1a. User enters an invalid search format. 
-  * 1a1. Address Book alerts the user with an error message about the incorrect format. 
+  * 1a1. Notarius alerts the user with an error message about the incorrect format. 
   * 1a2. User retypes the command following the correct format.<br>
     Steps 1a1-1a2 are repeated until the command format is valid.<br>
     Use case resumes from step 2.
-* 2a. No contacts match the search criteria. 
-  * 2a1. Address Book displays a message indicating that no matching contacts were found.<br>
-    Use case ends.
-* 2b. User enters multiple search fields. 
-  * 2b1. Address Book searches for contacts that match any of the 
+* 1b. User enters multiple search fields. 
+  * 1b1. Notarius searches for contacts that match any of the 
   specified fields (name, phone, email, address, or tags).<br>
     Use case resumes from step 3.
-* 2c. User enters a keyword with minor typos in the phone or tag fields. 
-  * 2c1. Address Book does not apply typo correction for phone numbers or tags. 
-  * 2c2. If an exact match is not found, Address Book displays a message indicating no results were found.<br>
+* 1c. User enters a keyword with minor typos in the phone or tag fields. 
+  * 1c1. Notarius does not apply typo correction for phone numbers or tags. 
+  * 1c2. If an exact match is not found, Notarius displays a message indicating no results were found.<br>
     Use case ends.
-* 2d. User enters a keyword with minor typos in the name, email, or address fields. 
-  * 2d1. Address Book applies fuzzy matching (Levenshtein distance of up to 2) for name, email, and address fields.<br>
+* 1d. User enters a keyword with minor typos in the name, email, or address fields. 
+  * 1d1. Notarius applies fuzzy matching (Levenshtein distance of up to 2) for name, email, and address fields.<br>
     Use case resumes from step 3.
 
 **System**: `Notarius`
@@ -1146,7 +1174,7 @@ Each test case in this feature section (labelled "Test case") should be independ
 
 1. Deleting a single client contact while all persons are being shown
 
-   1. Prerequisites for each test case: List all persons using the `list` command. There should be **at least** 6 contacts in the list. Otherwise, use the `add` command to add more client contacts. Take note that duplicate names (ignoring letter casing) are not allowed in Notarius.
+   1. Prerequisites for each test case: List all persons using the `list` command. There should be **at least** 6 contacts in the list. Otherwise, use the `add` command to add more client contacts. Take note that duplicate emails (ignoring letter casing) are not allowed in Notarius.
 
    2. Test case: `delete 1`<br>
       Expected: First client contact is deleted from the list. Details of the deleted contact shown in the status message. Timestamp in the status bar is updated.
@@ -1159,7 +1187,7 @@ Each test case in this feature section (labelled "Test case") should be independ
    
 2. Deleting consecutive client contacts while all persons are being shown
 
-   1. Prerequisites for each test case: List all persons using the `list` command, ensuring that there are **exactly** 6 contacts in the list. Otherwise, use the `add` command to add more client contacts. Take note that duplicate names (ignoring letter casing) are not allowed in Notarius.
+   1. Prerequisites for each test case: List all persons using the `list` command, ensuring that there are **exactly** 6 contacts in the list. Otherwise, use the `add` command to add more client contacts. Take note that duplicate emails (ignoring letter casing) are not allowed in Notarius.
 
    1. Test case: `delete i/1-3`<br>
       Expected: First three client contacts are deleted from the list. Details of the deleted contacts shown in the status message. Timestamp in the status bar is updated.
@@ -1178,7 +1206,7 @@ Each test case in this feature section (labelled "Test case") should be independ
 
 3. Deleting the first and last client contact in the contact list while all client contacts are shown.
 
-   1. Prerequisites for each test case: List all persons using the `list` command, ensuring that there are **exactly** 6 contacts in the list. Otherwise, use the `add` command to add more client contacts. Take note that duplicate names (ignoring letter casing) are not allowed in Notarius.
+   1. Prerequisites for each test case: List all persons using the `list` command, ensuring that there are **exactly** 6 contacts in the list. Otherwise, use the `add` command to add more client contacts. Take note that duplicate emails (ignoring letter casing) are not allowed in Notarius.
 
    1. Test case: `delete i/1 6`<br>
       Expected: First and last client contacts are deleted from the list. Details of the deleted contacts shown in the status message. Timestamp in the status bar is updated.
@@ -1191,24 +1219,27 @@ Each test case in this feature section (labelled "Test case") should be independ
 
 ### Command history
 
-Each test case in this feature section (labelled "Test case") should be independent.<br>
+Each test case in this feature section (labelled "Test case") should be independent of each other.<br>
 **Important**: For the key combinations specified, macOS users should use `Ctrl + Opt + Up`/`Ctrl + Opt + Down` respectively instead of `Ctrl + Up`/`Ctrl + Down`.
 
 1. Saving command history
 
    1. Prerequisites for each test case: 
         * No command should be entered into the command box yet (and thus the command history should be empty). Otherwise, relaunch the application.
-        * There should be **exactly** 6 contacts in the list. Otherwise, use the `add` command to add more client contacts. Take note that duplicate names (ignoring letter casing) are not allowed in Notarius.
-        * **None** of the contacts should have a name equal to "notarius", **ignoring** letter casing. Otherwise, delete that contact using `delete` and add a new contact that does not have a duplicate name.
+        * There should be **exactly** 6 contacts in the list. Otherwise, use the `add` command to add more client contacts. Take note that duplicate emails (ignoring letter casing) are not allowed in Notarius.
+        * **None** of the contacts should have an email equal to `test@email.com`, **ignoring** letter casing. Otherwise, delete that contact using `delete` and add a new contact that does not have a duplicate email.
 
    1. Test case: `delete 1`<br>
       Expected: The command history is updated with the command text "delete 1". The command history is displayed when the user presses `Ctrl + Up` or `Ctrl + Down`.
 
-   1. Test case: `delete 1` followed by `add n/notarius p/1231 e/test@email.com a/blk 123 abc`<br>
-      Expected: The command history is updated with the command texts `add n/notarius p/1231 e/test@email.com a/blk 123 abc` at the top of the command history list and `delete 1` below it. The command history is displayed when the user presses `Ctrl + Up` or `Ctrl + Down`, and selection changes when pressing `Ctrl + Up` or `Ctrl + Down` again. When the selection changes, the command text in the command box is updated to the selected command.
+   1. Test case: `delete 1` followed by `add n/notarius p/1231 e/test@email.com a/blk 123 abc` <br>
+      Expected: The command history is updated with the command texts `add n/notarius p/1231 e/test@email.com a/blk 123 abc` at the top of the command history list and `delete 1` below it.
 
-   1. Test case: `list` followed by `list`<br>
-      Expected: The command history is updated with the command text "list", but only once with no **consecutive** duplicates. The command history is displayed when the user presses `Ctrl + Up` or `Ctrl + Down`.
+   1. Test case: `list` followed by `list` <br>
+      Expected: The command history is updated with the command text "list", but it will be shown with no **consecutive** duplicates when open.
+    
+   1. Test case: `delete 1` followed by: `adddd n/typo p/123 e/test@email.com a/test blk` <br>
+      Expected: The command history is updated with the invalid command: `adddd n/typo p/123 e/test@email.com a/test blk` at the top of the command history and the valid command: `delete 1` below it.
 
 ### Finding a person
 
@@ -1322,14 +1353,19 @@ the user can enter line after line by using the `note` command. When the user wa
 they can type the command `donenote`. This can be enhanced by allowing formatting options such as bolding. Long notes
 can also be displayed better by making the command output collapsible.
 
-### 5. More specific error messages for `delete` command.
+### 4. More specific error messages for `delete` command.
 
 #### Current:
-When the delete command fails to delete specified contact(s), 
+When the delete command fails to delete specified contact(s) due to an error in the command parsing phase,
 the error message shows "Invalid command format!" followed by the delete command usage, instead of providing
-useful information on why the command failed.
+useful information on why the command failed, which may be problematic since the command could fail for multiple reasons
+besides having invalid index(s) (i.e. `INDEX` specified is not a positive integer between 1 and 2147483647 inclusive), which
+is already a known issue.
+
+The additional reasons include exceeding the maximum number of unique indexes that can be deleted of 100, or when `START_INDEX` > `END_INDEX` for the range-format.
 
 #### Planned:
+
 The application should be able to provide more informative error messages such as "Maximum number of contacts exceeded" when
 the maximum number of unique indexes specified for deletion exceeds 100, or for range-formats, when the start index and end index do not conform to the constraints
 specified in the user guide.
@@ -1341,3 +1377,11 @@ When a new command is called, the selected contact in the contact list will be u
 
 #### Planned:
 The client contact will still be selected even though a new command is called. In addition, users can have the option to select or unselect the client contact.
+
+The application should provide more informative and specific error messages that contain the reason for failing to delete contact(s),
+such as when the number of unique indexes to be deleted exceeds 100 (e.g., "Maximum number of contacts exceeded").
+
+It should also display relevant error messages when the indexes specified in the format do not comply with the constraints
+specified in the user guide for their respective formats. For example, displaying that the start and end index of a ranged-delete 
+is out-of-order when `START_INDEX` is greater than `END_INDEX`, or displaying which specified index was invalid if multiple indexes are provided.
+
