@@ -270,7 +270,7 @@ Format: `add n/NAME p/PHONE_NUMBER e/EMAIL a/ADDRESS [t/TAG]…​`
 :exclamation: **Constraints:**<br>
 * A client contact is considered a duplicate if another client contact has the same email(case-insensitive)
 and this duplicate email will be rejected.<br><br>
-* Phone number must a number with 3 to 15 digits.
+* Phone number must be a number with 3 to 15 digits.
 </div>
 
 Examples:
@@ -295,7 +295,7 @@ Format: `edit INDEX [n/NAME] [p/PHONE] [e/EMAIL] [a/ADDRESS] [t/TAG] [t/ADDITION
 :exclamation: **Constraints:**<br>
 * A client contact is considered a duplicate if another client contact has the same email(case-insensitive)
 and this duplicate email will be rejected.<br><br>
-* Phone number must a number with 3 to 15 digits.<br><br>
+* Phone number must be a number with 3 to 15 digits.<br><br>
 * You must provide at least one of the optional details to update.<br><br>
 </div>
 
