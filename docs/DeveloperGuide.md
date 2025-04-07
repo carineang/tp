@@ -239,6 +239,15 @@ all contacts by the target prefix.
 6. The `execute` method of the `SortCommand` object returns a `CommandResult` object which stores the data regarding 
 the completion of the `sort` command.
 
+#### Design Considerations
+
+* Sorting Commands
+  * Sorting commands should be easy for users to understand and having consistent naming conventions.
+* Multi-level Sorting with Tags as First Attribute
+  * Tags often represent the most significant context about a contact. Sorting by tags first allows user to immediately group contacts into logical clusters. 
+  Within the cluster, sorting by other attributes provides a nested, hierarchically meaningful structure.
+  * Provides flexibility for users to organize and sort their contacts based on two attributes, the first attribute should be `tag`, second attribute should be `name`, `phone`, `email`, `address`.
+
 ### Find feature
 
 The `find` command allows users to search for contacts in Notarius based on specified fields: 
