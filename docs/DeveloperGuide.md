@@ -1267,9 +1267,12 @@ useful information on why the command failed, which may be problematic since the
 besides having invalid index(s) (i.e. `INDEX` specified is not a positive integer between 1 and 2147483647 inclusive), which
 is already a known issue.
 
-The additional reasons include exceeding the maximum number of unique indexes that can be deleted of 100, or `START_INDEX` > `END_INDEX` for the range-format.
+The additional reasons include exceeding the maximum number of unique indexes that can be deleted of 100, or when `START_INDEX` > `END_INDEX` for the range-format.
 
 #### Planned:
-The application should be able to provide more informative error messages such as "Maximum number of contacts exceeded" when
-the maximum number of unique indexes that can be deleted exceeds 100, or to display a relevant error messages when the indexes specified in the format do not conform to the constraints
-specified in the user guide for their respective formats, (such as `START_INDEX` > `END_INDEX` for ranged-delete format, and for all delete formats, when some of the indexes specified are invalid).
+The application should provide more informative and specific error messages that contain the reason for failing to delete contact(s),
+such as when the number of unique indexes to be deleted exceeds 100 (e.g., "Maximum number of contacts exceeded").
+
+It should also display relevant error messages when the indexes specified in the format do not comply with the constraints
+specified in the user guide for their respective formats. For example, displaying that the start and index of a ranged-delete format
+is out of order when `START_INDEX` is greater than `END_INDEX`, or displaying which specified index was invalid if multiple indexes are provided.
