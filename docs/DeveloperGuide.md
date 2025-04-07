@@ -369,6 +369,18 @@ using the `Ctrl + Up` key combinations on Windows (or `Ctrl + Opt + Up` on macOS
     * Windows/Linux: `Ctrl + Up`/`Ctrl + Down` to move up/down the selection.
     * macOS: `Ctrl + Opt + Up`/ `Ctrl + Opt + Down` similarly.
 
+
+**Aspect: Command history design considerations**
+
+* **Alternative 1 (current choice):** Support addition of some invalid commands, with duplicate handling for consecutively entered inputs
+    * Pros: More user-friendliness, allows users to re-access and quickly re-edit past commands, if they have typed them wrong by accident, without having to retype the entire command.
+    * Cons: May slightly clutter the command history with invalid commands if the user spams **different** invalid commands intentionally, which is not the intended behaviour.
+
+* **Alternative 2:** Support addition of only valid commands
+    * Pros: Allows users to find previously entered valid commands that they want to repeat.
+    * Cons: Less user-friendly, since users will not be able to re-access previously entered commands that they have typed incorrectly, and will have to retype the entire command again.
+
+
 ### Note feature
 The note feature allows the user to change and view notes. \
 The user changes notes via the `note` command and the user views notes via the `viewnote` command.
@@ -490,42 +502,42 @@ The following activity diagram summarizes what happens when a user executes a ne
 
 Priorities: High (must have) - `* * *`, Medium (nice to have) - `* *`, Low (unlikely to have) - `*`
 
-| Priority | As a …​                                                      | I want to …​                                                                                              | So that I can…​                                                                            |
-|----------|--------------------------------------------------------------|-----------------------------------------------------------------------------------------------------------|--------------------------------------------------------------------------------------------|
-| `* * *`  | lawyer                                                       | list all contacts with their relevant details                                                             | easily peruse them                                                                         |
-| `* * *`  | lawyer                                                       | add a contact's name                                                                                      | identify the individual easily                                                             |
-| `* * *`  | lawyer                                                       | add a contact's phone number                                                                              | contact them when needed                                                                   |
-| `* * *`  | lawyer                                                       | add a contact's email                                                                                     | find an alternative way to contact them                                                    |
-| `* * *`  | lawyer                                                       | add a contact's address                                                                                   | find a way to send them _case_ details                                                     |
-| `* * *`  | lawyer                                                       | save my contacts to my _local system_                                                                     | access them later after reopening the application                                          |
-| `* * *`  | lawyer                                                       | delete contacts                                                                                           | remove contacts that I no longer need                                                      |
-| `* * *`  | lawyer                                                       | have access to my contacts even without internet                                                          | access my contacts offline                                                                 |
-| `* * *`  | lawyer who can type fast and prefers typing over clicking over a GUI | type everything over a command line interface that minimizes my use of mouse                              | enjoy the convenience of the application                                                   |
-| `* *`    | busy lawyer who is working multiple cases and clients at the same time | add notes to contacts                                                                                     | keep track of relevant case-related details, their preferences, and their personal details |
-| `* *`    | forgetful lawyer                                             | star/pin important clients                                                                                | look up their information faster                                                           |
-| `* *`    | lawyer                                                       | sort the contacts                                                                                         | improve the organisation of contacts                                                       |
-| `* *`    | lawyer who can type fast                                     | re-access previously entered commands quickly                                                             | save time by not typing them again                                                         |
-| `* *`    | lawyer                                                       | set reminders to follow up with contacts                                                                  | make sure to not miss an important check-in                                                |
-| `* *`    | lawyer with many clients                                     | delete multiple client contacts at once                                                                   | clear clients of past cases faster and more conveniently                                   |
-| `* *`    | lawyer                                                       | tag contacts (e.g., "Client," "Judge," "Opposing Counsel")                                                | remember their roles easily                                                                |
-| `* *`    | lawyer                                                       | tag multiple contacts at once                                                                             | categorise them for my needs more efficiently and conveniently                             |
-| `* *`    | lawyer                                                       | add multiple tags to a contact                                                                            | organise my contacts neatly and not have to keep tagging the same contact multiple time    |
-| `* *`    | impatient lawyer                                             | get the output of my commands quickly and responsively                                                    | not waste time on waiting for the output                                                   |
-| `* *`    | lawyer                                                       | have a user-friendly and not cluttered interface to navigate around                                       | focus on my legal work without getting distracted by complicated tools                     |
-| `* *`    | lawyer                                                       | edit contact details                                                                                      | update information when needed                                                             |
-| `* *`    | lawyer                                                       | be able to lookup help/guide for the application locally in case i do not know forgot how to use the application | figure out how to use it conveniently                                                      |
-| `* *`    | lawyer handling _crucial client information_                 | not be able to add duplicate contacts by phone number                                                     | ensure that there is no redundant client data                                              |
-| `* *`    | lawyer trying the application for the first time             | clear all the contact data when necessary                                                                 | facilitate the population of new data                                                      |
-| `*`      | lawyer                                                       | have my notes be automatically time-stamped                                                               | keep track of when notes were created                                                      |
-| `*`      | busy lawyer                                                  | use command aliases to enter commands faster                                                              | save time and improve efficiency                                                           |
-| `*`      | lawyer                                                       | have the application be personalised for me                                                               | feel more connected and engaged while using it                                             |
-| `*`      | lawyer                                                       | add general notes (e.g. Post-its)                                                                         | store information that is not related to any case or contact                               |
-| `*`      | lawyer                                                       | assign contacts to specific cases                                                                         | keep track of all people involved in a legal matter                                        |
-| `*`      | busy lawyer                                                  | view all contacts to specific cases                                                                       | quickly access their details when needed                                                   |
-| `*`      | lawyer                                                       | unlink contacts related from cases                                                                        | update case information when necessary                                                     |
-| `*`      | lawyer                                                       | add notes to cases                                                                                        | view case information when needed                                                          |
-
-*{More to be added}*
+| Priority | As a …​                                                           | I want to …​                                                      | So that I can…​                                                                             |
+|----------|-------------------------------------------------------------------|-------------------------------------------------------------------|---------------------------------------------------------------------------------------------|
+| `* * *`  | lawyer                                                            | list all contacts with their relevant details                     | easily peruse them                                                                          |
+| `* * *`  | lawyer                                                            | add a contact's name                                              | identify the individual easily                                                              |
+| `* * *`  | lawyer                                                            | add a contact's phone number                                      | contact them by phone                                                                       |
+| `* * *`  | lawyer                                                            | add a contact's email                                             | contact them by email                                                                       |
+| `* * *`  | lawyer                                                            | add a contact's address                                           | know where to mail legal documents physically to                                            |
+| `* * *`  | lawyer                                                            | save my contacts to my _local system_                             | access them later after reopening the application                                           |
+| `* * *`  | lawyer with many clients                                          | search for contacts                                               | easily find out their contact information                                                   |
+| `* * *`  | lawyer                                                            | delete contacts                                                   | remove client contacts that I no longer need                                                |
+| `* * *`  | lawyer                                                            | access my contacts without internet                               | so that I can continue to work effectively in places with limited to no internet connection |
+| `* *`    | busy lawyer who is working with multiple clients at the same time | add notes to contacts                                             | keep track of their relevant case-related details, preferences, and personal details        |
+| `* *`    | busy lawyer who is working with multiple clients at the same time | view a contact's notes                                            | see their relevant case-related details, preferences, and personal details                  |
+| `* *`    | lawyer                                                            | sort the contacts                                                 | improve the organisation of my client contacts                                              |
+| `* *`    | forgetful lawyer                                                  | pin important clients                                             | look up their information faster                                                            |
+| `* *`    | lawyer                                                            | unpin currently pinned clients                                    | keep my pinned list of clients up to date                                                   |
+| `* *`    | lawyer who can type fast                                          | re-access previously entered commands quickly                     | save time by not typing them again                                                          |
+| `* *`    | lawyer with many clients                                          | delete multiple client contacts at once                           | clear clients from past cases faster and more conveniently                                  |
+| `* *`    | forgetful lawyer                                                  | view a quick help summary for certain commands                    | quickly relearn how to perform certain commands in case I forgot how to use them            |
+| `* *`    | lawyer                                                            | edit client contact details                                       | keep client contact information up to date                                                  |
+| `* *`    | lawyer trying the application for the first time                  | clear all the client contact data                                 | start fresh from a clean state                                                              |
+| `* *`    | careless lawyer                                                   | undo my previous commands                                         | easily revert my mistakes                                                                   |
+| `* *`    | careless lawyer                                                   | redo my previous commands                                         | easily revert my mistakes from undoing                                                      |
+| `* *`    | lawyer                                                            | tag contacts (e.g., "Plaintiff", "Defendant", "Under Review")     | remember their roles easily                                                                 |
+| `* *`    | lawyer                                                            | set reminders to follow up with contacts                          | make sure to not miss an important check-in                                                 |
+| `* *`    | lawyer                                                            | tag multiple contacts at once                                     | categorise them for my needs more efficiently and conveniently                              |
+| `* *`    | lawyer                                                            | add multiple tags to a contact                                    | organise my contacts neatly and not have to keep tagging the same contact multiple times    |
+| `* *`    | impatient lawyer                                                  | get the output of my commands quickly and responsively            | save time without having to wait long for the command output                                |
+| `* *`    | lawyer                                                            | have a user-friendly and uncluttered interface to navigate around | focus on my legal work without getting distracted by complicated or cluttered visuals       |
+| `*`      | lawyer                                                            | have my notes be automatically time-stamped                       | keep track of when notes were created                                                       |
+| `*`      | busy lawyer                                                       | use command aliases to enter commands faster                      | save time and improve efficiency                                                            |
+| `*`      | lawyer                                                            | add general post-it notes                                         | store information that is not related to any case or contact                                |
+| `*`      | lawyer                                                            | assign contacts to specific cases                                 | keep track of all clients involved in a legal matter                                        |
+| `*`      | busy lawyer                                                       | view all contacts of specific cases                               | quickly access their case details when needed                                               |
+| `*`      | lawyer                                                            | unlink contacts related from cases                                | update case information when necessary                                                      |
+| `*`      | lawyer                                                            | add notes to cases                                                | view case information when needed                                                           |
 
 ### Use cases
 
@@ -1204,30 +1216,18 @@ Each test case in this feature section (labelled "Test case") should be independ
 
 ## **Appendix: Planned Enhancements**:
 
-### 1. Allow for special characters in names
-#### Current:
-Special characters are not allowed to be entered as part of a person's name such as via the add or edit command. <br>
-
-Valid names with special characters like: <br>
-Sinéad O'Connor, Nagaratnam s/o Suppiah, Tan Cheng Bok @ Adrian Tan, Anne-Marie, Beyoncé, J.R. Smith 
-<br>
-are not accepted.
-
-#### Planned:
-Allow for special characters in names. 
-
-### 2. Allow for international phone number format to be entered
+### 1. Allow for international phone number format to be entered
 
 #### Current:
 In phone input fields, user only can enter a number. This restricts the user from being able to enter country codes.
-This would reduce the application's usefulness as a address book application due to its limitation of storing
+This would reduce the application's usefulness as an address book application due to its limitation of storing
 international client contacts. 
 
 #### Planned:
-To enhance usability and global compatability. We should allow the user to enter the country code along with the phone number 
+To enhance usability and global compatibility. We should allow the user to enter the country code along with the phone number 
 in phone input fields.
 
-### 3. Bulk tag deletion capability
+### 2. Bulk tag deletion capability
 
 #### Current:
 Via the edit command, all tags can be deleted or tags can be replaced with new ones. 
@@ -1238,7 +1238,7 @@ they do not want to replace.
 #### Planned:
 Add a command to delete multiple tags from a client contact.
 
-### 4. Support for longer notes.
+### 3. Support for longer notes.
 
 #### Current:
 Notes are entered through a command line and are designed to write short and simple notes. However, users may 
@@ -1251,4 +1251,14 @@ the user can enter line after line by using the `note` command. When the user wa
 they can type the command `donenote`. This can be enhanced by allowing formatting options such as bolding. Long notes
 can also be displayed better by making the command output collapsible.
 
+### 5. More specific error messages for `delete` command.
 
+#### Current:
+When the delete command fails to delete specified contact(s), 
+the error message shows "Invalid command format!" followed by the delete command usage, instead of providing
+useful information on why the command failed.
+
+#### Planned:
+The application should be able to provide more informative error messages such as "Maximum number of contacts exceeded" when
+the maximum number of unique indexes specified for deletion exceeds 100, or for range-formats, when the start index and end index do not conform to the constraints
+specified in the user guide.
