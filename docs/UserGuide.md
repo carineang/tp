@@ -358,7 +358,7 @@ depending on your needs:
 
 | Formats                                               | Purpose                                                                                                   |
 |-------------------------------------------------------|-----------------------------------------------------------------------------------------------------------|
-| Single-delete: `delete INDEX`                         | Deletes a **single** client contact at the specified INDEX                                                |
+| Single-delete: `delete INDEX`                         | Deletes a **single** client contact at the specified `INDEX`                                              |
 | Ranged-delete: `delete i/START_INDEX-END_INDEX`       | Deletes **consecutive** client contacts whose indexes are between `START_INDEX` to `END_INDEX` inclusive. |
 | Spaced-delete: `delete i/FIRST_INDEX [MORE_INDEXES]…` | Deletes multiple client contacts from **different** parts of the client contact list by their indexes     |
 
