@@ -148,19 +148,19 @@ A GUI similar to the below should appear in a few seconds. Note how the app cont
   <img src="images/userinterface1.png" alt="Ui" />
 </p>
 
-2. When a contact is selected, you can view more details at the contact information card.
+3. When a contact is selected, you can view more details at the contact information card.
 
 <p align="center">
   <img src="images/userinterface2.png" alt="Ui" />
 </p>
 
-3. At the **contact list**, you can view the name, phone number, address, email and tags of the person. When a person is pinned, the pin icon will show up.
+4. At the **contact list**, you can view the name, phone number, address, email and tags of the person. When a person is pinned, the pin icon will show up.
 
 <p align="center">
   <img src="images/userinterface3.png" alt="Ui" />
 </p>
 
-4. At the **contact information card**, you can view the person's note.
+5. At the **contact information card**, you can view the person's note.
 
 <p align="center">
   <img src="images/userinterface4.png" alt="Ui" />
