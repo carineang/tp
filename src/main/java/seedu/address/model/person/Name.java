@@ -10,13 +10,13 @@ import static seedu.address.commons.util.AppUtil.checkArgument;
 public class Name {
 
     public static final String MESSAGE_CONSTRAINTS =
-            "Names should only contain alphanumeric characters and spaces, and it should not be blank";
+            "Names can take any value, and it should not be blank";
 
     /*
      * The first character of the address must not be a whitespace,
      * otherwise " " (a blank string) becomes a valid input.
      */
-    public static final String VALIDATION_REGEX = "[\\p{Alnum}][\\p{Alnum} ]*";
+    public static final String VALIDATION_REGEX = "[^\\s].*";
 
     public final String fullName;
 
@@ -27,8 +27,9 @@ public class Name {
      */
     public Name(String name) {
         requireNonNull(name);
-        checkArgument(isValidName(name), MESSAGE_CONSTRAINTS);
-        fullName = name;
+        String trimmedName = name.trim().replaceAll("\\s+", " ");
+        checkArgument(isValidName(trimmedName), MESSAGE_CONSTRAINTS);
+        fullName = trimmedName;
     }
 
     /**
@@ -37,27 +38,6 @@ public class Name {
     public static boolean isValidName(String test) {
         return test.matches(VALIDATION_REGEX);
     }
-
-    /**
-     * Checks if the name is the same to the address book.
-     * The address book does not distinguish between upper and lowercase letters.
-     * If you want to check if two {@code Name} objects are equal
-     * you should use the {@link #equals(Object other)} method instead
-     */
-    public boolean isSameName(Object other) {
-        if (other == this) {
-            return true;
-        }
-
-        // instanceof handles nulls
-        if (!(other instanceof Name)) {
-            return false;
-        }
-
-        Name otherName = (Name) other;
-        return fullName.toLowerCase().equals(otherName.fullName.toLowerCase());
-    }
-
 
     @Override
     public String toString() {

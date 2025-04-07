@@ -39,16 +39,16 @@ Furthermore, **Notarius** also comes with **additional features** and **quality 
 While exploring this user guide, you may come across some terms that you may not be familiar with.
 Here is a list of commonly used terminology to provide better clarity.
 
-| Terms                 | Meaning                                                                                                                                                                                                                                                                                                                       |
-|-----------------------|-------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|
-| Prefix                | Prefixes are short markers that are used to specify the type of information following it. For instance, `n/` is a prefix that specifies that the data following it (up until another prefix) is the name of a client.                                                                                                         |
+| Terms                 | Meaning                                                                                                                                                                                                                                                                                                                     |
+|-----------------------|-----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|
+| Prefix                | Prefixes are short markers that are used to specify the type of information following it. For instance, `n/` is a prefix that specifies that the data following it (up until another prefix) is the name of a client.                                                                                                       |
 | Command/Command input | A command (input) is a specific instruction that you type into the input box to tell Notarius what to do. Commands help you interact with Notarius by performing actions like adding, searching, or deleting data. Commands that do not match actions that can be performed by Notarius will be considered invalid/unknown. |
-| Index                 | Index refers to the position of a client in the list of clients displayed by Notarius. For example, an `INDEX` of 1 refers to the first client in the displayed list.                                                                                                                                                         |
-| Operating System/OS   | The type of computer software that you are using, commonly referred to as OS. Examples include **Windows**, **macOS**, and **Linux**. Click <a href="https://en.wikipedia.org/wiki/Operating_system">here</a> to learn more.                                                                                                  |
-| Whitespace Character  | Usually refer to characters entered by a user's keyboard that are not visible. Examples include spaces (by pressing space-bar), tabs (by pressing the tab key), and new lines (from pressing enter).                                                                                                                          |
-| Blank Inputs          | Inputs entered by you that are either empty or only contain whitespace characters.                                                                                                                                                                                                                                            |
-| GUI                   | Stands for graphical user interface. It is a visual way of interacting with Notarius via menus, lists, buttons, etc.                                                                                                                                                                                                          |
-| Parameter             | A parameter is a piece of information you give to a command so Notarius knows what to do.                                                                                                                                                                                                                                     |
+| Index                 | Index refers to the position of a client in the list of clients displayed by Notarius. For example, an `INDEX` of 1 refers to the first client in the displayed list.                                                                                                                                                       |
+| Operating System/OS   | The type of computer software that you are using, commonly referred to as OS. Examples include **Windows**, **macOS**, and **Linux**. Click <a href="https://en.wikipedia.org/wiki/Operating_system">here</a> to learn more.                                                                                                |
+| Whitespace Character  | Usually refer to characters entered by a user's keyboard that are not visible. Examples include spaces (by pressing space-bar), tabs (by pressing the tab key), and new lines (from pressing enter).                                                                                                                        |
+| Blank Inputs          | Inputs entered by you that are either empty or only contain whitespace characters.                                                                                                                                                                                                                                          |
+| GUI                   | Stands for graphical user interface. It is a visual way of interacting with Notarius via menus, lists, buttons, etc.                                                                                                                                                                                                        |
+| Parameter             | A parameter is a piece of information you give to a command so Notarius knows what to do.                                                                                                                                                                                                                                   |
 
 ## Quick start
 
@@ -177,7 +177,7 @@ Each command starts with a command word, such as `add`, `list`, `exit`, etc.
 <br>
 A command word tells Notarius what action you want to perform, like adding a client contact or listing all client contacts.
 
-<div markdown="span" class="alert alert-primary">:information_source: **Notes about command words:**
+<div markdown="span" class="alert alert-info">:information_source: **Note about command words:**
 <br>
 Commands words are case sensitive. 
 <br>
@@ -192,7 +192,7 @@ Parameters are written in `UPPER_CASE`. These are placeholders you replace with 
 <br>
 Example: In `add n/NAME`, `NAME` is a parameter which can be used as `add n/John Doe`.
 
-<div markdown="span" class="alert alert-primary">:information_source: **Notes about parameters:**
+<div markdown="span" class="alert alert-info">:information_source: **Note about parameters:**
 <br>
 Parameters can be in any order.<br>
 <br>
@@ -225,7 +225,7 @@ Many Tags:
 `t/case44 t/personal injury t/referred`
 
 
-<div markdown="span" class="alert alert-primary">:information_source: **Notes about parameters:**
+<div markdown="span" class="alert alert-info">:information_source: **Note about parameters:**
 <br>
 Extraneous parameters for commands that do not take in parameters (such as `list`, `exit`, `undo` and `clear`) will be ignored.<br>
 <br>
@@ -244,16 +244,29 @@ The `help` command provides guidance on how to use the application, including av
 
 Format: `help [COMMAND]`
 
-![help_Message.png](images/helpMessage.png)
+`COMMAND` is the command word of the command you are trying to get help for.
+
+There are two ways to use the help command:
+
+| Formats        | Purpose                          |
+|----------------|----------------------------------|
+| `help`         | Displays usage for all commands. |
+| `help COMMAND` | Displays specific command usage. |
 
 
-* Display general help message when used without arguments.
-* Provides specific command help with format and example of usage
-  when a valid command name is specified.
-* Case-insensitive command lookup (e.g.`help FiNd` works for `find`).
-* Handles unknown commands gracefully, informing the user if the command does not exist.
+<div markdown="span" class="alert alert-warning">:exclamation: **Constraint:**
+<br>
+The `COMMAND` must be a valid command word.
+</div>
+
+
+<div markdown="span" class="alert alert-primary">:bulb: **Tip:**<br>
+Case-insensitive command lookup (e.g.`help FiNd` works for `find`).
+</div>
+
 
 Examples:
+* `help` displays the usage of all commands.
 * `help add` displays the correct format and usage of the `add` command.
 * `help me` returns: `"Unknown command! Use 'help' to see available commands.`
 
@@ -261,7 +274,7 @@ Examples:
 
 Adds a client contact to the address book.
 
-Format: `add n/NAME p/PHONE_NUMBER e/EMAIL a/ADDRESS [t/TAG] [t/ADDITIONAL TAG]…​`
+Format: `add n/NAME p/PHONE_NUMBER e/EMAIL a/ADDRESS [t/TAG]…​`
 
 <div markdown="span" class="alert alert-primary">:bulb: **Tip:**
 
@@ -269,6 +282,12 @@ Format: `add n/NAME p/PHONE_NUMBER e/EMAIL a/ADDRESS [t/TAG] [t/ADDITIONAL TAG]�
 and this duplicate email will be rejected.
 
 * Any additional white spaces detected in name, address, tags will be trimmed.
+
+<div markdown="block" class="alert alert-warning">
+:exclamation: **Constraints:**<br>
+* A client contact is considered a duplicate if another client contact has the same email(case-insensitive)
+and this duplicate email will be rejected.<br><br>
+* Phone number must be a number with 3 to 15 digits.
 
 </div>
 
@@ -288,13 +307,22 @@ Updates an existing client contact in the address book.
 
 Format: `edit INDEX [n/NAME] [p/PHONE] [e/EMAIL] [a/ADDRESS] [t/TAG] [t/ADDITIONAL TAG]…​`
 
-* Edits the client contact at the specified `INDEX`. The index refers to the index number shown in the displayed client contact list. The index **must be a positive integer** 1, 2, 3, …​
-* You must provide at least one of the optional details to update.
-* Any details you change will replace the old ones.
-* If you edit tags, the old tags are removed and replaced with the new ones.
+* Edits the client contact at the specified `INDEX`. 
+
+<div markdown="block" class="alert alert-warning">
+:exclamation: **Constraints:**<br>
+* A client contact is considered a duplicate if another client contact has the same email(case-insensitive)
+and this duplicate email will be rejected.<br><br>
+* Phone number must be a number with 3 to 15 digits.<br><br>
+* You must provide at least one of the optional details to update.<br><br>
+</div>
+
+<div markdown="block" class="alert alert-info">:information_source: **Notes about editing client contacts:**
+* Any details you change will replace the old ones.<br><br>
+* If you edit tags, the old tags are removed and replaced with the new ones.<br><br>
 * To remove all tags, you can type t/ without adding any tag name after it.
-* A client contact is considered a duplicate if another client contact has the same name(case-insensitive)
-    and this duplicate name will be rejected.
+</div>
+
 
 Examples:
 *  `edit 1 p/91234567 e/johndoe@example.com` Edits the phone number and email address of the 1st contact to be `91234567` and `johndoe@example.com` respectively.
@@ -311,24 +339,32 @@ Format: `find [n/"NAME" "MORE_NAMES"] [p/"PHONE" "MORE_PHONES"]
 [e/"EMAIL" "MORE_EMAILS"] [a/"ADDRESS" "MORE_ADDRESSES"]
 [t/"TAG" "MORE_TAGS"] `
 
-* Use double quotation marks (") around each keyword to ensure correct parsing.
+
+
+
+<div markdown="block" class="alert alert-warning">
+:exclamation: **Constraints:**<br>
+* Use double quotation marks (") around each keyword to ensure correct parsing. <br><br>
 * The search is case-insensitive. e.g the name `hans` will match `Hans`
-* You can search by `name`, `phone number`, `email`, `address`, or `tags`.
-* If no prefix (e.g. n/) is given, find by name is assumed.
-    * e.g. `find Alice Bernice` is treated as `find n/"Alice" "Bernice"`
-* Supports OR search: At least one field must match any of the provided keywords.
+</div>
+
+<div markdown="block" class="alert alert-info">:information_source: **Notes about finding client contacts:**
+* You can search by `name`, `phone number`, `email`, `address`, or `tags`.<br><br>
 * Allows small typos for `name`, `email` and `address` fields:
-    - e.g. Searching for `Alce` will match `Alice`.
+    - e.g. Searching for `David av` will match `David Li`.
     - Searching for `Bbo@example.com` will match `Bob@example.com.`
+* Supports OR search: At least one field must match any of the provided keywords.<br><br>
+* If no prefix (e.g. n/) is given, find by name is assumed.
+    * e.g. `find Alice Bernice` is treated as `find n/"Alice" "Bernice"`<br><br>
 * Supports multiple entries per field:
     - e.g. `find n/"Alice" "Bob" p/"98765432" "91234567"`,
       matches contacts named `Alice` or `Bob`, or with phone numbers `98765432` or `91234567`.
+</div>
 
 Examples:
 * `find Alex` returns `Alex Yeoh`
 * `find p/"87438807" "91031282"` returns `Alex Yeoh` and `David Li`
 * `find n/"Alxe" "Davdi"` returns `Alex Yeoh`, `David Li`<br>
-  ![result for 'find alex david'](images/findAlexDavidResult.png)
 
 
 #### Deleting client contact(s) : `delete`
@@ -340,13 +376,13 @@ depending on your needs:
 
 | Formats                                               | Purpose                                                                                                   |
 |-------------------------------------------------------|-----------------------------------------------------------------------------------------------------------|
-| Single-delete: `delete INDEX`                         | Deletes a **single** client contact at the specified INDEX                                                |
+| Single-delete: `delete INDEX`                         | Deletes a **single** client contact at the specified `INDEX`                                              |
 | Ranged-delete: `delete i/START_INDEX-END_INDEX`       | Deletes **consecutive** client contacts whose indexes are between `START_INDEX` to `END_INDEX` inclusive. |
 | Spaced-delete: `delete i/FIRST_INDEX [MORE_INDEXES]…` | Deletes multiple client contacts from **different** parts of the client contact list by their indexes     |
 
-<div markdown="block" class="alert alert-primary">:bulb: **Tips:**
+<div markdown="block" class="alert alert-primary">:bulb: **Tip:**<br>
 
-* When deleting contacts with same tags, consider using the **find command** followed by **ranged-delete** to speed things up.
+When deleting contacts with same tags, consider using the **find command** followed by **ranged-delete** to speed things up.
 
 </div>
 
@@ -454,13 +490,15 @@ correct sorted order. To maintain the sorted order, you will need to run the `so
 #### Pinning a client contact : `pin`
 
 Pins the specified client contact to the top of the address book.<br>
-Does nothing if they were already pinned.
 
 Format: `pin INDEX`
 
-* Pins the contact at the specified `INDEX` to the top of the list.
-* The index refers to the index number shown in the displayed list.
-* The index **must be a positive integer** 1, 2,3, …​
+Pins the contact at the specified `INDEX` to the top of the list.
+
+<div markdown="block" class="alert alert-info">:information_source: **Note about pinning:**<br>
+If a client contact is already pinned, and you pin them, they will still be pinned.
+</div>
+
 
 Examples:
 * `list` followed by `pin 2` pins the 2nd contact in the address book to the top.
@@ -470,13 +508,14 @@ Examples:
 #### Unpinning a pinned client contact : `unpin`
 
 Unpins the specified contact from the top of the address book if they were previously pinned.<br>
-Does nothing if they were not pinned.
 
 Format: `unpin INDEX`
 
-* Unpins the contact at the specified `INDEX` from the top of the list if they were previously pinned.
-* The index refers to the index number shown in the displayed list.
-* The index **must be a positive integer** 1, 2,3, …​
+Unpins the contact at the specified `INDEX`. 
+
+<div markdown="block" class="alert alert-info">:information_source: **Note about unpinning:**<br>
+If a client contact is already unpinned, and you unpin them, they will still be unpinned.
+</div>
 
 Examples:
 * `list` followed by `unpin 1` unpins the 1st contact in the address book.
@@ -494,9 +533,11 @@ Changes a note of a client contact in the address book.
 
 Format: `note INDEX [nt/NOTE]`
 
-* Changes the note of the client contact at the specified `INDEX`.
-* The index refers to the index number shown in the displayed client contact list.
-* The index **must be a positive integer** 1, 2, 3, …​
+Changes the note of the client contact at the specified `INDEX`.
+
+<div markdown="block" class="alert alert-primary">:bulb: **Tip:** <br>
+You can change a note into a blank note by typing `note INDEX` without a `NOTE`. 
+</div>
 
 Example:
 * `note 3 nt/Away for a long time` changes the note of the 3rd client contact from the top
@@ -511,9 +552,7 @@ Displays the contents of a note of a particular client contact in the address bo
 
 Format: `viewnote INDEX`
 
-* Displays the note of the client contact at the specified `INDEX`.
-* The index refers to the index number shown in the displayed client contact list.
-* The index **must be a positive integer** 1, 2, 3, …​
+Displays the note of the client contact at the specified `INDEX`.
 
 Example:
 * `viewnote 3` displays the note of the 3rd client contact from the top.
@@ -525,7 +564,11 @@ Undoes a command.
 
 Format: `undo`
 
-* There should be a previous command to undo.
+<div markdown="block" class="alert alert-warning">
+:exclamation: **Constraint:**<br>
+There should be a previous command to undo.
+</div>
+
 
 Examples:
 * `undo` undoes the last command.
@@ -537,8 +580,14 @@ Redoes an undone command.
 
 Format: `redo`
 
-* An undone command is a previously typed command that was reversed by the `undo` command
-* There should be an undone command to redo.
+<div markdown="block" class="alert alert-info">:information_source: **Note about redoing:**<br>
+An undone command is a previously typed command that was reversed by the `undo` command <br>
+</div>
+
+<div markdown="block" class="alert alert-warning">
+:exclamation: **Constraint:**<br>
+There should be an undone command to redo.
+</div>
 
 Examples:
 * `redo` redoes the last undone command.

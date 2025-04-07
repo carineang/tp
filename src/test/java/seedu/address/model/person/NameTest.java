@@ -27,8 +27,6 @@ public class NameTest {
         // invalid name
         assertFalse(Name.isValidName("")); // empty string
         assertFalse(Name.isValidName(" ")); // spaces only
-        assertFalse(Name.isValidName("^")); // only non-alphanumeric characters
-        assertFalse(Name.isValidName("peter*")); // contains non-alphanumeric characters
 
         // valid name
         assertTrue(Name.isValidName("peter jack")); // alphabets only
@@ -36,28 +34,13 @@ public class NameTest {
         assertTrue(Name.isValidName("peter the 2nd")); // alphanumeric characters
         assertTrue(Name.isValidName("Capital Tan")); // with capital letters
         assertTrue(Name.isValidName("David Roger Jackson Ray Jr 2nd")); // long names
-    }
-
-    @Test
-    public void isSameName() {
-        Name name = new Name("John");
-
-        // same values -> returns true
-        assertTrue(name.isSameName(new Name("John")));
-        // do not distinguish between upper and lower case values
-        assertTrue(name.isSameName(new Name("john")));
-
-        // same object -> returns true
-        assertTrue(name.isSameName(name));
-
-        // null -> returns false
-        assertFalse(name.isSameName(null));
-
-        // different types -> returns false
-        assertFalse(name.isSameName(5.0f));
-
-        // different values -> returns false
-        assertFalse(name.isSameName(new Name("John Doe")));
+        // different valid names with special characters
+        assertTrue(Name.isValidName("Sinéad O'Connor"));
+        assertTrue(Name.isValidName("Nagaratnam s/o Suppiah"));
+        assertTrue(Name.isValidName("Tan Cheng Bok @ Adrian Tan"));
+        assertTrue(Name.isValidName("Anne-Marie"));
+        assertTrue(Name.isValidName("Beyoncé"));
+        assertTrue(Name.isValidName("J.R. Smith"));
     }
 
     @Test
@@ -78,5 +61,24 @@ public class NameTest {
 
         // different values -> returns false
         assertFalse(name.equals(new Name("Other Valid Name")));
+    }
+
+    @Test
+    public void constructor_validNameWithExtraSpaces_normalizesName() {
+        // leading and trailing spaces
+        Name nameWithExtraSpaces = new Name("   John Doe   ");
+        assertTrue(nameWithExtraSpaces.toString().equals("John Doe"));
+
+        // multiple spaces between words
+        nameWithExtraSpaces = new Name("John   Doe");
+        assertTrue(nameWithExtraSpaces.toString().equals("John Doe"));
+
+        // multiple spaces between words and leading/trailing spaces
+        nameWithExtraSpaces = new Name("   John   Doe   ");
+        assertTrue(nameWithExtraSpaces.toString().equals("John Doe"));
+
+        // multiple consecutive spaces
+        nameWithExtraSpaces = new Name("John           Doe");
+        assertTrue(nameWithExtraSpaces.toString().equals("John Doe"));
     }
 }
