@@ -653,15 +653,13 @@ Priorities: High (must have) - `* * *`, Medium (nice to have) - `* *`, Low (unli
   * Steps 1d-1d2 are repeated until the contact identifier is valid.
   * Use case resumes from step 2.
 
-
-
 **System**: `Notarius`
 
 **Use Case**: `UC04 - Changing a Note of a Client Contact`
 
 **Actor**: `User`
 
-**Guarantees**: `A new note is added to the contact.`
+**Guarantees**: `If MSS reaches step 2, the note of the client contact is changed.`
 
 **MSS**:
 
@@ -672,33 +670,16 @@ Priorities: High (must have) - `* * *`, Medium (nice to have) - `* *`, Low (unli
 
 **Extensions**:
 
-* 1a. Notarius uncovers a missing description field in the entered input.
-  * 1a1. Notarius displays the error message.
-  * 1a2. User retypes the command with the description field.
-  * Use case resumes from step 2.
-
-* 1b. Notarius is unable to find the specified contact.
+* 1a. Notarius is unable to find the specified client contact.
   * 1b1. Notarius alerts the user about the error.
   * 1b2. User retypes the command.
-  * Steps 1b-1b2 are repeated until the contact specified exists.
+  * Steps 1b-1b2 are repeated until the client contact specified exists.
   * Use case resumes from step 2.
 
-* 1c. Notarius uncovers an invalid note description.
-  * 1c1. Notarius alerts the user about the error.
-  * 1c2. User retypes the command with a valid note description format.
-  * Steps 1c-1c2 are repeated until the note description format is valid.
-  * Use case resumes from step 2.
-
-* 1d. Notarius uncovers an empty field description.
-  * 1d1. Notarius alerts the user about the issue.
-  * 1d2. User retypes the command with a non-empty value for the specified field.
-  * Steps 1d-1d2 are repeated until the field is no longer empty.
-  * Use case resumes from step 2.
-
-* 1e. Notarius uncovers an invalid contact identifier.
-  * 1e1. Notarius alerts the user about the issue.
-  * 1e2. User retypes the command with a valid contact identifier format.
-  * Steps 1e-1e2 are repeated until the contact identifier is valid.
+* 1b. Notarius uncovers an invalid contact identifier.
+  * 1b1. Notarius alerts the user about the error.
+  * 1b2. User retypes the command with a valid contact identifier format.
+  * Steps 1b-1b2 are repeated until the contact identifier is valid.
   * Use case resumes from step 2.
 
 **System**: `Notarius`
@@ -707,7 +688,7 @@ Priorities: High (must have) - `* * *`, Medium (nice to have) - `* *`, Low (unli
 
 **Use Case**: `UC05 - Viewing a Note of a client contact`
 
-**Guarantees**: `All notes belonging to the specified contact are displayed.`
+**Guarantees**: `If MSS reaches step 2, the note of the client contact is displayed`
 
 **MSS**:
 
@@ -718,22 +699,18 @@ Priorities: High (must have) - `* * *`, Medium (nice to have) - `* *`, Low (unli
 
 **Extensions**:
 
-* 1a. Notarius is unable to find the specified contact.
-  * 1a1. Notarius alerts the user about the error.
-  * 1a2. User retypes the command.
-  * Steps 1a-1a2 are repeated until the contact specified exists.
+* 1a. Notarius is unable to find the specified client contact.
+  * 1b1. Notarius alerts the user about the error.
+  * 1b2. User retypes the command.
+  * Steps 1b-1b2 are repeated until the client contact specified exists.
   * Use case resumes from step 2.
 
 * 1b. Notarius uncovers an invalid contact identifier.
-  * 1b1. Notarius alerts the user about the issue.
+  * 1b1. Notarius alerts the user about the error.
   * 1b2. User retypes the command with a valid contact identifier format.
   * Steps 1b-1b2 are repeated until the contact identifier is valid.
   * Use case resumes from step 2.
-
-* 2a. Notarius cannot find any notes related to the contact.
-  * 2a1. Notarius displays a blank note.
-  * Use case ends.
-
+ 
 **System**: `Notarius`
 
 **Actor**: `User`
