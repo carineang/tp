@@ -321,18 +321,27 @@ Format: `find [n/"NAME" "MORE_NAMES"] [p/"PHONE" "MORE_PHONES"]
 [e/"EMAIL" "MORE_EMAILS"] [a/"ADDRESS" "MORE_ADDRESSES"]
 [t/"TAG" "MORE_TAGS"] `
 
-* Use double quotation marks (") around each keyword to ensure correct parsing.
+
+
+
+<div markdown="block" class="alert alert-warning">
+:exclamation: **Constraints:**<br>
+* Use double quotation marks (") around each keyword to ensure correct parsing. <br><br>
 * The search is case-insensitive. e.g the name `hans` will match `Hans`
-* You can search by `name`, `phone number`, `email`, `address`, or `tags`.
-* If no prefix (e.g. n/) is given, find by name is assumed.
-    * e.g. `find Alice Bernice` is treated as `find n/"Alice" "Bernice"`
-* Supports OR search: At least one field must match any of the provided keywords.
+</div>
+
+<div markdown="block" class="alert alert-primary">:bulb: **Tips:**
+* You can search by `name`, `phone number`, `email`, `address`, or `tags`.<br><br>
 * Allows small typos for `name`, `email` and `address` fields:
     - e.g. Searching for `Alce` will match `Alice`.
-    - Searching for `Bbo@example.com` will match `Bob@example.com.`
+    - Searching for `Bbo@example.com` will match `Bob@example.com.`<br><br>
+* Supports OR search: At least one field must match any of the provided keywords.<br><br>
+* If no prefix (e.g. n/) is given, find by name is assumed.
+    * e.g. `find Alice Bernice` is treated as `find n/"Alice" "Bernice"`<br><br>
 * Supports multiple entries per field:
     - e.g. `find n/"Alice" "Bob" p/"98765432" "91234567"`,
       matches contacts named `Alice` or `Bob`, or with phone numbers `98765432` or `91234567`.
+</div>
 
 Examples:
 * `find Alex` returns `Alex Yeoh`
