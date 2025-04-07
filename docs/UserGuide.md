@@ -56,7 +56,7 @@ Here is a list of commonly used terminology to provide better clarity.
    **Mac users:** Ensure you have the precise JDK version prescribed [here](https://se-education.org/guides/tutorials/javaInstallationMac.html).
 
 1. Download the latest `.jar` file from [here](https://github.com/AY2425S2-CS2103T-T17-1/tp/releases).<br>
-   * Under `Assets` of the latest release, click on `Notarius.jar` to download it.
+   * Under `Assets` of the latest release, click on `[CS2103T-T17-1][Notarius].jar` to download it.
 
 1. Copy the file to an empty folder where you want to store all your contact information for Notarius.
 
@@ -66,7 +66,8 @@ Here is a list of commonly used terminology to provide better clarity.
 <div markdown="block" class="alert alert-primary">Windows
     
     1. Copy the path of the folder
-        - Right-click the folder and select "Copy as Path".
+        - Right-click the folder.
+        - Select "Copy as Path".
 
     2. Open a command terminal
         - Press Win + X, then select Terminal.
@@ -75,7 +76,7 @@ Here is a list of commonly used terminology to provide better clarity.
         - Type "cd" and paste the copied path, then press Enter.
 
     4. Run the application
-        - Type "java -jar Notarius.jar" and press Enter.
+        - Type "java -jar [CS2103T-T17-1][Notarius].jar" and press Enter.
 
 
 </div>
@@ -84,7 +85,8 @@ Here is a list of commonly used terminology to provide better clarity.
 <div markdown="block" class="alert alert-info">MacOS
     
     1. Copy the path of the folder
-        - Right-click the folder, hold Opt, then click "Copy (folder name) as Pathname".
+        - Right-click the folder, hold Opt.
+        - Click "Copy (folder name) as Pathname".
 
     2. Open a command terminal
         - Press Cmd + Space to open Spotlight, type "Terminal", and press Enter.
@@ -93,7 +95,7 @@ Here is a list of commonly used terminology to provide better clarity.
         - Type "cd" and paste the copied path, then press Enter.
 
     4. Run the application
-        - Type "java -jar Notarius.jar" and press Enter.
+        - Type "java -jar [CS2103T-T17-1][Notarius].jar" and press Enter.
 
 </div>
 
@@ -101,7 +103,7 @@ Here is a list of commonly used terminology to provide better clarity.
     
 
     1. Copy the path of the folder
-        - Click the address bar of the folder (this might require pressing Ctrl + L).
+        - Click the address bar of the folder(this might require pressing Ctrl + L).
         - Copy with Ctrl + C.
 
     2. Open a command terminal
@@ -111,7 +113,7 @@ Here is a list of commonly used terminology to provide better clarity.
         - Type "cd" and paste the copied path, then press Enter.
 
     4. Run the application
-        - Type "java -jar Notarius.jar" and press Enter.
+        - Type "java -jar [CS2103T-T17-1][Notarius].jar" and press Enter.
 
 </div>
 
@@ -355,8 +357,7 @@ Format: `find [n/"NAME" "MORE_NAMES"] [p/"PHONE" "MORE_PHONES"]
 * You can search by `name`, `phone number`, `email`, `address`, or `tags`.<br><br>
 * Allows small typos for `name`, `email` and `address` fields:
     - e.g. Searching for `David av` will match `David Li`.
-    - Searching for `Bbo@example.com` will match `Bob@example.com.`
-* Supports OR search: At least one field must match any of the provided keywords.<br><br>
+    - Searching for `Bbo@example.com` will match `Bob@example.com.`<br><br>
 * If no prefix (e.g. n/) is given, find by name is assumed.
     * e.g. `find Alice Bernice` is treated as `find n/"Alice" "Bernice"`<br><br>
 * Supports multiple entries per field:
@@ -366,9 +367,9 @@ Format: `find [n/"NAME" "MORE_NAMES"] [p/"PHONE" "MORE_PHONES"]
 
 Examples:
 * `find Alex` returns `Alex Yeoh`
-* `find p/"87438807" "91031282"` returns `Alex Yeoh` and `David Li`
-* `find n/"Alxe" "Davdi"` returns `Alex Yeoh`, `David Li`<br>
-
+* `find n/"Alxe" "Davdi"` returns `Alex Yeoh`, `David Li`
+* `find p/"87438807" "91031282"` returns `Alex Yeoh` and `David Li`<br>
+![findAlexDavidResult.png](images/findAlexDavidResult.png)
 
 #### Deleting client contact(s) : `delete`
 
@@ -704,6 +705,7 @@ A: Please refer to the [Command Summary](#command-summary) for the list of avail
 
 1. **When using multiple screens**, if you move the application to a secondary screen, and later switch to using only the primary screen, the GUI will open off-screen. The remedy is to delete the `preferences.json` file created by the application before running the application again.
 2. **If you minimize the Help Window** and then run the `help` command (or use the `Help` menu, or the keyboard shortcut `F1`) again, the original Help Window will remain minimized, and no new Help Window will appear. The remedy is to manually restore the minimized Help Window.
+3. When specifying the index of commands that take in an `INDEX` as parameter(s) (such as `delete INDEX`, `pin INDEX`, `unpin INDEX`, `viewnote INDEX`, `edit INDEX ...`, etc.), if the `INDEX` specified is **not** a positive integer **within** the range of 1 and 2147483647 **inclusive**, the application will show "Invalid command format!" instead.
 
 --------------------------------------------------------------------------------------------------------------------
 
