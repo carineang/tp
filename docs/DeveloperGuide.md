@@ -1243,33 +1243,23 @@ Each test case in this feature section (labelled "Test case") should be independ
 ### Sorting contacts list
 
 1. Sorting contacts list in Notarius
-
    1. Prerequisites: Notarius contains a list of contacts.
-   
    2. Test case: `sort n/`<br>
    Expected: Displays all contacts sorted by names in ascending order.
-
    3. Test case: `sort p/`<br>
    Expected: Displays all contacts sorted by phone numbers in ascending order.
-
    4. Test case: `sort e/`<br>
    Expected: Displays all contacts sorted by email addresses in ascending order.
-
    5. Test case: `sort a/`<br>
    Expected: Displays all contacts sorted by addresses in ascending order.
-
    6. Test case: `sort t/`<br>
    Expected: Displays all contacts sorted by tags in ascending order.
-
    7. Test case: `sort t/ n/`<br>
    Expected: Displays all contacts sorted by tags, followed by names in ascending order.
-
    8. Test case: `sort t/ p/`<br>
    Expected: Displays all contacts sorted by tags, followed by phone numbers in ascending order.
-
    9. Test case: `sort t/ e/`<br>
    Expected: Displays all contacts sorted by tags, followed by email addresses in ascending order.
-
    10. Test case: `sort t/ a/`<br>
    Expected: Displays all contacts sorted by tags, followed by addresses in ascending order.
 
