@@ -240,15 +240,14 @@ all contacts by the target prefix.
 the completion of the `sort` command.
 
 #### Design Considerations
+**Aspect: Determining the level of multi-attributes sorting for contacts**
+* **Alternative 1 (current choice):** Support multi-level sorting for up to two attributes, with tags as first attribute
+  * Pros: It is easier for users to understand and use. Sorting by tags first allows contacts to be grouped into respective clusters, making it easier to find related contacts.
+  * Cons: For users with complex needs, limiting sorting to two attributes may be restrictive. They may need the ability to sort by more attributes to meet their requirements.
 
-* Sorting Commands
-  * Sorting commands should be easy for users to understand and having consistent naming conventions.
-* Multi-level Sorting with Tags as First Attribute
-  * Tags often represent the most significant context about a contact. Sorting by tags first allows user to immediately group contacts into logical clusters. 
-  Within the cluster, sorting by other attributes provides a nested, hierarchically meaningful structure.
-  * Provides flexibility for users to organize and sort their contacts based on two attributes, the first attribute should be `tag`, second attribute should be `name`, `phone`, `email`, `address`.
-* Sorting with more than two attributes (Not Implemented)
-  * It will be overcomplicated for the system and the user, making it less intuitive and not user-friendly.
+* **Alternative 2:** Support multi-level sorting for more than two attributes
+  * Pros: Advanced users with specific needs (e.g., sorting by tag, then name, then phone number) can get more control and precision in how they organize their contacts.
+  * Cons: It might slow down the system, especially if the dataset is large or if sorting requires a lot of computation. 
 
 ### Find feature
 
@@ -1275,33 +1274,23 @@ Each test case in this feature section (labelled "Test case") should be independ
 ### Sorting contacts list
 
 1. Sorting contacts list in Notarius
-
    1. Prerequisites: Notarius contains a list of contacts.
-   
    2. Test case: `sort n/`<br>
    Expected: Displays all contacts sorted by names in ascending order.
-
    3. Test case: `sort p/`<br>
    Expected: Displays all contacts sorted by phone numbers in ascending order.
-
    4. Test case: `sort e/`<br>
    Expected: Displays all contacts sorted by email addresses in ascending order.
-
    5. Test case: `sort a/`<br>
    Expected: Displays all contacts sorted by addresses in ascending order.
-
    6. Test case: `sort t/`<br>
    Expected: Displays all contacts sorted by tags in ascending order.
-
    7. Test case: `sort t/ n/`<br>
    Expected: Displays all contacts sorted by tags, followed by names in ascending order.
-
    8. Test case: `sort t/ p/`<br>
    Expected: Displays all contacts sorted by tags, followed by phone numbers in ascending order.
-
    9. Test case: `sort t/ e/`<br>
    Expected: Displays all contacts sorted by tags, followed by email addresses in ascending order.
-
    10. Test case: `sort t/ a/`<br>
    Expected: Displays all contacts sorted by tags, followed by addresses in ascending order.
 
@@ -1376,9 +1365,23 @@ is already a known issue.
 The additional reasons include exceeding the maximum number of unique indexes that can be deleted of 100, or when `START_INDEX` > `END_INDEX` for the range-format.
 
 #### Planned:
+
+The application should be able to provide more informative error messages such as "Maximum number of contacts exceeded" when
+the maximum number of unique indexes specified for deletion exceeds 100, or for range-formats, when the start index and end index do not conform to the constraints
+specified in the user guide.
+
+### 6. Selecting a client contact in contact list
+
+#### Current:
+When a new command is called, the selected contact in the contact list will be unselected by the application.
+
+#### Planned:
+The client contact will still be selected even though a new command is called. In addition, users can have the option to select or unselect the client contact.
+
 The application should provide more informative and specific error messages that contain the reason for failing to delete contact(s),
 such as when the number of unique indexes to be deleted exceeds 100 (e.g., "Maximum number of contacts exceeded").
 
 It should also display relevant error messages when the indexes specified in the format do not comply with the constraints
 specified in the user guide for their respective formats. For example, displaying that the start and end index of a ranged-delete 
 is out-of-order when `START_INDEX` is greater than `END_INDEX`, or displaying which specified index was invalid if multiple indexes are provided.
+
