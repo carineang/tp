@@ -167,7 +167,7 @@ Each command starts with a command word, such as `add`, `list`, `exit`, etc.
 <br>
 A command word tells Notarius what action you want to perform, like adding a client contact or listing all client contacts.
 
-<div markdown="span" class="alert alert-primary">:information_source: **Notes about command words:**
+<div markdown="span" class="alert alert-info">:information_source: **Note about command words:**
 <br>
 Commands words are case sensitive. 
 <br>
@@ -182,7 +182,7 @@ Parameters are written in `UPPER_CASE`. These are placeholders you replace with 
 <br>
 Example: In `add n/NAME`, `NAME` is a parameter which can be used as `add n/John Doe`.
 
-<div markdown="span" class="alert alert-primary">:information_source: **Notes about parameters:**
+<div markdown="span" class="alert alert-info">:information_source: **Note about parameters:**
 <br>
 Parameters can be in any order.<br>
 <br>
@@ -215,7 +215,7 @@ Many Tags:
 `t/case44 t/personal injury t/referred`
 
 
-<div markdown="span" class="alert alert-primary">:information_source: **Notes about parameters:**
+<div markdown="span" class="alert alert-info">:information_source: **Note about parameters:**
 <br>
 Extraneous parameters for commands that do not take in parameters (such as `list`, `exit`, `undo` and `clear`) will be ignored.<br>
 <br>
@@ -250,7 +250,7 @@ The `COMMAND` must be a valid command word.
 </div>
 
 
-<div markdown="span" class="alert alert-primary">:bulb: **Tip:**
+<div markdown="span" class="alert alert-primary">:bulb: **Tip:**<br>
 Case-insensitive command lookup (e.g.`help FiNd` works for `find`).
 </div>
 
@@ -299,7 +299,7 @@ and this duplicate email will be rejected.<br><br>
 * You must provide at least one of the optional details to update.<br><br>
 </div>
 
-<div markdown="block" class="alert alert-primary">:information_source: **Notes about editing client contacts:**
+<div markdown="block" class="alert alert-info">:information_source: **Notes about editing client contacts:**
 * Any details you change will replace the old ones.<br><br>
 * If you edit tags, the old tags are removed and replaced with the new ones.<br><br>
 * To remove all tags, you can type t/ without adding any tag name after it.
@@ -330,7 +330,7 @@ Format: `find [n/"NAME" "MORE_NAMES"] [p/"PHONE" "MORE_PHONES"]
 * The search is case-insensitive. e.g the name `hans` will match `Hans`
 </div>
 
-<div markdown="block" class="alert alert-primary">:information_source: **Notes about finding client contacts:**
+<div markdown="block" class="alert alert-info">:information_source: **Notes about finding client contacts:**
 * You can search by `name`, `phone number`, `email`, `address`, or `tags`.<br><br>
 * Allows small typos for `name`, `email` and `address` fields:
     - e.g. Searching for `Alce` will match `Alice`.
@@ -362,9 +362,9 @@ depending on your needs:
 | Ranged-delete: `delete i/START_INDEX-END_INDEX`       | Deletes **consecutive** client contacts whose indexes are between `START_INDEX` to `END_INDEX` inclusive. |
 | Spaced-delete: `delete i/FIRST_INDEX [MORE_INDEXES]…` | Deletes multiple client contacts from **different** parts of the client contact list by their indexes     |
 
-<div markdown="block" class="alert alert-primary">:bulb: **Tips:**
+<div markdown="block" class="alert alert-primary">:bulb: **Tip:**<br>
 
-* When deleting contacts with same tags, consider using the **find command** followed by **ranged-delete** to speed things up.
+When deleting contacts with same tags, consider using the **find command** followed by **ranged-delete** to speed things up.
 
 </div>
 
@@ -459,11 +459,15 @@ correct sorted order. To maintain the sorted order, you will need to run the `so
 #### Pinning a client contact : `pin`
 
 Pins the specified client contact to the top of the address book.<br>
-Does nothing if they were already pinned.
 
 Format: `pin INDEX`
 
-* Pins the contact at the specified `INDEX` to the top of the list.
+Pins the contact at the specified `INDEX` to the top of the list.
+
+<div markdown="block" class="alert alert-info">:information_source: **Note about pinning:**<br>
+If a client contact is already pinned, and you pin them, they will still be pinned.
+</div>
+
 
 Examples:
 * `list` followed by `pin 2` pins the 2nd contact in the address book to the top.
@@ -473,11 +477,14 @@ Examples:
 #### Unpinning a pinned client contact : `unpin`
 
 Unpins the specified contact from the top of the address book if they were previously pinned.<br>
-Does nothing if they were not pinned.
 
 Format: `unpin INDEX`
 
-* Unpins the contact at the specified `INDEX` from the top of the list if they were previously pinned.
+Unpins the contact at the specified `INDEX`. 
+
+<div markdown="block" class="alert alert-info">:information_source: **Note about unpinning:**<br>
+If a client contact is already unpinned, and you unpin them, they will still be unpinned.
+</div>
 
 Examples:
 * `list` followed by `unpin 1` unpins the 1st contact in the address book.
@@ -495,8 +502,11 @@ Changes a note of a client contact in the address book.
 
 Format: `note INDEX [nt/NOTE]`
 
-* Changes the note of the client contact at the specified `INDEX`.
+Changes the note of the client contact at the specified `INDEX`.
 
+<div markdown="block" class="alert alert-primary">:bulb: **Tip:** <br>
+You can change a note into a blank note by typing `note INDEX` without a `NOTE`. 
+</div>
 
 Example:
 * `note 3 nt/Away for a long time` changes the note of the 3rd client contact from the top
@@ -511,7 +521,7 @@ Displays the contents of a note of a particular client contact in the address bo
 
 Format: `viewnote INDEX`
 
-* Displays the note of the client contact at the specified `INDEX`.
+Displays the note of the client contact at the specified `INDEX`.
 
 Example:
 * `viewnote 3` displays the note of the 3rd client contact from the top.
@@ -523,7 +533,11 @@ Undoes a command.
 
 Format: `undo`
 
-* There should be a previous command to undo.
+<div markdown="block" class="alert alert-warning">
+:exclamation: **Constraint:**<br>
+There should be a previous command to undo.
+</div>
+
 
 Examples:
 * `undo` undoes the last command.
@@ -535,8 +549,14 @@ Redoes an undone command.
 
 Format: `redo`
 
-* An undone command is a previously typed command that was reversed by the `undo` command
-* There should be an undone command to redo.
+<div markdown="block" class="alert alert-info">:information_source: **Note about redoing:**<br>
+An undone command is a previously typed command that was reversed by the `undo` command <br>
+</div>
+
+<div markdown="block" class="alert alert-warning">
+:exclamation: **Constraint:**<br>
+There should be an undone command to redo.
+</div>
 
 Examples:
 * `redo` redoes the last undone command.
