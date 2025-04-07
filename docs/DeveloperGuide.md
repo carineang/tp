@@ -614,9 +614,6 @@ Priorities: High (must have) - `* * *`, Medium (nice to have) - `* *`, Low (unli
   * Steps 1a-1b are repeated until the user input is not empty.
   * Use case resumes from step 2.
 
-
-
-
 **System**: `Notarius`
 
 **Actor**: `User`
@@ -660,7 +657,7 @@ Priorities: High (must have) - `* * *`, Medium (nice to have) - `* *`, Low (unli
 
 **System**: `Notarius`
 
-**Use Case**: `UC04 - Adding a note to contact`
+**Use Case**: `UC04 - Changing a Note of a Client Contact`
 
 **Actor**: `User`
 
@@ -668,8 +665,8 @@ Priorities: High (must have) - `* * *`, Medium (nice to have) - `* *`, Low (unli
 
 **MSS**:
 
-1. User requests to add a note to a contact.
-2. Notarius adds the note to the contact’s list of notes and confirms the successful addition of the note.
+1. User requests to change a note to a contact.
+2. Notarius changes the note of the client contact and confirms the successful change of the note.
 
    Use case ends.
 
@@ -706,103 +703,9 @@ Priorities: High (must have) - `* * *`, Medium (nice to have) - `* *`, Low (unli
 
 **System**: `Notarius`
 
-**Use Case**: `UC05 - Editing a note of a contact`
-
 **Actor**: `User`
 
-**Guarantees**: `The specified fields of the note are updated to the correct values.`
-
-**MSS**:
-
-1. User requests to edit a field of a specified note of a contact.
-2. Notarius updates the note and confirms the note has been successfully edited.
-
-   Use case ends.
-
-**Extensions**:
-
-* 1a. Notarius uncovers an invalid note identifier.
-  * 1a1. Notarius alerts the user about the issue.
-  * 1a2. User retypes the command with a valid note identifier format.
-  * Steps 1a-1a2 are repeated until the contact identifier is valid.
-  * Use case resumes from step 2.
-
-* 1b. Notarius is unable to find the specified contact.
-  * 1b1. Notarius alerts the user about the error.
-  * 1b2. User retypes the command.
-  * Steps 1b-1b2 are repeated until the contact specified exists.
-  * Use case resumes from step 2.
-
-* 1c. Notarius is unable to find the specified note.
-  * 1c1. Notarius alerts the user of the error.
-  * 1c2. User retypes the command.
-  * Steps 1c-1c2 are repeated until the specified note exists.
-  * Use case resumes from step 2.
-
-* 1d. Notarius uncovers an invalid note description.
-  * 1d1. Notarius alerts the user about the error.
-  * 1d2. User retypes the command with a valid note description format.
-  * Steps 1d-1d2 are repeated until the note description is valid.
-  * Use case resumes from step 2.
-
-* 1e. Notarius uncovers an empty field description.
-  * 1e1. Notarius alerts the user about the issue.
-  * 1e2. User retypes the command with a non-empty value for the specified field.
-  * Steps 1e-1e2 are repeated until the field is no longer empty.
-  * Use case resumes from step 2.
-
-* 1f. Notarius uncovers an invalid contact identifier.
-  * 1f1. Notarius alerts the user about the issue.
-  * 1f2. User retypes the command with a valid contact identifier format.
-  * Steps 1f-1f2 are repeated until the contact identifier is valid.
-  * Use case resumes from step 2.
-
-**System**: `Notarius`
-
-**Actor**: `User`
-
-**Use Case**: `UC06 - Deleting a note of a contact.`
-
-**Guarantees**: `The specified note is deleted successfully.`
-
-**MSS**:
-
-1. User specifies the note of a contact to delete.
-2. System deletes the note and confirms the successful deletion.
-
-   Use case ends.
-
-**Extensions**:
-
-* 1a. Notarius is unable to find the specified note.
-  * 1a1. Notarius alerts the user of the error.
-  * 1a2. User retypes the command.
-  * Steps 1a-1a2 are repeated until the specified note exists.
-  * Use case resumes from step 2.
-
-* 1b. Notarius uncovers an invalid note identifier.
-  * 1b1. Notarius alerts the user about the issue.
-  * 1b2. User retypes the command with a valid note identifier format.
-  * Steps 1b-1b2 are repeated until the contact identifier is valid.
-  * Use case resumes from step 2.
-
-* 1c. Notarius is unable to find the specified contact.
-  * 1c1. Notarius alerts the user about the error.
-  * 1c2. User retypes the command.
-  * Steps 1c-1c2 are repeated until the contact specified exists.
-  * Use case resumes from step 2.
-
-* 1d. Notarius uncovers an invalid contact identifier.
-  * 1d1. Notarius alerts the user about the issue.
-  * 1d2. User retypes the command with a valid contact identifier format.
-  * Steps 1d-1d2 are repeated until the contact identifier is valid.
-  * Use case resumes from step 2.
-
-**System**: `Notarius`
-
-**Actor**: `User`
-
-**Use Case**: `UC07 - Getting all notes belonging to a contact`
+**Use Case**: `UC05 - Viewing a Note of a client contact`
 
 **Guarantees**: `All notes belonging to the specified contact are displayed.`
 
@@ -835,7 +738,7 @@ Priorities: High (must have) - `* * *`, Medium (nice to have) - `* *`, Low (unli
 
 **Actor**: `User`
 
-**Use Case**: `UC08 - Accessing an input from the command history`
+**Use Case**: `UC06 - Accessing an input from the command history`
 
 **Preconditions**: `Command history is open.`
 
@@ -867,7 +770,7 @@ Priorities: High (must have) - `* * *`, Medium (nice to have) - `* *`, Low (unli
 
 **Actor**: `User`
 
-**Use Case**: `UC09 - Sorting the contacts list`
+**Use Case**: `UC07 - Sorting the contacts list`
 
 **Guarantees**: `If MSS reaches step 3, the user has successfully sorted the contacts list by a specified prefix.`
 
@@ -905,13 +808,11 @@ Priorities: High (must have) - `* * *`, Medium (nice to have) - `* *`, Low (unli
   * Steps 1d1 - 1d2 are repeated until a valid command with no duplicate prefixes is input by the User.
   * Use case resumes from step 2.
 
-
-
 **System**: `Notarius`
 
 **Actor**: `User`
 
-**Use Case**: `UC10 - Clearing the contacts list`
+**Use Case**: `UC08 - Clearing the contacts list`
 
 **Guarantees**: `If MSS reaches step 3, the user has successfully cleared the contacts list.`
 
@@ -927,7 +828,7 @@ Priorities: High (must have) - `* * *`, Medium (nice to have) - `* *`, Low (unli
 
 **Actor**: `User`
 
-**Use Case**: `UC11 - Listing all contacts`
+**Use Case**: `UC09 - Listing all contacts`
 
 **Guarantees**: `If MSS reaches step 3, the user has successfully listed all the contacts.`
 
@@ -944,7 +845,7 @@ Priorities: High (must have) - `* * *`, Medium (nice to have) - `* *`, Low (unli
 
 **Actor**: `User`
 
-**Use Case**: `UC12 - Displaying Help Information`
+**Use Case**: `UC10 - Displaying Help Information`
 
 **Guarantees**: `If MSS reaches step 2, the requested help information will be displayed.`
 
@@ -971,7 +872,7 @@ Priorities: High (must have) - `* * *`, Medium (nice to have) - `* *`, Low (unli
 
 **Actor**: `User`
 
-**Use Case**: `UC13 - Finding a Contact`
+**Use Case**: `UC11 - Finding a Contact`
 
 **Guarantees**: `If MSS reaches step 3, a list of matching contacts will be displayed.`
 
@@ -1011,9 +912,9 @@ allowing minor typos (up to a Levenshtein distance of 2) in the name, email, and
 
 **Actor**: `User`
 
-**Use Case**: `UC14 - Undoing a Command`
+**Use Case**: `UC12 - Undoing a Command`
 
-**Guarantees**: `If MSS reaches step 3, contacts list would have been returned to the state
+**Guarantees**: `If MSS reaches step 2, contacts list would have been returned to the state
 before the previous command was executed`
 
 **MSS**:
@@ -1022,7 +923,6 @@ before the previous command was executed`
 2. Notarius restores the contacts list to the state before the last command was executed.
 
    Use case ends.
-
 
 **Extensions**:
 
@@ -1035,9 +935,9 @@ before the previous command was executed`
 
 **Actor**: `User`
 
-**Use Case**: `UC15 - Redoing a Command`
+**Use Case**: `UC13 - Redoing a Command`
 
-**Guarantees**: `If MSS reaches step 3, contacts list would have been returned to the state
+**Guarantees**: `If MSS reaches step 2, contacts list would have been returned to the state
 before the previous undo was executed`
 
 **MSS**:
