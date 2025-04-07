@@ -1207,19 +1207,7 @@ Each test case in this feature section (labelled "Test case") should be independ
 
 ## **Appendix: Planned Enhancements**:
 
-### 1. Allow for special characters in names
-#### Current:
-Special characters are not allowed to be entered as part of a person's name such as via the add or edit command. <br>
-
-Valid names with special characters like: <br>
-Sinéad O'Connor, Nagaratnam s/o Suppiah, Tan Cheng Bok @ Adrian Tan, Anne-Marie, Beyoncé, J.R. Smith 
-<br>
-are not accepted.
-
-#### Planned:
-Allow for special characters in names. 
-
-### 2. Allow for international phone number format to be entered
+### 1. Allow for international phone number format to be entered
 
 #### Current:
 In phone input fields, user only can enter a number. This restricts the user from being able to enter country codes.
@@ -1230,7 +1218,7 @@ international client contacts.
 To enhance usability and global compatibility. We should allow the user to enter the country code along with the phone number 
 in phone input fields.
 
-### 3. Bulk tag deletion capability
+### 2. Bulk tag deletion capability
 
 #### Current:
 Via the edit command, all tags can be deleted or tags can be replaced with new ones. 
@@ -1241,7 +1229,7 @@ they do not want to replace.
 #### Planned:
 Add a command to delete multiple tags from a client contact.
 
-### 4. Support for longer notes.
+### 3. Support for longer notes.
 
 #### Current:
 Notes are entered through a command line and are designed to write short and simple notes. However, users may 
