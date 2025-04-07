@@ -688,7 +688,7 @@ Priorities: High (must have) - `* * *`, Medium (nice to have) - `* *`, Low (unli
 
 **Use Case**: `UC05 - Viewing a Note of a client contact`
 
-**Guarantees**: `If MSS reaches step 2, the note of the client contact is displayed`
+**Guarantees**: `If MSS reaches step 2, the note of the client contact is displayed.`
 
 **MSS**:
 
