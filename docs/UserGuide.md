@@ -76,7 +76,7 @@ Here is a list of commonly used terminology to provide better clarity.
         - Type "cd" and paste the copied path, then press Enter.
 
     4. Run the application
-        - Type "java -jar Notarius.jar" and press Enter.
+        - Type "java -jar [CS2103T-T17-1][Notarius].jar" and press Enter.
 
 
 </div>
@@ -95,7 +95,7 @@ Here is a list of commonly used terminology to provide better clarity.
         - Type "cd" and paste the copied path, then press Enter.
 
     4. Run the application
-        - Type "java -jar Notarius.jar" and press Enter.
+        - Type "java -jar [CS2103T-T17-1][Notarius].jar" and press Enter.
 
 </div>
 
@@ -113,7 +113,7 @@ Here is a list of commonly used terminology to provide better clarity.
         - Type "cd" and paste the copied path, then press Enter.
 
     4. Run the application
-        - Type "java -jar Notarius.jar" and press Enter.
+        - Type "java -jar [CS2103T-T17-1][Notarius].jar" and press Enter.
 
 </div>
 
