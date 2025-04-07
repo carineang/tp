@@ -1271,5 +1271,5 @@ The additional reasons include exceeding the maximum number of unique indexes th
 
 #### Planned:
 The application should be able to provide more informative error messages such as "Maximum number of contacts exceeded" when
-the maximum number of unique indexes that can be deleted exceeds 100, or for range-formats, when the start index and end index do not conform to the constraints
-specified in the user guide (such as the `START_INDEX` > `END_INDEX`, or any of the indexes specified in the format are invalid).
+the maximum number of unique indexes that can be deleted exceeds 100, or to display a relevant error messages when the indexes specified in the format do not conform to the constraints
+specified in the user guide for their respective formats, (such as `START_INDEX` > `END_INDEX` for ranged-delete format, and for all delete formats, when some of the indexes specified are invalid).
