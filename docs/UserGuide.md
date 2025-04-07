@@ -142,25 +142,25 @@ A GUI similar to the below should appear in a few seconds. Note how the app cont
 ## Navigating the GUI
 
 1. At the main window, you can type the commands in the input box. The results of your commands will show up in the command output.
-2. In the contacts list, it will show all the contacts stored in Notarius.
+2. In the **contacts list**, it will show all the contacts stored in Notarius.
 
 <p align="center">
   <img src="images/userinterface1.png" alt="Ui" />
 </p>
 
-3. When a contact is selected, you can view more details at the contact information card.
+3. When a contact is selected, you can view more details at the **contact information card**.
 
 <p align="center">
   <img src="images/userinterface2.png" alt="Ui" />
 </p>
 
-4. At the **contact list**, you can view the name, phone number, address, email and tags of the person. When a person is pinned, the pin icon will show up.
+4. At the **contact list** on the left, you can view the name, phone number, address, email and tags of the person. When a person is pinned, the pin icon will show up.
 
 <p align="center">
   <img src="images/userinterface3.png" alt="Ui" />
 </p>
 
-5. At the **contact information card**, you can view the person's note.
+5. At the **contact information card** on the right, you can view the person's note.
 
 <p align="center">
   <img src="images/userinterface4.png" alt="Ui" />
@@ -283,10 +283,12 @@ and this duplicate email will be rejected.
 
 * Any additional white spaces detected in name, address, tags will be trimmed.
 
-<div markdown="block" class="alert alert-warning">
-:exclamation: **Constraints:**<br>
+</div>
+
+<div markdown="block" class="alert alert-warning">:exclamation: **Constraints:**<br>
+
 * A client contact is considered a duplicate if another client contact has the same email(case-insensitive)
-and this duplicate email will be rejected.<br><br>
+and this duplicate email will be rejected.<br>
 * Phone number must be a number with 3 to 15 digits.
 
 </div>
