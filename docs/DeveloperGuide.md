@@ -265,6 +265,16 @@ Additionally, for name, email, and address fields, the search is tolerant of min
    3. Applies Levenshtein distance ≤ 2 matching for `name`, `email`, and `address`. 
 7. The `FindCommand` returns a `CommandResult`, displaying the filtered list of contacts matching the search criteria.
 
+#### Design Considerations
+
+* Lenient Matching Using Levenshtein Distance
+    * The `find` command supports typo-tolerant search using Levenshtein distance, 
+but only for fields where user errors are likely—such as `name`, `email`, and `address`. <br>
+    * This was a deliberate design choice to improve usability, allowing users to find contacts even with small typing mistakes.
+* Default Field Matching Behavior
+  * If no prefix is provided (e.g. `find Al`), the system assumes the user is searching by `name`.
+  * This decision was made to streamline common use cases, since most searches tend to be name-based.
+
 
 ### Delete feature
 
