@@ -390,16 +390,19 @@ The user changes notes via the `note` command and the user views notes via the `
 #### Implementation Details
 
 This is how a user changes their note via the `note` command:
+![NoteCommandSequenceDiagram](images/NoteCommandSequenceDiagram.png)
 1. The user inputs the command to change their note of a contact of a specific index.
 2. A `NoteCommandParser` object invokes its `parse` method which parses the user input.
 3. The `NoteCommand` object is created with the parsed prefix and specified index.
 4. A `LogicManager` object invokes the `execute` method of the `NoteCommand` object.
-5. The `execute` method of the `NoteCommand` object modifies the specified clientContact with a new note invokes the `setPerson`,
+5. The `execute` method of the `NoteCommand` object modifies the specified client contact with a new note invokes the `setPerson`,
 and `commit` methods of its `Model` argument to change the note of the person.
 6. The `execute` method of the `NoteCommand` object returns a `CommandResult` object which stores the data regarding
    the completion of the `note` command.
 
 This is how a user views their note via the `viewnote` command:
+
+![ViewNoteCommandSequenceDiagram](images/ViewNoteCommandSequenceDiagram.png)
 1. The user inputs the command to view a note of a contact of a specific index.
 2. A `ViewNoteCommandParser` object invokes its `parse` method which parses the user input.
 3. The `ViewNoteCommand` object is created with the specified index.
