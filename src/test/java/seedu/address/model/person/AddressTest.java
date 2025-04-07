@@ -53,4 +53,23 @@ public class AddressTest {
         // different values -> returns false
         assertFalse(address.equals(new Address("Other Valid Address")));
     }
+
+    @Test
+    public void constructor_validAddressWithExtraSpaces_normalizesAddress() {
+        // leading and trailing spaces
+        Address addressWithExtraSpaces = new Address("   Blk 456, Den Road, #01-355   ");
+        assertTrue(addressWithExtraSpaces.toString().equals("Blk 456, Den Road, #01-355"));
+
+        // multiple spaces between words
+        addressWithExtraSpaces = new Address("Blk 456,   Den Road, #01-355");
+        assertTrue(addressWithExtraSpaces.toString().equals("Blk 456, Den Road, #01-355"));
+
+        // multiple spaces between words and leading/trailing spaces
+        addressWithExtraSpaces = new Address("   Blk 456,   Den Road, #01-355   ");
+        assertTrue(addressWithExtraSpaces.toString().equals("Blk 456, Den Road, #01-355"));
+
+        // multiple consecutive spaces
+        addressWithExtraSpaces = new Address("Blk  456,  Den   Road,  #01-355");
+        assertTrue(addressWithExtraSpaces.toString().equals("Blk 456, Den Road, #01-355"));
+    }
 }

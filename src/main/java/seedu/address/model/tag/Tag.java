@@ -21,8 +21,9 @@ public class Tag {
      */
     public Tag(String tagName) {
         requireNonNull(tagName);
-        checkArgument(isValidTagName(tagName), MESSAGE_CONSTRAINTS);
-        this.tagName = tagName;
+        String trimmedTagName = tagName.trim().replaceAll("\\s+", " ");
+        checkArgument(isValidTagName(trimmedTagName), MESSAGE_CONSTRAINTS);
+        this.tagName = trimmedTagName;
     }
 
     /**
