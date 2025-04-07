@@ -264,8 +264,12 @@ Adds a client contact to the address book.
 Format: `add n/NAME p/PHONE_NUMBER e/EMAIL a/ADDRESS [t/TAG] [t/ADDITIONAL TAG]…​`
 
 <div markdown="span" class="alert alert-primary">:bulb: **Tip:**
-A client contact is considered a duplicate if another client contact has the same email (case-insensitive)
+
+* A client contact is considered a duplicate if another client contact has the same email (case-insensitive)
 and this duplicate email will be rejected.
+
+* Any additional white spaces detected in name, address, tags will be trimmed.
+
 </div>
 
 Examples:
