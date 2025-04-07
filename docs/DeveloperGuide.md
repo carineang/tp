@@ -421,6 +421,8 @@ The user changes notes via the `note` command and the user views notes via the `
 
 This is how a user changes their note via the `note` command:
 ![NoteCommandSequenceDiagram](images/NoteCommandSequenceDiagram.png)
+<div markdown="span" class="alert alert-info">:information_source: **Note:** The lifeline for `NoteCommand` should end at the destroy marker (X) but due to a limitation of PlantUML, the lifeline reaches the end of diagram.
+</div>
 1. The user inputs the command to change their note of a contact of a specific index.
 2. A `NoteCommandParser` object invokes its `parse` method which parses the user input.
 3. The `NoteCommand` object is created with the parsed prefix and specified index.
@@ -435,6 +437,8 @@ and `commit` methods of its `Model` argument to change the note of the person.
 This is how a user views their note via the `viewnote` command:
 
 ![ViewNoteCommandSequenceDiagram](images/ViewNoteCommandSequenceDiagram.png)
+<div markdown="span" class="alert alert-info">:information_source: **Note:** The lifeline for `ViewNoteCommand` should end at the destroy marker (X) but due to a limitation of PlantUML, the lifeline reaches the end of diagram.
+</div>
 1. The user inputs the command to view a note of a contact of a specific index.
 2. A `ViewNoteCommandParser` object invokes its `parse` method which parses the user input.
 3. The `ViewNoteCommand` object is created with the specified index.
