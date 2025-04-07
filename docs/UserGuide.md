@@ -704,6 +704,7 @@ A: Please refer to the [Command Summary](#command-summary) for the list of avail
 
 1. **When using multiple screens**, if you move the application to a secondary screen, and later switch to using only the primary screen, the GUI will open off-screen. The remedy is to delete the `preferences.json` file created by the application before running the application again.
 2. **If you minimize the Help Window** and then run the `help` command (or use the `Help` menu, or the keyboard shortcut `F1`) again, the original Help Window will remain minimized, and no new Help Window will appear. The remedy is to manually restore the minimized Help Window.
+3. When specifying the index of commands that take in an `INDEX` as parameter(s) (such as `delete INDEX`, `pin INDEX`, `unpin INDEX`, `viewnote INDEX`, `edit INDEX ...`, etc.), if the `INDEX` specified is **not** a positive integer **within** the range of 1 and 2147483647 **inclusive**, the application will show "Invalid command format!" instead.
 
 --------------------------------------------------------------------------------------------------------------------
 
