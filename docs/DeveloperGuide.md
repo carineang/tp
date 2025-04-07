@@ -1277,5 +1277,5 @@ The application should provide more informative and specific error messages that
 such as when the number of unique indexes to be deleted exceeds 100 (e.g., "Maximum number of contacts exceeded").
 
 It should also display relevant error messages when the indexes specified in the format do not comply with the constraints
-specified in the user guide for their respective formats. For example, displaying that the start and index of a ranged-delete format
-is out of order when `START_INDEX` is greater than `END_INDEX`, or displaying which specified index was invalid if multiple indexes are provided.
+specified in the user guide for their respective formats. For example, displaying that the start and end index of a ranged-delete 
+is out-of-order when `START_INDEX` is greater than `END_INDEX`, or displaying which specified index was invalid if multiple indexes are provided.
