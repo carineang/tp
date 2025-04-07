@@ -1,0 +1,74 @@
+@startuml
+!include style.puml
+
+box Logic LOGIC_COLOR_T1
+participant ":LogicManager" as LogicManager LOGIC_COLOR
+participant ":AddressBookParser" as AddressBookParser LOGIC_COLOR
+participant ":NoteCommandParser" as NoteCommandParser LOGIC_COLOR
+participant "r:NoteCommand" as NoteCommand LOGIC_COLOR
+participant ":CommandResult" as CommandResult LOGIC_COLOR
+end box
+
+box Model MODEL_COLOR_T1
+participant ":Model" as Model MODEL_COLOR
+end box
+[-> LogicManager : execute("note 1 nt/overseas")
+activate LogicManager
+
+LogicManager -> AddressBookParser : parseCommand("note 1 nt/overseas")
+activate AddressBookParser
+
+create NoteCommandParser
+AddressBookParser -> NoteCommandParser : new NoteCommandParser()
+activate NoteCommandParser
+
+NoteCommandParser --> AddressBookParser : return NoteCommandParser
+deactivate NoteCommandParser
+
+AddressBookParser -> NoteCommandParser : parse("1 nt/overseas")
+activate NoteCommandParser
+
+create NoteCommand
+NoteCommandParser -> NoteCommand : new NoteCommand(1, "overseas")
+activate NoteCommand
+
+NoteCommand --> NoteCommandParser : return NoteCommand
+deactivate NoteCommand
+
+NoteCommandParser --> AddressBookParser : return NoteCommand
+deactivate NoteCommandParser
+
+NoteCommandParser -[hidden]-> AddressBookParser
+destroy NoteCommandParser
+
+AddressBookParser --> LogicManager : return NoteCommand
+deactivate AddressBookParser
+
+LogicManager -> NoteCommand : execute(m)
+activate NoteCommand
+
+NoteCommand -> Model : EditPerson(personToNote)
+activate Model
+
+Model --> NoteCommand
+deactivate Model
+
+NoteCommand -> Model : commit()
+activate Model
+
+Model --> NoteCommand
+deactivate Model
+
+create CommandResult
+NoteCommand -> CommandResult : new CommandResult("Changed Note:")
+activate CommandResult
+
+CommandResult --> NoteCommand : return CommandResult
+deactivate CommandResult
+
+NoteCommand --> LogicManager : return CommandResult
+deactivate NoteCommand
+
+[<--LogicManager : return CommandResult
+deactivate LogicManager
+@enduml

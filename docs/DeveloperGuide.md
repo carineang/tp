@@ -420,24 +420,39 @@ The user changes notes via the `note` command and the user views notes via the `
 #### Implementation Details
 
 This is how a user changes their note via the `note` command:
+![NoteCommandSequenceDiagram](images/NoteCommandSequenceDiagram.png)
 1. The user inputs the command to change their note of a contact of a specific index.
 2. A `NoteCommandParser` object invokes its `parse` method which parses the user input.
 3. The `NoteCommand` object is created with the parsed prefix and specified index.
 4. A `LogicManager` object invokes the `execute` method of the `NoteCommand` object.
-5. The `execute` method of the `NoteCommand` object modifies the specified clientContact with a new note invokes the `setPerson`,
+5. The `execute` method of the `NoteCommand` object invokes the getFilteredPersonList of the `model`
+and gets the person with the specified index. It then modifies the specified client contact with 
+a new note invokes the `setPerson`,
 and `commit` methods of its `Model` argument to change the note of the person.
 6. The `execute` method of the `NoteCommand` object returns a `CommandResult` object which stores the data regarding
    the completion of the `note` command.
 
 This is how a user views their note via the `viewnote` command:
+
+![ViewNoteCommandSequenceDiagram](images/ViewNoteCommandSequenceDiagram.png)
 1. The user inputs the command to view a note of a contact of a specific index.
 2. A `ViewNoteCommandParser` object invokes its `parse` method which parses the user input.
 3. The `ViewNoteCommand` object is created with the specified index.
 4. A `LogicManager` object invokes the `execute` method of the `ViewNoteCommand` object.
-5. The `execute` method of the `ViewNoteCommand` object invokes the getFilteredPersonList of the `Model` and gets the note of the clientContact as the specified index and
+5. The `execute` method of the `ViewNoteCommand` object invokes the getFilteredPersonList of the `Model` and gets the note of the client contact at the specified index and
    does the `commit` method of the `Model` as well.
 6. The `execute` method of the `ViewNoteCommand` object returns a `CommandResult` object which stores the data regarding
    the completion of the `viewnote` command, if successful includes the note of the client contact at the specified index.
+
+#### Design Considerations
+
+**Aspect: How notes are shown to the user:**
+- **Alternative 1 (current choice):** The user changes notes via the command line and views notes via the command output.
+    - Pros: Easy to implement. User may prefer this if they prefer solely typing in a command line without using external keyboard shortcuts.
+    - Cons: Feature may be less useful due to limited command box size and command input box size if the user types a long note.
+- **Alternative 2:** View/change notes via a separate window that the user can open by entering a command. The user can done use shortcuts when they are done viewing/editing the note to close the window.
+    - Pros: Better support for longer notes and better formatting.
+    - Cons: Users that prefer solely typing on a command line may not like using external keyboard shortcuts. 
 
 ### Undo/redo feature
 The `undo` and `redo` commands undoes and redoes other commands respectively. 
@@ -502,6 +517,16 @@ Step 5. The user executes `clear`, which calls `Model#commit()`. Since the `curr
 The following activity diagram summarizes what happens when a user executes a new command:
 
 <img src="images/CommitActivityDiagram.png" width="250" />
+
+#### Design Considerations
+
+**Aspect: How undo & redo executes:**
+- **Alternative 1 (current choice):** Saves the state of the model.
+    - Pros: Easy to implement. 
+    - Cons: May have performance issues in terms of memory usage.
+- **Alternative 2:** Individual command knows how to undo/redo by itself.
+    - Pros: Will use less memory (e.g. for `delete`, just save the person(s) being deleted).
+    - Cons: We must ensure that the implementation of each individual command is correct.
 
 --------------------------------------------------------------------------------------------------------------------
 
@@ -654,9 +679,6 @@ Priorities: High (must have) - `* * *`, Medium (nice to have) - `* *`, Low (unli
   * 2d1. Notarius includes those fields in the newly created contact.
   * Use case resumes from step 3.
 
-
-
-
 **System**: `Notarius`
 
 **Actor**: `User`
@@ -696,155 +718,42 @@ Priorities: High (must have) - `* * *`, Medium (nice to have) - `* *`, Low (unli
   * Steps 1d-1d2 are repeated until the contact identifier is valid.
   * Use case resumes from step 2.
 
-
-
 **System**: `Notarius`
 
-**Use Case**: `UC04 - Adding a note to contact`
+**Use Case**: `UC04 - Changing a Note of a Client Contact`
 
 **Actor**: `User`
 
-**Guarantees**: `A new note is added to the contact.`
+**Guarantees**: `If MSS reaches step 2, the note of the client contact is changed.`
 
 **MSS**:
 
-1. User requests to add a note to a contact.
-2. Notarius adds the note to the contact’s list of notes and confirms the successful addition of the note.
+1. User requests to change a note to a contact.
+2. Notarius changes the note of the client contact and confirms the successful change of the note.
 
    Use case ends.
 
 **Extensions**:
 
-* 1a. Notarius uncovers a missing description field in the entered input.
-  * 1a1. Notarius displays the error message.
-  * 1a2. User retypes the command with the description field.
-  * Use case resumes from step 2.
-
-* 1b. Notarius is unable to find the specified contact.
-  * 1b1. Notarius alerts the user about the error.
-  * 1b2. User retypes the command.
-  * Steps 1b-1b2 are repeated until the contact specified exists.
-  * Use case resumes from step 2.
-
-* 1c. Notarius uncovers an invalid note description.
-  * 1c1. Notarius alerts the user about the error.
-  * 1c2. User retypes the command with a valid note description format.
-  * Steps 1c-1c2 are repeated until the note description format is valid.
-  * Use case resumes from step 2.
-
-* 1d. Notarius uncovers an empty field description.
-  * 1d1. Notarius alerts the user about the issue.
-  * 1d2. User retypes the command with a non-empty value for the specified field.
-  * Steps 1d-1d2 are repeated until the field is no longer empty.
-  * Use case resumes from step 2.
-
-* 1e. Notarius uncovers an invalid contact identifier.
-  * 1e1. Notarius alerts the user about the issue.
-  * 1e2. User retypes the command with a valid contact identifier format.
-  * Steps 1e-1e2 are repeated until the contact identifier is valid.
-  * Use case resumes from step 2.
-
-**System**: `Notarius`
-
-**Use Case**: `UC05 - Editing a note of a contact`
-
-**Actor**: `User`
-
-**Guarantees**: `The specified fields of the note are updated to the correct values.`
-
-**MSS**:
-
-1. User requests to edit a field of a specified note of a contact.
-2. Notarius updates the note and confirms the note has been successfully edited.
-
-   Use case ends.
-
-**Extensions**:
-
-* 1a. Notarius uncovers an invalid note identifier.
-  * 1a1. Notarius alerts the user about the issue.
-  * 1a2. User retypes the command with a valid note identifier format.
-  * Steps 1a-1a2 are repeated until the contact identifier is valid.
-  * Use case resumes from step 2.
-
-* 1b. Notarius is unable to find the specified contact.
-  * 1b1. Notarius alerts the user about the error.
-  * 1b2. User retypes the command.
-  * Steps 1b-1b2 are repeated until the contact specified exists.
-  * Use case resumes from step 2.
-
-* 1c. Notarius is unable to find the specified note.
-  * 1c1. Notarius alerts the user of the error.
-  * 1c2. User retypes the command.
-  * Steps 1c-1c2 are repeated until the specified note exists.
-  * Use case resumes from step 2.
-
-* 1d. Notarius uncovers an invalid note description.
-  * 1d1. Notarius alerts the user about the error.
-  * 1d2. User retypes the command with a valid note description format.
-  * Steps 1d-1d2 are repeated until the note description is valid.
-  * Use case resumes from step 2.
-
-* 1e. Notarius uncovers an empty field description.
-  * 1e1. Notarius alerts the user about the issue.
-  * 1e2. User retypes the command with a non-empty value for the specified field.
-  * Steps 1e-1e2 are repeated until the field is no longer empty.
-  * Use case resumes from step 2.
-
-* 1f. Notarius uncovers an invalid contact identifier.
-  * 1f1. Notarius alerts the user about the issue.
-  * 1f2. User retypes the command with a valid contact identifier format.
-  * Steps 1f-1f2 are repeated until the contact identifier is valid.
-  * Use case resumes from step 2.
-
-**System**: `Notarius`
-
-**Actor**: `User`
-
-**Use Case**: `UC06 - Deleting a note of a contact.`
-
-**Guarantees**: `The specified note is deleted successfully.`
-
-**MSS**:
-
-1. User specifies the note of a contact to delete.
-2. System deletes the note and confirms the successful deletion.
-
-   Use case ends.
-
-**Extensions**:
-
-* 1a. Notarius is unable to find the specified note.
-  * 1a1. Notarius alerts the user of the error.
+* 1a. Notarius is unable to find the specified client contact.
+  * 1a1. Notarius alerts the user about the error.
   * 1a2. User retypes the command.
-  * Steps 1a-1a2 are repeated until the specified note exists.
+  * Steps 1a-1a2 are repeated until the client contact specified exists.
   * Use case resumes from step 2.
 
-* 1b. Notarius uncovers an invalid note identifier.
-  * 1b1. Notarius alerts the user about the issue.
-  * 1b2. User retypes the command with a valid note identifier format.
+* 1b. Notarius uncovers an invalid contact identifier.
+  * 1b1. Notarius alerts the user about the error.
+  * 1b2. User retypes the command with a valid contact identifier format.
   * Steps 1b-1b2 are repeated until the contact identifier is valid.
   * Use case resumes from step 2.
 
-* 1c. Notarius is unable to find the specified contact.
-  * 1c1. Notarius alerts the user about the error.
-  * 1c2. User retypes the command.
-  * Steps 1c-1c2 are repeated until the contact specified exists.
-  * Use case resumes from step 2.
-
-* 1d. Notarius uncovers an invalid contact identifier.
-  * 1d1. Notarius alerts the user about the issue.
-  * 1d2. User retypes the command with a valid contact identifier format.
-  * Steps 1d-1d2 are repeated until the contact identifier is valid.
-  * Use case resumes from step 2.
-
 **System**: `Notarius`
 
 **Actor**: `User`
 
-**Use Case**: `UC07 - Getting all notes belonging to a contact`
+**Use Case**: `UC05 - Viewing a Note of a client contact`
 
-**Guarantees**: `All notes belonging to the specified contact are displayed.`
+**Guarantees**: `If MSS reaches step 2, the note of the client contact is displayed.`
 
 **MSS**:
 
@@ -855,27 +764,23 @@ Priorities: High (must have) - `* * *`, Medium (nice to have) - `* *`, Low (unli
 
 **Extensions**:
 
-* 1a. Notarius is unable to find the specified contact.
+* 1a. Notarius is unable to find the specified client contact.
   * 1a1. Notarius alerts the user about the error.
   * 1a2. User retypes the command.
-  * Steps 1a-1a2 are repeated until the contact specified exists.
+  * Steps 1a-1a2 are repeated until the client contact specified exists.
   * Use case resumes from step 2.
 
 * 1b. Notarius uncovers an invalid contact identifier.
-  * 1b1. Notarius alerts the user about the issue.
+  * 1b1. Notarius alerts the user about the error.
   * 1b2. User retypes the command with a valid contact identifier format.
   * Steps 1b-1b2 are repeated until the contact identifier is valid.
   * Use case resumes from step 2.
-
-* 2a. Notarius cannot find any notes related to the contact.
-  * 2a1. Notarius displays a blank note.
-  * Use case ends.
-
+ 
 **System**: `Notarius`
 
 **Actor**: `User`
 
-**Use Case**: `UC08 - Accessing an input from the command history`
+**Use Case**: `UC06 - Accessing an input from the command history`
 
 **Preconditions**: `Command history is open.`
 
@@ -907,7 +812,7 @@ Priorities: High (must have) - `* * *`, Medium (nice to have) - `* *`, Low (unli
 
 **Actor**: `User`
 
-**Use Case**: `UC09 - Sorting the contacts list`
+**Use Case**: `UC07 - Sorting the contacts list`
 
 **Guarantees**: `If MSS reaches step 3, the user has successfully sorted the contacts list by a specified prefix.`
 
@@ -945,13 +850,11 @@ Priorities: High (must have) - `* * *`, Medium (nice to have) - `* *`, Low (unli
   * Steps 1d1 - 1d2 are repeated until a valid command with no duplicate prefixes is input by the User.
   * Use case resumes from step 2.
 
-
-
 **System**: `Notarius`
 
 **Actor**: `User`
 
-**Use Case**: `UC10 - Clearing the contacts list`
+**Use Case**: `UC08 - Clearing the contacts list`
 
 **Guarantees**: `If MSS reaches step 3, the user has successfully cleared the contacts list.`
 
@@ -967,7 +870,7 @@ Priorities: High (must have) - `* * *`, Medium (nice to have) - `* *`, Low (unli
 
 **Actor**: `User`
 
-**Use Case**: `UC11 - Listing all contacts`
+**Use Case**: `UC09 - Listing all contacts`
 
 **Guarantees**: `If MSS reaches step 3, the user has successfully listed all the contacts.`
 
@@ -984,7 +887,7 @@ Priorities: High (must have) - `* * *`, Medium (nice to have) - `* *`, Low (unli
 
 **Actor**: `User`
 
-**Use Case**: `UC12 - Displaying Help Information`
+**Use Case**: `UC10 - Displaying Help Information`
 
 **Guarantees**: `If MSS reaches step 2, the requested help information will be displayed.`
 
@@ -1011,7 +914,7 @@ Priorities: High (must have) - `* * *`, Medium (nice to have) - `* *`, Low (unli
 
 **Actor**: `User`
 
-**Use Case**: `UC13 - Finding a Contact`
+**Use Case**: `UC11 - Finding a Contact`
 
 **Guarantees**: `If MSS reaches step 3, a list of matching contacts will be displayed.`
 
@@ -1043,6 +946,52 @@ allowing minor typos (up to a Levenshtein distance of 2) in the name, email, and
 * 1d. User enters a keyword with minor typos in the name, email, or address fields. 
   * 1d1. Notarius applies fuzzy matching (Levenshtein distance of up to 2) for name, email, and address fields.<br>
     Use case resumes from step 3.
+
+**System**: `Notarius`
+
+**Actor**: `User`
+
+**Use Case**: `UC12 - Undoing a Command`
+
+**Guarantees**: `If MSS reaches step 2, contacts list would have been returned to the state
+before the previous command was executed`
+
+**MSS**:
+
+1. User requests to undo the last command.
+2. Notarius restores the contacts list to the state before the last command was executed.
+
+   Use case ends.
+
+**Extensions**:
+
+* 1a. Notarius sees that there is no previous state of the contacts list to undo to
+  * 1a1. Notarius alerts the user with an error message.
+
+  Use case ends.
+
+**System**: `Notarius`
+
+**Actor**: `User`
+
+**Use Case**: `UC13 - Redoing a Command`
+
+**Guarantees**: `If MSS reaches step 2, contacts list would have been returned to the state
+before the previous undo was executed`
+
+**MSS**:
+
+1. User requests to redo last undone command.
+2. Notarius restores the contacts list to the state before the last undone command was executed.
+
+   Use case ends.
+
+**Extensions**:
+
+* 1a. Notarius sees that there is no last undone state of the contacts list to redo to
+  * 1a1. Notarius alerts the user with an error message.
+
+  Use case ends.
 
 **System**: `Notarius`
 
@@ -1108,8 +1057,6 @@ allowing minor typos (up to a Levenshtein distance of 2) in the name, email, and
 * 3a. The contact is already unpinned.
   * 3a1. Notarius notifies the user that the contact is already unpinned.
   * Use case ends.
-
-
 
 ### Non-Functional Requirements
 
@@ -1244,6 +1191,7 @@ Each test case in this feature section (labelled "Test case") should be independ
 ### Finding a person
 
 1. Finding a person while all persons are being shown
+
    1. Prerequisites: List all persons using `list` command. Multiple persons in the list.
    2. Test case: `find n/"Alice"` <br>
       Expected: Displays all contacts with names that match "Alice" (case-insensitive) or have a name with levenshtein distance <= 2 to "ALICE".
@@ -1259,6 +1207,7 @@ Each test case in this feature section (labelled "Test case") should be independ
 ### Displaying help
 
 1. Showing help in Notarius
+
    1. Prerequisites: Notarius is open and running
    2. Test case: `help` <br>
       Expected: A help window appears displaying instructions for using the application. The status message confirms that the help window has been opened.
@@ -1308,13 +1257,40 @@ Each test case in this feature section (labelled "Test case") should be independ
   1. Test case: `clear`<br>
      Expected: Clears the whole contacts list.
 
-### Saving data
+### Changing a note
 
-1. Dealing with missing/corrupted data files
+1. Changing a note in Notarius
 
-   1. _{explain how to simulate a missing/corrupted file, and the expected behavior}_
+    1. Prerequisite for test case: There should be at least 1 client contact in the contacts list. Otherwise, use
+    the `add` command to add more client contacts.
+    2. Test case: `note 1 nt/overseas for a while` <br>
+    Expected: The 1st client contact from the top of the contacts list has the note "overseas for a while".
+    This can be checked using the `viewnote` command. Specifically the command `viewnote 1`.
 
-1. _{ more test cases …​ }_
+### Viewing notes
+1. Viewing a note in Notarius
+
+    1. Prerequisite for test case: There should be at least 1 client contact in the contacts list. Otherwise, use
+       the `add` command to add more client contacts. <br>
+Change note of the 1st client contact from the top of the list to "overseas for a while" using the `note` command. <br>
+The full command for this is `note 1 nt/overseas for a while`.
+    2. Test case: `viewnote 1`<br>
+       Expected: The note of the 1st client contact from the top of the list which is "overseas for a while" is displayed.
+
+### Undoing a command
+1. Undoing a command in Notarius
+
+    1. Prerequisite for test case: There should have been a previous command that was executed that is not `exit`.
+    2. Test case: `undo`<br>
+       Expected: Returns the state of the contacts list to before the previous command was executed.
+
+### Redoing an undone command
+1. Redoing an undone command in Notarius
+
+    1. Prerequisite for test case: There should have been a previous `undo` command that was
+executed with no other command executed after that `undo` command.
+    2. Test case: `redo`<br>
+       Expected: Returns the state of the contacts list to before the `undo` command was executed.
 
 ## **Appendix: Planned Enhancements**:
 
