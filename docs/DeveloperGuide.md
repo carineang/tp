@@ -240,15 +240,14 @@ all contacts by the target prefix.
 the completion of the `sort` command.
 
 #### Design Considerations
+**Aspect: How to implement the sort command**
+* Alternative 1 (current choice): Support multi-level sorting for up to two attributes, with tags as first attribute
+  * Pros: It is easier for users to understand and use. Sorting by tags first allows contacts to be grouped into respective clusters, making it easier to find related contacts.
+  * Cons: For users with complex needs, limiting sorting to two attributes may be restrictive. They may need the ability to sort by more attributes to meet their requirements.
 
-* Sorting Commands
-  * Sorting commands should be easy for users to understand and having consistent naming conventions.
-* Multi-level Sorting with Tags as First Attribute
-  * Tags often represent the most significant context about a contact. Sorting by tags first allows user to immediately group contacts into logical clusters. 
-  Within the cluster, sorting by other attributes provides a nested, hierarchically meaningful structure.
-  * Provides flexibility for users to organize and sort their contacts based on two attributes, the first attribute should be `tag`, second attribute should be `name`, `phone`, `email`, `address`.
-* Sorting with more than two attributes (Not Implemented)
-  * It will be overcomplicated for the system and the user, making it less intuitive and not user-friendly.
+* Alternative 2: Support multi-level sorting for more than two attributes
+  * Pros: Advanced users with specific needs (e.g., sorting by tag, then name, then phone number) can get more control and precision in how they organize their contacts.
+  * Cons: It might slow down the system, especially if the dataset is large or if sorting requires a lot of computation. 
 
 ### Find feature
 
