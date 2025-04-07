@@ -181,6 +181,9 @@ The `help` command allows users to view general application usage instructions o
 <p align="center">
   <img src="images/HelpCommandSequenceDiagram.png" alt="Ui" />
 </p>
+<div markdown="span" class="alert alert-info">:information_source: **Note:** The lifeline for `HelpCommand` should end at the destroy marker (X) but due to a limitation of PlantUML, the lifeline reaches the end of diagram.
+
+</div>
 
 #### Implementation Details
 
@@ -220,6 +223,9 @@ The `sort` command enables users to sort contacts in Notarius by prefix in lexic
 <p align="center">
   <img src="images/SortCommandSequenceDiagram.png" alt="Ui" />
 </p>
+<div markdown="span" class="alert alert-info">:information_source: **Note:** The lifeline for `SortCommand` should end at the destroy marker (X) but due to a limitation of PlantUML, the lifeline reaches the end of diagram.
+
+</div>
 
 #### Implementation Details
 
@@ -242,6 +248,9 @@ Additionally, for name, email, and address fields, the search is tolerant of min
 <p align="center">
   <img src="images/FindCommandSequenceDiagram.png" alt="Ui" />
 </p>
+<div markdown="span" class="alert alert-info">:information_source: **Note:** The lifeline for `FindCommand` should end at the destroy marker (X) but due to a limitation of PlantUML, the lifeline reaches the end of diagram.
+
+</div>
 
 #### Implementation Details
 
@@ -264,6 +273,9 @@ The `delete` command allows the user to delete specified client contact(s) from 
 The sequence diagram below models the different components of the application that are involved
 when the user executes the `delete` command.
 ![DeleteSequenceDiagram](images/DeleteSequenceDiagram.png)
+<div markdown="span" class="alert alert-info">:information_source: **Note:** The lifeline for `DeleteCommand` should end at the destroy marker (X) but due to a limitation of PlantUML, the lifeline reaches the end of diagram.
+
+</div>
 
 #### Implementation Details
 
@@ -410,7 +422,6 @@ than attempting to perform the undo.
 The following sequence diagram shows how an undo operation goes through the `Logic` component:
 
 ![UndoSequenceDiagram](images/UndoSequenceDiagram-Logic.png)
-
 <div markdown="span" class="alert alert-info">:information_source: **Note:** The lifeline for `UndoCommand` should end at the destroy marker (X) but due to a limitation of PlantUML, the lifeline reaches the end of diagram.
 
 </div>
@@ -460,39 +471,40 @@ The following activity diagram summarizes what happens when a user executes a ne
 
 Priorities: High (must have) - `* * *`, Medium (nice to have) - `* *`, Low (unlikely to have) - `*`
 
-| Priority | As a …​                                                                | I want to …​                                                                                                     | So that I can…​                                                                            |
-|----------|------------------------------------------------------------------------|------------------------------------------------------------------------------------------------------------------|--------------------------------------------------------------------------------------------|
-| `* * *`  | lawyer                                                                 | list all contacts with their relevant details                                                                    | easily peruse them                                                                         |
-| `* * *`  | lawyer                                                                 | add a contact's name                                                                                             | identify the individual easily                                                             |
-| `* * *`  | lawyer                                                                 | add a contact's phone number                                                                                     | contact them when needed                                                                   |
-| `* * *`  | lawyer                                                                 | add a contact's email                                                                                            | find an alternative way to contact them                                                    |
-| `* * *`  | lawyer                                                                 | add a contact's address                                                                                          | find a way to send them _case_ details                                                     |
-| `* * *`  | lawyer                                                                 | save my contacts to my _local system_                                                                            | access them later after reopening the application                                          |
-| `* * *`  | lawyer                                                                 | delete contacts                                                                                                  | remove contacts that I no longer need                                                      |
-| `* * *`  | lawyer                                                                 | have access to my contacts even without internet                                                                 | access my contacts offline                                                                 |
-| `* * *`  | lawyer who can type fast and prefers typing over clicking over a GUI   | type everything over a command line interface that minimizes my use of mouse                                     | enjoy the convenience of the application                                                   |
-| `* *`    | busy lawyer who is working multiple cases and clients at the same time | add notes to contacts                                                                                            | keep track of relevant case-related details, their preferences, and their personal details |
-| `* *`    | forgetful lawyer                                                       | star/pin important clients                                                                                       | look up their information faster                                                           |
-| `* *`    | lawyer who can type fast                                               | re-access previously entered commands quickly                                                                    | save time by not typing them again                                                         |
-| `* *`    | lawyer                                                                 | set reminders to follow up with contacts                                                                         | make sure to not miss an important check-in                                                |
-| `* *`    | lawyer with many clients                                               | delete multiple client contacts at once                                                                          | clear clients of past cases faster and more conveniently                                   |
-| `* *`    | lawyer                                                                 | tag contacts (e.g., "Client," "Judge," "Opposing Counsel")                                                       | remember their roles easily                                                                |
-| `* *`    | lawyer                                                                 | tag multiple contacts at once                                                                                    | categorise them for my needs more efficiently and conveniently                             |
-| `* *`    | lawyer                                                                 | add multiple tags to a contact                                                                                   | organise my contacts neatly and not have to keep tagging the same contact multiple time    |
-| `* *`    | impatient lawyer                                                       | get the output of my commands quickly and responsively                                                           | not waste time on waiting for the output                                                   |
-| `* *`    | lawyer                                                                 | have a user-friendly and not cluttered interface to navigate around                                              | focus on my legal work without getting distracted by complicated tools                     |
-| `* *`    | lawyer                                                                 | edit contact details                                                                                             | update information when needed                                                             |
-| `* *`    | lawyer                                                                 | be able to lookup help/guide for the application locally in case i do not know forgot how to use the application | figure out how to use it conveniently                                                      |
-| `* *`    | lawyer handling _crucial client information_                           | not be able to add duplicate contacts by phone number                                                            | ensure that there is no redundant client data                                              |
-| `* *`    | lawyer trying the application for the first time                       | clear all the contact data when necessary                                                                        | facilitate the population of new data                                                      |
-| `*`      | lawyer                                                                 | have my notes be automatically time-stamped                                                                      | keep track of when notes were created                                                      |
-| `*`      | busy lawyer                                                            | use command aliases to enter commands faster                                                                     | save time and improve efficiency                                                           |
-| `*`      | lawyer                                                                 | have the application be personalised for me                                                                      | feel more connected and engaged while using it                                             |
-| `*`      | lawyer                                                                 | add general notes (e.g. Post-its)                                                                                | store information that is not related to any case or contact                               |
-| `*`      | lawyer                                                                 | assign contacts to specific cases                                                                                | keep track of all people involved in a legal matter                                        |
-| `*`      | busy lawyer                                                            | view all contacts to specific cases                                                                              | quickly access their details when needed                                                   |
-| `*`      | lawyer                                                                 | unlink contacts related from cases                                                                               | update case information when necessary                                                     |
-| `*`      | lawyer                                                                 | add notes to cases                                                                                               | view case information when needed                                                          |
+| Priority | As a …​                                                      | I want to …​                                                                                              | So that I can…​                                                                            |
+|----------|--------------------------------------------------------------|-----------------------------------------------------------------------------------------------------------|--------------------------------------------------------------------------------------------|
+| `* * *`  | lawyer                                                       | list all contacts with their relevant details                                                             | easily peruse them                                                                         |
+| `* * *`  | lawyer                                                       | add a contact's name                                                                                      | identify the individual easily                                                             |
+| `* * *`  | lawyer                                                       | add a contact's phone number                                                                              | contact them when needed                                                                   |
+| `* * *`  | lawyer                                                       | add a contact's email                                                                                     | find an alternative way to contact them                                                    |
+| `* * *`  | lawyer                                                       | add a contact's address                                                                                   | find a way to send them _case_ details                                                     |
+| `* * *`  | lawyer                                                       | save my contacts to my _local system_                                                                     | access them later after reopening the application                                          |
+| `* * *`  | lawyer                                                       | delete contacts                                                                                           | remove contacts that I no longer need                                                      |
+| `* * *`  | lawyer                                                       | have access to my contacts even without internet                                                          | access my contacts offline                                                                 |
+| `* * *`  | lawyer who can type fast and prefers typing over clicking over a GUI | type everything over a command line interface that minimizes my use of mouse                              | enjoy the convenience of the application                                                   |
+| `* *`    | busy lawyer who is working multiple cases and clients at the same time | add notes to contacts                                                                                     | keep track of relevant case-related details, their preferences, and their personal details |
+| `* *`    | forgetful lawyer                                             | star/pin important clients                                                                                | look up their information faster                                                           |
+| `* *`    | lawyer                                                       | sort the contacts                                                                                         | improve the organisation of contacts                                                       |
+| `* *`    | lawyer who can type fast                                     | re-access previously entered commands quickly                                                             | save time by not typing them again                                                         |
+| `* *`    | lawyer                                                       | set reminders to follow up with contacts                                                                  | make sure to not miss an important check-in                                                |
+| `* *`    | lawyer with many clients                                     | delete multiple client contacts at once                                                                   | clear clients of past cases faster and more conveniently                                   |
+| `* *`    | lawyer                                                       | tag contacts (e.g., "Client," "Judge," "Opposing Counsel")                                                | remember their roles easily                                                                |
+| `* *`    | lawyer                                                       | tag multiple contacts at once                                                                             | categorise them for my needs more efficiently and conveniently                             |
+| `* *`    | lawyer                                                       | add multiple tags to a contact                                                                            | organise my contacts neatly and not have to keep tagging the same contact multiple time    |
+| `* *`    | impatient lawyer                                             | get the output of my commands quickly and responsively                                                    | not waste time on waiting for the output                                                   |
+| `* *`    | lawyer                                                       | have a user-friendly and not cluttered interface to navigate around                                       | focus on my legal work without getting distracted by complicated tools                     |
+| `* *`    | lawyer                                                       | edit contact details                                                                                      | update information when needed                                                             |
+| `* *`    | lawyer                                                       | be able to lookup help/guide for the application locally in case i do not know forgot how to use the application | figure out how to use it conveniently                                                      |
+| `* *`    | lawyer handling _crucial client information_                 | not be able to add duplicate contacts by phone number                                                     | ensure that there is no redundant client data                                              |
+| `* *`    | lawyer trying the application for the first time             | clear all the contact data when necessary                                                                 | facilitate the population of new data                                                      |
+| `*`      | lawyer                                                       | have my notes be automatically time-stamped                                                               | keep track of when notes were created                                                      |
+| `*`      | busy lawyer                                                  | use command aliases to enter commands faster                                                              | save time and improve efficiency                                                           |
+| `*`      | lawyer                                                       | have the application be personalised for me                                                               | feel more connected and engaged while using it                                             |
+| `*`      | lawyer                                                       | add general notes (e.g. Post-its)                                                                         | store information that is not related to any case or contact                               |
+| `*`      | lawyer                                                       | assign contacts to specific cases                                                                         | keep track of all people involved in a legal matter                                        |
+| `*`      | busy lawyer                                                  | view all contacts to specific cases                                                                       | quickly access their details when needed                                                   |
+| `*`      | lawyer                                                       | unlink contacts related from cases                                                                        | update case information when necessary                                                     |
+| `*`      | lawyer                                                       | add notes to cases                                                                                        | view case information when needed                                                          |
 
 *{More to be added}*
 
@@ -813,6 +825,10 @@ Priorities: High (must have) - `* * *`, Medium (nice to have) - `* *`, Low (unli
     * *a1. Notarius closes the command history.
     * Use case ends.
 
+**System**: `Notarius`
+
+**Actor**: `User`
+
 **Use Case**: `UC09 - Sorting the contacts list`
 
 **Guarantees**: `If MSS reaches step 3, the user has successfully sorted the contacts list by a specified prefix.`
@@ -839,11 +855,19 @@ Priorities: High (must have) - `* * *`, Medium (nice to have) - `* *`, Low (unli
   * Steps 1b1 - 1b2 are repeated until a valid field is input by the User.
   * Use case resumes from step 2.
 
-* 1c. User enters extra spaces or invalid formatting in the entered input.
+* 1c. User enters extra spaces or invalid format in the entered input.
   * 1c1. Notarius displays an error message.
   * 1c2. User re-enters a new command with properly formatted command.
   * Steps 1c1 - 1c2 are repeated until a valid command is input by the User.
   * Use case resumes from step 2.
+
+* 1d. User enters duplicate prefixes in the entered input.
+  * 1d1. Notarius displays an error message.
+  * 1d2. User re-enters a new command with no duplicate prefixes.
+  * Steps 1d1 - 1d2 are repeated until a valid command with no duplicate prefixes is input by the User.
+  * Use case resumes from step 2.
+
+
 
 **System**: `Notarius`
 
@@ -884,7 +908,7 @@ Priorities: High (must have) - `* * *`, Medium (nice to have) - `* *`, Low (unli
 
 **Use Case**: `UC12 - Displaying Help Information`
 
-**Guarantees**: `If MSS reaches step 3, the requested help information will be displayed.`
+**Guarantees**: `If MSS reaches step 2, the requested help information will be displayed.`
 
 **MSS**:
 
@@ -916,9 +940,9 @@ Priorities: High (must have) - `* * *`, Medium (nice to have) - `* *`, Low (unli
 **MSS**:
 
 1. User requests to find contacts by entering the find command with specified fields and keywords. 
-2. Address Book searches for contacts whose fields contain any of the given keywords, 
+2. Notarius searches for contacts whose fields contain any of the given keywords, 
 allowing minor typos (up to a Levenshtein distance of 2) in the name, email, and address fields only. 
-3. Address Book displays a list of matching contacts with index numbers.
+3. Notarius displays a list of matching contacts with index numbers.
 
    Use case ends.
 
@@ -965,7 +989,6 @@ allowing minor typos (up to a Levenshtein distance of 2) in the name, email, and
 
 | **Terms**                  | **Meaning**                                                                                                                                            |
 |----------------------------|--------------------------------------------------------------------------------------------------------------------------------------------------------|
-| AB-3                       | AddressBook Level 3 application, which was used as the base framework for a student-customized CLI management system to be developed.                  |
 | Mainstream OS              | Windows, Linux, Unix, MacOS.                                                                                                                           |
 | Above-average typing speed | ≥ 60 words per minute.                                                                                                                                 |
 | Crucial client information | Important client information such as name, phone number, email, address, tags, as well as notes stored that could contain legal information for cases. |
@@ -1107,58 +1130,36 @@ Each test case in this feature section (labelled "Test case") should be independ
 
 ### Sorting contacts list
 
-Prerequisites: The contacts list should contain some contacts for testing purposes. <br>
-  `add n/Alex Yeoh p/87438807 e/alexyeoh@example.com a/Blk 30 Geylang Street 29, #06-40 t/Client t/Friend`<br>
-  `add n/Bernice Yu p/99272758 e/berniceyu@example.com a/Blk 30 Lorong 3 Serangoon Gardens, #07-18 t/Client t/Friend`<br>
-  `add n/Charlotte Oliveiro p/93210283 e/charlotte@example.com a/Blk 11 Ang Mo Kio Street 74, #11-04 t/Lawyer`<br>
-  `add n/David Li p/91031282 e/lidavid@example.com a/Blk 436 Serangoon Gardens Street 26, #16-43 t/Lawyer` <br>
-  `add n/Irfan Ibrahim p/92492021 e/irfan@example.com a/Blk 47 Tampines Street 20, #17-35 t/Lawyer t/Colleagues` <br>
-  `add n/Roy Balakrishnan p/92624417 e/royb@example.com a/Blk 45 Aljunied Street 85, #11-31 t/Colleagues`
+1. Sorting contacts list in Notarius
 
-1. Sorting contacts by names
+   1. Prerequisites: Notarius contains a list of contacts.
+   
+   2. Test case: `sort n/`<br>
+   Expected: Displays all contacts sorted by names in ascending order.
 
-   1. Test case: `sort n/`<br>
-      Expected: Displays all contacts sorted by names in ascending order.
+   3. Test case: `sort p/`<br>
+   Expected: Displays all contacts sorted by phone numbers in ascending order.
 
-2. Sorting contacts by phone numbers
+   4. Test case: `sort e/`<br>
+   Expected: Displays all contacts sorted by email addresses in ascending order.
 
-   1. Test case: `sort p/`<br>
-      Expected: Displays all contacts sorted by phone numbers in ascending order.   
+   5. Test case: `sort a/`<br>
+   Expected: Displays all contacts sorted by addresses in ascending order.
 
-3. Sorting contacts by email addresses
+   6. Test case: `sort t/`<br>
+   Expected: Displays all contacts sorted by tags in ascending order.
 
-   1. Test case: `sort e/`<br>
-      Expected: Displays all contacts sorted by email addresses in ascending order.
+   7. Test case: `sort t/ n/`<br>
+   Expected: Displays all contacts sorted by tags, followed by names in ascending order.
 
-4. Sorting contacts by addresses
+   8. Test case: `sort t/ p/`<br>
+   Expected: Displays all contacts sorted by tags, followed by phone numbers in ascending order.
 
-   1. Test case: `sort a/`<br>
-      Expected: Displays all contacts sorted by addresses in ascending order.
+   9. Test case: `sort t/ e/`<br>
+   Expected: Displays all contacts sorted by tags, followed by email addresses in ascending order.
 
-5. Sorting contacts by tags
-
-   1. Test case: `sort t/`<br>
-      Expected: Displays all contacts sorted by tags in ascending order.
-
-6. Sorting contacts by tags and names
-
-   1. Test case: `sort t/ n/`<br>
-      Expected: Displays all contacts sorted by tags, followed by names in ascending order.
-
-7. Sorting contacts by tags and phone numbers
-
-   1. Test case: `sort t/ p/`<br>
-      Expected: Displays all contacts sorted by tags, followed by phone numbers in ascending order.
-
-7. Sorting contacts by tags and email addresses
-
-   1. Test case: `sort t/ e/`<br>
-      Expected: Displays all contacts sorted by tags, followed by email addresses in ascending order.
-
-7. Sorting contacts by tags and addresses
-
-   1. Test case: `sort t/ a/`<br>
-      Expected: Displays all contacts sorted by tags, followed by addresses in ascending order.
+   10. Test case: `sort t/ a/`<br>
+   Expected: Displays all contacts sorted by tags, followed by addresses in ascending order.
 
 ### Listing all contacts
 
@@ -1169,7 +1170,7 @@ Prerequisites: The contacts list should contain some contacts for testing purpos
 
 ### Clearing all contacts
 
-1. Clear all contacts
+1. Clear all contacts 
 
   1. Test case: `clear`<br>
      Expected: Clears the whole contacts list.
@@ -1181,3 +1182,54 @@ Prerequisites: The contacts list should contain some contacts for testing purpos
    1. _{explain how to simulate a missing/corrupted file, and the expected behavior}_
 
 1. _{ more test cases …​ }_
+
+## **Appendix: Planned Enhancements**:
+
+### 1. Allow for special characters in names
+#### Current:
+Special characters are not allowed to be entered as part of a person's name such as via the add or edit command. <br>
+
+Valid names with special characters like: <br>
+Sinéad O'Connor, Nagaratnam s/o Suppiah, Tan Cheng Bok @ Adrian Tan, Anne-Marie, Beyoncé, J.R. Smith 
+<br>
+are not accepted.
+
+#### Planned:
+Allow for special characters in names. 
+
+### 2. Allow for international phone number format to be entered
+
+#### Current:
+In phone input fields, user only can enter a number. This restricts the user from being able to enter country codes.
+This would reduce the application's usefulness as a address book application due to its limitation of storing
+international client contacts. 
+
+#### Planned:
+To enhance usability and global compatability. We should allow the user to enter the country code along with the phone number 
+in phone input fields.
+
+### 3. Bulk tag deletion capability
+
+#### Current:
+Via the edit command, all tags can be deleted or tags can be replaced with new ones. 
+However, If a singular client contact has many tags and the 
+user wants to delete a few tags from them, this would be decently cumbersome as the user has to retype in the tags
+they do not want to replace.
+
+#### Planned:
+Add a command to delete multiple tags from a client contact.
+
+### 4. Support for longer notes.
+
+#### Current:
+Notes are entered through a command line and are designed to write short and simple notes. However, users may 
+want to write longer notes with more formatting options. Longer notes may be cumbersome experience to view in the
+command output.
+
+#### Planned:
+If we want to stick fully to a CLI, we can add longer multi-line notes by using a prompt-based input technique where 
+the user can enter line after line by using the `note` command. When the user wants to stop entering lines of the note
+they can type the command `donenote`. This can be enhanced by allowing formatting options such as bolding. Long notes
+can also be displayed better by making the command output collapsible.
+
+

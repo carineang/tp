@@ -39,14 +39,16 @@ Furthermore, **Notarius** also comes with **additional features** and **quality 
 While exploring this user guide, you may come across some terms that you may not be familiar with.
 Here is a list of commonly used terminology to provide better clarity.
 
-| Terms                 | Meaning                                                                                                                                                                                                                                                                                                                           |
-|-----------------------|-----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|
-| Prefix                | Prefixes are short markers that are used to specify the type of information following it. For instance, `n/` is a prefix that specifies that the data following it (up until another prefix) is the name of a client.                                                                                                             |
-| Command/Command input | A command (input) is a specific instruction that a user types into the input box to tell Notarius what to do. Commands help users interact with Notarius by performing actions like adding, searching, or deleting data. Commands that do not match actions that can be performed by Notarius will be considered invalid/unknown. |
-| Index                 | Index refers to the position of a client in the list of clients displayed by Notarius. For example, an `INDEX` of 1 refers to the first client in the displayed list.                                                                                                                                                             |
-| Operating System/OS   | The type of computer software that you are using, commonly referred to as OS. Examples include **Windows**, **macOS**, and **Linux**. Click <a href="https://en.wikipedia.org/wiki/Operating_system">here</a> to learn more.                                                                                                      |
-| Whitespace Character  | Usually refer to characters entered by a user's keyboard that are not visible. Examples include spaces (by pressing space-bar), tabs (by pressing the tab key), and new lines (from pressing enter).                                                                                                                              |
-| Blank Inputs          | Inputs entered by users that are either empty or only contain whitespace characters                                                                                                                                                                                                                                               |
+| Terms                 | Meaning                                                                                                                                                                                                                                                                                                                       |
+|-----------------------|-------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|
+| Prefix                | Prefixes are short markers that are used to specify the type of information following it. For instance, `n/` is a prefix that specifies that the data following it (up until another prefix) is the name of a client.                                                                                                         |
+| Command/Command input | A command (input) is a specific instruction that you type into the input box to tell Notarius what to do. Commands help you interact with Notarius by performing actions like adding, searching, or deleting data. Commands that do not match actions that can be performed by Notarius will be considered invalid/unknown. |
+| Index                 | Index refers to the position of a client in the list of clients displayed by Notarius. For example, an `INDEX` of 1 refers to the first client in the displayed list.                                                                                                                                                         |
+| Operating System/OS   | The type of computer software that you are using, commonly referred to as OS. Examples include **Windows**, **macOS**, and **Linux**. Click <a href="https://en.wikipedia.org/wiki/Operating_system">here</a> to learn more.                                                                                                  |
+| Whitespace Character  | Usually refer to characters entered by a user's keyboard that are not visible. Examples include spaces (by pressing space-bar), tabs (by pressing the tab key), and new lines (from pressing enter).                                                                                                                          |
+| Blank Inputs          | Inputs entered by you that are either empty or only contain whitespace characters.                                                                                                                                                                                                                                            |
+| GUI                   | Stands for graphical user interface. It is a visual way of interacting with Notarius via menus, lists, buttons, etc.                                                                                                                                                                                                          |
+| Parameter             | A parameter is a piece of information you give to a command so Notarius knows what to do.                                                                                                                                                                                                                                     |
 
 ## Quick start
 
@@ -61,10 +63,8 @@ Here is a list of commonly used terminology to provide better clarity.
 1. Follow the steps for your device:
 
 
-    <details>
-        <summary> Windows</summary>
-        <pre>
-
+<div markdown="block" class="alert alert-primary">Windows
+    
     1. Copy the path of the folder
         - Right-click the folder and select "Copy as Path".
 
@@ -76,13 +76,13 @@ Here is a list of commonly used terminology to provide better clarity.
 
     4. Run the application
         - Type "java -jar Notarius.jar" and press Enter.
-   
-           </pre>
-       </details>
 
-    <details>
-      <summary>MacOS</summary>
-      <pre>
+
+</div>
+
+
+<div markdown="block" class="alert alert-info">MacOS
+    
     1. Copy the path of the folder
         - Right-click the folder, hold Opt, then click "Copy (folder name) as Pathname".
 
@@ -94,13 +94,11 @@ Here is a list of commonly used terminology to provide better clarity.
 
     4. Run the application
         - Type "java -jar Notarius.jar" and press Enter.
-      </pre>
-    </details>
 
+</div>
 
-    <details>
-      <summary>Linux</summary>
-      <pre>
+<div markdown="block" class="alert alert-success">Linux
+    
 
     1. Copy the path of the folder
         - Click the address bar of the folder (this might require pressing Ctrl + L).
@@ -115,9 +113,8 @@ Here is a list of commonly used terminology to provide better clarity.
     4. Run the application
         - Type "java -jar Notarius.jar" and press Enter.
 
+</div>
 
-      </pre>
-    </details>
 
 
 <br>
@@ -173,26 +170,70 @@ A GUI similar to the below should appear in a few seconds. Note how the app cont
 
 ## Features
 
-<div markdown="block" class="alert alert-info">
+### Understanding Command Formats
 
-**:information_source: Notes about the command format:**<br>
+#### Command Words
+Each command starts with a command word, such as `add`, `list`, `exit`, etc.
+<br>
+A command word tells Notarius what action you want to perform, like adding a client contact or listing all client contacts.
 
-* Words in `UPPER_CASE` are the parameters to be supplied by the user.<br>
-  e.g. in `add n/NAME`, `NAME` is a parameter which can be used as `add n/John Doe`.
+<div markdown="span" class="alert alert-primary">:information_source: **Notes about command words:**
+<br>
+Commands words are case sensitive. 
+<br>
+Always type command words exactly as shown.<br>
+<br>
+Example:  `add` command word is different from `Add` or `ADD`.
+</div>
 
-* Items in square brackets are optional.<br>
-  e.g `n/NAME [t/TAG]` can be used as `n/John Doe t/friend` or as `n/John Doe`.
+#### Parameters
+Parameters are written in `UPPER_CASE`. These are placeholders you replace with your own info.
+<br>
+<br>
+Example: In `add n/NAME`, `NAME` is a parameter which can be used as `add n/John Doe`.
 
-* Items with `…`​ after them can be used multiple times including zero times.<br>
-  e.g. `[t/TAG]…​` can be used as ` ` (i.e. 0 times), `t/friend`, `t/friend t/family` etc.
+<div markdown="span" class="alert alert-primary">:information_source: **Notes about parameters:**
+<br>
+Parameters can be in any order.<br>
+<br>
+Example: If the command specifies `n/NAME p/PHONE_NUMBER`,
+`p/PHONE_NUMBER n/NAME` is also acceptable.
+</div>
 
-* Parameters can be in any order.<br>
-  e.g. if the command specifies `n/NAME p/PHONE_NUMBER`, `p/PHONE_NUMBER n/NAME` is also acceptable.
+#### Optional Parameters
+Items in square brackets are optional. It means you do not have to include this piece of information
+if you do not want to.
+<br>
+<br>
+Examples: `n/NAME [t/TAG]` can be used as `n/John Doe t/friend` or as `n/John Doe`.
 
-* Extraneous parameters for commands that do not take in parameters (such as `list`, `exit` and `clear`) will be ignored.<br>
-  e.g. if the command specifies `list 123`, it will be interpreted as `list`.
+#### ... Parameters
+Items with `…`​ after them. You can use it once, multiple, or not at all.
+<br>
+<br>
+Examples: 
+`n/NAME [t/TAG]…​` can be used as
+<br>
+No Tag:
+`n/NAME`
+<br>
+One Tag:
+`t/case44`
+<br>
+Many Tags:
+`t/case44 t/personal injury`
+`t/case44 t/personal injury t/referred`
 
-* If you are using a PDF version of this document, be careful when copying and pasting commands that span multiple lines as space characters surrounding line-breaks may be omitted when copied over to the application.
+
+<div markdown="span" class="alert alert-primary">:information_source: **Notes about parameters:**
+<br>
+Extraneous parameters for commands that do not take in parameters (such as `list`, `exit`, `undo` and `clear`) will be ignored.<br>
+<br>
+Example: if the command specifies `list 123`, it will be interpreted as `list`.
+</div>
+
+<div markdown="span" class="alert alert-warning">:exclamation: **Caution:**
+If you are using a PDF version of this document, be careful when copying and pasting commands that span multiple lines as space characters surrounding line-breaks may be omitted when copied over to the application.
 </div>
 
 ### Basic Features
@@ -223,10 +264,8 @@ Adds a client contact to the address book.
 Format: `add n/NAME p/PHONE_NUMBER e/EMAIL a/ADDRESS [t/TAG] [t/ADDITIONAL TAG]…​`
 
 <div markdown="span" class="alert alert-primary">:bulb: **Tip:**
-A client contact can have any number of tags (including 0).
-
-A client contact is considered a duplicate if another client contact has the same name(case-insensitive)
-and this duplicate name will be rejected.
+A client contact is considered a duplicate if another client contact has the same email (case-insensitive)
+and this duplicate email will be rejected.
 </div>
 
 Examples:
@@ -255,7 +294,7 @@ Format: `edit INDEX [n/NAME] [p/PHONE] [e/EMAIL] [a/ADDRESS] [t/TAG] [t/ADDITION
 
 Examples:
 *  `edit 1 p/91234567 e/johndoe@example.com` Edits the phone number and email address of the 1st contact to be `91234567` and `johndoe@example.com` respectively.
-*  `edit 3 t/Custody t/Case45` Overwrite the currents tag(s) of the 3rd contact with `Witness` and `Case44`.
+*  `edit 3 t/Custody t/Case45` Overwrite the currents tag(s) of the 3rd contact with `Custody` and `Case45`.
 *  `edit 2 n/Betsy Crower t/` Edits the name of the 2nd contact to be `Betsy Crower` and clears all existing tags.
 
 
@@ -292,39 +331,40 @@ Examples:
 
 Deletes specified **client** contact(s) from your list of contacts in Notarius.
 
-For deleting a **single** client contact:
+To speed up clearing out your client contacts, **Notarius** allows deleting multiple client contacts quickly,
+depending on your needs: 
 
-**Single-delete Format:**
-* `delete INDEX`
-    * Deletes the client contact at the specified `INDEX`.
+| Formats                                               | Purpose                                                                                                   |
+|-------------------------------------------------------|-----------------------------------------------------------------------------------------------------------|
+| Single-delete: `delete INDEX`                         | Deletes a **single** client contact at the specified INDEX                                                |
+| Ranged-delete: `delete i/START_INDEX-END_INDEX`       | Deletes **consecutive** client contacts whose indexes are between `START_INDEX` to `END_INDEX` inclusive. |
+| Spaced-delete: `delete i/FIRST_INDEX [MORE_INDEXES]…` | Deletes multiple client contacts from **different** parts of the client contact list by their indexes     |
 
-Examples:
-* `list` followed by `delete 2`
-    * Deletes the 2nd client contact displayed in the address book from the top.
-* `find n/"Betsy"` followed by `delete 1`
-    * Deletes the 1st client contact in the displayed results of the `find` command.
+<div markdown="block" class="alert alert-primary">:bulb: **Tips:**
 
-For deleting up to **multiple** client contacts:
+* When deleting contacts with same tags, consider using the **find command** followed by **ranged-delete** to speed things up.
 
-**Ranged-delete Format:**
-* `delete i/START_INDEX-END_INDEX`
-    * Deletes the client contacts whose indexes are between `START_INDEX` to `END_INDEX` inclusive.
+</div>
 
 Examples:
-* `list` followed by `delete i/1-2`
-    * Deletes the 1st and 2nd client contacts in the address book from the top.
-* `find n/"Alex"` followed by `delete i/1-2`
-    * Deletes the 1st and 2nd client contacts in the displayed results of the `find` command.
 
-**Spaced-delete Format:**
-* `delete i/FIRST_INDEX [MORE_INDEXES]…`
-    * Deletes the client contact(s) specified by `FIRST_INDEX` and the indexes in `[MORE_INDEXES]`
-    * Simply allows you to specify 1 or more indexes after the prefix `i/`.
-    * Indexes specified this way must be separated by spaces.
+* **Single-delete Format:**
+    * `list` followed by `delete 2`
+        * Deletes the 2nd client contact displayed in the list of client contacts from the top.
+    * `find n/"Betsy"` followed by `delete 1`
+        * Deletes the 1st client contact in the displayed results of the `find` command.
 
-Examples:
-* `list` followed by `delete i/2 3`
-    * Deletes the 2nd and 3rd client contacts in the address book from the top.
+* **Ranged-delete Format:**
+    * `list` followed by `delete i/1-2`
+        * Deletes the 1st and 2nd client contacts in the list of client contacts from the top.
+    * `find n/"Alex"` followed by `delete i/1-2`
+        * Deletes the 1st and 2nd client contacts in the displayed results of the `find` command.
+
+* **Spaced-delete Format:**
+    * `list` followed by `delete i/1 2 3`
+        * Deletes the 1st, 2nd and 3rd client contacts in the list of client contacts from the top.
+
+
 
 ![deleteIndexSpaced](images/deleteIndexSpaced.png)
 
@@ -341,13 +381,13 @@ Examples:
 
 * The indexes must refer to the index numbers shown in the displayed client contacts list.
 
-* The indexes **must be a positive integer** 1, 2, 3, …
+* The indexes **must be a positive integer** from 1, 2, 3, …
 
 * All specified indexes must correspond to some index number shown in the displayed client contacts list, otherwise the command fails.
 
 * For ranged and spaced delete formats, duplicate indexes specified will be treated *as-if* that index was specified only once.
 
-* Up to 100 indexes can be specified (either via spaced or ranged delete formats); beyond which the command will fail.
+* Up to 100 **unique** indexes (duplicates are not part of this count!) can be specified (either via spaced or ranged delete formats); beyond which the command will fail.
 
 * At least 1 index should be specified when using ranged or spaced delete formats.
 
@@ -503,7 +543,7 @@ Examples:
 
 #### Command history
 
-We know it can be **very annoying** to re-type commands consisting of long client details, especially due to a small typo.
+We know it can be **very annoying** to re-type commands consisting of long client details, especially due to typos.
 
 As such, **Notarius** keeps a history of the command inputs you have entered. When the command history is open,
 the inputs shown are **ordered** from the **most recently** entered input at the **top** to the **least recently**
@@ -520,9 +560,9 @@ The <span style="font-weight:bold;">currently selected input</span> is "more rec
 
 You can open and navigate through this history by using various shortcuts below, depending on your operating system:
 
-**Windows/Linux users:** Use `Ctrl + Up` key combination to cycle up the command history, and `Ctrl + Down` arrow key combinations to cycle down.
+**Windows/Linux users:** Use `Ctrl + Up` key combination to scroll up the command history, and `Ctrl + Down` arrow key combinations to scroll down.
 
-**macOS users:** Use `Ctrl + Opt + Up` and `Ctrl + Opt + Down` arrow key combinations to respectively cycle up and down instead.
+**macOS users:** Use `Ctrl + Opt + Up` and `Ctrl + Opt + Down` arrow key combinations to respectively scroll up and down instead.
 
 
 
@@ -532,31 +572,24 @@ You can open and navigate through this history by using various shortcuts below,
 
 * You can **close** the command history by either pressing `Enter` to submit the command input, or the `Escape` key.
 
+* Don't worry if you typed an invalid command input, simply use the command history to re-access it again. **Notarius** saves them too.
+
 </div>
 
 <br>
 
-**Cycling up** or **down** the command history simply refers to moving the **currently selected input** of the command history 
+**Scrolling up** or **down** the command history simply refers to moving the **currently selected input** of the command history 
 to a **more recent/newer** or **less recent/older** command input respectively.
 
 <div markdown="block" class="alert alert-info">
 
 :information_source: **Important Notes:**<br>
 
-* When the **currently selected input** is at the top of the command history, cycling up another time will bring it down to the **oldest** input at the bottom of the command history.
+* When the **currently selected input** is at the top of the command history, scrolling up another time will bring it down to the **oldest** input at the bottom of the command history.
 
-* Similarly, when the **currently selected input** is at the bottom of the command history, cycling down another time brings it back to the **newest** input at the top of the command history.
+* Similarly, when the **currently selected input** is at the bottom of the command history, scrolling down another time brings it back to the **newest** input at the top of the command history.
 
 </div>
-
-<br>
-
-Examples:
-* Opening an empty command history using `Ctrl + Up` on **Windows** or `Ctrl + Opt + Up` on **macOS**:
-![[emptyCommandHistory]](images/emptyCommandHistory.png)
-
-* Entering `list`, then `edit 1 p/987654321` followed by `list` and using `Ctrl + Down` on **Windows** (`Ctrl + Opt + Down` on **macOS**) to re-access the edit command via the command history:
-![[commandHistory]](images/commandHistory.png)
 
 <br>
 
@@ -564,13 +597,9 @@ Examples:
 
 :exclamation: **Constraints:**<br>
 
-* Invalid/Unknown commands will be considered and saved into the command history, since it may have been a typo.
-
 * Blank inputs (including empty inputs) are not useful command inputs and won't be added.
 
-* The command history will not be saved when the application is closed.
-
-* Restarting the application will clear the command history.
+* Restarting or closing the application will clear the command history.
 
 * Inputs that are duplicates of the previously saved command history input will not be added another time.
 
@@ -640,3 +669,4 @@ A: Please refer to the [Command Summary](#command-summary) for the list of avail
 | **Undo**            | Format: `undo` <br> <br> Example: `undo`                                                                                                                                                                                                                                          |
 | **Redo**            | Format: `redo` <br> <br> Example: `redo`                                                                                                                                                                                                                                          |
 | **Help**            | Format: `help [COMMAND]` <br> <br> Example: `help add`                                                                                                                                                                                                                            |
+| **Exit**            | Format: `exit` <br> <br> Example: `exit`                                                                                                                                                                                                                                          |
