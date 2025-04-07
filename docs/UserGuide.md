@@ -154,13 +154,13 @@ A GUI similar to the below should appear in a few seconds. Note how the app cont
   <img src="images/userinterface2.png" alt="Ui" />
 </p>
 
-3. At the contact list, you can view the name, phone number, address, email and tags of the person. When a person is pinned, the pin icon will show up.
+3. At the **contact list**, you can view the name, phone number, address, email and tags of the person. When a person is pinned, the pin icon will show up.
 
 <p align="center">
   <img src="images/userinterface3.png" alt="Ui" />
 </p>
 
-4. In addition, at the contact information card, you can view the person's note.
+4. At the **contact information card**, you can view the person's note.
 
 <p align="center">
   <img src="images/userinterface4.png" alt="Ui" />
@@ -411,7 +411,7 @@ For **sorting by one prefix**, the following commands are allowed:
 * `sort a/` sorts contacts by ascending addresses.
 * `sort t/` sorts contacts by ascending tags.
 
-For **sorting by two attributes**, the following commands are allowed:
+For **sorting by two prefixes**, the first prefix must be `t/`. The following commands are allowed:
 * `sort t/ n/` sorts contacts by tags first, followed by names.
 * `sort t/ p/` sorts contacts by tags first, followed by phone numbers.
 * `sort t/ e/` sorts contacts by tags first, followed by emails.
@@ -441,9 +441,9 @@ correct sorted order. To maintain the sorted order, you will need to run the `so
 
 * **Sorting Multiple Tags:**<br>
   It sorts the **first tag** in **alphabetical order**.<br>
-  * e.g. `t/colleagues t/friends` will sort by `colleagues` tag first and followed by `friends` tag.<br>
-  * e.g. If `t/colleagues t/friends` and `t/lawyer t/colleagues` are sorted, `t/colleagues t/friends` will appear before
-  `t/lawyer t/colleagues`, because `colleagues` tag comes first in the sorting order.
+  * `t/Criminal Case t/Defendant` will sort by `Criminal Case` tag first and followed by `Defendant` tag.<br>
+  * `t/Criminal Case t/Defendant` and `t/Plantiff t/Criminal Case` are sorted, `t/Criminal Case t/Defendant` will appear before
+  `t/Plantiff t/Criminal Case`, because `Criminal Case` tag comes first in the sorting order.
 </div>
 
 
