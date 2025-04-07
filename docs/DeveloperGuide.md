@@ -1293,15 +1293,6 @@ executed with no other command executed after that `undo` command.
     2. Test case: `redo`<br>
        Expected: Returns the state of the contacts list to before the `undo` command was executed.
 
-
-### Saving data
-
-1. Dealing with missing/corrupted data files
-
-   1. _{explain how to simulate a missing/corrupted file, and the expected behavior}_
-
-1. _{ more test cases …​ }_
-
 ## **Appendix: Planned Enhancements**:
 
 ### 1. Allow for international phone number format to be entered
