@@ -39,16 +39,16 @@ Furthermore, **Notarius** also comes with **additional features** and **quality 
 While exploring this user guide, you may come across some terms that you may not be familiar with.
 Here is a list of commonly used terminology to provide better clarity.
 
-| Terms                 | Meaning                                                                                                                                                                                                                                                                                                                       |
-|-----------------------|-------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|
-| Prefix                | Prefixes are short markers that are used to specify the type of information following it. For instance, `n/` is a prefix that specifies that the data following it (up until another prefix) is the name of a client.                                                                                                         |
+| Terms                 | Meaning                                                                                                                                                                                                                                                                                                                     |
+|-----------------------|-----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|
+| Prefix                | Prefixes are short markers that are used to specify the type of information following it. For instance, `n/` is a prefix that specifies that the data following it (up until another prefix) is the name of a client.                                                                                                       |
 | Command/Command input | A command (input) is a specific instruction that you type into the input box to tell Notarius what to do. Commands help you interact with Notarius by performing actions like adding, searching, or deleting data. Commands that do not match actions that can be performed by Notarius will be considered invalid/unknown. |
-| Index                 | Index refers to the position of a client in the list of clients displayed by Notarius. For example, an `INDEX` of 1 refers to the first client in the displayed list.                                                                                                                                                         |
-| Operating System/OS   | The type of computer software that you are using, commonly referred to as OS. Examples include **Windows**, **macOS**, and **Linux**. Click <a href="https://en.wikipedia.org/wiki/Operating_system">here</a> to learn more.                                                                                                  |
-| Whitespace Character  | Usually refer to characters entered by a user's keyboard that are not visible. Examples include spaces (by pressing space-bar), tabs (by pressing the tab key), and new lines (from pressing enter).                                                                                                                          |
-| Blank Inputs          | Inputs entered by you that are either empty or only contain whitespace characters.                                                                                                                                                                                                                                            |
-| GUI                   | Stands for graphical user interface. It is a visual way of interacting with Notarius via menus, lists, buttons, etc.                                                                                                                                                                                                          |
-| Parameter             | A parameter is a piece of information you give to a command so Notarius knows what to do.                                                                                                                                                                                                                                     |
+| Index                 | Index refers to the position of a client in the list of clients displayed by Notarius. For example, an `INDEX` of 1 refers to the first client in the displayed list.                                                                                                                                                       |
+| Operating System/OS   | The type of computer software that you are using, commonly referred to as OS. Examples include **Windows**, **macOS**, and **Linux**. Click <a href="https://en.wikipedia.org/wiki/Operating_system">here</a> to learn more.                                                                                                |
+| Whitespace Character  | Usually refer to characters entered by a user's keyboard that are not visible. Examples include spaces (by pressing space-bar), tabs (by pressing the tab key), and new lines (from pressing enter).                                                                                                                        |
+| Blank Inputs          | Inputs entered by you that are either empty or only contain whitespace characters.                                                                                                                                                                                                                                          |
+| GUI                   | Stands for graphical user interface. It is a visual way of interacting with Notarius via menus, lists, buttons, etc.                                                                                                                                                                                                        |
+| Parameter             | A parameter is a piece of information you give to a command so Notarius knows what to do.                                                                                                                                                                                                                                   |
 
 ## Quick start
 
@@ -238,9 +238,9 @@ Format: `help [COMMAND]`
 
 There are two ways to use the help command:
 
-| Formats                               | Purpose                          |
-|---------------------------------------|----------------------------------|
-| `help`          | Displays usage for all commands. |
+| Formats        | Purpose                          |
+|----------------|----------------------------------|
+| `help`         | Displays usage for all commands. |
 | `help COMMAND` | Displays specific command usage. |
 
 
