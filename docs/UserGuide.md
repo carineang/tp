@@ -333,8 +333,8 @@ Format: `find [n/"NAME" "MORE_NAMES"] [p/"PHONE" "MORE_PHONES"]
 <div markdown="block" class="alert alert-info">:information_source: **Notes about finding client contacts:**
 * You can search by `name`, `phone number`, `email`, `address`, or `tags`.<br><br>
 * Allows small typos for `name`, `email` and `address` fields:
-    - e.g. Searching for `Alce` will match `Alice`.
-    - Searching for `Bbo@example.com` will match `Bob@example.com.`<br><br>
+    - e.g. Searching for `David av` will match `David Li`.
+    - Searching for `Bbo@example.com` will match `Bob@example.com.`
 * Supports OR search: At least one field must match any of the provided keywords.<br><br>
 * If no prefix (e.g. n/) is given, find by name is assumed.
     * e.g. `find Alice Bernice` is treated as `find n/"Alice" "Bernice"`<br><br>
