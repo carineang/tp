@@ -350,6 +350,18 @@ using the `Ctrl + Up` key combinations on Windows (or `Ctrl + Opt + Up` on macOS
     * Windows/Linux: `Ctrl + Up`/`Ctrl + Down` to move up/down the selection.
     * macOS: `Ctrl + Opt + Up`/ `Ctrl + Opt + Down` similarly.
 
+
+**Aspect: Command history design considerations**
+
+* **Alternative 1 (current choice):** Support addition of some invalid commands, with duplicate handling for consecutively entered inputs
+    * Pros: More user-friendliness, allows users to re-access and quickly re-edit past commands, if they have typed them wrong by accident, without having to retype the entire command.
+    * Cons: May slightly clutter the command history with invalid commands if the user spams **different** invalid commands intentionally, which is not the intended behaviour.
+
+* **Alternative 2:** Support addition of only valid commands
+    * Pros: Command history only contains valid commands, allowing users to find previously entered valid commands easily.
+    * Cons: Less user-friendly, since users will not be able to re-access previously entered commands that they have typed incorrectly, and will have to retype the entire command again.
+
+
 ### Note feature
 The note feature allows the user to change and view notes. \
 The user changes notes via the `note` command and the user views notes via the `viewnote` command.
