@@ -1134,10 +1134,10 @@ Each test case in this feature section (labelled "Test case") should be independ
       Expected: The command history is updated with the command texts `add n/notarius p/1231 e/test@email.com a/blk 123 abc` at the top of the command history list and `delete 1` below it.
 
    1. Test case: `list` followed by `list` <br>
-      Expected: The command history is updated with the command text "list", but only once with no **consecutive** duplicates. The command history is displayed when the user presses `Ctrl + Up` or `Ctrl + Down`.
+      Expected: The command history is updated with the command text "list", but it will be shown with no **consecutive** duplicates when open.
     
-   1. Test case: `delete 1` followed by `adddd n/might have a typo p/123 e/test@email.com a/test blk` <br>
-      Expected: The command history is updated with the command texts `adddd n/might have a typo p/123 e/test@email.com a/test blk` at the top of the command history list and `delete 1` below it.
+   1. Test case: `delete 1` followed by: `adddd n/typo p/123 e/test@email.com a/test blk` <br>
+      Expected: The command history is updated with the invalid command: `adddd n/typo p/123 e/test@email.com a/test blk` at the top of the command history and the valid command: `delete 1` below it.
 
 ### Finding a person
 
