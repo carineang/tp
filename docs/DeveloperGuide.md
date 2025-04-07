@@ -989,6 +989,8 @@ before the previous undo was executed`
 
   Use case ends.
 
+**System**: `Notarius`
+
 **Actor**: `User`
 
 **Use Case**: `UC14 - Pinning a client contact`
