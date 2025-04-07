@@ -377,6 +377,8 @@ using the `Ctrl + Up` key combinations on Windows (or `Ctrl + Opt + Up` on macOS
 
 #### Design Considerations
 
+**Aspect: Types of input to save in the command history**
+
 * **Alternative 1 (current choice):** Support addition of both invalid and valid commands, with duplicate handling for consecutively entered inputs
     * Pros: More user-friendliness, allows users to re-access and quickly re-edit past commands, if they have typed them wrong by accident, without having to retype the entire command.
     * Cons: May slightly clutter the command history with invalid commands if the user spams **different** invalid commands intentionally, which is not the intended behaviour.
