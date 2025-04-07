@@ -299,7 +299,7 @@ and this duplicate email will be rejected.<br><br>
 * You must provide at least one of the optional details to update.<br><br>
 </div>
 
-<div markdown="block" class="alert alert-primary">:bulb: **Tips:**
+<div markdown="block" class="alert alert-primary">:information_source: **Notes about editing client contacts:**
 * Any details you change will replace the old ones.<br><br>
 * If you edit tags, the old tags are removed and replaced with the new ones.<br><br>
 * To remove all tags, you can type t/ without adding any tag name after it.
@@ -330,7 +330,7 @@ Format: `find [n/"NAME" "MORE_NAMES"] [p/"PHONE" "MORE_PHONES"]
 * The search is case-insensitive. e.g the name `hans` will match `Hans`
 </div>
 
-<div markdown="block" class="alert alert-primary">:bulb: **Tips:**
+<div markdown="block" class="alert alert-primary">:information_source: **Notes about finding client contacts:**
 * You can search by `name`, `phone number`, `email`, `address`, or `tags`.<br><br>
 * Allows small typos for `name`, `email` and `address` fields:
     - e.g. Searching for `Alce` will match `Alice`.
