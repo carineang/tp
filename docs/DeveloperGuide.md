@@ -1358,3 +1358,12 @@ When a new command is called, the selected contact in the contact list will be u
 The client contact will still be selected even though a new command is called. In addition, users can have the option to select or unselect the client contact.
 
 
+### 6. Undo/redo displays what commands were undone, redone 
+
+#### Current:
+When a command is undone/redone, the user may not know what command was undone/redone as it is not visible to them.
+This might make it confusing for the user as they might not know which command they undid/redid.
+
+#### Planned:
+When a command is undone/redone, the command that has been undone/redone is shown in the command box.
+
