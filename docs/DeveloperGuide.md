@@ -247,6 +247,8 @@ the completion of the `sort` command.
   * Tags often represent the most significant context about a contact. Sorting by tags first allows user to immediately group contacts into logical clusters. 
   Within the cluster, sorting by other attributes provides a nested, hierarchically meaningful structure.
   * Provides flexibility for users to organize and sort their contacts based on two attributes, the first attribute should be `tag`, second attribute should be `name`, `phone`, `email`, `address`.
+* Sorting with more than two attributes (Not Implemented)
+  * It will be overcomplicated for the system and the user, making it less intuitive and not user-friendly.
 
 ### Find feature
 
