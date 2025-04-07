@@ -210,6 +210,7 @@ public class MainWindow extends UiPart<Stage> {
             if (commandResult.isExit()) {
                 handleExit();
             }
+            personListPanel.clearSelection();
 
             // clears the person details since the list may have changed
             personDetailPlaceholder.getChildren().clear();

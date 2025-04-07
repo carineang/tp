@@ -39,6 +39,13 @@ public class PersonListPanel extends UiPart<Region> {
     }
 
     /**
+     * Clears the current selection in the personListView.
+     */
+    public void clearSelection() {
+        personListView.getSelectionModel().clearSelection();
+    }
+
+    /**
      * Custom {@code ListCell} that displays the graphics of a {@code Person} using a {@code PersonCard}.
      */
     class PersonListViewCell extends ListCell<Person> {
