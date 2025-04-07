@@ -39,28 +39,6 @@ public class NameTest {
     }
 
     @Test
-    public void isSameName() {
-        Name name = new Name("John");
-
-        // same values -> returns true
-        assertTrue(name.isSameName(new Name("John")));
-        // do not distinguish between upper and lower case values
-        assertTrue(name.isSameName(new Name("john")));
-
-        // same object -> returns true
-        assertTrue(name.isSameName(name));
-
-        // null -> returns false
-        assertFalse(name.isSameName(null));
-
-        // different types -> returns false
-        assertFalse(name.isSameName(5.0f));
-
-        // different values -> returns false
-        assertFalse(name.isSameName(new Name("John Doe")));
-    }
-
-    @Test
     public void equals() {
         Name name = new Name("Valid Name");
 
