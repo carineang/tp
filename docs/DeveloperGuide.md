@@ -581,22 +581,37 @@ Priorities: High (must have) - `* * *`, Medium (nice to have) - `* *`, Low (unli
 
 **Actor**: `User`
 
-**Use Case**: `UC02 - Finding a particular contact by name`
+**Use Case**: `UC02 - Adding client contacts`
 
-**Guarantees**: `If MSS reaches step 2, the contact will return a list of contacts whose names contain the keyword the user entered`
+**Guarantees**: `If MSS reaches step 3, the client contact is successfully added to Notarius.`
 
 **MSS**:
-1. User enters the keyword that the person’s name contains.
-2. Notarius shows the corresponding results.
+1. User opens the application and requests to add a client contact.
+2. User enters the `add` command with all required fields (e.g., name, phone number, email, and address).
+3. Notarius adds the client contact and confirms the addition.
 
    Use case ends.
 
 **Extensions**:
-* 1a. Notarius uncovers that the user wrote an empty input.
-  * 1a1. Notarius alerts the user of the error.
-  * 1a2. User retypes the command.
-  * Steps 1a-1b are repeated until the user input is not empty.
-  * Use case resumes from step 2.
+
+* 2a. User omits one or more required fields in the command.
+  * 2a1. Notarius alerts the user about the missing fields.
+  * 2a2. User retypes the command with all required fields.
+  * Use case resumes from step 3.
+
+* 2b. User enters a contact with a phone number that already exists in the system.
+  * 2b1. Notarius alerts the user that a duplicate contact exists.
+  * 2b2. User may choose to modify the phone number or cancel the action.
+  * Use case resumes from step 3 if the user modifies and resubmits the command.
+
+* 2c. User enters an invalid phone number or email format.
+  * 2c1. Notarius alerts the user about the incorrect format.
+  * 2c2. User retypes the command with valid formats.
+  * Use case resumes from step 3.
+
+* 2d. User adds optional fields (e.g., tags or notes).
+  * 2d1. Notarius includes those fields in the newly created contact.
+  * Use case resumes from step 3.
 
 
 
@@ -990,6 +1005,71 @@ allowing minor typos (up to a Levenshtein distance of 2) in the name, email, and
 * 2d. User enters a keyword with minor typos in the name, email, or address fields. 
   * 2d1. Address Book applies fuzzy matching (Levenshtein distance of up to 2) for name, email, and address fields.<br>
     Use case resumes from step 3.
+
+**System**: `Notarius`
+
+**Actor**: `User`
+
+**Use Case**: `UC14 - Pinning a client contact`
+
+**Guarantees**: `If MSS reaches step 3, the client contact is marked as pinned.`
+
+**MSS**:
+
+1. User requests to pin a contact in the current contact list.
+2. User enters the `pin` command followed by the index of the contact to pin.
+3. Notarius marks the contact as pinned and confirms the action with a success message.
+
+   Use case ends.
+
+**Extensions**:
+
+* 2a. User omits the index in the pin command.
+  * 2a1. Notarius alerts the user that an index must be provided.
+  * 2a2. User retypes the command with a valid index.
+  * Use case resumes from step 3.
+
+* 2b. User enters an index that is out of range.
+  * 2b1. Notarius alerts the user that the index is invalid.
+  * 2b2. User retypes the command with a valid index.
+  * Use case resumes from step 3.
+
+* 3a. The contact is already pinned.
+  * 3a1. Notarius notifies the user that the contact is already pinned.
+  * Use case ends.
+
+
+**System**: `Notarius`
+
+**Actor**: `User`
+
+**Use Case**: `UC15 - Unpinning a client contact`
+
+**Guarantees**: `If MSS reaches step 3, the client contact is marked as unpinned.`
+
+**MSS**:
+
+1. User requests to unpin a contact in the current contact list.
+2. User enters the `unpin` command followed by the index of the contact to unpin.
+3. Notarius marks the contact as unpinned and confirms the action with a success message.
+
+   Use case ends.
+
+**Extensions**:
+
+* 2a. User omits the index in the unpin command.
+  * 2a1. Notarius alerts the user that an index must be provided.
+  * 2a2. User retypes the command with a valid index.
+  * Use case resumes from step 3.
+
+* 2b. User enters an index that is out of range.
+  * 2b1. Notarius alerts the user that the index is invalid.
+  * 2b2. User retypes the command with a valid index.
+  * Use case resumes from step 3.
+
+* 3a. The contact is already unpinned.
+  * 3a1. Notarius notifies the user that the contact is already unpinned.
+  * Use case ends.
 
 
 
