@@ -1013,19 +1013,16 @@ allowing minor typos (up to a Levenshtein distance of 2) in the name, email, and
   * 1a2. User retypes the command following the correct format.<br>
     Steps 1a1-1a2 are repeated until the command format is valid.<br>
     Use case resumes from step 2.
-* 2a. No contacts match the search criteria. 
-  * 2a1. Address Book displays a message indicating that no matching contacts were found.<br>
-    Use case ends.
-* 2b. User enters multiple search fields. 
-  * 2b1. Address Book searches for contacts that match any of the 
+* 1b. User enters multiple search fields. 
+  * 1b1. Address Book searches for contacts that match any of the 
   specified fields (name, phone, email, address, or tags).<br>
     Use case resumes from step 3.
-* 2c. User enters a keyword with minor typos in the phone or tag fields. 
-  * 2c1. Address Book does not apply typo correction for phone numbers or tags. 
-  * 2c2. If an exact match is not found, Address Book displays a message indicating no results were found.<br>
+* 1c. User enters a keyword with minor typos in the phone or tag fields. 
+  * 1c1. Address Book does not apply typo correction for phone numbers or tags. 
+  * 1c2. If an exact match is not found, Address Book displays a message indicating no results were found.<br>
     Use case ends.
-* 2d. User enters a keyword with minor typos in the name, email, or address fields. 
-  * 2d1. Address Book applies fuzzy matching (Levenshtein distance of up to 2) for name, email, and address fields.<br>
+* 1d. User enters a keyword with minor typos in the name, email, or address fields. 
+  * 1d1. Address Book applies fuzzy matching (Levenshtein distance of up to 2) for name, email, and address fields.<br>
     Use case resumes from step 3.
 
 
